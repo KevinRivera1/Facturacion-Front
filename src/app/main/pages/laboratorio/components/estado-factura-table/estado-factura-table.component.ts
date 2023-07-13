@@ -92,19 +92,19 @@ export class EstadoFacturaTableComponent implements OnInit {
 
     eliminarEstadoFactSelected() {
         let indexLista: number = 0;
-        for (let i = 0; i < this.selectedEstdos.length; i++) {
+        for (let i = 0; i < this.selectedEstados.length; i++) {
             this.estadoFacturaService
-                .deleteObject(this.selectedEstdos[i].idEstadoComprobante)
+                .deleteObject(this.selectedEstados[i].idEstadoComprobante)
                 .subscribe((data) => {
                     indexLista++;
 
-                    if (indexLista == this.selectedEstdos.length) {
+                    if (indexLista == this.selectedEstados.length) {
                         this.estadoFacturaService.getAll().subscribe({
                             next: (data) => {
                                 this.listestadoFact = data.listado;
                             },
                         });
-                        this.selectedEstdos = null;
+                        this.selectedEstados = null;
                         this.appservie.msgInfoDetail(
                             'error',
                             'Eliminación',

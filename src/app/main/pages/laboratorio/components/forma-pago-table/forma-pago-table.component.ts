@@ -135,12 +135,12 @@ construirTabla(){
   editFormaPago(doc: FormaPagoDto) {
       this.formapago = {...doc};
 
-      if(doc.activo== 'ACTIVO'){
+    /*   if(doc.activo== 'ACTIVO'){
           doc.estado= true;
       }else{
           doc.estado= false;
       } 
-
+ */
       this.formapagoSelect.emit(doc);
   }
 
