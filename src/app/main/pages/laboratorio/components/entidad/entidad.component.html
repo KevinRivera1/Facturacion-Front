@@ -1,0 +1,36 @@
+<form [formGroup]="formTipoServicio">
+
+    <p-panel header="Registro" [toggleable]="false">
+        <ng-template pTemplate="icons" pStyleClass="display: flex;
+  justify-content: end;
+  align-items: center;">
+
+
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                tooltipPosition="top" class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+        </ng-template>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreTipo" type="text" required="true" formControlName="nombreTipo">
+                    <label for="ftxt-nombreTipo">* Nombre Tipo Servicio</label>
+                </span>
+            </div>
+
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-detalleTipo" type="text" required="true" formControlName="detalleTipo">
+                    <label for="ftxt-detalleTipo">* Detalle Tipo Servicio</label>
+                </span>
+            </div>
+
+
+        </div>
+
+    </p-panel>
+</form>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<p-divider></p-divider>

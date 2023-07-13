@@ -1,0 +1,60 @@
+<form [formGroup]="formEstadoFact">
+
+    <p-panel header="Registro Estado Factura" [toggleable]="false">
+        <ng-template pTemplate="icons" pStyleClass="display: flex;
+justify-content: end;
+align-items: center;">
+
+
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                tooltipPosition="top" class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+        </ng-template>
+
+        <div class="p-fluid p-formgrid grid">
+
+            <!--    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreTipo" type="text" required="true" formControlName="idEstdo">
+                    <label for="ftxt-nombreTipo">id</label>
+                </span>
+            </div>
+          -->
+
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreSatdoFact" type="text" required="true" formControlName="nombreEstado">
+                    <label for="ftxt-nombreSatdoFact">* Nombre Estado Factura</label>
+                </span>
+            </div>
+
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-detalleEstado" type="text" required="true" formControlName="detalleEstado">
+                    <label for="ftxt-detalleEstado">* Detalle Estado Factura</label>
+                </span>
+            </div>
+
+        </div>
+        <div class="central">
+            <p-toolbar>
+                <div class="p-toolbar-group-center">
+                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info" icon="pi pi-send"
+                        type="submit" (click)="guardarEstadoFact()" pTooltip="Guardar" tooltipPosition="right"></button>
+
+                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger" icon="pi pi-times"
+                        (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+                </div>
+            </p-toolbar>
+        </div>
+
+    </p-panel>
+</form>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<p-divider></p-divider>
+
+
+<app-estado-factura-table [listestadoFact]="listEstadoFact"
+(estadoFactSelect)=setSeleccionado($event)></app-estado-factura-table>

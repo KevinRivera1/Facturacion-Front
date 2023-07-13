@@ -1,0 +1,102 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <p-table #dt [value]="listBancos" [rows]="10" [paginator]="true" [loading]="loading"
+                     [globalFilterFields]="[
+                        'idBancos',
+                        'nombreBancos',
+                        'descBancos',
+                        'estadoBancos'
+                     ]"
+                     responsiveLayout="scroll" [(selection)]="selectedBancos"
+                     [rowHover]="true" dataKey="idBancos"
+                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-wrap">
+                        <div>
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                    class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                    tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                    class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                    tooltipPosition="bottom"></button>
+                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                                    (click)="deleteSelectedBancos()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                                    [disabled]="!selectedBancos || !selectedBancos.length"></button>
+                            <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
+                                    (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+                        </div>
+
+                        <label class="text-center">BANCOS</label>
+                        <span class="p-input-icon-left ">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" class="p-inputtext-sm"
+                     (input)="dt.filterGlobal($event.target.valueOf(), 'contains')" placeholder="Busqueda General" />
+            </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="idBancos">
+                            <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
+                                <p-sortIcon field="idBancos"></p-sortIcon>
+                                <p-columnFilter type="text" field="idBancos" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="nombreBancos">
+                            <div class="flex justify-content-between align-items-center">Nombre
+                                <p-sortIcon field="nombreBancos"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreBancos" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="estadoBancos">
+                            <div class="flex justify-content-between align-items-center">Estado
+                                <p-sortIcon field="estadoBancos"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoBancos" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="descBancos">
+                            <div class="flex justify-content-between align-items-center">Detalle
+                                <p-sortIcon field="descBancos"></p-sortIcon>
+                                <p-columnFilter type="text" field="descBancos" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+                        <th>Acciones</th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                        </td>
+                        <td>{{rowIndex+1}}</td>
+                        <td>{{item.nombreBancos}}</td>
+                        <td   >  <mark [ngClass]="item.estadoBancos == 'ACTIVO'
+                            ? 'border-green-500' : 'border-red-500' ">{{item.estadoBancos}}</mark></td>
+                        <td>{{item.descBancos}}</td>
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editBancos(item)"
+                                    pTooltip="Editar" tooltipPosition="left"   ></button>
+                            <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteBancos(item)"
+                                    pTooltip="Eliminar" tooltipPosition="left" *ngIf="item.estadoBancos =='ACTIVO'" ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Registros Totales: {{listBancos ? listBancos.length : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>
