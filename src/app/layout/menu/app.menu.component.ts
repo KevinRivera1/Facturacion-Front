@@ -28,19 +28,21 @@ export class AppMenuComponent implements OnInit {
     menuItems = [
         {
             label: 'opciones',
-            icon: 'pi pi-folder',
             items: [
                 {
                     label: 'Forma pago',
-                    icon: 'pi pi-file',
+                    icon: 'pi pi-check',
                     routerLink: ['/formapago'],
                 },
                 {
                     label: 'Estado Factura',
-                    icon: 'pi pi-file',
+                    icon: 'pi pi-check',
                     routerLink: ['/estadoFact'],
                 },
-                { label: 'Producto 3' },
+                { label: 'Producto 3', icon: 'pi pi-check' },
+                { label: 'Producto 3', icon: 'pi pi-check' },
+                { label: 'Producto 3', icon: 'pi pi-check' },
+                { label: 'Producto 3', icon: 'pi pi-check' },
             ],
         },
     ];
