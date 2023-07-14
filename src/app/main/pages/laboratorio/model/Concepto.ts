@@ -10,7 +10,6 @@ export interface Conceptos {
   idTipoConcepto: number;
   idIva: number;
   idPartidac: number;
-  
   descConcepto: string;
   idCentroCosto: number;
   valorConcepto: number;

@@ -1,9 +1,10 @@
 <form [formGroup]="formEstadoFact">
 
-    <p-panel header="Registro Estado Factura" [toggleable]="false">
+    <p-panel class="ui-panel" header="Registro Estado Factura" [toggleable]="false">
         <ng-template pTemplate="icons" pStyleClass="display: flex;
-justify-content: end;
-align-items: center;">
+        justify-content: end;
+        align-items: center;
+        ">
 
 
             <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
@@ -11,7 +12,8 @@ align-items: center;">
 
         </ng-template>
 
-        <div class="p-fluid p-formgrid grid">
+
+        <div class="central p-fluid p-formgrid grid">
 
             <!--    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
@@ -23,15 +25,17 @@ align-items: center;">
 
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreSatdoFact" type="text" required="true" formControlName="nombreEstado">
-                    <label for="ftxt-nombreSatdoFact">* Nombre Estado Factura</label>
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp">
+                    <label for="ftxt-nombreEstadoComp">* Nombre Estado Factura</label>
                 </span>
             </div>
 
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-detalleEstado" type="text" required="true" formControlName="detalleEstado">
-                    <label for="ftxt-detalleEstado">* Detalle Estado Factura</label>
+                    <input pInputText id="ftxt-detalleEstadoComp" type="text" required="true"
+                        formControlName="detalleEstadoComp">
+                    <label for="ftxt-detalleEstadoComp">* Detalle Estado Factura</label>
                 </span>
             </div>
 
@@ -56,5 +60,5 @@ align-items: center;">
 <p-divider></p-divider>
 
 
-<app-estado-factura-table [listestadoFact]="listEstadoFact"
-(estadoFactSelect)=setSeleccionado($event)></app-estado-factura-table>
+<app-estado-factura-table [listestadoFact]="listEstadoFact" (estadoFactSelect)=setSeleccionado($event)>
+</app-estado-factura-table>

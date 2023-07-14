@@ -21,6 +21,8 @@ import { EstadoFacturaService } from '../../services/estadoFactura.service';
     styleUrls: ['./estado-factura.component.scss'],
 })
 export class EstadoFacturaComponent implements OnInit {
+
+    proceso: string = 'estadosFact';
     @Input() estadoFact: EstadoFacturaDto;
 
     formEstadoFact: FormGroup;
@@ -53,21 +55,22 @@ export class EstadoFacturaComponent implements OnInit {
 
     iniciarForms() {
         this.formEstadoFact = this.formBuilder.group({
-            idEstado: new FormControl(null),
-            nombreEstado: new FormControl(
+            idEstadoComprobante: new FormControl(null),
+            nombreEstadoComp: new FormControl(
                 '',
                 Validators.compose([Validators.required])
-            ),
-            detalleEstado: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-        });
- 
-
-        this.token = JSON.parse(this.tokenService.getResponseAuth());
-        //  this.f.idEstado.setValue(this.token.id)
-    }
+                ),
+                detalleEstadoComp: new FormControl(
+                    '',
+                    Validators.compose([Validators.required])
+                    ),
+                });
+                
+                
+                this.token = JSON.parse(this.tokenService.getResponseAuth());
+                //  this.f.idEstadoComprobante.setValue(this.token.id)
+            }
+            
 
     setSeleccionado(obj) {
         this.estadoFact = obj;
@@ -109,9 +112,10 @@ export class EstadoFacturaComponent implements OnInit {
             return;
         } else {
             this.estadoFact = this.formEstadoFact.value;
-            this.estadoFact.nombreEstadoComp = this.f.nombreEstado.value;
-            this.estadoFact.detalleEstadoComp = this.f.detalleEstado.value;
-            this.estadoFact.idEstadoComprobante = 1;
+
+            this.estadoFact.nombreEstadoComp = this.f.nombreEstadoComp.value;
+            this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
+            //this.estadoFact.idEstadoComprobante = 1;
 
             this.estadoFacteService.saveObject(this.estadoFact).subscribe({
                 next: (data) => {

@@ -40,9 +40,9 @@ export class EstadoFacturaTableComponent implements OnInit {
 
     construirTabla() {
         this.cols = [
-            { field: 'idEstadoFact', header: 'Nro.' },
-            { field: 'nombreEstadoFact', header: 'NOMBRE.' },
-            { field: 'detalleestadoFact', header: 'DETALLE.' },
+            { field: 'idEstadoComprobante', header: 'Nro.' },
+            { field: 'nombreEstadoComp', header: 'NOMBRE.' },
+            { field: 'detalleEstadoComp', header: 'DETALLE.' },
         ];
         this.exportColumns = this.cols.map((col) => ({
             title: col.header,
@@ -118,11 +118,11 @@ export class EstadoFacturaTableComponent implements OnInit {
     editEstadoFact(doc: EstadoFacturaDto) {
         this.estadoFact = { ...doc };
 
-        if (doc.nombreEstadoComp == 'GENERADO') {
+         /*if (doc.nombreEstadoComp == 'GENERADO') {
             doc.estado = true;
         } else {
             doc.estado = false;
-        }
+        }*/
 
         this.estadoFactSelect.emit(doc);
     }

@@ -18,11 +18,11 @@ export class EstadoFacturaService {
     }
 
     saveObject(obj): Observable<any> {
-        return this.http.post(this.api + '/guardarEstComprobante', obj);
+        return this.http.post(this.api + '/guardarEstComprobante/', obj);
     }
 
     deleteObject(key): Observable<any> {
-        return this.http.delete(this.api + '/eliminarEstComprobante' + key);
+        return this.http.delete(this.api + '/eliminarEstComprobante/' + key);
     }
 
     createBanco(createEstaFactura: EstadoFacturaModel): Observable<any> {

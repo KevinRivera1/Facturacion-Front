@@ -11,7 +11,7 @@ import { ConceptoModel } from '../model/Concepto';
 export class ConceptoService {
 
 
-  private api= 'http://172.31.203.216:8081/Concepto'
+  private api= 'http://172.31.203.246:8081/conceptos'
 
   constructor(private http: HttpClient) { }
 

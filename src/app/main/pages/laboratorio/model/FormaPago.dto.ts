@@ -10,7 +10,7 @@ export class FormaPagoDto {
 
     estado:boolean;
 
-    fechaTxt: string
+    //fechaTxt: string
 
     // formatDate?: string;
 

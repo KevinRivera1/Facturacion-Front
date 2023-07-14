@@ -43,7 +43,7 @@ export const RUTA_ENTIDAD: Routes = [
         canActivate: [AuthGuard],
     },
     {
-        path: 'estdaoFact',
+        path: 'estadoFact',
         component: EstadoFacturaComponent,
         canActivate: [AuthGuard],
     },

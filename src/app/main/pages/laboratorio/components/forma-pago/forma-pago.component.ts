@@ -109,6 +109,8 @@ export class FormaPagoComponent implements OnInit {
                 this.formapago.descripcionFp= this.f.descripcionFp.value;
                 this.formapago.codigoSri= this.f.codigoSri.value;
                 this.formapago.codigoSae= this.f.codigoSae.value;
+                this.formapago.fechaFp= this.f.fechaFp.value;
+                //this.formapago.estado= this.f.estado.value;
                 this.formapago.idUsuarioFp= 1;
 
 
@@ -120,11 +122,13 @@ export class FormaPagoComponent implements OnInit {
 
                 }
 
-            if(this.formFormaPago.value.estado){
+            if(this.formFormaPago.value.activo){
                 this.formapago.activo= "ACTIVO";
             }else{
                 this.formapago.activo= "INACTIVO";
             }
+
+            
           //  }
 
             this.formapagoService.saveObject(this.formapago).subscribe({

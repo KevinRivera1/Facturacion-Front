@@ -1,13 +1,14 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card">
-            <p-table #dt [value]="listestadoFact" [rows]="10" [paginator]="true" [loading]="loading"
+            <p-table #ef [value]="listestadoFact" [rows]="10" [paginator]="true" [loading]="loading"
                 [globalFilterFields]="[
-                        'idEstadoFact',
-                        'nombreEstadoFact',
-                        'detalleEstadoFact',
+                        'idEstadoComprobante',
+                        'nombreEstadoComp',
+                        'detalleEstadoComp'
                      ]" responsiveLayout="scroll" [(selection)]="selectedEstados" [rowHover]="true"
-                dataKey="idEstadoFact" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                dataKey="idEstadoComprobante"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-wrap">
@@ -23,7 +24,7 @@
                                 pTooltip="Eliminar Seleccionados" tooltipPosition="right"
                                 [disabled]="!selectedEstados || !selectedEstados.length"></button>
                             <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
-                                icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros"
+                                icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
                                 tooltipPosition="right"></button>
                         </div>
 
@@ -31,7 +32,7 @@
                         <span class="p-input-icon-left ">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" class="p-inputtext-sm"
-                                (input)="dt.filterGlobal($event.target.valueOf(), 'contains')"
+                                (input)="ef.filterGlobal($event.target.value,'equals' ,'contains')"
                                 placeholder="Busqueda General" />
                         </span>
                     </div>
@@ -41,23 +42,23 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="idEstadoFact">
+                        <th pSortableColumn="idEstadoComprobante">
                             <div class="flex justify-content-between align-items-center">
                                 <bold style="font-weight: bold;">&#8470;</bold>
-                                <p-sortIcon field="idEstadoFact"></p-sortIcon>
-                                <p-columnFilter type="text" field="idEstadoFact" display="menu"></p-columnFilter>
+                                <p-sortIcon field="idEstadoComprobante"></p-sortIcon>
+                                <p-columnFilter type="text" field="idEstadoComprobante" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="nombreEstadoFact">
+                        <th pSortableColumn="nombreEstadoComp">
                             <div class="flex justify-content-between align-items-center">Nombre Estado
-                                <p-sortIcon field="nombreEstadoFact"></p-sortIcon>
-                                <p-columnFilter type="text" field="nombreEstadoFact" display="menu"></p-columnFilter>
+                                <p-sortIcon field="nombreEstadoComp"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreEstadoComp" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoFact">
+                        <th pSortableColumn="detalleEstadoComp">
                             <div class="flex justify-content-between align-items-center">Detalle
-                                <p-sortIcon field="detalleEstadoFact"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoFact" display="menu"></p-columnFilter>
+                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
+                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
                             </div>
                         </th>
 
@@ -81,8 +82,7 @@
                                 (click)="editEstadoFact(item)" pTooltip="Editar" tooltipPosition="left"></button>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger p-button-text p-button-sm"
-                                (click)="deleteEstadoFact(item)" pTooltip="Eliminar" tooltipPosition="left"
-                                *ngIf="item.nombreEstadoFact=='GENERADO'"></button>
+                                (click)="deleteEstadoFact(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
                         </td>
                     </tr>
                 </ng-template>

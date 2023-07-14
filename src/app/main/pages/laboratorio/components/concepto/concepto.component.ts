@@ -70,7 +70,7 @@ export class ConceptoComponent implements OnInit {
             //idCentroCosto: new FormControl(null,),
 
             valorConcepto: new FormControl('', Validators.compose([Validators.required])),
-            estado: new FormControl(true, Validators.compose([Validators.requiredTrue])),
+            estadoConcetpto: new FormControl(true, Validators.compose([Validators.requiredTrue])),
             fechaConcepto: new FormControl(new Date().toLocaleDateString(), Validators.compose([Validators.required])),
 
         });
@@ -121,6 +121,7 @@ export class ConceptoComponent implements OnInit {
                 this.conceptos.descConcepto= this.f.descConcepto.value;
                 this.conceptos.idCentroCosto= 1;
                 this.conceptos.valorConcepto= this.f.valorConcepto.value;
+                this.conceptos.fechaConcepto = this.f.fechaConcepto.value;
                 this.conceptos.idUsuarioConcepto= 1;
 
 
@@ -132,7 +133,7 @@ export class ConceptoComponent implements OnInit {
 
                 }
 
-            if(this.formConceptos.value.estado){
+            if(this.formConceptos.value.estadoConcetpto){
                 this.conceptos.estadoConcetpto= "ACTIVO";
             }else{
                 this.conceptos.estadoConcetpto= "INACTIVO";

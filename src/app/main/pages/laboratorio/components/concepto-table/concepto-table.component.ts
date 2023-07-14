@@ -137,11 +137,11 @@ export class ConceptosTableComponent implements OnInit {
     editConceptos(doc: ConceptoDto) {
         this.conceptos = {...doc};
 
-        if(doc.estadoConcetpto== 'ACTIVO'){
+    /*     if(doc.estadoConcetpto== 'ACTIVO'){
             doc.estado= true;
         }else{
             doc.estado= false;
-        }
+        } */
 
         this.conceptosSelect.emit(doc);
     }

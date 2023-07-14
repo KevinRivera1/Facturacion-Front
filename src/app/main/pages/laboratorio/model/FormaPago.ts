@@ -10,4 +10,5 @@ export interface FormaPagoModel {
     codigoSae: string;
     codigoSri: string;
     idUsuarioFp: number;
+    estado:boolean;
 }

@@ -21,7 +21,7 @@
                                   class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
                                   tooltipPosition="bottom"></button>
                           <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
-                                  (click)="deleteSelectedFormapago()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                                  (click)="deleteSelectedFormaPago()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
                                   [disabled]="!selectedFormaPago || !selectedFormaPago.length"></button>
                           <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
                                   (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
@@ -31,7 +31,7 @@
                       <span class="p-input-icon-left ">
             <i class="pi pi-search"></i>
             <input pInputText type="text" class="p-inputtext-sm"
-                   (input)="dt.filterGlobal($event.target.valueOf(), 'contains')" placeholder="Busqueda General" />
+                   (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
           </span>
                   </div>
               </ng-template>
@@ -47,7 +47,7 @@
                           </div>
                       </th>
                       <th pSortableColumn="nombreFp">
-                          <div class="flex justify-content-between align-items-center">Nombre
+                          <div class="flex justify-content-between align-items-center">Nombre Pago
                               <p-sortIcon field="nombreFp"></p-sortIcon>
                               <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
                           </div>
@@ -59,12 +59,30 @@
                           </div>
                       </th>
                       <th pSortableColumn="descripcionFp">
-                          <div class="flex justify-content-between align-items-center">Detalle
+                          <div class="flex justify-content-between align-items-center">Descripcion
                               <p-sortIcon field="descripcionFp"></p-sortIcon>
                               <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
                           </div>
                       </th>
-
+                      <th pSortableColumn="codigoSri">
+                        <div class="flex justify-content-between align-items-center">Codigo SRI
+                            <p-sortIcon field="codigoSri"></p-sortIcon>
+                            <p-columnFilter type="text" field="codigoSri" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="codigoSae">
+                        <div class="flex justify-content-between align-items-center">Codigo SAE
+                            <p-sortIcon field="codigoSae"></p-sortIcon>
+                            <p-columnFilter type="text" field="codigoSae" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                 <!--    <th pSortableColumn="fechaFp">
+                        <div class="flex justify-content-between align-items-center">fechaFp
+                            <p-sortIcon field="fechaFp"></p-sortIcon>
+                            <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+ -->
                       <th>Acciones</th>
                   </tr>
 
@@ -79,15 +97,18 @@
                       <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
                           ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
                       <td>{{item.descripcionFp}}</td>
-
+                      <td>{{item.codigoSri}}</td>
+                      <td>{{item.codigoSae}}</td>
+                      <!-- <td>{{item.fechaFp}}</td> -->
+                      
 
                       <td>
                           <button pButton pRipple icon="pi pi-pencil"
                                   class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item)"
                                   pTooltip="Editar" tooltipPosition="left"   ></button>
                           <button pButton pRipple icon="pi pi-trash"
-                                  class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago()"
-                                  pTooltip="Eliminar" tooltipPosition="left" *ngIf="item.activo =='ACTIVO'" ></button>
+                                  class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago(item)"
+                                  pTooltip="Eliminar" tooltipPosition="left"  ></button>
                       </td>
                   </tr>
               </ng-template>
