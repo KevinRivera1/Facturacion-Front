@@ -133,7 +133,7 @@ export class FormaPagoComponent implements OnInit {
             // this.formapago.fechaFp= this.f.fechaFp.value;
             //this.formapago.estado= this.f.estado.value;
             this.formapago.idUsuarioFp = 1;
-            
+
             if (this.formapago.idFormaPago != null) {
                 this.formapago.fechaFp = new Date(this.formapago.fechaFp);
             } else {
@@ -179,6 +179,11 @@ export class FormaPagoComponent implements OnInit {
         this.setearForm();
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
         this.modal = false;
+    }
+    cerrar(){
+        this.setearForm();
+        this.modal = false;
+
     }
 
     abrirmodal(){

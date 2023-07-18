@@ -1,6 +1,6 @@
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 <p-dialog [contentStyle]="{'overflow': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
-    [style]="{ width: '45vw' }" [draggable]="true" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+    [style]="{ width: '45vw' }" [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Registro Forma de Pago</h4>
     </p-header>
