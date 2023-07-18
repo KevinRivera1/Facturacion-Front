@@ -1,44 +1,44 @@
-import {Component, Input, OnInit, EventEmitter, Output, ViewChild} from '@angular/core';
+import { Component, OnInit, Input,  EventEmitter, Output } from '@angular/core';
+import { PuntoDto } from "../../model/Punto-fac.dto";
+import {PuntoFacService} from "../../services/punto-fact.service";
 import {FileService} from "../../../../../_service/utils/file.service";
 import {AppService} from "../../../../../_service/app.service";
 import {ConfirmationService} from "primeng/api";
 import { Table } from "primeng/table";
-import { FormaPagoDto } from '../../model/FormaPago.dto';
-import { FormaPagoService } from '../../services/formaPago.service';
-import { Router } from '@angular/router';
-import { FormaPagoComponent } from '../forma-pago/forma-pago.component';
+import { PuntoFacturacionComponent } from '../punto-facturacion/punto-facturacion.component';
 
 @Component({
-  selector: 'app-forma-pago-table',
-  templateUrl: './forma-pago-table.component.html',
-  styleUrls: ['./forma-pago-table.component.scss']
+  selector: 'app-punto-facturacion-table',
+  templateUrl: './punto-facturacion-table.component.html',
+  styleUrls: ['./punto-facturacion-table.component.css']
 })
-export class FormaPagoTableComponent implements OnInit {
+export class PuntoFacturacionTableComponent implements OnInit {
+
+  
+  proceso: string = 'punto-fac';
+  @Input() listPunto: PuntoDto[];
+  @Output() puntoSelect=  new EventEmitter();
 
 
-  proceso: string = 'formapago';
-  @Input() listFormaPago: FormaPagoDto[];
-  @Output() formapagoSelect=  new EventEmitter();
-
-  formapago: FormaPagoDto;
-  selectedFormaPago: FormaPagoDto[];
+  puntoFac: PuntoDto;
+  selectedpuntoFac: PuntoDto[];
   submitted: boolean;
   loading: boolean;
+ 
 
   exportColumns: any[];
 
   cols: any[];
-  visible: boolean;
 
 
 
- constructor(
+constructor(
 
-    private mimodal:FormaPagoComponent,
-    private formapagoServcice: FormaPagoService,
+    private puntoFacService: PuntoFacService,
     private fileService: FileService,
     private appservie: AppService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private puntoFacturacionComponent: PuntoFacturacionComponent
 
 ) { }
 
@@ -49,14 +49,13 @@ ngOnInit(): void {
 }
 
 
-
 construirTabla(){
 
     this.cols= [
-        {field: 'idFormaPago', header: 'Nro.'},
-        {field: 'nombreFp', header: 'NOMBRE.'},
-        {field: 'descripcionFp', header: 'DETALLE.'},
-        {field: 'activo', header: 'ESTADO.'},
+        {field: 'idPuntoFacturacion', header: 'Nro.'},
+        {field: 'nombrePuntoFact', header: 'NOMBRE.'},
+        {field: 'secuencialPuntoFact', header: 'SECUENCIAL.'},
+        {field: 'fechaCreacionPuntoFact', header: 'FECHA.'},
 
     ];
     this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
@@ -72,25 +71,24 @@ construirTabla(){
   loadData(event) {
       this.loading = true;
       setTimeout(() => {
-          this.formapagoServcice.getAll().subscribe(res => {
-              this.listFormaPago = res;
+          this.puntoFacService.getAll().subscribe(res => {
+              this.listPunto = res;
               console.log("LLAMADA")
-              console.log(this.listFormaPago);
+              console.log(this.listPunto);
               this.loading = false;
           })
       }, 1000);
   }
 
-
-  registrarNuevo() {
+registrarNuevo() {
       // @ts-ignore
-      this.formapago= new FormaPagoDto();
+      this.puntoFac= new PuntoDto();
       this.submitted = false;
   }
 
 
 
-  deleteSelectedFormaPago() {
+  deleteSelectedPunto() {
       this.confirmationService.confirm({
           acceptLabel: 'Aceptar',
           rejectLabel: 'Cancelar',
@@ -100,28 +98,28 @@ construirTabla(){
           header: 'Confirmar',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-              this.eliminarFormaPagoSelected();
+              this.eliminarPuntosSelected();
           }
       });
   }
 
 
 
-  eliminarFormaPagoSelected() {
+  eliminarPuntosSelected() {
 
       let indexLista: number = 0;
-      for (let i = 0; i < this.selectedFormaPago.length; i++) {
-          this.formapagoServcice.deleteObject(this.selectedFormaPago[i].idFormaPago).subscribe(
+      for (let i = 0; i < this.selectedpuntoFac.length; i++) {
+          this.puntoFacService.deleteObject(this.selectedpuntoFac[i].idPuntoFacturacion).subscribe(
               data => {
                   indexLista++;
 
-                  if (indexLista == this.selectedFormaPago.length) {
-                      this.formapagoServcice.getAll().subscribe({
+                  if (indexLista == this.selectedpuntoFac.length) {
+                      this.puntoFacService.getAll().subscribe({
                           next: data => {
-                              this.listFormaPago = data.listado
+                              this.listPunto = data.listado
                           }
                       });
-                      this.selectedFormaPago = null;
+                      this.selectedpuntoFac = null;
                       this.appservie.msgInfoDetail('error', 'Eliminación', 'Se han eliminado todos los datos seleccionados',)
                   }
 
@@ -134,44 +132,36 @@ construirTabla(){
   }
 
 
-  editFormaPago(doc: FormaPagoDto) {
-      this.formapago = {...doc};
+  editPunto(doc: PuntoDto) {
+      this.puntoFac = {...doc};
 
-/*      if(doc.activo== 'ACTIVO'){
-          doc.estado= true;
-      }else{
-          doc.estado= false;
-      } 
- */
-    
-      this.formapagoSelect.emit(doc);
-      
+      this.puntoSelect.emit(doc);
   }
 
-  deleteFormaPago(doc: FormaPagoDto) {
+  deletePunto(doc: PuntoDto) {
       this.confirmationService.confirm({
           acceptLabel: 'Aceptar',
           rejectLabel: 'Cancelar',
           acceptButtonStyleClass: 'p-button-outlined p-button-rounded p-button-success',
           rejectButtonStyleClass: 'p-button-outlined p-button-rounded p-button-danger',
-          message: 'Esta seguro de eliminar el id ' + doc.idFormaPago + '?',
+          message: 'Esta seguro de eliminar ' + doc.idPuntoFacturacion + '?',
           header: 'Confirmar',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-              this.eliminarFormaPagoSimple(doc);
+              this.eliminarPuntoSimple(doc);
           }
       });
   }
 
 
 
-  async eliminarFormaPagoSimple(doc: FormaPagoDto) {
-      this.formapagoServcice.deleteObject(doc.idFormaPago).subscribe(
+  async eliminarPuntoSimple(doc: PuntoDto) {
+      this.puntoFacService.deleteObject(doc.idPuntoFacturacion).subscribe(
           data => {
               this.appservie.msgDelete();
-              this.formapagoServcice.getAll().subscribe({
+              this.puntoFacService.getAll().subscribe({
                   next: data => {
-                      this.listFormaPago = data.listado
+                      this.listPunto = data.listado
                   }
               });
 
@@ -187,23 +177,24 @@ construirTabla(){
   exportPdf() {
 
       let indexLista: number = 0;
-      this.listFormaPago.forEach(element => {
+      this.listPunto.forEach(element => {
           indexLista++;
-          element.idFormaPago=indexLista;
+          element.idPuntoFacturacion=indexLista;
         //  element.formatDate=new Date(element.fechaBancos).toLocaleDateString()+" "+new Date(element.fechaBancos).toLocaleTimeString();
       });
-      this.appservie.exportPdf(this.exportColumns, this.listFormaPago, 'Forma pago', "p");
+      this.appservie.exportPdf(this.exportColumns, this.listPunto, 'punto-fac', "p");
   }
 
   exportExcel() {
       let indexLista: number = 0;
-      this.listFormaPago.forEach(element => {
+      this.listPunto.forEach(element => {
           indexLista++;
-          element.idFormaPago=indexLista;
-  
-          element.formatDate=new Date(element.fechaFp).toLocaleDateString()+" "+new Date(element.fechaFp).toLocaleTimeString();
+          element.idPuntoFacturacion=indexLista;
+          element. idUsuarioPuntoFact=null;
+        //  element.formatDate=new Date(element.fechaBancos).toLocaleDateString()+" "+new Date(element.fechaBancos).toLocaleTimeString();
+          element.fechaCreacionPuntoFact=null;
       });
-      this.appservie.exportExcel(this.listFormaPago, 'Forma Pago');
+      this.appservie.exportExcel(this.listPunto, 'punto-fac');
   }
 
   descargarArchivo(fileName: string) {
@@ -214,8 +205,25 @@ construirTabla(){
       }
   }
 
-  llamarFuncion() {
-    this.mimodal.abrirmodal();
-}
+  llamarmodal(){
+    this.puntoFacturacionComponent.abrimodal()
+  }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

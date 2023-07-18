@@ -1,0 +1,71 @@
+<p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="modal" [modal]="true"
+[style]="{ width: '45vw' }" [draggable]="true" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+       
+
+
+    <p-header>
+        <h4 class="">Punto Facturación</h4>
+    </p-header>
+    <form [formGroup]="formPunto">
+
+        <br>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombrePuntoFact" type="text" required="true"
+                        formControlName="nombrePuntoFact">
+                    <label for="ftxt-nombrePuntoFact">* Nombre</label>
+                </span>
+            </div>  
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-secuencialPuntoFact" type="text" required="true"
+                        formControlName="secuencialPuntoFact">
+                    <label for="ftxt-secuencialPuntoFact">* Secuencial</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-fechaCreacionPuntoFact" type="text" dateFormat="yyyy/mm/dd"
+                        formControlName="fechaCreacionPuntoFact" readonly>
+                    <label for="ftxt-fechaCreacionPuntoFact">* Fecha Registro </label>
+                </span>
+            </div>
+        </div>
+        <div class="central">
+            <p-toolbar>
+                <div class="p-toolbar-group-center">
+                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-send"
+                        type="submit" (click)="guardarpunto()" pTooltip="Guardar" tooltipPosition="right"></button>
+                
+                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger cancelar-button" icon="pi pi-times"
+                        (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+                </div>
+            </p-toolbar>
+        </div>
+
+
+    </form>
+
+</p-dialog>
+
+<div class="button-container">
+    <button pButton label="Agregar Punto Facturacion" icon="pi pi-plus" (click)="abrimodal()"
+        pTooltip="Agregar Comprobante" tooltipPosition="right"></button>
+</div>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<p-divider></p-divider>
+
+<app-punto-facturacion-table [listPunto]="listPunto"
+    (puntoSelect)=setSeleccionado($event)>
+</app-punto-facturacion-table> 

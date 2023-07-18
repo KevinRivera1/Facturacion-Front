@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild,
+} from '@angular/core';
 import { EstadoFacturaDto } from '../../model/EstadoFacturaDto';
 
 import { FileService } from '../../../../../_service/utils/file.service';
@@ -6,6 +13,7 @@ import { AppService } from '../../../../../_service/app.service';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { EstadoFacturaService } from '../../services/estadoFactura.service';
+import { EstadoFacturaComponent } from '../estado-factura/estado-factura.component';
 
 @Component({
     selector: 'app-estado-factura-table',
@@ -14,12 +22,12 @@ import { EstadoFacturaService } from '../../services/estadoFactura.service';
 })
 export class EstadoFacturaTableComponent implements OnInit {
     proceso: string = 'estadosFact';
-
-    @Input() listestadoFact: EstadoFacturaDto[];
+    @Input() listestadoFact: EstadoFacturaDto[] = [];
     @Output() estadoFactSelect = new EventEmitter();
 
     estadoFact: EstadoFacturaDto;
-    selectedEstados: EstadoFacturaDto[];
+
+    selectedEstados: EstadoFacturaDto[] = [];
     submitted: boolean;
     loading: boolean;
 
@@ -28,6 +36,7 @@ export class EstadoFacturaTableComponent implements OnInit {
     cols: any[];
 
     constructor(
+        private modalForm: EstadoFacturaComponent,
         private estadoFacturaService: EstadoFacturaService,
         private fileService: FileService,
         private appservie: AppService,
@@ -118,13 +127,16 @@ export class EstadoFacturaTableComponent implements OnInit {
     editEstadoFact(doc: EstadoFacturaDto) {
         this.estadoFact = { ...doc };
 
-         /*if (doc.nombreEstadoComp == 'GENERADO') {
+        /*if (doc.nombreEstadoComp == 'GENERADO') {
             doc.estado = true;
         } else {
             doc.estado = false;
         }*/
-
         this.estadoFactSelect.emit(doc);
+    }
+
+    modalOpen() {
+        this.modalForm.onDisplayForm();
     }
 
     deleteEstadoFact(doc: EstadoFacturaDto) {

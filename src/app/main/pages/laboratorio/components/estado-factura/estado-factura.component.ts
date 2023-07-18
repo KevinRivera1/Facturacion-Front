@@ -21,8 +21,8 @@ import { EstadoFacturaService } from '../../services/estadoFactura.service';
     styleUrls: ['./estado-factura.component.scss'],
 })
 export class EstadoFacturaComponent implements OnInit {
-
     proceso: string = 'estadosFact';
+    @Input() display: boolean;
     @Input() estadoFact: EstadoFacturaDto;
 
     formEstadoFact: FormGroup;
@@ -59,18 +59,16 @@ export class EstadoFacturaComponent implements OnInit {
             nombreEstadoComp: new FormControl(
                 '',
                 Validators.compose([Validators.required])
-                ),
-                detalleEstadoComp: new FormControl(
-                    '',
-                    Validators.compose([Validators.required])
-                    ),
-                });
-                
-                
-                this.token = JSON.parse(this.tokenService.getResponseAuth());
-                //  this.f.idEstadoComprobante.setValue(this.token.id)
-            }
-            
+            ),
+            detalleEstadoComp: new FormControl(
+                '',
+                Validators.compose([Validators.required])
+            ),
+        });
+
+        this.token = JSON.parse(this.tokenService.getResponseAuth());
+        //  this.f.idEstadoComprobante.setValue(this.token.id)
+    }
 
     setSeleccionado(obj) {
         this.estadoFact = obj;
@@ -117,14 +115,23 @@ export class EstadoFacturaComponent implements OnInit {
             this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
             //this.estadoFact.idEstadoComprobante = 1;
 
+            if (this.formEstadoFact.value.nombreEstadoComp) {
+                this.estadoFact.nombreEstadoComp =
+                    this.estadoFact.nombreEstadoComp;
+            } else {
+                this.estadoFact.nombreEstadoComp = 'PENDIENTE';
+            }
+
             this.estadoFacteService.saveObject(this.estadoFact).subscribe({
                 next: (data) => {
                     this.response = data;
                     if (this.response.codigoRespuestaValue == 200) {
                         if (!this.estadoFact.idEstadoComprobante) {
                             this.appService.msgCreate();
+                            this.display = false;
                         } else {
                             this.appService.msgUpdate();
+                            this.display = false;
                         }
                         this.setearForm();
                         this.llenarListEstadoFact();
@@ -145,5 +152,10 @@ export class EstadoFacturaComponent implements OnInit {
     cancelar() {
         this.setearForm();
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
+        this.display = false;
+    }
+
+    onDisplayForm() {
+        this.display = true;
     }
 }

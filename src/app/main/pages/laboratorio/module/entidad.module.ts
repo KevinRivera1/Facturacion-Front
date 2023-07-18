@@ -37,13 +37,17 @@ import {EntidadTableComponent} from "../components/entidad-table/entidad-table.c
 import {CdkTableModule} from "@angular/cdk/table";
 import {BancosComponent} from "../components/bancos/bancos.component";
 import {BancosTableComponent } from "../components/bancos-table/bancos-table.component";
-import { CentroCostosComponent } from '../components/centro-costos/centro-costos.component';
-import { CentroCostosTableComponent } from '../components/centro-costos-table/centro-costos-table.component';
 import { ConceptoComponent } from '../components/concepto/concepto.component';
 import { FormaPagoComponent } from '../components/forma-pago/forma-pago.component';
 import { EstadoFacturaTableComponent } from '../components/estado-factura-table/estado-factura-table.component';
 import { EstadoFacturaComponent } from '../components/estado-factura/estado-factura.component';
 import { ConceptosTableComponent } from '../components/concepto-table/concepto-table.component';
+import { CentroCostosComponent } from '../components/centro-costos/centro-costos.component';
+import { CentroCostosTableComponent } from '../components/centro-costos-table/centro-costos-table.component';
+import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
+import { TipoConceptoTableComponent } from '../components/tipo-concepto-table/tipo-concepto-table.component';
+import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
+import { PuntoFacturacionTableComponent } from '../components/punto-facturacion-table/punto-facturacion-table.component';
 
 
 @NgModule({
@@ -52,12 +56,19 @@ import { ConceptosTableComponent } from '../components/concepto-table/concepto-t
         EntidadTableComponent,
         BancosComponent,
         BancosTableComponent,
-        CentroCostosComponent,
-        CentroCostosTableComponent,
         EstadoFacturaComponent,
         EstadoFacturaTableComponent,
         ConceptoComponent,
-        ConceptosTableComponent
+        ConceptosTableComponent,
+        CentroCostosComponent,
+        CentroCostosTableComponent,
+        TipoConceptoComponent,
+        TipoConceptoTableComponent,
+        PuntoFacturacionComponent,
+        PuntoFacturacionTableComponent
+        
+
+
     ],
     imports: [
         CommonModule,
@@ -67,6 +78,7 @@ import { ConceptosTableComponent } from '../components/concepto-table/concepto-t
         DialogModule,
         InputTextareaModule,
         FileUploadModule,
+        DialogModule,
         ButtonModule,
         CalendarModule,
         TooltipModule,

@@ -1,6 +1,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card">
+
             <p-table #ef [value]="listestadoFact" [rows]="10" [paginator]="true" [loading]="loading"
                 [globalFilterFields]="[
                         'idEstadoComprobante',
@@ -12,7 +13,7 @@
                 [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-wrap">
-                        <div>
+                        <div class="flex flex-wrap">
                             <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
                                 class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
                                 tooltipPosition="bottom"></button>
@@ -21,14 +22,15 @@
                                 tooltipPosition="bottom"></button>
                             <button pButton pRipple label="Delete" icon="pi pi-trash"
                                 class="p-button-danger p-button-sm m-1" (click)="deleteSelectedBancos()"
-                                pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                                pTooltip="Eliminar Seleccionados" tooltipPosition="bottom"
                                 [disabled]="!selectedEstados || !selectedEstados.length"></button>
                             <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
                                 icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
                                 tooltipPosition="right"></button>
                         </div>
-
-                        <label class="text-center">Estados Facturas</label>
+                        <div class="flex flex-wrap align-items-center align-items-center select-none">
+                            <label class="text-center font-semibold">Listado Estado Facturas</label>
+                        </div>
                         <span class="p-input-icon-left ">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" class="p-inputtext-sm"
@@ -67,22 +69,26 @@
 
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
-                    <tr>
+                    <tr class="font-medium">
                         <td>
                             <p-tableCheckbox [value]="item"></p-tableCheckbox>
                         </td>
                         <td>{{rowIndex+1}}</td>
-                        <td>{{item.nombreEstadoComp}}</td>
+                        <td> <mark [ngClass]="item.nombreEstadoComp === 'PAGADA'
+                            ?'border-green-500' : 'border-red-500'">{{item.nombreEstadoComp}}</mark></td>
                         <td>{{item.detalleEstadoComp}}</td>
 
 
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
-                                (click)="editEstadoFact(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                                (click)="editEstadoFact(item); modalOpen()" pTooltip="Editar"
+                                tooltipPosition="left"></button>
+
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger p-button-text p-button-sm"
-                                (click)="deleteEstadoFact(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+                                (click)="deleteEstadoFact(item)" pTooltip="Eliminar" tooltipPosition="left"
+                                *ngIf="item.nombreEstadoComp ==='PAGADA'"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -94,4 +100,6 @@
             </p-table>
         </div>
     </div>
+
+
 </section>

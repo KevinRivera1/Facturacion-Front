@@ -1,100 +1,111 @@
-<form [formGroup]="formConceptos">
-    <div  class="card no-gutter widget-overview-box widget-overview-box-1">
-
-
-        <div class=" flex align-items-left bg-primary-900">
-
-            <div class="col-16 md:col-2">
-                <div class="align-items-left flex  justify-content-end">
-                    <h4 class="text-left text-white">Registro - Actualización Epn</h4>
-                </div>
-            </div>
-        </div>
-        <br>
-
-
-        <div class="p-fluid p-formgrid grid">
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreConcepto"
-                           type="text" required="true"
-                           formControlName="nombreConcepto">
-                        <label for="ftxt-nombreConcepto">* Nombre</label>
-                </span>
-            </div>
-
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
-                <span class="p-float-label">
-                <p-inputSwitch  id="ftxt-estadoConcetpto"
-                                formControlName="estadoConcetpto"></p-inputSwitch>
-            </span>
-            </div>
-
-
-        </div>
-
-        <div class="p-fluid p-formgrid grid">
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-codigoConcepto">* Codigo</label>
-                <span class="p-float-label">
-                <textarea pInputTextarea rows="4"
-                          cols="30" id="ftxt-codigoConcepto"
-                          required="true"
-                          formControlName="codigoConcepto"></textarea>
-            </span>
-            </div>
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Valor</label>
-                <span class="p-float-label">
-                <textarea pInputTextarea rows="4"
-                          cols="30" id="ftxt-valorConcepto"
-                          required="true"
-                          formControlName="valorConcepto"></textarea>
-            </span>
-            </div>
-        </div>
-        <div class="p-fluid p-formgrid grid">
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descConcepto">* Detalle</label>
-                <span class="p-float-label">
-                <textarea pInputTextarea rows="4"
-                          cols="30" id="ftxt-descConcepto"
-                          required="true"
-                          formControlName="descConcepto"></textarea>
-            </span>
-            </div>
-        </div>
-        <div class="p-fluid p-formgrid grid">
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-            <span class="p-float-label">
-                <input pInputText  id="ftxt-fechaConcepto"
-                       type="text" dateFormat="yyyy/mm/dd"
-                       formControlName="fechaConcepto"  readonly>
-                    <label for="ftxt-fechaConcepto">* Fecha Registro </label>
-            </span>
-            </div>
-        </div>
-        <div class="central">
-            <p-toolbar >
-        <div class="p-toolbar-group-center">
-            <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info" icon="pi pi-send"
-                    type="submit" (click)="guardarConceptos()" pTooltip="Guardar" tooltipPosition="right"></button>
-
-            <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger" icon="pi pi-times"
-                    (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
-
-
-        </div>
-            </p-toolbar>
-        </div>
-
-
-    </div>
-</form>
-
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
-<p-divider></p-divider>
-<app-concepto-table [listConceptos]="listConceptos"
-                       (conceptosSelect)=setSeleccionado($event)></app-concepto-table>
+
+<p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="display" [modal]="true"
+[style]="{ width: '45vw' }" [draggable]="true" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+    <p-header>
+        <h4 class="">Registro Concepto</h4>
+    </p-header>
+    <form [formGroup]="formConceptos">
+        
+        <form [formGroup]="formConceptos">
+            <div class="card no-gutter widget-overview-box widget-overview-box-1">
+
+                <!--        <div class=" flex align-items-left bg-primary-900">
+       
+                    <div class="col-16 md:col-2">
+                        <div class="align-items-left flex  justify-content-end">
+                            <h4 class="text-left text-white">Registro - Actualización Epn</h4>
+                        </div>
+                    </div>
+                </div> -->
+                <br>
+
+
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreConcepto" type="text" required="true"
+                                formControlName="nombreConcepto">
+                            <label for="ftxt-nombreConcepto">* Nombre</label>
+                        </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                        <span class="p-float-label">
+                            <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
+                        </span>
+                    </div>
+
+
+                </div>
+
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-codigoConcepto">* Codigo</label>
+                        <span class="p-float-label">
+                            <textarea pInputTextarea rows="4" cols="30" id="ftxt-codigoConcepto" required="true"
+                                formControlName="codigoConcepto"></textarea>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Valor</label>
+                        <span class="p-float-label">
+                            <textarea pInputTextarea rows="4" cols="30" id="ftxt-valorConcepto" required="true"
+                                formControlName="valorConcepto"></textarea>
+                        </span>
+                    </div>
+                </div>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descConcepto">* Detalle</label>
+                        <span class="p-float-label">
+                            <textarea pInputTextarea rows="4" cols="30" id="ftxt-descConcepto" required="true"
+                                formControlName="descConcepto"></textarea>
+                        </span>
+                    </div>
+                </div>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-fechaConcepto" type="text" dateFormat="yyyy/mm/dd"
+                                formControlName="fechaConcepto" readonly>
+                            <label for="ftxt-fechaConcepto">* Fecha Registro </label>
+                        </span>
+                    </div>
+                </div>
+                <div class="central">
+                    <p-toolbar>
+                        <div class="p-toolbar-group-center">
+                            <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info"
+                                icon="pi pi-send" type="submit" (click)="guardarConceptos()" pTooltip="Guardar"tooltipPosition="right"></button>
+
+                            <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger"
+                                icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"tooltipPosition="right"></button>
+
+                        </div>
+                    </p-toolbar>
+                </div>
+
+
+            </div>
+        </form>
+    </form>
+</p-dialog>
+    <p-card>
+        <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
+            <h4>Concepto</h4>
+        </p-header>
+        <div class="caja-boton-principal">
+            <button pButton label="Agregar Concepto" class="p-button p-button-lg m-1 p-button-info bg-blue-900 "icon="pi pi-plus" 
+                pTooltip="Agregar Concepto" tooltipPosition="right" (click)="abrirmodal()"></button>
+
+        </div>
+        <p-divider></p-divider>
+
+        <app-concepto-table [listConceptos]="listConceptos" (conceptosSelect)=setSeleccionado($event)></app-concepto-table>
+    </p-card>
+
+
+    <p-divider></p-divider>

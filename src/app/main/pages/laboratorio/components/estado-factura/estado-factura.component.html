@@ -1,32 +1,39 @@
-<form [formGroup]="formEstadoFact">
+<p-header>
+    <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">Registro Estado Factura</h4>
+</p-header>
+<div class="button__from text-right">
+    <button pButton style="background:#0d3c61;" type="button" label="Mostrar Formulario" icon="pi pi-plus"
+        (click)=" onDisplayForm()"></button>
+</div>
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [closable]="false" [dismissableMask]="true">
+    <form [formGroup]="formEstadoFact">
 
-    <p-panel class="ui-panel" header="Registro Estado Factura" [toggleable]="false">
-        <ng-template pTemplate="icons" pStyleClass="display: flex;
-        justify-content: end;
-        align-items: center;
-        ">
 
+        <div class="button__form text-right my-3">
 
             <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
-                tooltipPosition="top" class="p-button-rounded p-button-danger p-button-text p-button"></button>
-
-        </ng-template>
-
+                tooltipPosition="top"
+                class="p-button-rounded p-button-danger p-button-text p-button text-right"></button>
+        </div>
+        <div class="text-center mb-4">
+            <h4>Registro Estados Facturas</h4>
+            <hr>
+        </div>
 
         <div class="central p-fluid p-formgrid grid">
 
             <!--    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreTipo" type="text" required="true" formControlName="idEstdo">
-                    <label for="ftxt-nombreTipo">id</label>
-                </span>
-            </div>
-          -->
+                    <span class="p-float-label">
+                        <input pInputText id="ftxt-nombreTipo" type="text" required="true" formControlName="idEstdo">
+                        <label for="ftxt-nombreTipo">id</label>
+                    </span>
+                </div>
+              -->
 
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
-                        formControlName="nombreEstadoComp">
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;">
                     <label for="ftxt-nombreEstadoComp">* Nombre Estado Factura</label>
                 </span>
             </div>
@@ -43,17 +50,21 @@
         <div class="central">
             <p-toolbar>
                 <div class="p-toolbar-group-center">
-                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info" icon="pi pi-send"
-                        type="submit" (click)="guardarEstadoFact()" pTooltip="Guardar" tooltipPosition="right"></button>
+                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-outlined p-button-primary"
+                        icon="pi pi-send" type="submit" (click)="guardarEstadoFact()" pTooltip="Guardar"
+                        tooltipPosition="right"></button>
 
-                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger" icon="pi pi-times"
-                        (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-outlined p-button-danger"
+                        icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
                 </div>
             </p-toolbar>
         </div>
 
-    </p-panel>
-</form>
+
+    </form>
+</p-dialog>
+
+
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
@@ -61,4 +72,5 @@
 
 
 <app-estado-factura-table [listestadoFact]="listEstadoFact" (estadoFactSelect)=setSeleccionado($event)>
+
 </app-estado-factura-table>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {ResponseGenerico} from "../../../../../_dto/response-generico";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TokenDto} from "../../../../../_dto/token-dto";
@@ -16,6 +16,8 @@ import { ConceptoService } from '../../services/concepto.service';
 export class ConceptoComponent implements OnInit {
 
     @Input() conceptos: ConceptoDto;
+
+    display: boolean = false;
 
     proceso: string= 'conceptos';
 
@@ -164,6 +166,7 @@ export class ConceptoComponent implements OnInit {
 
 
         }
+        this.display = false;
     }
 
 
@@ -177,6 +180,15 @@ export class ConceptoComponent implements OnInit {
     cancelar() {
         this.setearForm();
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada')
+        this.display = false;
+    }
+    closeModal() {
+        this.display = false; 
+      }
+
+      abrirmodal(){
+        this.display = true;
+
     }
 
 }

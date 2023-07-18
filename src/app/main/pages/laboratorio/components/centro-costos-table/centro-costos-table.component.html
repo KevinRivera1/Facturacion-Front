@@ -1,1 +1,123 @@
-<p>centro-costos-table works!</p>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <p-table #dt [value]="listCentroC" [rows]="10" [paginator]="true" [loading]="loading"
+                     [globalFilterFields]="[
+                        
+                     'idCentroCosto',
+                     'nombreCentroCosto',
+                     'descCentroCosto'
+                     ]"
+                     responsiveLayout="scroll" [(selection)]="selectedCentroCostos"
+                     [rowHover]="true" dataKey="idCentroCosto"
+                     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+                     <!-- 'codCentroCosto', -->
+
+
+                 <!--Caprion - PDF XLS LISTO -->
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-wrap">
+                        <div>
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                    class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                    tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                    class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                    tooltipPosition="bottom"></button>
+                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                                    (click)="deleteSelectedCentroCosto()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                                    [disabled]="!selectedCentroCostos || !selectedCentroCostos.length"></button>
+                            <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
+                                    (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+                        </div>
+
+                        <label class="text-center">CENTRO COSTOS</label>
+                        <span class="p-input-icon-left ">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" class="p-inputtext-sm"
+                     (input)="dt.filterGlobal($event.target.valueOf(), 'contains')" placeholder="Busqueda General" />
+            </span>
+                    </div>
+                </ng-template>
+
+                <!-- Header de la tabla - buscar por columnas LISTO-->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="idCentroCosto">
+                            <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
+                                <p-sortIcon field="idCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="idCentroCosto" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="nombreCentroCosto">
+                            <div class="flex justify-content-between align-items-center">Nombre
+                                <p-sortIcon field="nombreCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreCentroCosto" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <!-- <th pSortableColumn="codCentroCosto">
+                            <div class="flex justify-content-between align-items-center">Codigo
+                                <p-sortIcon field="codCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="codCentroCosto" display="menu"></p-columnFilter>
+                            </div>
+                        </th> -->
+                        <th pSortableColumn="descCentroCosto">
+                            <div class="flex justify-content-between align-items-center">Detalle
+                                <p-sortIcon field="descCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="descCentroCosto" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="estadoCentroCosto">
+                            <div class="flex justify-content-between align-items-center">Estado
+                                <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                       
+
+                        <th>Acciones</th>
+                    </tr>
+
+                </ng-template>
+
+                <!-- Boody - se ve los datos de la tabla -->
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                        </td>
+                        <td>{{rowIndex+1}}</td>
+                        <td>{{item.nombreCentroCosto}}</td>
+                        <!-- <td>{{item.codCentroCosto}}</td> -->
+                        <td>{{item.descCentroCosto}}</td>
+                        <td>  <mark [ngClass]="item.estadoCentroCosto == 'ACTIVO'
+                            ? 'border-green-500' : 'border-red-500' ">{{item.estadoCentroCosto}}</mark></td>
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="llamarModal()"  (click)="editCentroCosto(item)"
+                                    pTooltip="Editar" tooltipPosition="left"   ></button>
+            
+                                    <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteCentroCosto(item)"
+                                    pTooltip="Eliminar" tooltipPosition="left" *ngIf="item.estadoCentroCosto=='ACTIVO'" ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                
+                <!-- Footer de la tabla -->
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Registros Totales: {{listCentroC ? listCentroC.length : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>
+
+
+

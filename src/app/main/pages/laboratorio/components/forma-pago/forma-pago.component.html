@@ -1,85 +1,113 @@
- <form [formGroup]="formFormaPago">
-     <div class="card no-gutter widget-overview-box widget-overview-box-1">
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-dialog [contentStyle]="{'overflow': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
+    [style]="{ width: '45vw' }" [draggable]="true" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+    <p-header>
+        <h4 class="">Registro Forma de Pago</h4>
+    </p-header>
+    <form [formGroup]="formFormaPago">
+        <div class="">
 
 
-         <div class=" flex align-items-left bg-primary-900">
-
-             <div class="col-16 md:col-2">
-                 <div class="align-items-left flex  justify-content-end">
-                     <h4 class="text-left text-white">Registro - Actualización Epn</h4>
-                 </div>
-             </div>
-         </div>
-         <br>
-
-
-         <div class="p-fluid p-formgrid grid">
-             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                 <span class="p-float-label">
-                     <input pInputText id="ftxt-nombreFp" type="text" required="true" formControlName="nombreFp">
-                     <label for="ftxt-nombreFp">* Nombre Pago</label>
-                 </span>
-             </div>
-             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                 <span class="p-float-label">
-                     <input pInputText id="ftxt-codigoSae" type="text" required="true" formControlName="codigoSae">
-                     <label for="ftxt-codigoSae">* Codigo Sae</label>
-                 </span>
-             </div>
-             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                 <span class="p-float-label">
-                     <input pInputText id="ftxt-codigoSri" type="text" required="true" formControlName="codigoSri">
-                     <label for="ftxt-codigoSri">* Codigo sri</label>
-                 </span>
-             </div>
+            <!--        <div class=" flex align-items-left bg-primary-900">
+       
+                    <div class="col-16 md:col-2">
+                        <div class="align-items-left flex  justify-content-end">
+                            <h4 class="text-left text-white">Registro - Actualización Epn</h4>
+                        </div>
+                    </div>
+                </div> -->
+            <br>
 
 
-
-         </div>
-
-         <div class="p-fluid p-formgrid grid">
-
-             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                 <span class="p-float-label">
-                     <input pInputText id="ftxt-fechaFp" type="text" dateFormat="yyyy/mm/dd" formControlName="fechaFp">
-                     <label for="ftxt-fechaFp">* Fecha de Pago </label>
-                 </span>
-             </div>
-             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                 <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
-                 <span class="p-float-label">
-                     <p-inputSwitch id="ftxt-activo" formControlName="activo"></p-inputSwitch>
-                 </span>
-             </div>
-         </div>
-         <div class="p-fluid p-formgrid grid">
-
-             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                 <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descripcionFp">* Detalle</label>
-                 <span class="p-float-label">
-                     <textarea pInputTextarea rows="4" cols="46" id="ftxt-descripcionFp" required="true"
-                         formControlName="descripcionFp"></textarea>
-                 </span>
-             </div>
-         </div>
-         <div class="central">
-             <p-toolbar>
-                 <div class="p-toolbar-group-center">
-                     <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info" icon="pi pi-send"
-                         type="submit" (click)="guardarformapago()" pTooltip="Guardar" tooltipPosition="right"></button>
-
-                     <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger"
-                         icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input pInputText id="ftxt-nombreFp" type="text" required="true" formControlName="nombreFp">
+                        <label for="ftxt-nombreFp">* Nombre</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                    <span class="p-float-label">
+                        <p-inputSwitch id="ftxt-activo" formControlName="activo"></p-inputSwitch>
+                    </span>
+                </div>
+                <!--    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-codigoSae" type="text" required="true" formControlName="codigoSae">
+                            <label for="ftxt-codigoSae">* Codigo Sae</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-codigoSri" type="text" required="true" formControlName="codigoSri">
+                            <label for="ftxt-codigoSri">* Codigo sri</label>
+                        </span>
+                    </div>
+        -->
 
 
-                 </div>
-             </p-toolbar>
-         </div>
+            </div>
+
+            <div class="p-fluid p-formgrid grid">
+                <!-- 
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-fechaFp" type="text" dateFormat="yyyy/mm/dd" formControlName="fechaFp">
+                            <label for="ftxt-fechaFp">* Fecha de Pago </label>
+                        </span>
+                    </div> -->
+
+            </div>
+            <div class="p-fluid p-formgrid grid">
+
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descripcionFp">* Detalle</label>
+                    <span class="p-float-label">
+                        <textarea pInputTextarea rows="4" cols="75" id="ftxt-descripcionFp" required="true"
+                            formControlName="descripcionFp"></textarea>
+                    </span>
+                </div>
+            </div>
+
+            
+            <div class="central">
+                <p-toolbar>
+                    <div class="p-toolbar-group-center">
+                        <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-send"
+                            type="submit" (click)="guardarformapago()" pTooltip="Guardar"
+                            tooltipPosition="right"></button>
+
+                        <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger cancelar-button"
+                            icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                            tooltipPosition="right"></button>
 
 
-     </div>
- </form>
- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+                    </div>
+                </p-toolbar>
+            </div>
 
- <p-divider></p-divider>
- <app-forma-pago-table [listFormaPago]="listFormaPago" (formapagoSelect)=setSeleccionado($event)></app-forma-pago-table>
+
+        </div>
+    </form>
+
+
+</p-dialog>
+
+
+<p-card>
+    <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
+        <h4>FORMA DE PAGO</h4>
+    </p-header>
+    <div class="caja-boton-principal">
+        <button pButton label="Agregar Forma de Pago" class="p-button p-button-lg m-1 p-button-info bg-blue-900 "
+            icon="pi pi-plus" pTooltip="Agregar Forma de Pago" (click)="abrirmodal()"
+            tooltipPosition="right"></button>
+
+    </div>
+
+    <p-divider></p-divider>
+    <app-forma-pago-table [listFormaPago]="listFormaPago" (formapagoSelect)=setSeleccionado($event)>
+    </app-forma-pago-table>
+
+</p-card>

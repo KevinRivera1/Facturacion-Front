@@ -10,6 +10,8 @@ import { CentroCostosComponent } from '../components/centro-costos/centro-costos
 import { EstadoFacturaComponent } from '../components/estado-factura/estado-factura.component';
 import { FormaPagoComponent } from '../components/forma-pago/forma-pago.component';
 import { ConceptoComponent } from '../components/concepto/concepto.component';
+import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
+import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
 
 
 export const RUTA_ENTIDAD: Routes = [
@@ -57,7 +59,18 @@ export const RUTA_ENTIDAD: Routes = [
         path: 'conceptos',
         component: ConceptoComponent,
         canActivate: [AuthGuard],
-    }
+    },
+    {
+        path: 'tipoConcepto',
+        component: TipoConceptoComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'punto-fac',
+        component: PuntoFacturacionComponent,
+        canActivate: [AuthGuard],
+    },
+
  
 
 

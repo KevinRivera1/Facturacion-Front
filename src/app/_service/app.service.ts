@@ -1,28 +1,26 @@
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {environment} from '../../environments/environment';
-import {Observable, of} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {MenuItem, MessageService} from 'primeng/api';
-import {formatDate} from '@angular/common';
+import { MenuItem, MessageService } from 'primeng/api';
+import { formatDate } from '@angular/common';
 import jsPDF from 'jspdf';
 import * as FileSaver from 'file-saver';
 import 'jspdf-autotable';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {TokenService} from './token.service';
-
+import { TokenService } from './token.service';
 
 const httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AppService {
-
     url = `${environment.HOST}/api/auth`;
 
     userLogged: boolean;
@@ -32,18 +30,21 @@ export class AppService {
 
     items: MenuItem[];
 
-    constructor(private router: Router,
-                private http: HttpClient,
-                private messageService: MessageService,
-                private routerService: Router,
-                private tokenService: TokenService,
-                private jwtHelper: JwtHelperService,) {
-    }
+    constructor(
+        private router: Router,
+        private http: HttpClient,
+        private messageService: MessageService,
+        private routerService: Router,
+        private tokenService: TokenService,
+        private jwtHelper: JwtHelperService
+    ) {}
 
     isAuthenticated(): boolean {
         try {
             if (this.tokenService.getToken() != null) {
-                let payload = this.obtenerInfoToken(this.tokenService.getToken());
+                let payload = this.obtenerInfoToken(
+                    this.tokenService.getToken()
+                );
                 if (payload != null && payload.sub && payload.sub.length > 0) {
                     this.userLogged = true;
                     this.isLogged = true;
@@ -59,56 +60,77 @@ export class AppService {
 
     obtenerInfoToken(accessToken: string) {
         if (accessToken != null) {
-            return JSON.parse(atob(accessToken.split(".")[1]))
+            return JSON.parse(atob(accessToken.split('.')[1]));
         }
         return null;
     }
 
-    loginByAuth(loginRequest)
-        :
-        Observable<any> {
+    loginByAuth(loginRequest): Observable<any> {
         return this.http.post(this.url + '/signin', loginRequest);
     }
 
     refreshToken(token: string) {
-        return this.http.post(this.url + '/refreshtoken', {
-            refreshToken: token
-        }, httpOptions);
+        return this.http.post(
+            this.url + '/refreshtoken',
+            {
+                refreshToken: token,
+            },
+            httpOptions
+        );
     }
 
     refreshTokenAny(token: string): any {
-        return this.http.post(this.url + '/refreshtoken', {
-            refreshToken: token
-        }, httpOptions);
+        return this.http.post(
+            this.url + '/refreshtoken',
+            {
+                refreshToken: token,
+            },
+            httpOptions
+        );
     }
 
     logoutBackEnd() {
         try {
-            return this.http.post(this.url + '/logout', {
-                userName: this.tokenService.getCurrentUser(),
-                idUsuario: 0
-            }, httpOptions);
+            return this.http.post(
+                this.url + '/logout',
+                {
+                    userName: this.tokenService.getCurrentUser(),
+                    idUsuario: 0,
+                },
+                httpOptions
+            );
         } catch (e) {
             console.log('Error en logoutBakend, ' + e);
             return of(null);
         }
-
     }
 
     msgCreate() {
-        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Registro creado con éxito'});
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Registro creado con éxito',
+        });
     }
 
     msgUpdate() {
-        this.messageService.add({severity: 'warn', summary: 'Success', detail: 'Registro actualizado con éxito'});
+        this.messageService.add({
+            severity: 'warn',
+            summary: 'Success',
+            detail: 'Registro actualizado con éxito',
+        });
     }
 
     msgDelete() {
-        this.messageService.add({severity: 'error', summary: 'Delete', detail: 'Registro eliminado con éxito'});
+        this.messageService.add({
+            severity: 'error',
+            summary: 'Delete',
+            detail: 'Registro eliminado con éxito',
+        });
     }
 
     msgInfoDetail(severity: string, header: string, content: string) {
-        this.messageService.add({severity, summary: header, detail: content});
+        this.messageService.add({ severity, summary: header, detail: content });
     }
 
     /*******
@@ -126,24 +148,28 @@ export class AppService {
     }
 
     exportExcel(list, nombre) {
-        import('xlsx').then(xlsx => {
+        import('xlsx').then((xlsx) => {
             const currentDate = new Date();
-            const date = formatDate(currentDate, 'yyyy-MM-dd HH:mm:ss', 'en-US');
+            const date = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
             const worksheet = xlsx.utils.json_to_sheet(list);
-            const workbook = {Sheets: {data: worksheet}, SheetNames: ['data']};
-            const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
+            const workbook = {
+                Sheets: { data: worksheet },
+                SheetNames: ['data'],
+            };
+            const excelBuffer: any = xlsx.write(workbook, {
+                bookType: 'xlsx',
+                type: 'array',
+            });
             this.saveAsExcelFile(excelBuffer, nombre + '-' + date);
         });
     }
 
-    saveAsExcelFile(buffer: any, fileName: string):
-        void {
-        const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    saveAsExcelFile(buffer: any, fileName: string): void {
+        const EXCEL_TYPE =
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const EXCEL_EXTENSION = '.xlsx';
-        const data
-            :
-            Blob = new Blob([buffer], {
-            type: EXCEL_TYPE
+        const data: Blob = new Blob([buffer], {
+            type: EXCEL_TYPE,
         });
         FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
     }
@@ -155,10 +181,12 @@ export class AppService {
     getProfile() {
         try {
             this.userLogged = JSON.parse(this.tokenService.getCurrentUser());
-            if (this.userLogged === null && this.tokenService.getToken() === null) {
+            if (
+                this.userLogged === null &&
+                this.tokenService.getToken() === null
+            ) {
                 this.logout();
             }
-
         } catch (error) {
             this.logout();
             throw error;
@@ -240,33 +268,32 @@ export class AppService {
     logout() {
         try {
             this.logoutBackEnd().subscribe({
-                next: data => {
+                next: (data) => {
                     console.log('DATA LogoutBackend: ' + JSON.stringify(data));
                     //clearInterval(this.interval);
                     this.tokenService.setToken(null);
                     this.tokenService.saveRefreshToken(null);
                     this.tokenService.setCurrentUser(null);
                     this.tokenService.setRoles(null);
-                    this.isAuthenticated()
+                    this.isAuthenticated();
 
                     this.userLogged = false;
                     this.isLogged = false;
                     this.tokenService.logOut();
                     //this.cierreSesionExitoso();
-                    console.log('LOG Out /LOGOUT')
+                    console.log('LOG Out /LOGOUT');
                     this.router.navigate(['authentication/login']);
                     this.cierreSesionExitoso();
                 },
-                error: error => {
-                    console.log('ERROR LogoutBackend: ' + JSON.stringify(error));
+                error: (error) => {
+                    console.log(
+                        'ERROR LogoutBackend: ' + JSON.stringify(error)
+                    );
                 },
                 complete: () => {
                     console.log('Complete');
-
-                }
+                },
             });
-
-
         } catch (e) {
             this.router.navigate(['authentication/login']);
         }

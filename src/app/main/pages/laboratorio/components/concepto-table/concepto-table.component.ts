@@ -5,6 +5,7 @@ import {FileService} from "../../../../../_service/utils/file.service";
 import {AppService} from "../../../../../_service/app.service";
 import {ConfirmationService} from "primeng/api";
 import { Table } from "primeng/table";
+import { ConceptoComponent } from '../concepto/concepto.component';
 
 
 @Component({
@@ -24,14 +25,16 @@ export class ConceptosTableComponent implements OnInit {
     submitted: boolean;
     loading: boolean;
 
+
     exportColumns: any[];
 
     cols: any[];
-
+    
 
 
   constructor(
 
+      private conceptocomponent: ConceptoComponent,
       private conceptosService: ConceptoService,
       private fileService: FileService,
       private appservie: AppService,
@@ -209,6 +212,10 @@ export class ConceptosTableComponent implements OnInit {
         } catch (error) {
             this.appservie.msgInfoDetail('error', 'Error', 'Error al descargar el archivo');
         }
+    }
+
+    llamarFuncion() {
+        this.conceptocomponent.abrirmodal();
     }
 
 }

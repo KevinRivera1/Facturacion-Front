@@ -10,11 +10,11 @@ export class FormaPagoDto {
 
     estado:boolean;
 
-    //fechaTxt: string
+    fechaTxt: string
 
-    // formatDate?: string;
+    formatDate?: string;
 
-    constructor(data: FormaPagoDto) {
+  /*   constructor(data: FormaPagoDto) {
         this.idFormaPago = data.idFormaPago;
         this.nombreFp = data.nombreFp;
         this.descripcionFp = data.descripcionFp;
@@ -24,5 +24,5 @@ export class FormaPagoDto {
         this.codigoSri = data.codigoSri;
         this.idUsuarioFp = data.idUsuarioFp;
 
-    }
+    } */
 }

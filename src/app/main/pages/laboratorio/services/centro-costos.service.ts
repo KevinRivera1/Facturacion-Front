@@ -1,39 +1,32 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment'
-import {Observable} from "rxjs";
-import { CentroCostoModel } from '../model/CentroCostos';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CentroCostoModel } from '../model/CentroCosto';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class CentroCostosService {
+    private url = 'http://172.31.203.216:8081/CentroCosto';
 
- 
-  private api= 'http://172.31.203.216:8081/CentroCosto'
+    constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-
-
-    getAll(): Observable<any> {
-        return this.http.get(this.api + '/listarCentroCosto');
+    getAllC(): Observable<any> {
+        return this.http.get(this.url + '/listarCentroCosto');
     }
 
-
-    saveObject(obj): Observable<any> {
-        return this.http.post(this.api +  '/guardarCentroCosto/', obj);
+    saveObjectC(obj): Observable<any> {
+        return this.http.post(this.url + '/guardarCentroCosto/', obj);
     }
 
-
-    deleteObject(key): Observable<any> {
-        return this.http.delete(this.api  + '/eliminarCentroCosto/' + key);
+    deleteObjectC(key): Observable<any> {
+        return this.http.delete(this.url + '/eliminarCentroCosto/' + key);
     }
 
-
-    createCentroCosto (createCentroCosto: CentroCostoModel): Observable<any>{
-        return this.http.post(`${this.api}/guardarCentroCosto`, createCentroCosto);
+    createCentroCostoC(createCentroCosto: CentroCostoModel): Observable<any> {
+        return this.http.post(
+            `${this.url}/guardarCentroCosto`,
+            createCentroCosto
+        );
     }
-
-
 }

@@ -27,7 +27,7 @@ export class AppMenuComponent implements OnInit {
 
     menuItems = [
         {
-            label: 'opciones',
+            label: 'Catalogos',
             items: [
                 {
                     label: 'Forma pago',
@@ -39,10 +39,26 @@ export class AppMenuComponent implements OnInit {
                     icon: 'pi pi-check',
                     routerLink: ['/estadoFact'],
                 },
-                { label: 'Producto 3', icon: 'pi pi-check' },
-                { label: 'Producto 3', icon: 'pi pi-check' },
-                { label: 'Producto 3', icon: 'pi pi-check' },
-                { label: 'Producto 3', icon: 'pi pi-check' },
+                {
+                    label: 'Concepto',
+                    icon: 'pi pi-check',
+                    routerLink: ['/conceptos'],
+                },
+                {
+                    label: 'Tipo Concepto',
+                    icon: 'pi pi-check',
+                    routerLink: ['/tipoConcepto'],
+                },
+                {
+                    label: 'Centro Costo',
+                    icon: 'pi pi-check',
+                    routerLink: ['/centroCostos'],
+                },
+                {
+                    label: 'Punto Factura',
+                    icon: 'pi pi-check',
+                    routerLink: ['/punto-fac'],
+                },
             ],
         },
     ];
@@ -69,11 +85,6 @@ export class AppMenuComponent implements OnInit {
                 label: 'Inicio',
                 icon: 'pi pi-fw pi-download',
                 items: [
-                    {
-                        label: 'Forma pago',
-                        icon: 'pi pi-file',
-                        routerLink: ['/formapago'],
-                    },
                     {
                         label: 'EPN',
                         icon: 'pi pi-fw pi-globe',

@@ -10,7 +10,7 @@
                    ]"
                    responsiveLayout="scroll" [(selection)]="selectedFormaPago"
                    [rowHover]="true" dataKey="idFormaPago"
-                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+                   currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
               <ng-template pTemplate="caption">
                   <div class="flex justify-content-between flex-wrap">
                       <div>
@@ -27,7 +27,7 @@
                                   (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
                       </div>
 
-                      <label class="text-center">Forma Pago</label>
+                      <label class="text-center">LISTADO DE FORMAS DE PAGO</label>
                       <span class="p-input-icon-left ">
             <i class="pi pi-search"></i>
             <input pInputText type="text" class="p-inputtext-sm"
@@ -47,24 +47,25 @@
                           </div>
                       </th>
                       <th pSortableColumn="nombreFp">
-                          <div class="flex justify-content-between align-items-center">Nombre Pago
+                          <div class="flex justify-content-between align-items-center">NOMBRE
                               <p-sortIcon field="nombreFp"></p-sortIcon>
                               <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
                           </div>
                       </th>
-                      <th pSortableColumn="activo">
-                          <div class="flex justify-content-between align-items-center">Estado
-                              <p-sortIcon field="activo"></p-sortIcon>
-                              <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
-                          </div>
-                      </th>
+                     
                       <th pSortableColumn="descripcionFp">
-                          <div class="flex justify-content-between align-items-center">Descripcion
+                          <div class="flex justify-content-between align-items-center">DETALLE
                               <p-sortIcon field="descripcionFp"></p-sortIcon>
                               <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
                           </div>
-                      </th>
-                      <th pSortableColumn="codigoSri">
+                       </th>
+                       <th pSortableColumn="activo">
+                        <div class="flex justify-content-between align-items-center">ESTADO
+                            <p-sortIcon field="activo"></p-sortIcon>
+                            <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+        <!--               <th pSortableColumn="codigoSri">
                         <div class="flex justify-content-between align-items-center">Codigo SRI
                             <p-sortIcon field="codigoSri"></p-sortIcon>
                             <p-columnFilter type="text" field="codigoSri" display="menu"></p-columnFilter>
@@ -75,7 +76,7 @@
                             <p-sortIcon field="codigoSae"></p-sortIcon>
                             <p-columnFilter type="text" field="codigoSae" display="menu"></p-columnFilter>
                         </div>
-                    </th>
+                    </th>  -->
                  <!--    <th pSortableColumn="fechaFp">
                         <div class="flex justify-content-between align-items-center">fechaFp
                             <p-sortIcon field="fechaFp"></p-sortIcon>
@@ -83,7 +84,7 @@
                         </div>
                     </th>
  -->
-                      <th>Acciones</th>
+                      <th>ACCIONES</th>
                   </tr>
 
               </ng-template>
@@ -94,17 +95,17 @@
                       </td>
                       <td>{{rowIndex+1}}</td>
                       <td>{{item.nombreFp}}</td>
-                      <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
-                          ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
                       <td>{{item.descripcionFp}}</td>
-                      <td>{{item.codigoSri}}</td>
-                      <td>{{item.codigoSae}}</td>
+                      <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
+                        ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
+<!--                       <td>{{item.codigoSri}}</td>
+                      <td>{{item.codigoSae}}</td> -->
                       <!-- <td>{{item.fechaFp}}</td> -->
                       
 
                       <td>
                           <button pButton pRipple icon="pi pi-pencil"
-                                  class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item)"
+                                  class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item);llamarFuncion()"
                                   pTooltip="Editar" tooltipPosition="left"   ></button>
                           <button pButton pRipple icon="pi pi-trash"
                                   class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago(item)"
@@ -121,3 +122,4 @@
       </div>
   </div>
 </section>
+
