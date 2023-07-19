@@ -2,12 +2,12 @@
 
 
 <p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="display" [modal]="true"
-[style]="{ width: '45vw' }" [draggable]="true" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+    [style]="{ width: '55vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Registro Concepto</h4>
     </p-header>
     <form [formGroup]="formConceptos">
-        
+
         <form [formGroup]="formConceptos">
             <div class="card no-gutter widget-overview-box widget-overview-box-1">
 
@@ -22,12 +22,19 @@
                 <br>
 
 
-                <div class="p-fluid p-formgrid grid">
+                <!--<div class="p-fluid p-formgrid grid">
+
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreConcepto" type="text" required="true"
-                                formControlName="nombreConcepto">
-                            <label for="ftxt-nombreConcepto">* Nombre</label>
+                            <input  pInputText type="text" style="width: 190px;" required="false">
+                            <label>* Tipo Concepto</label>
+                        </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input  pInputText type="text" style="width: 190px;" required="false">
+                            <label>* Centro de Costos</label>
                         </span>
                     </div>
 
@@ -40,33 +47,117 @@
 
 
                 </div>
+            -->
+
+                <div class="p-fluid p-formgrid grid">
+
+
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreConcepto" type="text" style="width: 400px;" required="true"
+                                formControlName="nombreConcepto">
+                            <label for="ftxt-nombreConcepto">* Nombre</label>
+                        </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"
+                        style=" margin-left: 550px; margin-top: -65px;">
+                        <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                        <span class="p-float-label">
+                            <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
+                        </span>
+                    </div>
+
+                    <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style=" margin-left: 420px; margin-top: -65px;">
+                        <label required="false"  style="color: rgba(0, 0, 0, 0.6);">* Factura</label>
+                        <span class="p-float-label">
+                            <p-inputSwitch formControlName="estadoConcetpto"></p-inputSwitch>
+                        </span>
+                    </div>-->
+
+
+                </div>
+
+                <!--<div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText type="text" required="false">
+                            <label>* Precio sin IVA</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText type="text" style="width: 60px;" required="false">
+                            <label>* IVA</label>
+                        </span>
+                    </div>
+                </div>
+               
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText type="text" required="false" style="width: 190px;">
+                            <label>* Partida</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText type="text" style="width: 190px;" required="false">
+                            <label>* Cuenta</label>
+                        </span>
+                    </div>
+                </div>
+                
 
                 <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-codigoConcepto">* Codigo</label>
                         <span class="p-float-label">
-                            <textarea pInputTextarea rows="4" cols="30" id="ftxt-codigoConcepto" required="true"
-                                formControlName="codigoConcepto"></textarea>
+                            <input pInputText type="text" required="false" style="width: 190px;">
+                            <label>* Secuencial</label>
                         </span>
                     </div>
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Valor</label>
                         <span class="p-float-label">
-                            <textarea pInputTextarea rows="4" cols="30" id="ftxt-valorConcepto" required="true"
-                                formControlName="valorConcepto"></textarea>
+                            <input pInputText type="text" style="width: 190px;" required="false">
+                            <label>* Stock</label>
                         </span>
                     </div>
                 </div>
+                -->
+
                 <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descConcepto">* Detalle</label>
                         <span class="p-float-label">
-                            <textarea pInputTextarea rows="4" cols="30" id="ftxt-descConcepto" required="true"
-                                formControlName="descConcepto"></textarea>
+                            <input pInputText id="ftxt-codigoConcepto" type="text" required="true"
+                                formControlName="codigoConcepto">
+                            <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-codigoConcepto">* Codigo</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-valorConcepto" type="text" required="true"
+                                formControlName="valorConcepto">
+                            <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Valor</label>
                         </span>
                     </div>
                 </div>
+                <!---->
+
                 <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-descConcepto" type="text" style="width: 525px;" required="true"
+                                formControlName="descConcepto">
+                            <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descConcepto">* Detalle</label>
+                        </span>
+                    </div>
+                </div>
+
+
+
+                <!--<div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
                             <input pInputText id="ftxt-fechaConcepto" type="text" dateFormat="yyyy/mm/dd"
@@ -74,15 +165,21 @@
                             <label for="ftxt-fechaConcepto">* Fecha Registro </label>
                         </span>
                     </div>
-                </div>
+                </div>-->
+
+
+
                 <div class="central">
                     <p-toolbar>
                         <div class="p-toolbar-group-center">
-                            <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info"
-                                icon="pi pi-send" type="submit" (click)="guardarConceptos()" pTooltip="Guardar"tooltipPosition="right"></button>
+                            <button pButton label="Guardar"
+                                class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-send"
+                                type="submit" (click)="guardarConceptos()" pTooltip="Guardar"
+                                tooltipPosition="right"></button>
 
-                            <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger"
-                                icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"tooltipPosition="right"></button>
+                            <button pButton label="Cancelar"
+                                class="p-button p-button-lg m-1 p-button-danger cancelar-button" icon="pi pi-times"
+                                (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
 
                         </div>
                     </p-toolbar>
@@ -93,19 +190,19 @@
         </form>
     </form>
 </p-dialog>
-    <p-card>
-        <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
-            <h4>Concepto</h4>
-        </p-header>
-        <div class="caja-boton-principal">
-            <button pButton label="Agregar Concepto" class="p-button p-button-lg m-1 p-button-info bg-blue-900 "icon="pi pi-plus" 
-                pTooltip="Agregar Concepto" tooltipPosition="right" (click)="abrirmodal()"></button>
+<p-card>
+    <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
+        <h4>Concepto</h4>
+    </p-header>
+    <div class="caja-boton-principal">
+        <button pButton label="Agregar Concepto" class="p-button p-button-lg m-1 p-button-info bg-blue-900 "
+            icon="pi pi-plus" pTooltip="Agregar Concepto" tooltipPosition="right" (click)="abrirmodal()"></button>
 
-        </div>
-        <p-divider></p-divider>
-
-        <app-concepto-table [listConceptos]="listConceptos" (conceptosSelect)=setSeleccionado($event)></app-concepto-table>
-    </p-card>
-
-
+    </div>
     <p-divider></p-divider>
+
+    <app-concepto-table [listConceptos]="listConceptos" (conceptosSelect)=setSeleccionado($event)></app-concepto-table>
+</p-card>
+
+
+<p-divider></p-divider>

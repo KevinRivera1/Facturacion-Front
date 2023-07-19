@@ -87,14 +87,18 @@ export class TipoConceptoComponent implements OnInit {
 
 
   setSeleccionado(obj) {
+
       this.tipoConcepto = obj;
       this.formtipoConcepto = this.formBuilder.group(this.tipoConcepto);
       
-      //this.f.fechaTc.setValue(new Date(this.tipoConcepto.fechaTc).toISOString());
-      const fechaISO = new Date(this.tipoConcepto.fechaTc).toISOString();
-      const fechaSinHora = fechaISO.substr(0, 10);
-      this.f.fechaTc.setValue(fechaSinHora);
+      this.f.fechaTc.setValue(new Date(this.tipoConcepto.fechaTc).toISOString());
 
+/* const fecha = new Date(this.tipoConcepto.fechaTc);
+const year = fecha.getFullYear();
+const month = (fecha.getMonth() + 1).toString().padStart(2, '0');
+const day = fecha.getDate().toString().padStart(2, '0');
+const fechaSinHora = `${year}/${month}/${day}`;
+this.f.fechaTc.setValue(fechaSinHora); */
       console.log("EMITI",this.tipoConcepto);
   }
 
@@ -204,6 +208,12 @@ export class TipoConceptoComponent implements OnInit {
   abrirmodal(){
     this.modal = true;
   }
+  cerrar(){
+    this.setearForm();
+    this.modal = false;
+
+}
+
 
 
 

@@ -33,7 +33,7 @@
                         </div>
                         <span class="p-input-icon-left ">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" class="p-inputtext-sm"
+                            <input pInputText type="text" class="p-inputtext-sm uppercase"
                                 (input)="ef.filterGlobal($event.target.value,'equals' ,'contains')"
                                 placeholder="Busqueda General" />
                         </span>
@@ -74,7 +74,7 @@
                             <p-tableCheckbox [value]="item"></p-tableCheckbox>
                         </td>
                         <td>{{rowIndex+1}}</td>
-                        <td> <mark [ngClass]="item.nombreEstadoComp === 'PAGADA'
+                        <td> <mark [ngClass]="item.nombreEstadoComp == 'PAGADA'
                             ?'border-green-500' : 'border-red-500'">{{item.nombreEstadoComp}}</mark></td>
                         <td>{{item.detalleEstadoComp}}</td>
 

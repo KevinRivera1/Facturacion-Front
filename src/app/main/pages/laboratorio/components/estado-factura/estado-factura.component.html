@@ -6,8 +6,10 @@
         (click)=" onDisplayForm()"></button>
 </div>
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [closable]="false" [dismissableMask]="true">
+    <p-header>
+        <h4 class="text-center">Registro Estados Facturas</h4>
+    </p-header>
     <form [formGroup]="formEstadoFact">
-
 
         <div class="button__form text-right my-3">
 
@@ -15,10 +17,7 @@
                 tooltipPosition="top"
                 class="p-button-rounded p-button-danger p-button-text p-button text-right"></button>
         </div>
-        <div class="text-center mb-4">
-            <h4>Registro Estados Facturas</h4>
-            <hr>
-        </div>
+
 
         <div class="central p-fluid p-formgrid grid">
 
@@ -28,13 +27,16 @@
                         <label for="ftxt-nombreTipo">id</label>
                     </span>
                 </div>
-              -->
+            -->
 
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
                         formControlName="nombreEstadoComp" style="text-transform: uppercase;">
                     <label for="ftxt-nombreEstadoComp">* Nombre Estado Factura</label>
+                    <!--- <span class="p-float-label">
+                        <p-inputSwitch id="ftxt-nombreEstadoComp" formControlName="nombreEstadoComp"></p-inputSwitch>
+                    </span> -->
                 </span>
             </div>
 

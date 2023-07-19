@@ -93,9 +93,12 @@ export class CentroCostosComponent implements OnInit {
     setSeleccionado(obj) {
         this.centros = obj;
         this.formCentroCo = this.formBuilder.group(this.centros);
+         this.f.estadoCentroCosto.setValue(this.centros.estadoCentroCosto === 'ACTIVO');
         // this.f.fechaCentroCosto.setValue(
         //     new Date(this.centros.fechaCentroCosto).toLocaleString()
         // );
+        console.log('EMITI', this.centros);
+
     }
 
     async llenarListCentro() {
@@ -167,13 +170,14 @@ export class CentroCostosComponent implements OnInit {
           complete: () => {},
           error: (error) => {},
         });
+        this.modal = false;
       }
       
 
     setearForm() {
         this.formCentroCo.reset();
         this.iniciarForms();
-        this.centros = null;
+       // this.centros = null;
     }
 
     cancelar() {
@@ -184,6 +188,12 @@ export class CentroCostosComponent implements OnInit {
     abrirmodal(){
         this.modal = true;
     }
+    cerrar(){
+        this.setearForm();
+        this.modal = false;
+    
+    }
+    
 }
 
 

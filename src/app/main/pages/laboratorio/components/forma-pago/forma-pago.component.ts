@@ -83,6 +83,8 @@ export class FormaPagoComponent implements OnInit {
     setSeleccionado(obj) {
         this.formapago = obj;
         this.formFormaPago = this.formBuilder.group(this.formapago);
+        this.f.activo.setValue(this.formapago.activo === 'ACTIVO');
+       
        /*  this.f.fechaFp.setValue(
             new Date(this.formapago.fechaFp).toLocaleString()
         ); */
@@ -172,7 +174,7 @@ export class FormaPagoComponent implements OnInit {
     setearForm() {
         this.formFormaPago.reset();
         this.iniciarForms();
-        this.formapago = null;
+      //  this.formapago = null;
     }
 
     cancelar() {

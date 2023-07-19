@@ -57,6 +57,7 @@ export class EstadoFacturaComponent implements OnInit {
         this.formEstadoFact = this.formBuilder.group({
             idEstadoComprobante: new FormControl(null),
             nombreEstadoComp: new FormControl(
+                //true,
                 '',
                 Validators.compose([Validators.required])
             ),
@@ -73,6 +74,7 @@ export class EstadoFacturaComponent implements OnInit {
     setSeleccionado(obj) {
         this.estadoFact = obj;
         this.formEstadoFact = this.formBuilder.group(this.estadoFact);
+        //this.f.nombreEstadoComp.setValue( this.estadoFact.nombreEstadoComp === 'PAGADA');
         console.log('EMITI', this.estadoFact);
     }
 
@@ -116,6 +118,7 @@ export class EstadoFacturaComponent implements OnInit {
             //this.estadoFact.idEstadoComprobante = 1;
 
             if (this.formEstadoFact.value.nombreEstadoComp) {
+                //this.estadoFact.nombreEstadoComp = 'PAGADA';
                 this.estadoFact.nombreEstadoComp =
                     this.estadoFact.nombreEstadoComp;
             } else {
