@@ -113,7 +113,7 @@ export class EstadoFacturaComponent implements OnInit {
         } else {
             this.estadoFact = this.formEstadoFact.value;
 
-            this.estadoFact.nombreEstadoComp = this.f.nombreEstadoComp.value;
+            this.estadoFact.nombreEstadoComp = this.f.nombreEstadoComp.value.toUpperCase();
             this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
             //this.estadoFact.idEstadoComprobante = 1;
 

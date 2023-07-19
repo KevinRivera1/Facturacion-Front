@@ -74,11 +74,17 @@
                             <p-tableCheckbox [value]="item"></p-tableCheckbox>
                         </td>
                         <td>{{rowIndex+1}}</td>
-                        <td> <mark [ngClass]="item.nombreEstadoComp == 'PAGADA'
-                            ?'border-green-500' : 'border-red-500'">{{item.nombreEstadoComp}}</mark></td>
+                        <td>
+                            <mark
+                                [ngClass]="{'border-green-500': item.nombreEstadoComp === 'PAGADA',
+                                            'bg-orange-200': item.nombreEstadoComp === 'PENDIENTE',
+                                            'border-red-500': item.nombreEstadoComp === 'CANCELADA',
+                                            'bg-gray-400': item.nombreEstadoComp !== 'PAGADA' && item.nombreEstadoComp !== 'PENDIENTE' && item.nombreEstadoComp !== 'CANCELADA'}">
+                                {{ item.nombreEstadoComp }}
+                            </mark>
+                        </td>
                         <td>{{item.detalleEstadoComp}}</td>
-
-
+                    
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
