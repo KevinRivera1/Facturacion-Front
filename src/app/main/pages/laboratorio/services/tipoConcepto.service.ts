@@ -8,19 +8,19 @@ import { TipoConceptoModel } from '../model/TipoConcepto';
 })
 export class TipoConceptoService {
 
-  private api= 'http://172.31.203.216:8081/TipoConcepto'
+  private api= 'http://172.31.203.246:8081/Concepto'
 
   constructor(private http: HttpClient) { }
 
 
 
     getAll(): Observable<any> {
-        return this.http.get(this.api + '/listarTipoConcepto');
+        return this.http.get(this.api + '/listarConcepto');
     }
 
 
     saveObject(obj): Observable<any> {
-        return this.http.post(this.api +  '/guardarTipoConcepto/', obj);
+        return this.http.post(this.api +  '/guardarConcepto/', obj);
     }
 
 

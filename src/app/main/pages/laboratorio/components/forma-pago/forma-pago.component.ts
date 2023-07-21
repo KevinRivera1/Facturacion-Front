@@ -174,7 +174,7 @@ export class FormaPagoComponent implements OnInit {
     setearForm() {
         this.formFormaPago.reset();
         this.iniciarForms();
-      //  this.formapago = null;
+        this.formapago = null;
     }
 
     cancelar() {
@@ -183,7 +183,8 @@ export class FormaPagoComponent implements OnInit {
         this.modal = false;
     }
     cerrar(){
-        this.setearForm();
+        this.formFormaPago.reset();
+        this.iniciarForms();
         this.modal = false;
 
     }

@@ -12,7 +12,7 @@ import { FormaPagoModel } from '../model/FormaPago';
 export class FormaPagoService {
 
 
-  private api= 'http://172.31.203.216:8081/FormaPago'
+  private api= 'http://172.31.203.246:8081/pago'
 
   constructor(private http: HttpClient) { }
 
