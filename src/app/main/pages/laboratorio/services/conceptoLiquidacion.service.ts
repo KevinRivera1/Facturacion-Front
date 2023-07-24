@@ -27,8 +27,6 @@ export class ConceptoLiquidacionServiceService {
     }
 
 
-
-
     deleteObject(key): Observable<any> {
         return this.http.delete(this.url + this.endpoint + '/eliminarConceptoLiquidacion/' + key);
     }

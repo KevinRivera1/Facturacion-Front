@@ -2,14 +2,14 @@
 
 
 <p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="display" [modal]="true"
-    [style]="{ width: '55vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+    [style]="{ width: '47vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Registro Concepto</h4>
     </p-header>
     <form [formGroup]="formConceptos">
 
         <form [formGroup]="formConceptos">
-            <div class="card no-gutter widget-overview-box widget-overview-box-1">
+            <div class="">
 
                 <!--        <div class=" flex align-items-left bg-primary-900">
        
@@ -22,32 +22,33 @@
                 <br>
 
 
-                <!--<div class="p-fluid p-formgrid grid">
+                <div class="p-fluid p-formgrid grid">
 
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                     <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
-                            <input  pInputText type="text" style="width: 190px;" required="false">
+                            <input  pInputText type="text" style="width: 400px;" required="false">
                             <label>* Tipo Concepto</label>
                         </span>
-                    </div>
+                    </div>-->
 
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input  pInputText type="text" style="width: 190px;" required="false">
-                            <label>* Centro de Costos</label>
-                        </span>
-                    </div>
-
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"
+                        style=" margin-left: 420px; margin-top: -70px;">
                         <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                         <span class="p-float-label">
                             <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
                         </span>
                     </div>
 
+                    <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                        <span class="p-float-label">
+                            <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
+                        </span>
+                    </div> -->
+
 
                 </div>
-            -->
+           
 
                 <div class="p-fluid p-formgrid grid">
 
@@ -60,85 +61,35 @@
                         </span>
                     </div>
 
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"
-                        style=" margin-left: 550px; margin-top: -65px;">
-                        <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
-                        <span class="p-float-label">
-                            <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
-                        </span>
-                    </div>
-
-                    <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style=" margin-left: 420px; margin-top: -65px;">
-                        <label required="false"  style="color: rgba(0, 0, 0, 0.6);">* NO Factura</label>
-                        <span class="p-float-label">
-                            <p-inputSwitch formControlName="estadoConcetpto"></p-inputSwitch>
-                        </span>
-                    </div>-->
-
 
                 </div>
-
-                <!--<div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText type="text" required="false">
-                            <label>* Valor Concepto</label>
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText type="text" style="width: 60px;" required="false">
-                            <label>* IVA DE LABORATORIO</label>
-                        </span>
-                    </div>
-                </div>
-               
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText type="text" required="false" style="width: 190px;">
-                            <label>* IDPartida</label>
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText type="text" style="width: 190px;" required="false">
-                            <label>* NO Cuenta</label>
-                        </span>
-                    </div>
-                </div>
-                
 
                 <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText type="text" required="false" style="width: 190px;">
-                            <label>* NO Secuencial</label>
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText type="text" style="width: 190px;" required="false">
-                            <label>* NO Stock</label>
-                        </span>
-                    </div>
-                </div>
-                -->
-
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText id="ftxt-codigoConcepto" type="text" required="true"
-                                formControlName="codigoConcepto">
-                            <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-codigoConcepto">* Codigo</label>
-                        </span>
-                    </div>
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
 
                         <span class="p-float-label">
                             <input pInputText id="ftxt-valorConcepto" type="text" required="true"
                                 formControlName="valorConcepto">
                             <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Valor</label>
+                        </span>
+                    </div>
+                    <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText type="text" style="width: 60px;" required="false">
+                            <label>* IVA</label>
+                        </span>
+                    </div>-->
+                </div>
+               
+                
+                
+
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-codigoConcepto" type="text" required="true"
+                                formControlName="codigoConcepto" >
+                            <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-codigoConcepto" >* Codigo</label>
                         </span>
                     </div>
                 </div>

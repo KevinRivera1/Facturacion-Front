@@ -7,11 +7,13 @@ import {BancosComponent} from "../components/bancos/bancos.component";
 import {ConceptoLiquidacionComponent} from "../components/concepto-liquidacion/concepto-liquidacion.component";
 import {CretencionComponent} from "../components/cretencion/cretencion.component";
 import { CentroCostosComponent } from '../components/centro-costos/centro-costos.component';
-import { EstadoFacturaComponent } from '../components/estado-factura/estado-factura.component';
+
 import { FormaPagoComponent } from '../components/forma-pago/forma-pago.component';
 import { ConceptoComponent } from '../components/concepto/concepto.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
 import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
+import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
+
 
 
 export const RUTA_ENTIDAD: Routes = [
@@ -45,8 +47,8 @@ export const RUTA_ENTIDAD: Routes = [
         canActivate: [AuthGuard],
     },
     {
-        path: 'estadoFact',
-        component: EstadoFacturaComponent,
+        path: 'estadoComprobante',
+        component: EstadoComprobanteComponent,
         canActivate: [AuthGuard],
     },
     {

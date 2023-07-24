@@ -24,10 +24,10 @@
                             <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
                                     class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
                                     tooltipPosition="bottom"></button>
-                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                            <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
                                     (click)="deleteSelectedCentroCosto()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
                                     [disabled]="!selectedCentroCostos || !selectedCentroCostos.length"></button>
-                            <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
+                            <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
                                     (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
                         </div>
 
@@ -91,7 +91,8 @@
                         </td>
                         <td>{{rowIndex+1}}</td>
                         <td>{{item.nombreCentroCosto}}</td>
-                     <td>{{item.codCentroCosto}}</td>
+                        <!-- <td>{{item.codCentroCosto}}{{rowIndex+1}}</td> -->
+                        <td>{{item.codCentroCosto}}</td>
                         <td>{{item.descCentroCosto}}</td>
                         <td>  <mark [ngClass]="item.estadoCentroCosto == 'ACTIVO'
                             ? 'border-green-500' : 'border-red-500' ">{{item.estadoCentroCosto}}</mark></td>

@@ -7,7 +7,7 @@ import { TipoConceptoDto } from '../../model/TipoConcepto.dto';
 import { Table } from "primeng/table";
 import { TipoConceptoComponent } from '../tipo-concepto/tipo-concepto.component';
 
-
+      
 @Component({
   selector: 'app-tipo-concepto-table',
   templateUrl: './tipo-concepto-table.component.html',

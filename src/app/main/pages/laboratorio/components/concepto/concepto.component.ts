@@ -62,9 +62,9 @@ export class ConceptoComponent implements OnInit {
                 Validators.compose([Validators.required])
             ),
 
-            //idTipoConcepto: new FormControl(null,),
-            //idIva: new FormControl(null,),
-            //idPartidac: new FormControl(null,),
+            idTipoConcepto: new FormControl(null,),
+            idIva: new FormControl(null,),
+
 
             nombreConcepto: new FormControl(
                 '',
@@ -75,7 +75,6 @@ export class ConceptoComponent implements OnInit {
                 Validators.compose([Validators.required])
             ),
 
-            //idCentroCosto: new FormControl(null,),
 
             valorConcepto: new FormControl(
                 '',
@@ -139,12 +138,10 @@ export class ConceptoComponent implements OnInit {
         } else {
             this.conceptos = this.formConceptos.value;
             this.conceptos.codigoConcepto = this.f.codigoConcepto.value;
-            this.conceptos.idTipoConcepto = 1;
+            this.conceptos.idTipoConcepto = 146;
             this.conceptos.idIva = 1;
-            this.conceptos.idPartidac = 1;
             this.conceptos.nombreConcepto = this.f.nombreConcepto.value;
             this.conceptos.descConcepto = this.f.descConcepto.value;
-            this.conceptos.idCentroCosto = 1;
             this.conceptos.valorConcepto = this.f.valorConcepto.value;
             this.conceptos.fechaConcepto = this.f.fechaConcepto.value;
             this.conceptos.idUsuarioConcepto = 1;

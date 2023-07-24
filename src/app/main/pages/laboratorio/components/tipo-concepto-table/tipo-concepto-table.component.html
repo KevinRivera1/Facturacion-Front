@@ -53,12 +53,12 @@
                 <p-columnFilter type="text" field="nombreTipoConcepto" display="menu"></p-columnFilter>
               </div>
             </th>
-<!--             <th pSortableColumn="estadoTc">
+             <th pSortableColumn="estadoTc">
               <div class="flex justify-content-between align-items-center">Estado
                 <p-sortIcon field="estadoTc"></p-sortIcon>
                 <p-columnFilter type="text" field="estadoTc" display="menu"></p-columnFilter>
               </div>
-            </th> -->
+            </th> 
             <th pSortableColumn="descTipoConcepto">
               <div class="flex justify-content-between align-items-center">Detalle
                 <p-sortIcon field="descTipoConcepto"></p-sortIcon>
@@ -75,12 +75,13 @@
             </td>
             <td>{{ rowIndex + 1 }}</td>
             <td>{{ item.nombreTipoConcepto }}</td>
-<!--             <td>
-              <mark [ngClass]="item.estadoTc == 'ACTIVO' ? 'border-green-500' : 'border-red-500' ">
-                {{ item.estadoTc }}
-              </mark>
-            </td> -->
+           
             <td>{{ item.descTipoConcepto }}</td>
+            <td>
+              <mark [ngClass]="item.estadoTC == 'ACTIVO' ? 'border-green-500' : 'border-red-500' ">
+                {{ item.estadoTC }}
+              </mark>
+            </td> 
             <td>
               <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editConcepto(item); modalfuncion()"

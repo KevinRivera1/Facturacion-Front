@@ -28,27 +28,40 @@
         
             <div class="p-fluid p-formgrid grid">
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-prtidaNc">partidaNc</label>
+                <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-partida">partidaNc</label>
                 <span class="p-float-label">
-                  <textarea pInputTextarea rows="4" cols="30" id="ftxt-prtidaNc" required="true" formControlName="prtidaNc"></textarea>
+                  <textarea pInputTextarea rows="4" cols="30" id="ftxt-partida" required="true" formControlName="partida"></textarea>
                 </span>
               </div>
         
-              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-idUsuarioTc">idUsuarioTc</label>
+               <div class="field col-12 md:col-4">
                 <span class="p-float-label">
-                  <textarea pInputTextarea rows="4" cols="30" id="ftxt-idUsuarioTc" required="true" formControlName="idUsuarioTc"></textarea>
+                  <p-dropdown [options]="listUnidad"
+                  formControlName="idUnidadTc"
+                  placeholder="Select Item"
+                  [virtualScroll]="true"
+                  [(ngModel)]="selectedItemUnidad"
+                  optionLabel="nombreU"
+                  optionValue="idUnidad"
+                  id="ftxt-idUnidadTc"
+
+                  [virtualScrollItemSize]="38"></p-dropdown>
+                <label style="color:  rgba(39, 29, 29, 0.6);" for="ftxt-idUnidadTc">* Impuesto</label>
                 </span>
-              </div>
+            </div> 
+            <!-- <select [(ngModel)]="selectedItemUnidad">
+              <option *ngFor="let option of listUnidad"    [value]="option.idUnidadTc">{{ option.nombreU }}</option>
+            </select> -->
+          
             </div>
         
             <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+              <!-- <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                 <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-idUnidadTc">idUnidadTc</label>
                 <span class="p-float-label">
                   <textarea pInputTextarea rows="4" cols="30" id="ftxt-idUnidadTc" required="true" formControlName="idUnidadTc"></textarea>
                 </span>
-              </div>
+              </div> -->
         
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
@@ -64,9 +77,9 @@
 </div> -->
 
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label for="ftxt-estadoTc" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                <label for="ftxt-estadoTC" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                 <span class="p-float-label">
-                    <p-inputSwitch id="ftxt-estadoTc" formControlName="estadoTc"></p-inputSwitch>
+                    <p-inputSwitch id="ftxt-estadoTC" formControlName="estadoTC"></p-inputSwitch>
                 </span>
             </div>
             </div>

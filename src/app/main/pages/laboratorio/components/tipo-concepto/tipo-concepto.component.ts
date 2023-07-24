@@ -8,6 +8,8 @@ import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { TipoConceptoService } from '../../services/tipoConcepto.service';
 import { severities } from 'src/app/_enums/constDomain';
+import { Unidad } from '../../model/Unidad';
+import {UnidadDto } from '../../model/UnidadDTO';
 
 
 @Component({
@@ -20,17 +22,27 @@ export class TipoConceptoComponent implements OnInit {
 
   @Input() tipoConcepto: TipoConceptoDto;
 
+  
   modal: boolean
 
   proceso: string= 'tipoConcepto';
 
   response: ResponseGenerico
+  
+  selectedItemUnidad : UnidadDto [];
 
   formtipoConcepto: FormGroup
 
   listTipoConcepto: TipoConceptoDto[]= [];
 
   token: TokenDto;
+  cols: any[];
+
+ listUnidad: UnidadDto[]= [];
+
+  Unidad: UnidadDto;
+
+   loading: boolean;
 
   constructor(
       public appService: AppService,
@@ -47,6 +59,8 @@ export class TipoConceptoComponent implements OnInit {
   ngOnInit(): void {
       this.iniciarForms()
       this.llenarListTipoConcepto()
+      this.lista();
+      this.llenarListUnidad()
 
   }
 
@@ -65,18 +79,20 @@ export class TipoConceptoComponent implements OnInit {
     idUnidadTc: number;
     idUsuarioTc: number;
     nombreTipoConcepto: string;
-    prtidaNc: number;
+    partida: number;
     estadoTc: string;
     */
       this.formtipoConcepto= this.formBuilder.group({
         idTipoConcepto: new FormControl(null,),
-        nombreTipoConcepto: new FormControl('', Validators.compose([Validators.required])),
-        descTipoConcepto: new FormControl('', Validators.compose([Validators.required])),
-        /*   estadoTc: new FormControl(true, Validators.compose([Validators.requiredTrue])), */
-        fechaTc: new FormControl(new Date().toLocaleDateString(), Validators.compose([Validators.required])),
-        prtidaNc: new FormControl('', Validators.compose([Validators.required])),
-        idUsuarioTc: new FormControl('', Validators.compose([Validators.required])),
-        idUnidadTc: new FormControl('', Validators.compose([Validators.required])),
+        nombreTipoConcepto: new FormControl(''),
+        descTipoConcepto: new FormControl(''),
+        estadoTC: new FormControl(true, Validators.compose([Validators.requiredTrue])), 
+        fechaTc: new FormControl(new Date().toLocaleDateString()),
+        partida: new FormControl(''),
+        idUsuarioTc: new FormControl(''),
+        idUnidadTc: new FormControl(''),
+       // idUnidad: new FormControl(''),
+        //nombreU: new FormControl(''),
           
 
       });
@@ -85,11 +101,24 @@ export class TipoConceptoComponent implements OnInit {
     //  this.f.idFormaPago.setValue(this.token.id)
   }
 
+  loadData(event) {
+    this.loading = true;
+    setTimeout(() => {
+      this.tipoConceptoService.getAllUn().subscribe(res => {
+        this.listUnidad = res;
+        console.log("LLAMADA");
+        console.log(this.listUnidad);
+        this.loading = false;
+      });
+    }, 1000);
+  }
+
 
   setSeleccionado(obj) {
 
       this.tipoConcepto = obj;
       this.formtipoConcepto = this.formBuilder.group(this.tipoConcepto);
+      this.f.estadoTC.setValue(this.tipoConcepto.estadoTC === 'ACTIVO');
       
       this.f.fechaTc.setValue(new Date(this.tipoConcepto.fechaTc).toISOString());
 
@@ -119,6 +148,23 @@ this.f.fechaTc.setValue(fechaSinHora); */
       })
   }
 
+  
+  async llenarListUnidad(){
+    await this.tipoConceptoService.getAllUn().subscribe({
+        next: data => {
+            this.listUnidad = data.listado
+            console.log("CORRECTO");
+            console.log(this.listUnidad);
+        },
+        complete: () => {
+            this.appService.msgInfoDetail(severities.INFO, 'INFO', 'Datos Cargados exitosamente')
+        },
+        error: error => {
+            this.appService.msgInfoDetail(severities.ERROR, 'ERROR', error.error)
+        }
+    })
+}
+
 
   guardarTipoConcepto(){
 
@@ -136,18 +182,20 @@ this.f.fechaTc.setValue(fechaSinHora); */
         descTipoConcepto
         estadoTc
         fechaTc
-        prtidaNc
+        partida
         idUsuarioTc
         idUnidadTc
           
        */
               this.tipoConcepto= this.formtipoConcepto.value;
-              this.tipoConcepto.idTipoConcepto= this.f.idTipoConcepto.value;
+             // this.tipoConcepto.idTipoConcepto= this.f.idTipoConcepto.value;
               this.tipoConcepto.nombreTipoConcepto= this.f.nombreTipoConcepto.value;
               this.tipoConcepto.descTipoConcepto= this.f.descTipoConcepto.value;
-              this.tipoConcepto.prtidaNc= this.f.prtidaNc.value;
-              this.tipoConcepto.idUsuarioTc=  this.f.idUsuarioTc.value;
+              this.tipoConcepto.partida= this.f.partida.value;
+              this.tipoConcepto.idUsuarioTc= 1;
               this.tipoConcepto.idUnidadTc=  this.f.idUnidadTc.value;
+            //   this.Unidad.nombreU=  this.f.nombreU.value;
+              
 
 
               if(this.tipoConcepto.idTipoConcepto!= null){
@@ -158,12 +206,12 @@ this.f.fechaTc.setValue(fechaSinHora); */
 
               }
 
-          /*if(this.formtipoConcepto.value.estadoTc){
-              this.tipoConcepto.estadoTc= "ACTIVO";
+          if(this.formtipoConcepto.value.estadoTC){
+              this.tipoConcepto.estadoTC= "ACTIVO";
           }else{
-              this.tipoConcepto.estadoTc= "INACTIVO";
-          }*/
-        //  }
+              this.tipoConcepto.estadoTC= "INACTIVO";
+          }
+          
 
           this.tipoConceptoService.saveObject(this.tipoConcepto).subscribe({
               next: (data) => {
@@ -177,6 +225,7 @@ this.f.fechaTc.setValue(fechaSinHora); */
 
                       this.setearForm();
                       this.llenarListTipoConcepto();
+                      
                   }
 
               },
@@ -192,6 +241,24 @@ this.f.fechaTc.setValue(fechaSinHora); */
       this.modal = false;
   }
 
+//   listCatalogoUnidad() {
+//     // Aquí puedes obtener el listado de unidades desde una API o servicio
+//     // Por ahora, lo declaramos aquí como ejemplo
+//     this.selectedItemUnidad = [
+//       {
+//         "idUnidad": 18,
+//         "nombreU": "DEPARTAMENTO DE AUTOMATIZACION Y CONTROL INDUSTRIAL"
+//       },
+//       // Puedes agregar más elementos al listado si es necesario
+//     ];
+//   }
+ lista(){
+    this.cols = [
+        { field: 'idUnidad'},
+        { field: 'nombreU' },
+      
+      ];
+ }
 
   setearForm() {
       this.formtipoConcepto.reset();
@@ -209,12 +276,13 @@ this.f.fechaTc.setValue(fechaSinHora); */
     this.modal = true;
   }
   cerrar(){
-    this.setearForm();
+    this.formtipoConcepto.reset();
+    this.iniciarForms();
     this.modal = false;
 
 }
 
 
-
-
 }
+
+

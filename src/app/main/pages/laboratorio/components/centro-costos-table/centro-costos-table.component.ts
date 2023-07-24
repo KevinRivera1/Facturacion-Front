@@ -43,8 +43,6 @@ export class CentroCostosTableComponent implements OnInit {
         
     }
 
-
-
     ngOnInit(): void {
         this.construirTabla();
     }
@@ -55,7 +53,7 @@ export class CentroCostosTableComponent implements OnInit {
         this.cols = [
             { field: 'idCentroCosto', header: 'Nro.' },
             { field: 'nombreCentroCosto', header: 'NOMBRE.' },
-             { field: 'codCentroCosto', header: 'CODIGO.' },
+            { field: 'codCentroCosto', header: 'CODIGO.' },
             { field: 'descCentroCosto', header: 'DETALLE.' },
             { field: 'estadoCentroCosto', header: 'ESTADO.' },
         ];

@@ -2,31 +2,37 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CentroCostoModel } from '../model/CentroCosto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CentroCostosService {
-    private url = 'http://172.31.203.216:8081/CentroCosto';
+    // private url = 'http://172.31.203.216:8081/CentroCosto';
+
+    url = `${environment.HOST}/`;
+    endpoint: string = 'CentroCosto';
 
     constructor(private http: HttpClient) {}
 
     getAllC(): Observable<any> {
-        return this.http.get(this.url + '/listarCentroCosto');
+        return this.http.get(this.url + this.endpoint + '/listarCentroCosto');
     }
 
     saveObjectC(obj): Observable<any> {
-        return this.http.post(this.url + '/guardarCentroCosto/', obj);
+        return this.http.post(this.url + this.endpoint + '/guardarCentroCosto/', obj);
     }
 
     deleteObjectC(key): Observable<any> {
-        return this.http.delete(this.url + '/eliminarCentroCosto/' + key);
+        return this.http.delete(this.url + this.endpoint + '/eliminarCentroCosto/' + key);
     }
 
     createCentroCostoC(createCentroCosto: CentroCostoModel): Observable<any> {
         return this.http.post(
-            `${this.url}/guardarCentroCosto`,
+            `${this.url + this.endpoint}/guardarCentroCosto`,
             createCentroCosto
         );
     }
+
+    
 }

@@ -163,7 +163,8 @@ export class PuntoFacturacionComponent implements OnInit {
     }
 
     cerrar(){
-        this.setearForm();
+        this.formPunto.reset();
+        this.iniciarForms();
         this.modal = false;
     
     }

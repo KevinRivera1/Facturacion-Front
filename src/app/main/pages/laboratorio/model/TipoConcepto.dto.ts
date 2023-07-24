@@ -7,8 +7,8 @@ export class TipoConceptoDto {
   idUnidadTc: number;
   idUsuarioTc: number;
   fechaTc: Date;
-  prtidaNc: number;
-    //estadoTc: string;
+  partida: number;
+  estadoTC: string;
   
 
    
@@ -22,8 +22,8 @@ export class TipoConceptoDto {
       this.idUnidadTc = data.idUnidadTc;
       this.idUsuarioTc = data.idUsuarioTc;
       this.nombreTipoConcepto = data.nombreTipoConcepto;
-      this.prtidaNc = data.prtidaNc;
-      //this.estadoTc = data.estadoTc;
+      this.partida = data.partida;
+      this.estadoTC = data.estadoTC;
     }
   }
   

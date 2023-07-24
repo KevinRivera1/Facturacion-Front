@@ -1,33 +1,32 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
+    FormGroup,
     FormBuilder,
     FormControl,
-    FormGroup,
     Validators,
 } from '@angular/forms';
-import { ResponseGenerico } from '../../../../../_dto/response-generico';
-import { EstadoFacturaDto } from '../../model/EstadoFacturaDto';
+import { ResponseGenerico } from 'src/app/_dto/response-generico';
+import { TokenDto } from 'src/app/_dto/token-dto';
+import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
-
-import { TokenDto } from 'src/app/_dto/token-dto';
-import { severities } from 'src/app/_enums/constDomain';
-import { EstadoFacturaService } from '../../services/estadoFactura.service';
+import { EstadoComprobanteDto } from '../../model/EstadoComprobanteDto';
+import { EstadoComprobanteService } from '../../services/estadoComprobante.service';
 
 @Component({
-    selector: 'app-estado-factura',
-    templateUrl: './estado-factura.component.html',
-    styleUrls: ['./estado-factura.component.scss'],
+    selector: 'app-estado-comprobante',
+    templateUrl: './estado-comprobante.component.html',
+    styleUrls: ['./estado-comprobante.component.scss'],
 })
-export class EstadoFacturaComponent implements OnInit {
+export class EstadoComprobanteComponent implements OnInit {
     proceso: string = 'estadosFact';
     @Input() display: boolean;
-    @Input() estadoFact: EstadoFacturaDto;
+    @Input() estadoFact: EstadoComprobanteDto;
 
     formEstadoFact: FormGroup;
 
-    listEstadoFact: EstadoFacturaDto[] = [];
+    listEstadoFact: EstadoComprobanteDto[] = [];
 
     response: ResponseGenerico;
 
@@ -39,7 +38,7 @@ export class EstadoFacturaComponent implements OnInit {
         private tokenService: TokenService,
         private breadcrumbService: BreadcrumbService,
 
-        private estadoFacteService: EstadoFacturaService
+        private estadoComprobanteService: EstadoComprobanteService
     ) {
         this.breadcrumbService.setItems([{ label: 'Estado Factura' }]);
     }
@@ -65,6 +64,10 @@ export class EstadoFacturaComponent implements OnInit {
                 '',
                 Validators.compose([Validators.required])
             ),
+            estadoCompr: new FormControl(
+                true,
+                Validators.compose([Validators.required])
+            ),
         });
 
         this.token = JSON.parse(this.tokenService.getResponseAuth());
@@ -74,12 +77,14 @@ export class EstadoFacturaComponent implements OnInit {
     setSeleccionado(obj) {
         this.estadoFact = obj;
         this.formEstadoFact = this.formBuilder.group(this.estadoFact);
-        //this.f.nombreEstadoComp.setValue( this.estadoFact.nombreEstadoComp === 'PAGADA');
+
+        this.f.estadoCompr.setValue(this.estadoFact.estadoCompr === 'ACTIVO');
+
         console.log('EMITI', this.estadoFact);
     }
 
     async llenarListEstadoFact() {
-        await this.estadoFacteService.getAll().subscribe({
+        await this.estadoComprobanteService.getAll().subscribe({
             next: (data) => {
                 this.listEstadoFact = data.listado;
                 console.log('CORRECTO');
@@ -113,7 +118,8 @@ export class EstadoFacturaComponent implements OnInit {
         } else {
             this.estadoFact = this.formEstadoFact.value;
 
-            this.estadoFact.nombreEstadoComp = this.f.nombreEstadoComp.value.toUpperCase();
+            this.estadoFact.nombreEstadoComp =
+                this.f.nombreEstadoComp.value.toUpperCase();
             this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
             //this.estadoFact.idEstadoComprobante = 1;
 
@@ -125,24 +131,32 @@ export class EstadoFacturaComponent implements OnInit {
                 this.estadoFact.nombreEstadoComp = 'PENDIENTE';
             }
 
-            this.estadoFacteService.saveObject(this.estadoFact).subscribe({
-                next: (data) => {
-                    this.response = data;
-                    if (this.response.codigoRespuestaValue == 200) {
-                        if (!this.estadoFact.idEstadoComprobante) {
-                            this.appService.msgCreate();
-                            this.display = false;
-                        } else {
-                            this.appService.msgUpdate();
-                            this.display = false;
+            if (this.formEstadoFact.value.estadoCompr) {
+                this.estadoFact.estadoCompr = 'ACTIVO';
+            } else {
+                this.estadoFact.estadoCompr = 'INACTIVO';
+            }
+
+            this.estadoComprobanteService
+                .saveObject(this.estadoFact)
+                .subscribe({
+                    next: (data) => {
+                        this.response = data;
+                        if (this.response.codigoRespuestaValue == 200) {
+                            if (!this.estadoFact.idEstadoComprobante) {
+                                this.appService.msgCreate();
+                                this.display = false;
+                            } else {
+                                this.appService.msgUpdate();
+                                this.display = false;
+                            }
+                            this.setearForm();
+                            this.llenarListEstadoFact();
                         }
-                        this.setearForm();
-                        this.llenarListEstadoFact();
-                    }
-                },
-                complete: () => {},
-                error: (error) => {},
-            });
+                    },
+                    complete: () => {},
+                    error: (error) => {},
+                });
         }
     }
 
@@ -160,5 +174,6 @@ export class EstadoFacturaComponent implements OnInit {
 
     onDisplayForm() {
         this.display = true;
+        console.log('abriendo modal');
     }
 }

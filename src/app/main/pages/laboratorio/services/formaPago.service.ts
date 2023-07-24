@@ -5,36 +5,31 @@ import { map } from 'rxjs/operators';
 import { BancosModel } from "../model/Bancos";
 import {BancoDto } from "../model/Bancos.dto";
 import { FormaPagoModel } from '../model/FormaPago';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormaPagoService {
-
-
-  private api= 'http://172.31.203.246:8081/pago'
-
+ 
   constructor(private http: HttpClient) { }
-
-
+  endpoint: string = 'FormaPago';
+  url = `${environment.HOST}/`;
 
     getAll(): Observable<any> {
-        return this.http.get(this.api + '/listaFormaPago');
+        return this.http.get(this.url + this.endpoint + '/listaFormaPago');
     }
-
 
     saveObject(obj): Observable<any> {
-        return this.http.post(this.api +  '/guardarFormaPago/', obj);
+        return this.http.post(this.url + this.endpoint + '/guardarFormaPago/', obj);
     }
-
 
     deleteObject(key): Observable<any> {
-        return this.http.delete(this.api  + '/eliminarFormaPago/' + key);
+        return this.http.delete(this.url + this.endpoint +'/eliminarFormaPago/' + key);
     }
 
-
     createBanco(createFormaPago: FormaPagoModel): Observable<any>{
-        return this.http.post(`${this.api}/guardarFormaPago`, createFormaPago);
+        return this.http.post(`${this.url + this.endpoint}/guardarFormaPago`, createFormaPago);
     }
 
   }

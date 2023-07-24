@@ -35,9 +35,9 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/formapago'],
                 },
                 {
-                    label: 'Estado Factura',
+                    label: 'Estado Comprobante',
                     icon: 'pi pi-check',
-                    routerLink: ['/estadoFact'],
+                    routerLink: ['/estadoComprobante'],
                 },
                 {
                     label: 'Concepto',

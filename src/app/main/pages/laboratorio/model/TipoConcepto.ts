@@ -7,7 +7,7 @@ export interface TipoConceptoModel {
       "nombreTipoConcepto": "string",
       "descTipoConcepto": "string",
       "idUnidadTc": 0,
-      "prtidaNc": 0,
+      "partida": 0,
       "fechaTc": 1689264671079,
       "idUsuarioTc": 0
   
@@ -20,7 +20,7 @@ export interface TipoConcepto {
     idUnidadTc: number;
     idUsuarioTc: number;
     nombreTipoConcepto: string;
-    prtidaNc: number;
-    //estadoTc: string;
+    partida: number;
+    estadoTC: string;
 }
 

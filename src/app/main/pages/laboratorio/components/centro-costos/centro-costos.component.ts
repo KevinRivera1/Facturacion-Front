@@ -38,12 +38,16 @@ export class CentroCostosComponent implements OnInit {
 
     token: TokenDto;
 
+    
+    private contadorCentroCosto: number = 1;
+
     constructor(
         public appService: AppService,
         private formBuilder: FormBuilder,
         private tokenService: TokenService,
         private breadcrumbService: BreadcrumbService,
         private CentroCostosService: CentroCostosService
+        
     ) {
         this.breadcrumbService.setItems([{ label: 'Centro Costos' }]);
     }
@@ -51,13 +55,13 @@ export class CentroCostosComponent implements OnInit {
     ngOnInit(): void {
         this.iniciarForms();
         this.llenarListCentro();
+
+        
     }
 
     iniciarForms() {
         this.formCentroCo = this.formBuilder.group({
             idCentroCosto: new FormControl(null),
-
-            codCentroCosto: new FormControl(null),
 
             // codCentroCosto: new FormControl(
             //     '',
@@ -127,41 +131,60 @@ export class CentroCostosComponent implements OnInit {
 
     guardarCentro() {
         if (this.formCentroCo.invalid) {
-          this.appService.msgInfoDetail(
-            'warn',
-            'Verificación',
-            'Verificar los Datos a Ingresar'
-          );
-          return;
-        }
-      
-        this.centros = this.formCentroCo.value;
-        this.centros.nombreCentroCosto = this.f.nombreCentroCosto.value;
-        // this.centros.codCentroCosto = this.f.codCentroCosto.value;
-        this.centros.descCentroCosto = this.f.descCentroCosto.value;
-        this.centros.idUsuarioCentroCosto = 1;
-        this.centros.codCentroCosto = "Null";
-
-
-        if (this.centros.idCentroCosto) {
-          this.centros.fechaCentroCosto = new Date(this.centros.fechaCentroCosto);
-        } else {
-          this.centros.fechaCentroCosto = new Date();
-        }
-      
-        this.centros.estadoCentroCosto = this.formCentroCo.value.estadoCentroCosto ? 'ACTIVO' : 'INACTIVO';
-      
-        this.CentroCostosService.saveObjectC(this.centros).subscribe({
-          next: (data) => {
-            this.response = data;
-            console.log(this.response);
-            if (this.response.codigoRespuestaValue == 200) {
-              if (!this.centros.idCentroCosto) {
-                this.appService.msgCreate();
-              } else {
-                this.appService.msgUpdate();
-                console.log(this.response)
-              }
+            this.appService.msgInfoDetail(
+              'warn',
+              'Verificación',
+              'Verificar los Datos a Ingresar'
+            );
+            return;
+          }
+        
+          this.centros = this.formCentroCo.value;
+          this.centros.nombreCentroCosto = this.f.nombreCentroCosto.value;
+        
+          // Si es un nuevo centro de costo y el código no ha sido proporcionado,
+          // entonces verifica si el código ya existe en la base de datos.
+          if (!this.centros.idCentroCosto && !this.centros.codCentroCosto) {
+            const nuevoCodigo = `SC-${this.contadorCentroCosto.toString().padStart(4, '0')}`;
+            
+            // Verifica si el nuevo código ya existe en la lista de centros de costo cargada.
+            if (this.listCentrosCo.some(centro => centro.codCentroCosto === nuevoCodigo)) {
+              this.appService.msgInfoDetail(
+                'warn',
+                'Código Existente',
+                'El código ya existe en la base de datos. Por favor, inténtelo nuevamente.'
+              );
+              return;
+            }
+            
+            // Si el código no existe en la lista, procede a guardarlo en el centro de costo.
+            this.centros.codCentroCosto = nuevoCodigo;
+            this.contadorCentroCosto++; // Incrementar el contador para la siguiente secuencia
+          }
+        
+          this.centros.descCentroCosto = this.f.descCentroCosto.value;
+          this.centros.idUsuarioCentroCosto = 1;
+        
+          if (this.centros.idCentroCosto) {
+            this.centros.fechaCentroCosto = new Date(this.centros.fechaCentroCosto);
+          } else {
+            this.centros.fechaCentroCosto = new Date();
+          }
+        
+          this.centros.estadoCentroCosto = this.formCentroCo.value.estadoCentroCosto ? 'ACTIVO' : 'INACTIVO';
+        
+          this.CentroCostosService.saveObjectC(this.centros).subscribe({
+            next: (data) => {
+              this.response = data;
+              console.log(this.response);
+              if (this.response.codigoRespuestaValue == 200) {
+                if (!this.centros.idCentroCosto) {
+                  this.appService.msgCreate();
+                } else {
+                  this.appService.msgUpdate();
+                  console.log(this.response)
+                }
+        
       
               this.setearForm();
               this.llenarListCentro();
@@ -174,12 +197,19 @@ export class CentroCostosComponent implements OnInit {
       }
       
 
-    setearForm() {
+   
+   
+   
+   
+      setearForm() {
         this.formCentroCo.reset();
         this.iniciarForms();
        // this.centros = null;
     }
 
+
+
+    
     cancelar() {
         this.setearForm();
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada');

@@ -25,11 +25,11 @@
                                 pTooltip="Eliminar Seleccionados" tooltipPosition="bottom"
                                 [disabled]="!selectedEstados || !selectedEstados.length"></button>
                             <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
-                                icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
+                                icon="pi pi-filter-slash" (click)="Clear(ef)" pTooltip="Quitar Filtros"
                                 tooltipPosition="right"></button>
                         </div>
                         <div class="flex flex-wrap align-items-center align-items-center select-none">
-                            <label class="text-center font-semibold">Listado Estado Facturas</label>
+                            <label class="text-center font-semibold">Listado Estado Comprobantes</label>
                         </div>
                         <span class="p-input-icon-left ">
                             <i class="pi pi-search"></i>
@@ -63,6 +63,12 @@
                                 <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
                             </div>
                         </th>
+                        <th pSortableColumn="estadoCompr">
+                            <div class="flex justify-content-between align-items-center">Estado
+                                <p-sortIcon field="estadoCompr"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoCompr" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
 
                         <th>Acciones</th>
                     </tr>
@@ -84,7 +90,9 @@
                             </mark>
                         </td>
                         <td>{{item.detalleEstadoComp}}</td>
-                    
+                        <td> <mark [ngClass]="item.estadoCompr== 'ACTIVO'
+                            ? 'border-green-500' : 'border-red-500' ">{{item.estadoCompr}}</mark></td>
+
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
@@ -94,7 +102,7 @@
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger p-button-text p-button-sm"
                                 (click)="deleteEstadoFact(item)" pTooltip="Eliminar" tooltipPosition="left"
-                                *ngIf="item.nombreEstadoComp ==='PAGADA'"></button>
+                                ></button>
                         </td>
                     </tr>
                 </ng-template>

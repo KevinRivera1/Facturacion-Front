@@ -1,33 +1,26 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
-} from '@angular/core';
-import { EstadoFacturaDto } from '../../model/EstadoFacturaDto';
-
-import { FileService } from '../../../../../_service/utils/file.service';
-import { AppService } from '../../../../../_service/app.service';
-import { ConfirmationService } from 'primeng/api';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Table } from 'primeng/table';
-import { EstadoFacturaService } from '../../services/estadoFactura.service';
-import { EstadoFacturaComponent } from '../estado-factura/estado-factura.component';
+import { EstadoComprobanteDto } from '../../model/EstadoComprobanteDto';
+
+import { EstadoComprobanteService } from '../../services/estadoComprobante.service';
+import { ConfirmationService } from 'primeng/api';
+import { AppService } from 'src/app/_service/app.service';
+import { FileService } from 'src/app/_service/utils/file.service';
+import { EstadoComprobanteComponent } from '../estado-comprobante/estado-comprobante.component';
 
 @Component({
-    selector: 'app-estado-factura-table',
-    templateUrl: './estado-factura-table.component.html',
-    styleUrls: ['./estado-factura-table.component.scss'],
+    selector: 'app-estado-comprobante-table',
+    templateUrl: './estado-comprobante-table.component.html',
+    styleUrls: ['./estado-comprobante-table.component.scss'],
 })
-export class EstadoFacturaTableComponent implements OnInit {
+export class EstadoComprobanteTableComponent implements OnInit {
     proceso: string = 'estadosFact';
-    @Input() listestadoFact: EstadoFacturaDto[] = [];
+    @Input() listestadoFact: EstadoComprobanteDto[] = [];
     @Output() estadoFactSelect = new EventEmitter();
 
-    estadoFact: EstadoFacturaDto;
+    estadoFact: EstadoComprobanteDto;
 
-    selectedEstados: EstadoFacturaDto[] = [];
+    selectedEstados: EstadoComprobanteDto[] = [];
     submitted: boolean;
     loading: boolean;
 
@@ -36,8 +29,8 @@ export class EstadoFacturaTableComponent implements OnInit {
     cols: any[];
 
     constructor(
-        private modalForm: EstadoFacturaComponent,
-        private estadoFacturaService: EstadoFacturaService,
+        private modalForm: EstadoComprobanteComponent,
+        private estadoComprobanteService: EstadoComprobanteService,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService
@@ -60,14 +53,15 @@ export class EstadoFacturaTableComponent implements OnInit {
         this.loading = false;
     }
 
-    clear(table: Table) {
+    Clear(table: Table) {
         table.clear();
+        console.log('limpiando tabla');
     }
 
     loadData(event) {
         this.loading = true;
         setTimeout(() => {
-            this.estadoFacturaService.getAll().subscribe((res) => {
+            this.estadoComprobanteService.getAll().subscribe((res) => {
                 this.listestadoFact = res;
                 console.log('LLAMADA');
                 console.log(this.listestadoFact);
@@ -78,7 +72,7 @@ export class EstadoFacturaTableComponent implements OnInit {
 
     registrarNuevo() {
         // @ts-ignore
-        this.estadoFact = new EstadoFacturaDto();
+        this.estadoFact = new estadoComprobanteDto();
         this.submitted = false;
     }
 
@@ -102,13 +96,13 @@ export class EstadoFacturaTableComponent implements OnInit {
     eliminarEstadoFactSelected() {
         let indexLista: number = 0;
         for (let i = 0; i < this.selectedEstados.length; i++) {
-            this.estadoFacturaService
+            this.estadoComprobanteService
                 .deleteObject(this.selectedEstados[i].idEstadoComprobante)
                 .subscribe((data) => {
                     indexLista++;
 
                     if (indexLista == this.selectedEstados.length) {
-                        this.estadoFacturaService.getAll().subscribe({
+                        this.estadoComprobanteService.getAll().subscribe({
                             next: (data) => {
                                 this.listestadoFact = data.listado;
                             },
@@ -124,7 +118,7 @@ export class EstadoFacturaTableComponent implements OnInit {
         }
     }
 
-    editEstadoFact(doc: EstadoFacturaDto) {
+    editEstadoFact(doc: EstadoComprobanteDto) {
         this.estadoFact = { ...doc };
 
         /*if (doc.nombreEstadoComp == 'GENERADO') {
@@ -139,7 +133,7 @@ export class EstadoFacturaTableComponent implements OnInit {
         this.modalForm.onDisplayForm();
     }
 
-    deleteEstadoFact(doc: EstadoFacturaDto) {
+    deleteEstadoFact(doc: EstadoComprobanteDto) {
         this.confirmationService.confirm({
             acceptLabel: 'Aceptar',
             rejectLabel: 'Cancelar',
@@ -156,12 +150,12 @@ export class EstadoFacturaTableComponent implements OnInit {
         });
     }
 
-    async eliminarEstadofactSimple(doc: EstadoFacturaDto) {
-        this.estadoFacturaService
+    async eliminarEstadofactSimple(doc: EstadoComprobanteDto) {
+        this.estadoComprobanteService
             .deleteObject(doc.idEstadoComprobante)
             .subscribe((data) => {
                 this.appservie.msgDelete();
-                this.estadoFacturaService.getAll().subscribe({
+                this.estadoComprobanteService.getAll().subscribe({
                     next: (data) => {
                         this.listestadoFact = data.listado;
                     },
