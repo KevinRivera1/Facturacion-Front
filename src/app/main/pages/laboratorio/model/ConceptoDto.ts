@@ -1,12 +1,16 @@
+//import { JsonProperty } from 'json-typescript-mapper';
+
+
 export class ConceptoDto{
 
     idConcepto: number;
     nombreConcepto: string;
     codigoConcepto: number;
-    idTipoConcepto: number;
+    //@JsonProperty('idTipoConcepto')
+    idTipoConceptoDto: number;
     idIva: number;
     descConcepto: string;
-    valorConcepto: number;
+    valorConcepto: number;//
     estadoConcetpto: string;
     fechaConcepto:Date;
     idUsuarioConcepto: number;
@@ -19,7 +23,7 @@ export class ConceptoDto{
     constructor(data: ConceptoDto) {
         this.idConcepto = data.idConcepto;
         this.codigoConcepto = data.codigoConcepto;
-        this.idTipoConcepto = data.idTipoConcepto;
+        this.idTipoConceptoDto = data.idTipoConceptoDto;
         this.idIva = data.idIva;
         this.nombreConcepto = data.nombreConcepto;
         this.descConcepto = data.descConcepto;

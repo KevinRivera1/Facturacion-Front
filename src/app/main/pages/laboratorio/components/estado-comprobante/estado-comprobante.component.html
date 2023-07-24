@@ -19,40 +19,28 @@
         </div>
 
 
-        <div class="central p-fluid p-formgrid grid">
-
-            <!--    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+        <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                     <span class="p-float-label">
-                        <input pInputText id="ftxt-nombreTipo" type="text" required="true" formControlName="idEstdo">
-                        <label for="ftxt-nombreTipo">id</label>
+                        <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                            formControlName="nombreEstadoComp" style="text-transform: uppercase;">
+                        <label for="ftxt-nombreEstadoComp">* Nombre Estado Factura</label>
                     </span>
                 </div>
-            -->
 
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
-                        formControlName="nombreEstadoComp" style="text-transform: uppercase;">
-                    <label for="ftxt-nombreEstadoComp">* Nombre Estado Factura</label>
-                </span>
-            </div>
-
-
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <input pInputText id="ftxt-detalleEstadoComp" type="text" required="true"
-                        formControlName="detalleEstadoComp">
-                    <label for="ftxt-detalleEstadoComp">* Detalle Estado Factura</label>
-                </span>
-            </div>
-
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label for="ftxt-estadoCompr">* Estado</label>
-                <span class="p-float-label">
-                    <p-inputSwitch id="ftxt-estadoCompr" formControlName="estadoCompr"></p-inputSwitch>
-                </span>
-            </div>
-
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <label for="ftxt-estadoCompr">* Estado</label>
+                    <span class="p-float-label">
+                        <p-inputSwitch id="ftxt-estadoCompr" formControlName="estadoCompr"></p-inputSwitch>
+                    </span>
+                </div>
+        </div>
+        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <textarea  pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
+                    formControlName="detalleEstadoComp" style="resize: none;"></textarea>
+                <label for="ftxt-detalleEstadoComp">* Detalle Estado Factura</label>
+            </span>
         </div>
         <div class="central">
             <p-toolbar>

@@ -11,25 +11,34 @@ import { environment } from 'src/environments/environment';
 })
 export class EstadoComprobanteService {
     //private api = 'http://172.31.203.216:8081/EstadoComprobantes';
-    
-    private api =`${environment.HOST}/`
-    endpoint: string = 'EstadoComprobantes'
+
+    private api = `${environment.HOST}/`;
+    endpoint: string = 'EstadoComprobantes';
 
     constructor(private http: HttpClient) {}
 
     getAll(): Observable<any> {
-        return this.http.get(this.api + this.endpoint + '/listarEstComprobante');
+        return this.http.get(
+            this.api + this.endpoint + '/listarEstComprobante'
+        );
     }
 
     saveObject(obj): Observable<any> {
-        return this.http.post(this.api + this.endpoint + '/guardarEstComprobante/', obj);
+        return this.http.post(
+            this.api + this.endpoint + '/guardarEstComprobante/',
+            obj
+        );
     }
 
     deleteObject(key): Observable<any> {
-        return this.http.delete(this.api + this.endpoint + '/eliminarEstComprobante/' + key);
+        return this.http.delete(
+            this.api + this.endpoint + '/eliminarEstComprobante/' + key
+        );
     }
 
-    createEstadoComp(createEstaComprobante: EstadoComprobanteModel): Observable<any> {
+    createEstadoComp(
+        createEstaComprobante: EstadoComprobanteModel
+    ): Observable<any> {
         return this.http.post(
             `${this.api}/guardarEstComprobante`,
             createEstaComprobante

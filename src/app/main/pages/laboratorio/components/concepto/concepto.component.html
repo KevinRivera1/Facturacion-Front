@@ -24,15 +24,25 @@
 
                 <div class="p-fluid p-formgrid grid">
 
-                     <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input  pInputText type="text" style="width: 400px;" required="false">
-                            <label>* Tipo Concepto</label>
-                        </span>
-                    </div>-->
+                    <div class="col-12">
+             
+                        <p-dropdown [options]="listTc"
+                        formControlName="idTipoConceptoDto"
+                        placeholder="Select Item"
+                        [virtualScroll]="true"
+                        [(ngModel)]="selectedTc"
+                        optionLabel="nombreTipoConcepto"
+                        optionValue="idTipoConcepto"
+                        id="ftxt-idTipoConceptoDto"
+                        [virtualScrollItemSize]="38"  placeholder="Selecciona una de las opciones  ">
+                        
+                      </p-dropdown>
+                      
+                   
+                  </div>  
 
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"
-                        style=" margin-left: 420px; margin-top: -70px;">
+                        style=" margin-left: 420px; margin-top: -10px;">
                         <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                         <span class="p-float-label">
                             <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
@@ -73,12 +83,24 @@
                             <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Valor</label>
                         </span>
                     </div>
-                    <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText type="text" style="width: 60px;" required="false">
-                            <label>* IVA</label>
-                        </span>
-                    </div>-->
+
+                    <div class="col-12">
+             
+                        <p-dropdown [options]="listIva"
+                        formControlName="idIva"
+                        placeholder="Select Item"
+                        [virtualScroll]="true"
+                        [(ngModel)]="selectedIva"
+                        optionLabel="nombreIva"
+                        optionValue="idIva"
+                        id="ftxt-idIva"
+                        [virtualScrollItemSize]="38"  placeholder="Selecciona una de las opciones  " 
+                        >
+                        
+                      </p-dropdown>
+                      
+                   
+                  </div>  
                 </div>
                
                 

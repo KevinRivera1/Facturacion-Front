@@ -13,6 +13,8 @@ import { BreadcrumbService } from '../../../../../_service/utils/app.breadcrumb.
 import { severities } from '../../../../../_enums/constDomain';
 import { ConceptoDto } from '../../model/ConceptoDto';
 import { ConceptoService } from '../../services/concepto.service';
+import { IvaDto } from '../../model/IvaDto copy';
+import { ConceptoTcDto } from '../../model/ConceptoTc.Dto';
 
 @Component({
     selector: 'app-concepto',
@@ -34,6 +36,18 @@ export class ConceptoComponent implements OnInit {
 
     token: TokenDto;
 
+    @Input() listIva: IvaDto[];
+
+    loading: boolean;
+
+    cols: any[];
+
+    selectedIva: IvaDto[];
+
+    @Input() listTc: ConceptoTcDto[];
+
+    selectedTc: ConceptoTcDto[];
+
     constructor(
         public appService: AppService,
         private formBuilder: FormBuilder,
@@ -48,6 +62,8 @@ export class ConceptoComponent implements OnInit {
     ngOnInit(): void {
         this.iniciarForms();
         this.llenarListConceptos();
+        this.llenarListIva();
+        this.llenarListTc();
     }
 
     get f() {
@@ -57,37 +73,17 @@ export class ConceptoComponent implements OnInit {
     iniciarForms() {
         this.formConceptos = this.formBuilder.group({
             idConcepto: new FormControl(null),
-            codigoConcepto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-
-            idTipoConcepto: new FormControl(null,),
-            idIva: new FormControl(null,),
-
-
-            nombreConcepto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            descConcepto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-
-
-            valorConcepto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            estadoConcetpto: new FormControl(
-                true,
-                Validators.compose([Validators.requiredTrue])
-            ),
-            fechaConcepto: new FormControl(
+            codigoConcepto: new FormControl('',Validators.compose([Validators.required])),
+            idTipoConceptoDto: new FormControl('',Validators.compose([Validators.required])),
+            idIva: new FormControl('',Validators.compose([Validators.required])),
+            nombreConcepto: new FormControl('',Validators.compose([Validators.required])),
+            descConcepto: new FormControl('',Validators.compose([Validators.required])),
+            valorConcepto: new FormControl('',Validators.compose([Validators.required])),
+            estadoConcetpto: new FormControl(true,Validators.compose([Validators.requiredTrue])),
+       /*      fechaConcepto: new FormControl(
                 new Date().toLocaleDateString(),
                 Validators.compose([Validators.required])
-            ),
+            ), */
         });
 
         this.token = JSON.parse(this.tokenService.getResponseAuth());
@@ -96,11 +92,37 @@ export class ConceptoComponent implements OnInit {
     setSeleccionado(obj) {
         this.conceptos = obj;
         this.formConceptos = this.formBuilder.group(this.conceptos);
-        this.f.estadoConcetpto.setValue(this.conceptos.estadoConcetpto === 'ACTIVO');
+        this.f.estadoConcetpto.setValue(
+            this.conceptos.estadoConcetpto === 'ACTIVO'
+        );
         this.f.fechaConcepto.setValue(
             new Date(this.conceptos.fechaConcepto).toLocaleString()
         );
         console.log('EMITI', this.conceptos);
+    }
+
+    loadData(event) {
+        this.loading = true;
+        setTimeout(() => {
+            this.conceptosService.getIva().subscribe((res) => {
+                this.listIva = res;
+                console.log('LLAMADA');
+                console.log(this.listIva);
+                this.loading = false;
+            });
+        }, 1000);
+    }
+
+    loadData1(event) {
+        this.loading = true;
+        setTimeout(() => {
+            this.conceptosService.getTc().subscribe((res) => {
+                this.listTc = res;
+                console.log('LLAMADA');
+                console.log(this.listTc);
+                this.loading = false;
+            });
+        }, 1000);
     }
 
     async llenarListConceptos() {
@@ -109,6 +131,53 @@ export class ConceptoComponent implements OnInit {
                 this.listConceptos = data.listado;
                 console.log('CORRECTO');
                 console.log(this.listConceptos);
+            },
+            complete: () => {
+                this.appService.msgInfoDetail(
+                    severities.INFO,
+                    'INFO',
+                    'Datos Cargados exitosamente'
+                );
+            },
+            error: (error) => {
+                this.appService.msgInfoDetail(
+                    severities.ERROR,
+                    'ERROR',
+                    error.error
+                );
+            },
+        });
+    }
+
+    async llenarListIva() {
+        await this.conceptosService.getIva().subscribe({
+            next: (data) => {
+                this.listIva = data.listado;
+                console.log('CORRECTO');
+                console.log(this.listIva);
+            },
+            complete: () => {
+                this.appService.msgInfoDetail(
+                    severities.INFO,
+                    'INFO',
+                    'Datos Cargados exitosamente'
+                );
+            },
+            error: (error) => {
+                this.appService.msgInfoDetail(
+                    severities.ERROR,
+                    'ERROR',
+                    error.error
+                );
+            },
+        });
+    }
+    async llenarListTc() {
+        await this.conceptosService.getTc().subscribe({
+            next: (data) => {
+                this.listTc = data.listado;
+                console.log('CORRECTO');
+                console.log(this.listTc);
             },
             complete: () => {
                 this.appService.msgInfoDetail(
@@ -138,12 +207,14 @@ export class ConceptoComponent implements OnInit {
         } else {
             this.conceptos = this.formConceptos.value;
             this.conceptos.codigoConcepto = this.f.codigoConcepto.value;
-            this.conceptos.idTipoConcepto = 146;
-            this.conceptos.idIva = 1;
+            this.conceptos.idTipoConceptoDto =  this.f.idTipoConceptoDto.value;
+            this.conceptos.idIva = this.f.idIva.value;
             this.conceptos.nombreConcepto = this.f.nombreConcepto.value;
             this.conceptos.descConcepto = this.f.descConcepto.value;
             this.conceptos.valorConcepto = this.f.valorConcepto.value;
-            this.conceptos.fechaConcepto = this.f.fechaConcepto.value;
+            this.conceptos.estadoConcetpto = this.f.estadoConcetpto.value;
+           //this.conceptos.fechaConcepto = this.f.fechaConcepto.value;
+           
             this.conceptos.idUsuarioConcepto = 1;
 
             if (this.conceptos.idConcepto != null) {

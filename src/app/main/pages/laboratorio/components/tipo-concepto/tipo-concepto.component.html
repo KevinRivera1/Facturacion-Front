@@ -1,15 +1,39 @@
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 <p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="modal" [modal]="true"
-[style]="{ width: '45vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+[style]="{ width: '50vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
   <p-header  >
     <h4 class="">Registro Tipo Concepto</h4>
 </p-header>
         <!-- Aquí va todo tu formulario -->
+
+        
      
         <form [formGroup]="formtipoConcepto">
-          <div class="card no-gutter widget-overview-box widget-overview-box-1">
+          <div class=" no-gutter">
             <br>
+            
+             <div class="col-12 p-fluid p-formgrid ">
+                <p-dropdown [options]="listUnidad"
+                formControlName="idUnidadTc"
+                placeholder="Select Item"
+                [virtualScroll]="true"
+                [(ngModel)]="selectedItemUnidad"
+                optionLabel="nombreU"
+                optionValue="idUnidad"
+                id="ftxt-idUnidadTc"
+                [virtualScrollItemSize]="38"  placeholder="Selecciona el tipo de Unidad  " 
+                >
+                
+              </p-dropdown>
+              
+           
+          </div>  
+        
+          
+
+        
+          
             <div class="p-fluid p-formgrid grid">
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
@@ -30,25 +54,10 @@
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                 <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-partida">partidaNc</label>
                 <span class="p-float-label">
-                  <textarea pInputTextarea rows="4" cols="30" id="ftxt-partida" required="true" formControlName="partida"></textarea>
+                  <input pInputText  type="number"  id="ftxt-partida" required="true" formControlName="partida">
+            
                 </span>
               </div>
-        
-               <div class="field col-12 md:col-4">
-                <span class="p-float-label">
-                  <p-dropdown [options]="listUnidad"
-                  formControlName="idUnidadTc"
-                  placeholder="Select Item"
-                  [virtualScroll]="true"
-                  [(ngModel)]="selectedItemUnidad"
-                  optionLabel="nombreU"
-                  optionValue="idUnidad"
-                  id="ftxt-idUnidadTc"
-
-                  [virtualScrollItemSize]="38"></p-dropdown>
-                <label style="color:  rgba(39, 29, 29, 0.6);" for="ftxt-idUnidadTc">* Impuesto</label>
-                </span>
-            </div> 
             <!-- <select [(ngModel)]="selectedItemUnidad">
               <option *ngFor="let option of listUnidad"    [value]="option.idUnidadTc">{{ option.nombreU }}</option>
             </select> -->

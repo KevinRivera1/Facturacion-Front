@@ -134,7 +134,8 @@ export class FormaPagoComponent implements OnInit {
             this.formapago.codigoSae = '1';
             // this.formapago.fechaFp= this.f.fechaFp.value;
             //this.formapago.estado= this.f.estado.value;
-            this.formapago.idUsuarioFp = 1;
+            // this.formapago.idUsuarioFp = 1;
+            this.formapago.idUsuarioFp = this.token.id;
 
             if (this.formapago.idFormaPago != null) {
                 this.formapago.fechaFp = new Date(this.formapago.fechaFp);
@@ -150,11 +151,26 @@ export class FormaPagoComponent implements OnInit {
 
             //  }
 
+
+              // //Verificar si el registro ya existe
+              const registroExiste = this.listFormaPago.find(
+                (estado) =>
+                    estado.descripcionFp ==
+                     this.formapago.descripcionFp
+             );
             this.formapagoService.saveObject(this.formapago).subscribe({
                 next: (data) => {
                     this.response = data;
                     if (this.response.codigoRespuestaValue == 200) {
                         if (!this.formapago.idFormaPago) {
+                            if (registroExiste) {
+                                this.appService.msgInfoDetail(
+                                   'warn',
+                                   'registro duplicado',
+                                  'este registro ya existe con ese detalle'
+                               );
+                               return;
+                            }
                             this.appService.msgCreate();
                         } else {
                             this.appService.msgUpdate();

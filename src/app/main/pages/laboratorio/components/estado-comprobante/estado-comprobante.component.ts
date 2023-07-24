@@ -56,7 +56,6 @@ export class EstadoComprobanteComponent implements OnInit {
         this.formEstadoFact = this.formBuilder.group({
             idEstadoComprobante: new FormControl(null),
             nombreEstadoComp: new FormControl(
-                //true,
                 '',
                 Validators.compose([Validators.required])
             ),
@@ -66,12 +65,12 @@ export class EstadoComprobanteComponent implements OnInit {
             ),
             estadoCompr: new FormControl(
                 true,
-                Validators.compose([Validators.required])
+                Validators.compose([Validators.requiredTrue])
             ),
         });
 
         this.token = JSON.parse(this.tokenService.getResponseAuth());
-        //  this.f.idEstadoComprobante.setValue(this.token.id)
+        //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
     setSeleccionado(obj) {
@@ -123,6 +122,9 @@ export class EstadoComprobanteComponent implements OnInit {
             this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
             //this.estadoFact.idEstadoComprobante = 1;
 
+            //Este me asigna el usuario logeado al guardar un registro
+            this.estadoFact.idUsuarioEstComprob = this.token.id;
+
             if (this.formEstadoFact.value.nombreEstadoComp) {
                 //this.estadoFact.nombreEstadoComp = 'PAGADA';
                 this.estadoFact.nombreEstadoComp =
@@ -137,6 +139,13 @@ export class EstadoComprobanteComponent implements OnInit {
                 this.estadoFact.estadoCompr = 'INACTIVO';
             }
 
+            //Verificar si el registro ya existe
+            const registroExiste = this.listEstadoFact.find(
+                (estado) =>
+                    estado.detalleEstadoComp ==
+                    this.estadoFact.detalleEstadoComp
+            );
+
             this.estadoComprobanteService
                 .saveObject(this.estadoFact)
                 .subscribe({
@@ -144,6 +153,14 @@ export class EstadoComprobanteComponent implements OnInit {
                         this.response = data;
                         if (this.response.codigoRespuestaValue == 200) {
                             if (!this.estadoFact.idEstadoComprobante) {
+                                if (registroExiste) {
+                                    this.appService.msgInfoDetail(
+                                        'warn',
+                                        'registro duplicado',
+                                        'este registro ya existe verifica'
+                                    );
+                                    return;
+                                }
                                 this.appService.msgCreate();
                                 this.display = false;
                             } else {

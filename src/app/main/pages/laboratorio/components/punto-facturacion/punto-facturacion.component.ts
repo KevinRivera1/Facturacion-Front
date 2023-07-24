@@ -106,7 +106,9 @@ export class PuntoFacturacionComponent implements OnInit {
               this.puntoFac.nombrePuntoFact= this.f.nombrePuntoFact.value;
               this.puntoFac. secuencialPuntoFact= this.f.secuencialPuntoFact.value;
               this.puntoFac.fechaCreacionPuntoFact=this.f.fechaCreacionPuntoFact.value;
+              this.puntoFac.idUsuarioPuntoFact = this.token.id;
 
+              
               if(this.puntoFac. idPuntoFacturacion!= null){
                   this.puntoFac.fechaCreacionPuntoFact= new Date(this.puntoFac.fechaCreacionPuntoFact);
               }else{
