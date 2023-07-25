@@ -63,15 +63,24 @@
             </div>
             <div class="p-fluid p-formgrid grid">
 
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descripcionFp">* Detalle</label>
+            <!--     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="margin-top: 10px;">
+                   
                     <span class="p-float-label">
-                        <textarea pInputTextarea rows="4" cols="75" id="ftxt-descripcionFp" required="true"
+                        <textarea pInputTextarea rows="4" cols="75"  style="resize: none;" id="ftxt-descripcionFp" required="true"
                             formControlName="descripcionFp"></textarea>
+                            <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descripcionFp">* Descripción</label>
+                    </span>
+                </div> -->
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <textarea  pInputText id="ftxt-descripcionFp" rows="4"  required="true"
+                            formControlName="descripcionFp" style="resize: none;"></textarea>
+                        <label for="ftxt-descripcionFp">* Detalle Estado Factura</label>
                     </span>
                 </div>
+    
             </div>
-
+          
             
             <div class="central">
                 <p-toolbar>

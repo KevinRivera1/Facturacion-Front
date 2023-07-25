@@ -13,55 +13,62 @@
           <div class=" no-gutter">
             <br>
             
-             <div class="col-12 p-fluid p-formgrid ">
-                <p-dropdown [options]="listUnidad"
-                formControlName="idUnidadTc"
-                placeholder="Select Item"
-                [virtualScroll]="true"
-                [(ngModel)]="selectedItemUnidad"
-                optionLabel="nombreU"
-                optionValue="idUnidad"
-                id="ftxt-idUnidadTc"
-                [virtualScrollItemSize]="38"  placeholder="Selecciona el tipo de Unidad  " 
-                >
-                
-              </p-dropdown>
-              
-           
-          </div>  
-        
-          
-
-        
-          
+         
             <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
+               
                 <span class="p-float-label">
+                  
                   <input pInputText id="ftxt-nombreTipoConcepto" type="text" required="true" formControlName="nombreTipoConcepto">
-                  <label for="ftxt-nombreTipoConcepto">* Nombre Concepto</label>
+                  <label  style="color: rgba(0, 0, 0, 0.6);" for="ftxt-nombreTipoConcepto">* Nombre Concepto</label>
                 </span>
               </div>
         
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-descTipoConcepto">Descripción</label>
+            
                 <span class="p-float-label">
                   <textarea pInputTextarea rows="4" cols="30" id="ftxt-descTipoConcepto" required="true" formControlName="descTipoConcepto"></textarea>
+                  <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-descTipoConcepto">Descripción</label>
                 </span>
               </div>
             </div>
         
+            <div class="col-12 p-fluid p-formgrid ">
+              <p-dropdown [options]="listUnidad"
+              formControlName="idUnidadTc"
+              placeholder="Select Item"
+              [virtualScroll]="true"
+              [(ngModel)]="selectedItemUnidad"
+              optionLabel="nombreU"
+              optionValue="idUnidad"
+              id="ftxt-idUnidadTc"
+              [virtualScrollItemSize]="38"  placeholder="Selecciona el tipo de Unidad  " 
+              >
+              
+            </p-dropdown>
+            
+         
+        </div>  
+        
+
             <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-partida">partidaNc</label>
+              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3" style="margin-top: 10px;">
+               
                 <span class="p-float-label">
                   <input pInputText  type="number"  id="ftxt-partida" required="true" formControlName="partida">
+                  <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-partida">Partida</label>
             
                 </span>
               </div>
             <!-- <select [(ngModel)]="selectedItemUnidad">
               <option *ngFor="let option of listUnidad"    [value]="option.idUnidadTc">{{ option.nombreU }}</option>
             </select> -->
-          
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+              <label for="ftxt-estadoTC" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+              <span class="p-float-label">
+                  <p-inputSwitch id="ftxt-estadoTC" formControlName="estadoTC"></p-inputSwitch>
+              </span>
+          </div>
             </div>
         
             <div class="p-fluid p-formgrid grid">
@@ -72,12 +79,12 @@
                 </span>
               </div> -->
         
-              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+            <!--   <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
                   <input pInputText id="ftxt-fechaTc" type="text"  dateFormat="yyyy/MM/dd" formControlName="fechaTc" readonly >
                   <label for="ftxt-fechaTc">* Fecha Registro</label>
                 </span>
-              </div>
+              </div> -->
 <!-- <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
   <span class="p-float-label">
     <input pInputText id="ftxt-fechaTc" type="text" [ngModel]="tipoConcepto.fechaTc | date:'MM/yyyy/dd'" formControlName="fechaTc" readonly>
@@ -85,12 +92,7 @@
   </span>
 </div> -->
 
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label for="ftxt-estadoTC" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
-                <span class="p-float-label">
-                    <p-inputSwitch id="ftxt-estadoTC" formControlName="estadoTC"></p-inputSwitch>
-                </span>
-            </div>
+            
             </div>
         
             <div class="central">

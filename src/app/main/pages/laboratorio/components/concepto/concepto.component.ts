@@ -15,6 +15,7 @@ import { ConceptoDto } from '../../model/ConceptoDto';
 import { ConceptoService } from '../../services/concepto.service';
 import { IvaDto } from '../../model/IvaDto copy';
 import { ConceptoTcDto } from '../../model/ConceptoTc.Dto';
+import { TipoConceptoDto } from '../../model/TipoConcepto.dto';
 
 @Component({
     selector: 'app-concepto',
@@ -44,9 +45,9 @@ export class ConceptoComponent implements OnInit {
 
     selectedIva: IvaDto[];
 
-    @Input() listTc: ConceptoTcDto[];
+    @Input() listTc: TipoConceptoDto[];
 
-    selectedTc: ConceptoTcDto[];
+    selectedTc: TipoConceptoDto[];
 
     constructor(
         public appService: AppService,
@@ -73,17 +74,32 @@ export class ConceptoComponent implements OnInit {
     iniciarForms() {
         this.formConceptos = this.formBuilder.group({
             idConcepto: new FormControl(null),
-            codigoConcepto: new FormControl('',Validators.compose([Validators.required])),
-            idTipoConceptoDto: new FormControl('',Validators.compose([Validators.required])),
-            idIva: new FormControl('',Validators.compose([Validators.required])),
-            nombreConcepto: new FormControl('',Validators.compose([Validators.required])),
-            descConcepto: new FormControl('',Validators.compose([Validators.required])),
-            valorConcepto: new FormControl('',Validators.compose([Validators.required])),
-            estadoConcetpto: new FormControl(true,Validators.compose([Validators.requiredTrue])),
-       /*      fechaConcepto: new FormControl(
-                new Date().toLocaleDateString(),
+            codigoConcepto: new FormControl('00000',Validators.compose([Validators.required])),
+            idTipoConceptoDto: new FormControl(
+                '',
                 Validators.compose([Validators.required])
-            ), */
+            ),
+            idIva: new FormControl(
+                '',
+                Validators.compose([Validators.required])
+            ),
+            nombreConcepto: new FormControl(
+                '',
+                Validators.compose([Validators.required])
+            ),
+            descConcepto: new FormControl(
+                '',
+                Validators.compose([Validators.required])
+            ),
+            valorConcepto: new FormControl(
+                '',
+                Validators.compose([Validators.required])
+            ),
+            estadoConcetpto: new FormControl(
+                true,
+                Validators.compose([Validators.requiredTrue])
+            ),
+            fechaConcepto: new FormControl(new Date().toLocaleDateString()),
         });
 
         this.token = JSON.parse(this.tokenService.getResponseAuth());
@@ -96,8 +112,13 @@ export class ConceptoComponent implements OnInit {
             this.conceptos.estadoConcetpto === 'ACTIVO'
         );
         this.f.fechaConcepto.setValue(
-            new Date(this.conceptos.fechaConcepto).toLocaleString()
+            new Date(this.conceptos.fechaConcepto).toISOString()
         );
+
+        this.f.idTipoConceptoDto.setValue(
+            this.conceptos.idTipoConceptoDto.idTipoConcepto
+            );
+
         console.log('EMITI', this.conceptos);
     }
 
@@ -157,11 +178,7 @@ export class ConceptoComponent implements OnInit {
                 console.log(this.listIva);
             },
             complete: () => {
-                this.appService.msgInfoDetail(
-                    severities.INFO,
-                    'INFO',
-                    'Datos Cargados exitosamente'
-                );
+                //this.appService.msgInfoDetail(severities.INFO,'INFO','Datos Cargados exitosamente');
             },
             error: (error) => {
                 this.appService.msgInfoDetail(
@@ -180,11 +197,7 @@ export class ConceptoComponent implements OnInit {
                 console.log(this.listTc);
             },
             complete: () => {
-                this.appService.msgInfoDetail(
-                    severities.INFO,
-                    'INFO',
-                    'Datos Cargados exitosamente'
-                );
+                //this.appService.msgInfoDetail(severities.INFO,'INFO','Datos Cargados exitosamente');
             },
             error: (error) => {
                 this.appService.msgInfoDetail(
@@ -194,6 +207,10 @@ export class ConceptoComponent implements OnInit {
                 );
             },
         });
+    }
+
+    private formatNumber(num: string): string {
+        return `SC-${num.toString().padStart(5, '0')}`;
     }
 
     guardarConceptos() {
@@ -206,16 +223,16 @@ export class ConceptoComponent implements OnInit {
             return;
         } else {
             this.conceptos = this.formConceptos.value;
-            this.conceptos.codigoConcepto = this.f.codigoConcepto.value;
-            this.conceptos.idTipoConceptoDto =  this.f.idTipoConceptoDto.value;
-            this.conceptos.idIva = this.f.idIva.value;
+            this.conceptos.codigoConcepto = this.formatNumber(this.f.codigoConcepto.value);
+            (this.conceptos.idTipoConceptoDto = {idTipoConcepto: this.f.idTipoConceptoDto.value}),
+            (this.conceptos.idIva = this.f.idIva.value);
             this.conceptos.nombreConcepto = this.f.nombreConcepto.value;
             this.conceptos.descConcepto = this.f.descConcepto.value;
             this.conceptos.valorConcepto = this.f.valorConcepto.value;
             this.conceptos.estadoConcetpto = this.f.estadoConcetpto.value;
-           //this.conceptos.fechaConcepto = this.f.fechaConcepto.value;
-           
-            this.conceptos.idUsuarioConcepto = 1;
+            //this.conceptos.fechaConcepto = this.f.fechaConcepto.value;
+
+            this.conceptos.idUsuarioConcepto = this.token.id;
 
             if (this.conceptos.idConcepto != null) {
                 this.conceptos.fechaConcepto = new Date(
@@ -230,6 +247,19 @@ export class ConceptoComponent implements OnInit {
             } else {
                 this.conceptos.estadoConcetpto = 'INACTIVO';
             }
+
+            // const nombreExiste = this.listConceptos.find(
+            //     (nombreConcepto) =>
+            //         nombreConcepto.nombreConcepto ==
+            //         this.conceptos.nombreConcepto
+            // );
+
+            // const codigoExiste = this.listConceptos.find(
+            //     (codigoConcepto) =>
+            //         codigoConcepto.codigoConcepto ==
+            //         this.conceptos.codigoConcepto
+            // );
+
             //  }
 
             this.conceptosService.saveObject(this.conceptos).subscribe({
@@ -237,6 +267,14 @@ export class ConceptoComponent implements OnInit {
                     this.response = data;
                     if (this.response.codigoRespuestaValue == 200) {
                         if (!this.conceptos.idConcepto) {
+                            // if (nombreExiste && codigoExiste) {
+                            //     this.appService.msgInfoDetail(
+                            //         'warn',
+                            //         'registro duplicado',
+                            //         'este registro ya existe con ese detalle'
+                            //     );
+                            //     return;
+                            // }
                             this.appService.msgCreate();
                         } else {
                             this.appService.msgUpdate();
@@ -272,7 +310,8 @@ export class ConceptoComponent implements OnInit {
         this.display = true;
     }
     cerrar() {
-        this.setearForm();
+        this.formConceptos.reset();
+        this.iniciarForms();
         this.display = false;
     }
 }

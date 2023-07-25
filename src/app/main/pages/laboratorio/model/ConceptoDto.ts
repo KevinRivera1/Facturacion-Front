@@ -1,16 +1,12 @@
-//import { JsonProperty } from 'json-typescript-mapper';
-
-
 export class ConceptoDto{
 
     idConcepto: number;
     nombreConcepto: string;
-    codigoConcepto: number;
-    //@JsonProperty('idTipoConcepto')
-    idTipoConceptoDto: number;
+    codigoConcepto: string;
+    idTipoConceptoDto: {idTipoConcepto: number;};
     idIva: number;
     descConcepto: string;
-    valorConcepto: number;//
+    valorConcepto: number;
     estadoConcetpto: string;
     fechaConcepto:Date;
     idUsuarioConcepto: number;

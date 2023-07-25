@@ -70,7 +70,7 @@ export class FormaPagoComponent implements OnInit {
                 true,
                 Validators.compose([Validators.requiredTrue])
             ),
-            
+
             /* fechaFp: new FormControl(new Date().toLocaleDateString(), Validators.compose([Validators.required])),
             codigoSri:  new FormControl('', Validators.compose([Validators.required])),
             codigoSae:  new FormControl('', Validators.compose([Validators.required])), */
@@ -84,8 +84,8 @@ export class FormaPagoComponent implements OnInit {
         this.formapago = obj;
         this.formFormaPago = this.formBuilder.group(this.formapago);
         this.f.activo.setValue(this.formapago.activo === 'ACTIVO');
-       
-       /*  this.f.fechaFp.setValue(
+
+        /*  this.f.fechaFp.setValue(
             new Date(this.formapago.fechaFp).toLocaleString()
         ); */
         console.log('EMITI', this.formapago);
@@ -151,26 +151,31 @@ export class FormaPagoComponent implements OnInit {
 
             //  }
 
+            // Verificar si el registro ya existe
+            const nombreFp = this.f.nombreFp.value;
+            const descripcionFp = this.f.descripcionFp.value;
 
-              // //Verificar si el registro ya existe
-              const registroExiste = this.listFormaPago.find(
-                (estado) =>
-                    estado.descripcionFp ==
-                     this.formapago.descripcionFp
-             );
+            if (
+                this.existeRegistro(
+                    nombreFp,
+                    descripcionFp,
+                    this.formapago.idFormaPago
+                )
+            ) {
+                this.appService.msgInfoDetail(
+                    'warn',
+                    'Registro Duplicado',
+                    'Este registro ya existe'
+                );
+                return;
+            }
+
+            
             this.formapagoService.saveObject(this.formapago).subscribe({
                 next: (data) => {
                     this.response = data;
                     if (this.response.codigoRespuestaValue == 200) {
                         if (!this.formapago.idFormaPago) {
-                            if (registroExiste) {
-                                this.appService.msgInfoDetail(
-                                   'warn',
-                                   'registro duplicado',
-                                  'este registro ya existe con ese detalle'
-                               );
-                               return;
-                            }
                             this.appService.msgCreate();
                         } else {
                             this.appService.msgUpdate();
@@ -186,6 +191,19 @@ export class FormaPagoComponent implements OnInit {
         }
         this.modal = false;
     }
+    private existeRegistro(
+        nombreFp: string,
+        descripcionFp: string,
+        idFormaPago: number
+    ): boolean {
+        // Estamos en modo creación o edición, realizamos la validación de duplicados.
+        return this.listFormaPago.some(
+            (pago) =>
+                (pago.nombreFp === nombreFp ||
+                    pago.descripcionFp === descripcionFp) &&
+                pago.idFormaPago !== idFormaPago
+        );
+    }
 
     setearForm() {
         this.formFormaPago.reset();
@@ -198,14 +216,13 @@ export class FormaPagoComponent implements OnInit {
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
         this.modal = false;
     }
-    cerrar(){
+    cerrar() {
         this.formFormaPago.reset();
         this.iniciarForms();
         this.modal = false;
-
     }
 
-    abrirmodal(){
+    abrirmodal() {
         this.modal = true;
     }
 }

@@ -17,7 +17,7 @@ import { Unidad } from '../../model/Unidad';
 import { UnidadDto } from '../../model/UnidadDTO';
 import { TipoConceptoService } from '../../services/tipoConcepto.service';
 import { EstadoComprobanteDto } from '../../model/EstadoComprobanteDto';
-
+   
 @Component({
     selector: 'app-tipo-concepto',
     templateUrl: './tipo-concepto.component.html',
@@ -119,9 +119,9 @@ export class TipoConceptoComponent implements OnInit {
         this.formtipoConcepto = this.formBuilder.group(this.tipoConcepto);
         this.f.estadoTC.setValue(this.tipoConcepto.estadoTC === 'ACTIVO');
 
-        this.f.fechaTc.setValue(
+    /*     this.f.fechaTc.setValue(
             new Date(this.tipoConcepto.fechaTc).toISOString()
-        );
+        ); */
 
         /* const fecha = new Date(this.tipoConcepto.fechaTc);
 const year = fecha.getFullYear();

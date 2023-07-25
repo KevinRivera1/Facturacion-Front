@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root',
 })
 export class CentroCostosService {
-    // private url = 'http://172.31.203.216:8081/CentroCosto';
+    // private url = 'http://172.31.203.246:8081/';
 
-    url = `${environment.HOST}/`;
-    endpoint: string = 'CentroCosto';
+    url = `${environment.HOST}`;
+    endpoint: string = '/CentroCosto';
 
     constructor(private http: HttpClient) {}
 

@@ -2,7 +2,7 @@
 
 
 <p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="display" [modal]="true"
-    [style]="{ width: '47vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+    [style]="{ width: '43vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Registro Concepto</h4>
     </p-header>
@@ -24,30 +24,26 @@
 
                 <div class="p-fluid p-formgrid grid">
 
-                    <div class="col-12">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
              
                         <p-dropdown [options]="listTc"
                         formControlName="idTipoConceptoDto"
-                        placeholder="Select Item"
                         [virtualScroll]="true"
                         [(ngModel)]="selectedTc"
                         optionLabel="nombreTipoConcepto"
                         optionValue="idTipoConcepto"
                         id="ftxt-idTipoConceptoDto"
-                        [virtualScrollItemSize]="38"  placeholder="Selecciona una de las opciones  ">
+                        [virtualScrollItemSize]="38"  
+                        placeholder="*Tipo de Concepto">
                         
                       </p-dropdown>
+
+                      
                       
                    
                   </div>  
 
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"
-                        style=" margin-left: 420px; margin-top: -10px;">
-                        <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
-                        <span class="p-float-label">
-                            <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
-                        </span>
-                    </div>
+                    
 
                     <!--<div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                         <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
@@ -70,6 +66,13 @@
                             <label for="ftxt-nombreConcepto">* Nombre</label>
                         </span>
                     </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"
+                        style=" margin-left: 420px; margin-top: -70px;">
+                        <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                        <span class="p-float-label">
+                            <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
+                        </span>
+                    </div>
 
 
                 </div>
@@ -84,18 +87,19 @@
                         </span>
                     </div>
 
-                    <div class="col-12">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 110px;">
              
-                        <p-dropdown [options]="listIva"
+                        <p-dropdown 
+                        
+                        [options]="listIva"
                         formControlName="idIva"
-                        placeholder="Select Item"
                         [virtualScroll]="true"
                         [(ngModel)]="selectedIva"
                         optionLabel="nombreIva"
                         optionValue="idIva"
                         id="ftxt-idIva"
-                        [virtualScrollItemSize]="38"  placeholder="Selecciona una de las opciones  " 
-                        >
+                        [virtualScrollItemSize]="38"  
+                        placeholder="*IVA">
                         
                       </p-dropdown>
                       
@@ -121,7 +125,7 @@
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
 
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-descConcepto" type="text" style="width: 525px;" required="true"
+                            <input pInputText id="ftxt-descConcepto" type="text" style="width: 500px;" required="true"
                                 formControlName="descConcepto">
                             <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descConcepto">* Detalle</label>
                         </span>

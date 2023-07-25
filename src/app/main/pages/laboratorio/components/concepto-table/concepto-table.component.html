@@ -57,12 +57,12 @@
                                 <p-columnFilter type="text" field="nombreConcepto" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <!--<th pSortableColumn="codigoConcepto">
+                        <th pSortableColumn="codigoConcepto">
                             <div class="flex justify-content-between align-items-center">Codigo
                                 <p-sortIcon field="codigoConcepto"></p-sortIcon>
                                 <p-columnFilter type="text" field="codigoConcepto" display="menu"></p-columnFilter>
                             </div>
-                        </th>-->
+                        </th>
                         <th pSortableColumn="estadoConcetpto">
                             <div class="flex justify-content-between align-items-center">Estado
                                 <p-sortIcon field="estadoConcetpto"></p-sortIcon>
@@ -98,6 +98,7 @@
                         </td>
                         <td>{{rowIndex+1}}</td>
                         <td>{{item.nombreConcepto}}</td>
+                        <td>{{item.codigoConcepto}}</td>
                         <td> <mark [ngClass]="item.estadoConcetpto == 'ACTIVO'
                             ? 'border-green-500' : 'border-red-500' ">{{item.estadoConcetpto}}</mark></td>
                         <td>{{item.descConcepto}}</td>

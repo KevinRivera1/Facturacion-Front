@@ -140,11 +140,19 @@ export class EstadoComprobanteComponent implements OnInit {
             }
 
             //Verificar si el registro ya existe
-            const registroExiste = this.listEstadoFact.find(
-                (estado) =>
-                    estado.detalleEstadoComp ==
-                    this.estadoFact.detalleEstadoComp
-            );
+            if (
+                this.registroExiste(
+                    this.estadoFact.detalleEstadoComp,
+                    this.estadoFact.idEstadoComprobante
+                )
+            ) {
+                this.appService.msgInfoDetail(
+                    'warn',
+                    'Registro Duplicado',
+                    'Este registro ya existe'
+                );
+                return;
+            }
 
             this.estadoComprobanteService
                 .saveObject(this.estadoFact)
@@ -153,14 +161,6 @@ export class EstadoComprobanteComponent implements OnInit {
                         this.response = data;
                         if (this.response.codigoRespuestaValue == 200) {
                             if (!this.estadoFact.idEstadoComprobante) {
-                                if (registroExiste) {
-                                    this.appService.msgInfoDetail(
-                                        'warn',
-                                        'registro duplicado',
-                                        'este registro ya existe verifica'
-                                    );
-                                    return;
-                                }
                                 this.appService.msgCreate();
                                 this.display = false;
                             } else {
@@ -175,6 +175,17 @@ export class EstadoComprobanteComponent implements OnInit {
                     error: (error) => {},
                 });
         }
+    }
+
+    registroExiste(
+        detalleEstadoComp: string,
+        idEstadoComprobante: number
+    ): boolean {
+        return this.listEstadoFact.some(
+            (estado) =>
+                estado.detalleEstadoComp === detalleEstadoComp &&
+                estado.idEstadoComprobante !== idEstadoComprobante
+        );
     }
 
     setearForm() {

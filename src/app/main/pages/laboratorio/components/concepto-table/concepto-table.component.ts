@@ -181,7 +181,7 @@ export class ConceptosTableComponent implements OnInit {
             indexLista++;
             element.idConcepto = indexLista;
             element.idUsuarioConcepto = null;
-            element.fechaConcepto = null;
+           // element.fechaConcepto = null;
         });
         this.appservie.exportExcel(this.listConceptos, 'Conceptos');
     }

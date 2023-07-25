@@ -80,6 +80,8 @@ export class CentroCostosComponent implements OnInit {
         this.centros = obj;
         this.formCentroCo = this.formBuilder.group(this.centros);
          this.f.estadoCentroCosto.setValue(this.centros.estadoCentroCosto === 'ACTIVO');
+
+        //  this.f.codCentroCosto.setValue(this.centros.codCentroCosto =="0000");
         // this.f.fechaCentroCosto.setValue(
         //     new Date(this.centros.fechaCentroCosto).toLocaleString()
         // );
@@ -113,7 +115,7 @@ export class CentroCostosComponent implements OnInit {
 
 
 
-    private formatNumber(num: number): string {
+    private formatNumber(num: string): string {
         return `SC-${num.toString().padStart(5, '0')}`;
     }
 
@@ -127,48 +129,33 @@ export class CentroCostosComponent implements OnInit {
           );
           return;
         }
-        // const nombreCentroCostoValue: string = this.f.nombreCentroCosto.value;
-        // const codCentroCostoValue = this.formatNumber(this.f.codCentroCosto.value);
-
-        // // // Validar si el código del centro de costo ya existe en la lista
-        // // if (this.listCentrosCo.some(centro => centro.codCentroCosto === codCentroCostoValue)) {
-        // //     this.appService.msgInfoDetail('warn', 'Verificación', 'El código del centro de costo ya existe. Ingrese uno diferente.');
-        // //     return;
-        // // }
-
-        // // // Validar si el nombre del centro de costo ya existe en la lista
-        // // if (this.listCentrosCo.some(centro => centro.nombreCentroCosto === nombreCentroCostoValue)) {
-        // //   this.appService.msgInfoDetail('warn', 'Verificación', 'El nombre del centro de costo ya existe. Ingrese uno diferente.');
-        // //   return;
-        // // }
-    
+        
         this.centros = this.formCentroCo.value;
         this.centros.nombreCentroCosto = this.f.nombreCentroCosto.value;
-        this.centros.codCentroCosto = this.formatNumber(this.f.codCentroCosto.value);
-        // this.centros.codCentroCosto = this.f.codCentroCosto.value;
+        // this.centros.codCentroCosto = this.formatNumber(this.f.codCentroCosto.value);
+        this.centros.codCentroCosto = this.f.codCentroCosto.value;
         this.centros.descCentroCosto = this.f.descCentroCosto.value;
+        this.centros.estadoCentroCosto = this.formCentroCo.value.estadoCentroCosto ? 'ACTIVO' : 'INACTIVO';
         this.centros.idUsuarioCentroCosto = this.token.id;;
-
-
-        // if (!this.centros.idCentroCosto && !this.centros.codCentroCosto) {
-        //     let nuevoCodigo: string;
-        //     do {
-        //       nuevoCodigo = `SC-${this.contadorCentroCosto.toString().padStart(4, '0')}`;
-        //       this.contadorCentroCosto++; // Incrementar el contador para la siguiente secuencia
-        //     } while (this.listCentrosCo.some(centro => centro.codCentroCosto === nuevoCodigo));
-            
-        //     this.centros.codCentroCosto = nuevoCodigo;
-        // }
           
 
         if (this.centros.idCentroCosto) {
           this.centros.fechaCentroCosto = new Date(this.centros.fechaCentroCosto);
         } else {
           this.centros.fechaCentroCosto = new Date();
+        }      
+      
+
+        //VALIDACION
+        const nombreCentroCosto = this.f.nombreCentroCosto.value;
+        const codCentroCosto = this.f.codCentroCosto.value;
+
+        if (this.existeRegistro(nombreCentroCosto, codCentroCosto)) {
+            this.appService.msgInfoDetail('warn', 'Registro Duplicado', 'Este registro ya existe');
+            return;
         }
-      
-        this.centros.estadoCentroCosto = this.formCentroCo.value.estadoCentroCosto ? 'ACTIVO' : 'INACTIVO';
-      
+
+
         this.CentroCostosService.saveObjectC(this.centros).subscribe({
           next: (data) => {
             this.response = data;
@@ -176,7 +163,6 @@ export class CentroCostosComponent implements OnInit {
             if (this.response.codigoRespuestaValue == 200) {
               if (!this.centros.idCentroCosto) {
                 
-
                 this.appService.msgCreate();
               } else {
                 this.appService.msgUpdate();
@@ -194,6 +180,19 @@ export class CentroCostosComponent implements OnInit {
       }
       
 
+      private existeRegistro(
+        nombreCentroCosto: string, 
+        codCentroCosto: string): 
+        boolean {
+        // Estamos en modo creación, realizamos la validación de duplicados.
+        return this.listCentrosCo.some(
+        (centro)=>
+            (centro.nombreCentroCosto == nombreCentroCosto ||
+             centro.codCentroCosto == codCentroCosto  )         
+        );
+    }
+
+
     setearForm() {
         this.formCentroCo.reset();
         this.iniciarForms();
@@ -201,10 +200,12 @@ export class CentroCostosComponent implements OnInit {
     }
 
     cancelar() {
-        this.setearForm();
-        this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
+      this.setearForm();
+      this.appService.msgInfoDetail('info', '', 'Acción Cancelada')
+      this.modal = false;
     }
-    
+
+  
     abrirmodal(){
         this.modal = true;
     }
