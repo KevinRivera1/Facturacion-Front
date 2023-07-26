@@ -98,11 +98,19 @@ export class TipoConceptoTableComponent implements OnInit {
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           this.eliminarTipoConceptoSelected();
-        }
-      });
+        },
+        
+        
+      }
+      
+      );
+      
     }
 
   
+
+   
+    
     eliminarTipoConceptoSelected() {
       let indexLista: number = 0;
       for (let i = 0; i < this.selectedTipoConcepto.length; i++) {
@@ -113,12 +121,18 @@ export class TipoConceptoTableComponent implements OnInit {
               this.tipoConceptoServcice.getAll().subscribe({
                 next: data => {
                   this.listtipoConcepto = data.listado;
+                 
                 }
               });
+              location.reload()
               this.selectedTipoConcepto = null;
               this.appservie.msgInfoDetail('error', 'Eliminación', 'Se han eliminado todos los datos seleccionados');
+             
             }
-          }
+          },
+           error => {
+                          this.appservie.msgInfoDetail('error', 'Eliminación', 'Este tipo concepto está siendo usado por otra tabla');
+                      }
         );
       }
     }

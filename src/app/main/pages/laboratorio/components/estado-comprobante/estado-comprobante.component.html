@@ -8,39 +8,41 @@
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [draggable]="true" [resizable]="true"
     (onHide)="cancelar()" [dismissableMask]="true">
     <p-header>
-        <h4 class="text-center">Registro Estados comprobante</h4>
+        <h4 class="vertical-align-middle text-center">Registro Estados comprobante</h4>
     </p-header>
     <form [formGroup]="formEstadoFact" class="mt-6">
-        <div class="p-fluid p-formgrid grid">
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 p-md-6 px-3">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
                         formControlName="nombreEstadoComp" style="text-transform: uppercase;">
                     <label for="ftxt-nombreEstadoComp">* Nombre Estado Comprobante</label>
                 </span>
             </div>
-
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+    
+            <div class="p-field p-col-12 p-md-6 px-3">
                 <label for="ftxt-estadoCompr">* Estado</label>
                 <span class="p-float-label">
                     <p-inputSwitch id="ftxt-estadoCompr" formControlName="estadoCompr"></p-inputSwitch>
                 </span>
             </div>
+    
+            <div class="p-field p-col-12 px-3">
+                <span class="p-float-label">
+                    <textarea pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
+                        formControlName="detalleEstadoComp" style="resize: none;"></textarea>
+                    <label for="ftxt-detalleEstadoComp">* Detalle Estado Comprobante</label>
+                </span>
+            </div>
         </div>
-        <div class="p-fluid p-formgrid grid p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-            <span class="p-float-label">
-                <textarea pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
-                    formControlName="detalleEstadoComp" style="resize: none;"></textarea>
-                <label for="ftxt-detalleEstadoComp">* Detalle Estado Comprobante</label>
-            </span>
-        </div>
+    
         <div class="central">
             <p-toolbar>
                 <div class="p-toolbar-group-center">
                     <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-outlined p-button-primary"
                         icon="pi pi-send" type="submit" (click)="guardarEstadoFact()" pTooltip="Guardar"
                         tooltipPosition="right"></button>
-
+    
                     <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-outlined p-button-danger"
                         icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
                 </div>

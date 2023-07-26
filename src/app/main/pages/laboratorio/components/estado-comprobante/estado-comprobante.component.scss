@@ -3,24 +3,3 @@
     box-sizing: border-box;
 }
 
-textarea {
-    min-width: 45vw;
-}
-
-@media (max-width: 576px) {
-    textarea {
-        min-width: 40vw;
-    }
-}
-
-@media (max-width: 640px) {
-    textarea {
-        min-width: 42vw;
-    }
-}
-
-@media (max-width: 767px) {
-    textarea {
-        min-width: 44vw;
-    }
-}
