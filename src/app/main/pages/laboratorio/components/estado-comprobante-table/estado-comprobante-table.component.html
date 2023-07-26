@@ -84,14 +84,15 @@
                             <mark
                                 [ngClass]="{'border-green-500': item.nombreEstadoComp === 'PAGADA',
                                             'bg-orange-200': item.nombreEstadoComp === 'PENDIENTE',
-                                            'border-red-500': item.nombreEstadoComp === 'CANCELADA',
+                                            'border-red-500': item.nombreEstadoComp ==='CANCELADA',
                                             'bg-gray-400': item.nombreEstadoComp !== 'PAGADA' && item.nombreEstadoComp !== 'PENDIENTE' && item.nombreEstadoComp !== 'CANCELADA'}">
                                 {{ item.nombreEstadoComp }}
                             </mark>
                         </td>
                         <td>{{item.detalleEstadoComp}}</td>
                         <td> <mark [ngClass]="item.estadoCompr== 'ACTIVO'
-                            ? 'border-green-500' : 'border-red-500' ">{{item.estadoCompr}}</mark></td>
+                            ? 'border-green-500' : 'border-red-500' ">{{item.estadoCompr}}</mark>
+                        </td>
 
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"

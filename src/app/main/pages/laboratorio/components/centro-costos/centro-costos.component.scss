@@ -10,3 +10,19 @@
     color: red !important;
     border: solid red 1px !important;
   }
+
+textarea {
+    min-width: 39vw;
+}
+
+@media (max-width: 576px) {
+    textarea {
+        min-width: 40vw;
+    }
+}
+
+@media (max-width: 640px) {
+    textarea {
+        min-width: 42vw;
+    }
+}

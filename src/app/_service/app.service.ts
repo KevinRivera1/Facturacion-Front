@@ -21,6 +21,7 @@ const httpOptions = {
     providedIn: 'root',
 })
 export class AppService {
+    [x: string]: any;
     url = `${environment.HOST}/api/auth`;
 
     userLogged: boolean;

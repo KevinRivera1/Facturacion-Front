@@ -176,7 +176,7 @@ export class EstadoComprobanteTableComponent implements OnInit {
         this.appservie.exportPdf(
             this.exportColumns,
             this.listestadoFact,
-            'Estado Factura',
+            'Estado Comprobante',
             'p'
         );
     }
@@ -187,7 +187,7 @@ export class EstadoComprobanteTableComponent implements OnInit {
             indexLista++;
             element.idEstadoComprobante = indexLista;
         });
-        this.appservie.exportExcel(this.listestadoFact, 'Estado Factura');
+        this.appservie.exportExcel(this.listestadoFact, 'Estado Comprobante');
     }
 
     descargarArchivo(fileName: string) {

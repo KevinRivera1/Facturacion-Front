@@ -1,45 +1,37 @@
-<p-header>
+<p-header class="mb-4">
     <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">Registro Estado Comprobante</h4>
 </p-header>
 <div class="button__from text-right">
-    <button pButton style="background:#0d3c61;" type="button" label="Mostrar Formulario" icon="pi pi-plus"
+    <button pButton style="background:#0d3c61;" type="button" label="Registrar Nuevo Comprobante" icon="pi pi-plus"
         (click)=" onDisplayForm()"></button>
 </div>
-<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [closable]="false" [dismissableMask]="true">
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [draggable]="true" [resizable]="true"
+    (onHide)="cancelar()" [dismissableMask]="true">
     <p-header>
         <h4 class="text-center">Registro Estados comprobante</h4>
     </p-header>
-    <form [formGroup]="formEstadoFact">
-
-        <div class="button__form text-right my-3">
-
-            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
-                tooltipPosition="top"
-                class="p-button-rounded p-button-danger p-button-text p-button text-right"></button>
-        </div>
-
-
+    <form [formGroup]="formEstadoFact" class="mt-6">
         <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
-                            formControlName="nombreEstadoComp" style="text-transform: uppercase;">
-                        <label for="ftxt-nombreEstadoComp">* Nombre Estado Factura</label>
-                    </span>
-                </div>
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;">
+                    <label for="ftxt-nombreEstadoComp">* Nombre Estado Comprobante</label>
+                </span>
+            </div>
 
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <label for="ftxt-estadoCompr">* Estado</label>
-                    <span class="p-float-label">
-                        <p-inputSwitch id="ftxt-estadoCompr" formControlName="estadoCompr"></p-inputSwitch>
-                    </span>
-                </div>
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <label for="ftxt-estadoCompr">* Estado</label>
+                <span class="p-float-label">
+                    <p-inputSwitch id="ftxt-estadoCompr" formControlName="estadoCompr"></p-inputSwitch>
+                </span>
+            </div>
         </div>
-        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+        <div class="p-fluid p-formgrid grid p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
             <span class="p-float-label">
-                <textarea  pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
+                <textarea pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
                     formControlName="detalleEstadoComp" style="resize: none;"></textarea>
-                <label for="ftxt-detalleEstadoComp">* Detalle Estado Factura</label>
+                <label for="ftxt-detalleEstadoComp">* Detalle Estado Comprobante</label>
             </span>
         </div>
         <div class="central">

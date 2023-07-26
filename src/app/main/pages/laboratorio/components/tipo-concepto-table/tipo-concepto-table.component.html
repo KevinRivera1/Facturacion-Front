@@ -88,7 +88,7 @@
                                     class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editConcepto(item); modalfuncion()"
                                     pTooltip="Editar" tooltipPosition="left"   ></button>
               <button pButton pRipple icon="pi pi-trash"
-                      class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteTipoConcepto(item); "
+                      class="p-button-rounded p-button-danger p-button-text p-button-sm"  *ngIf="item.estadoTC =='ACTIVO'" (click)="deleteTipoConcepto(item); "
                       pTooltip="Eliminar" tooltipPosition="left" ></button>
             </td>
           </tr>

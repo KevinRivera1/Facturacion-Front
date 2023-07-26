@@ -74,7 +74,10 @@ export class ConceptoComponent implements OnInit {
     iniciarForms() {
         this.formConceptos = this.formBuilder.group({
             idConcepto: new FormControl(null),
-            codigoConcepto: new FormControl('00000',Validators.compose([Validators.required])),
+            codigoConcepto: new FormControl('SC-00000', [
+                Validators.required,
+                Validators.pattern(/^SC-\d{5}$/)
+              ]),
             idTipoConceptoDto: new FormControl(
                 '',
                 Validators.compose([Validators.required])
@@ -111,13 +114,13 @@ export class ConceptoComponent implements OnInit {
         this.f.estadoConcetpto.setValue(
             this.conceptos.estadoConcetpto === 'ACTIVO'
         );
-        this.f.fechaConcepto.setValue(
-            new Date(this.conceptos.fechaConcepto).toISOString()
-        );
+        // this.f.fechaConcepto.setValue(
+        //     new Date(this.conceptos.fechaConcepto).toISOString()
+        // );
 
         this.f.idTipoConceptoDto.setValue(
             this.conceptos.idTipoConceptoDto.idTipoConcepto
-            );
+        );
 
         console.log('EMITI', this.conceptos);
     }
@@ -209,9 +212,14 @@ export class ConceptoComponent implements OnInit {
         });
     }
 
-    private formatNumber(num: string): string {
-        return `SC-${num.toString().padStart(5, '0')}`;
-    }
+
+
+    onCodConceptoInput(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        const numericValue = inputElement.value.replace(/\D/g, '');
+        inputElement.value = `SC-${numericValue}`;
+        this.formConceptos.controls['codConcepto'].setValue(inputElement.value);
+      }
 
     guardarConceptos() {
         if (this.formConceptos.invalid) {
@@ -223,8 +231,8 @@ export class ConceptoComponent implements OnInit {
             return;
         } else {
             this.conceptos = this.formConceptos.value;
-            this.conceptos.codigoConcepto = this.formatNumber(this.f.codigoConcepto.value);
-            (this.conceptos.idTipoConceptoDto = {idTipoConcepto: this.f.idTipoConceptoDto.value}),
+            this.conceptos.codigoConcepto = this.f.codigoConcepto.value;
+            (this.conceptos.idTipoConceptoDto = {idTipoConcepto: this.f.idTipoConceptoDto.value,}),
             (this.conceptos.idIva = this.f.idIva.value);
             this.conceptos.nombreConcepto = this.f.nombreConcepto.value;
             this.conceptos.descConcepto = this.f.descConcepto.value;
@@ -248,33 +256,30 @@ export class ConceptoComponent implements OnInit {
                 this.conceptos.estadoConcetpto = 'INACTIVO';
             }
 
-            // const nombreExiste = this.listConceptos.find(
-            //     (nombreConcepto) =>
-            //         nombreConcepto.nombreConcepto ==
-            //         this.conceptos.nombreConcepto
-            // );
 
-            // const codigoExiste = this.listConceptos.find(
-            //     (codigoConcepto) =>
-            //         codigoConcepto.codigoConcepto ==
-            //         this.conceptos.codigoConcepto
-            // );
+            const nombreConcepto = this.f.nombreConcepto.value;
+            const codigoConcepto = this.f.codigoConcepto.value;
 
-            //  }
+            if (
+                this.existeRegistro(
+                    nombreConcepto,
+                    codigoConcepto,
+                    this.conceptos.idConcepto
+                )
+            ) {
+                this.appService.msgInfoDetail(
+                    'warn',
+                    'Registro Duplicado',
+                    'Este registro ya existe'
+                );
+                return;
+            }
 
             this.conceptosService.saveObject(this.conceptos).subscribe({
                 next: (data) => {
                     this.response = data;
                     if (this.response.codigoRespuestaValue == 200) {
                         if (!this.conceptos.idConcepto) {
-                            // if (nombreExiste && codigoExiste) {
-                            //     this.appService.msgInfoDetail(
-                            //         'warn',
-                            //         'registro duplicado',
-                            //         'este registro ya existe con ese detalle'
-                            //     );
-                            //     return;
-                            // }
                             this.appService.msgCreate();
                         } else {
                             this.appService.msgUpdate();
@@ -295,6 +300,20 @@ export class ConceptoComponent implements OnInit {
         this.formConceptos.reset();
         this.iniciarForms();
         this.conceptos = null;
+    }
+
+    private existeRegistro(
+        nombreConcepto: string,
+        codigoConcepto: string,
+        idConcepto: number
+    ): boolean {
+        // Estamos en modo creación o edición, realizamos la validación de duplicados.
+        return this.listConceptos.some(
+            (concepto) =>
+                (concepto.nombreConcepto === nombreConcepto ||
+                    concepto.codigoConcepto === codigoConcepto) &&
+                concepto.idConcepto !== idConcepto
+        );
     }
 
     cancelar() {

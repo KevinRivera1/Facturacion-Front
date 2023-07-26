@@ -6,7 +6,8 @@
                         
                      'idCentroCosto',
                      'nombreCentroCosto',
-                     'descCentroCosto'
+                     'descCentroCosto',
+                     'codCentroCosto'
                      ]"
                      responsiveLayout="scroll" [(selection)]="selectedCentroCostos"
                      [rowHover]="true" dataKey="idCentroCosto"
@@ -67,7 +68,7 @@
                         <th pSortableColumn="descCentroCosto">
                             <div class="flex justify-content-between align-items-center">Detalle
                                 <p-sortIcon field="descCentroCosto"></p-sortIcon>
-                                <p-columnFilter type="text" field="descCentroCosto" display="menu"></p-columnFilter>
+                                <p-columnFilter style="white-space: normal; word-wrap: break-word;" type="text" field="descCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="estadoCentroCosto">

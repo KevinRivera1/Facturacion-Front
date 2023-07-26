@@ -34,7 +34,10 @@
                         optionValue="idTipoConcepto"
                         id="ftxt-idTipoConceptoDto"
                         [virtualScrollItemSize]="38"  
-                        placeholder="*Tipo de Concepto">
+                        placeholder="*Tipo de Concepto"
+                        [filter]="true"
+                        [filterBy]="'nombreTipoConcepto'"
+                        >
                         
                       </p-dropdown>
 
@@ -99,7 +102,9 @@
                         optionValue="idIva"
                         id="ftxt-idIva"
                         [virtualScrollItemSize]="38"  
-                        placeholder="*IVA">
+                        placeholder="*IVA"
+                        [filter]="true"
+                        [filterBy]="'nombreIva'">
                         
                       </p-dropdown>
                       

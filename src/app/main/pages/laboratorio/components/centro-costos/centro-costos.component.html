@@ -20,12 +20,12 @@
                         <label for="ftxt-nombreCentroCosto">* Nombre</label>
                     </span>
                 </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <span class="p-float-label">
-                            <input pInputText id="ftxt-codCentroCosto" type="text" required="true" formControlName="codCentroCosto">
-                            <label for="ftxt-codCentroCosto">* Codigo</label>
-                        </span>
-                    </div>
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codCentroCosto" type="text" maxlength="8" pattern="SC-\d{5}" required="true" (input)="onCodCentroCostoInput($event)" formControlName="codCentroCosto">
+                                <label for="ftxt-codCentroCosto">* Codigo</label>
+                            </span>
+                        </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                     <label for="ftxt-estadoCentroCosto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                     <span class="p-float-label">
@@ -43,7 +43,7 @@
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                     <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descCentroCosto">* Detalle</label>
                     <span class="p-float-label">
-                        <textarea pInputTextarea rows="4" cols="70" id="ftxt-descCentroCosto" required="true"
+                        <textarea pInputTextarea rows="4" style="resize: none;" id="ftxt-descCentroCosto" required="true"
                             formControlName="descCentroCosto"></textarea>
                     </span>
                 </div>

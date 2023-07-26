@@ -40,7 +40,7 @@ export class EstadoComprobanteComponent implements OnInit {
 
         private estadoComprobanteService: EstadoComprobanteService
     ) {
-        this.breadcrumbService.setItems([{ label: 'Estado Factura' }]);
+        this.breadcrumbService.setItems([{ label: 'Estado Comprobante' }]);
     }
 
     ngOnInit(): void {
@@ -54,21 +54,11 @@ export class EstadoComprobanteComponent implements OnInit {
 
     iniciarForms() {
         this.formEstadoFact = this.formBuilder.group({
-            idEstadoComprobante: new FormControl(null),
-            nombreEstadoComp: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            detalleEstadoComp: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            estadoCompr: new FormControl(
-                true,
-                Validators.compose([Validators.requiredTrue])
-            ),
+            idEstadoComprobante: [null],
+            nombreEstadoComp: ['', Validators.required],
+            detalleEstadoComp: ['', Validators.required],
+            estadoCompr: [true, Validators.requiredTrue],
         });
-
         this.token = JSON.parse(this.tokenService.getResponseAuth());
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
@@ -76,9 +66,7 @@ export class EstadoComprobanteComponent implements OnInit {
     setSeleccionado(obj) {
         this.estadoFact = obj;
         this.formEstadoFact = this.formBuilder.group(this.estadoFact);
-
         this.f.estadoCompr.setValue(this.estadoFact.estadoCompr === 'ACTIVO');
-
         console.log('EMITI', this.estadoFact);
     }
 
@@ -115,17 +103,25 @@ export class EstadoComprobanteComponent implements OnInit {
             );
             return;
         } else {
-            this.estadoFact = this.formEstadoFact.value;
 
-            this.estadoFact.nombreEstadoComp =
-                this.f.nombreEstadoComp.value.toUpperCase();
+            this.estadoFact = this.formEstadoFact.value;
+            this.estadoFact.nombreEstadoComp = this.f.nombreEstadoComp.value.toUpperCase();
             this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
             //this.estadoFact.idEstadoComprobante = 1;
 
             //Este me asigna el usuario logeado al guardar un registro
             this.estadoFact.idUsuarioEstComprob = this.token.id;
 
-            if (this.formEstadoFact.value.nombreEstadoComp) {
+            this.estadoFact.nombreEstadoComp = this.formEstadoFact.value
+                .nombreEstadoComp
+                ? this.estadoFact.nombreEstadoComp
+                : 'PENDIENTE';
+
+            this.estadoFact.estadoCompr = this.formEstadoFact.value.estadoCompr
+                ? 'ACTIVO'
+                : 'INACTIVO';
+
+            /*  if (this.formEstadoFact.value.nombreEstadoComp) {
                 //this.estadoFact.nombreEstadoComp = 'PAGADA';
                 this.estadoFact.nombreEstadoComp =
                     this.estadoFact.nombreEstadoComp;
@@ -137,7 +133,7 @@ export class EstadoComprobanteComponent implements OnInit {
                 this.estadoFact.estadoCompr = 'ACTIVO';
             } else {
                 this.estadoFact.estadoCompr = 'INACTIVO';
-            }
+            } */
 
             //Verificar si el registro ya existe
             if (
@@ -172,11 +168,14 @@ export class EstadoComprobanteComponent implements OnInit {
                         }
                     },
                     complete: () => {},
-                    error: (error) => {},
+                    error: (error) => {
+                        console.error('Ocurrió un error al guardar un registro: ', error)
+                    },
                 });
         }
     }
 
+    //Este verifica si un Registro existe pero con un ID diferente
     registroExiste(
         detalleEstadoComp: string,
         idEstadoComprobante: number

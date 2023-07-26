@@ -27,7 +27,7 @@
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
             
                 <span class="p-float-label">
-                  <textarea pInputTextarea rows="4" cols="30" id="ftxt-descTipoConcepto" required="true" formControlName="descTipoConcepto"></textarea>
+                  <textarea pInputText rows="4" cols="30" id="ftxt-descTipoConcepto" required="true" formControlName="descTipoConcepto"></textarea>
                   <label style="color: rgba(0, 0, 0, 0.6);" for="ftxt-descTipoConcepto">Descripción</label>
                 </span>
               </div>
@@ -42,6 +42,8 @@
               optionLabel="nombreU"
               optionValue="idUnidad"
               id="ftxt-idUnidadTc"
+              filter="true"
+              filterBy="nombreU"
               [virtualScrollItemSize]="38"  placeholder="Selecciona el tipo de Unidad  " 
               >
               

@@ -23,6 +23,7 @@ export class TipoConceptoTableComponent implements OnInit {
     submitted: boolean;
     loading: boolean;
     exportColumns: any[];
+    isIdUtilizado: boolean = false;
   
     cols: any[];
   
@@ -49,6 +50,7 @@ export class TipoConceptoTableComponent implements OnInit {
       ];
       this.exportColumns = this.cols.map(col => ({ title: col.header, dataKey: col.field }));
       this.loading = false;
+      
     }
   
     
@@ -66,6 +68,17 @@ export class TipoConceptoTableComponent implements OnInit {
           this.loading = false;
         });
       }, 1000);
+      
+
+    
+    }
+  
+    async verificarIdUtilizado(item: any) {
+      try {
+        this.isIdUtilizado = await this.tipoConceptoServcice.checkIdUtilizado(item.idTipoConcepto); // Llamada a la API para verificar si el ID está siendo utilizado
+      } catch (error) {
+        console.error('Error al verificar el ID:', error);
+      }
     }
   
   
@@ -88,6 +101,7 @@ export class TipoConceptoTableComponent implements OnInit {
         }
       });
     }
+
   
     eliminarTipoConceptoSelected() {
       let indexLista: number = 0;
@@ -134,6 +148,7 @@ export class TipoConceptoTableComponent implements OnInit {
         }
       });
     }
+    
   
     async eliminarTipoConceptoSimple(doc: TipoConceptoDto) {
       this.tipoConceptoServcice.deleteObject(doc.idTipoConcepto).subscribe(
@@ -144,9 +159,13 @@ export class TipoConceptoTableComponent implements OnInit {
               this.listtipoConcepto = data.listado;
             }
           });
-        }
+        },
+        error => {
+                          this.appservie.msgInfoDetail('error', 'Eliminación', 'Este tipo concepto está siendo usado por otra tabla');
+                      }
       );
     }
+
   
     hideDialog() {
       this.submitted = false;

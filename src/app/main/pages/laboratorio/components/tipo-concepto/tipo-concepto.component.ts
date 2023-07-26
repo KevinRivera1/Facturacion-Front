@@ -45,7 +45,7 @@ export class TipoConceptoComponent implements OnInit {
 
     listUnidad: UnidadDto[] = [];
 
-    Unidad: UnidadDto;
+   // Unidad: UnidadDto;
 
     loading: boolean;
 
@@ -223,13 +223,25 @@ this.f.fechaTc.setValue(fechaSinHora); */
                 this.tipoConcepto.estadoTC = 'INACTIVO';
             }
 
-            // //Verificar si el registro ya existe
-             const registroExiste = this.listTipoConcepto.find(
-                (estado) =>
-                    estado.descTipoConcepto ==
-                     this.tipoConcepto.descTipoConcepto
-             );
+            // Verificar si el registro ya existe
 
+            const nombreTipoConcepto = this.f.nombreTipoConcepto.value;
+            const descTipoConcepto = this.f.descTipoConcepto.value;
+
+            if (
+                this.existeRegistro(
+                    nombreTipoConcepto,
+                    descTipoConcepto,
+                    this.tipoConcepto.idTipoConcepto
+                )
+            ) {
+                this.appService.msgInfoDetail(
+                    'warn',
+                    'Registro Duplicado',
+                    'Este registro ya existe'
+                );
+                return;
+            }
              
 
 
@@ -238,14 +250,7 @@ this.f.fechaTc.setValue(fechaSinHora); */
                     this.response = data;
                     if (this.response.codigoRespuestaValue == 200) {
                         if (!this.tipoConcepto.idTipoConcepto) {
-                            if (registroExiste) {
-                                this.appService.msgInfoDetail(
-                                   'warn',
-                                   'registro duplicado',
-                                  'este registro ya existe con ese detalle'
-                               );
-                               return;
-                            }
+                        
                             this.appService.msgCreate();
                         } else {
                             this.appService.msgUpdate();
@@ -273,14 +278,34 @@ this.f.fechaTc.setValue(fechaSinHora); */
     //       // Puedes agregar más elementos al listado si es necesario
     //     ];
     //   }
-    lista() {
-        this.cols = [{ field: 'idUnidad' }, { field: 'nombreU' }];
-    }
+
+
+    
+ 
 
     setearForm() {
         this.formtipoConcepto.reset();
         this.iniciarForms();
         this.tipoConcepto = null;
+    }
+
+
+    private existeRegistro(
+        nombreTipoConcepto: string,
+        descTipoConcepto: string,
+        idTipoConcepto: number
+    ): boolean {
+        // Estamos en modo creación o edición, realizamos la validación de duplicados.
+        return this.listTipoConcepto.some(
+            (tipoConcepto) =>
+                (tipoConcepto.nombreTipoConcepto === nombreTipoConcepto ||
+                    tipoConcepto.descTipoConcepto === descTipoConcepto) &&
+                    tipoConcepto.idTipoConcepto !== idTipoConcepto
+        );
+    }
+    
+    lista() {
+        this.cols = [{ field: 'idUnidad' }, { field: 'nombreU' }];
     }
 
     cancelar() {

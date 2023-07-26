@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class FormaPagoService {
+
+  //private url = 'http://172.31.203.246:8081/';
  
   constructor(private http: HttpClient) { }
   endpoint: string = 'FormaPago';

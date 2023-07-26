@@ -149,9 +149,9 @@ export class FormaPagoComponent implements OnInit {
                 this.formapago.activo = 'INACTIVO';
             }
 
-            //  }
 
             // Verificar si el registro ya existe
+
             const nombreFp = this.f.nombreFp.value;
             const descripcionFp = this.f.descripcionFp.value;
 
@@ -191,6 +191,13 @@ export class FormaPagoComponent implements OnInit {
         }
         this.modal = false;
     }
+
+    setearForm() {
+        this.formFormaPago.reset();
+        this.iniciarForms();
+        this.formapago = null;
+    }
+
     private existeRegistro(
         nombreFp: string,
         descripcionFp: string,
@@ -203,12 +210,6 @@ export class FormaPagoComponent implements OnInit {
                     pago.descripcionFp === descripcionFp) &&
                 pago.idFormaPago !== idFormaPago
         );
-    }
-
-    setearForm() {
-        this.formFormaPago.reset();
-        this.iniciarForms();
-        this.formapago = null;
     }
 
     cancelar() {

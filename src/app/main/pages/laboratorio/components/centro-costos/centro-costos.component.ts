@@ -38,9 +38,6 @@ export class CentroCostosComponent implements OnInit {
 
     token: TokenDto;
 
-    
-    // private contadorCentroCosto: number = 1;
-
     constructor(
         public appService: AppService,
         private formBuilder: FormBuilder,
@@ -62,7 +59,11 @@ export class CentroCostosComponent implements OnInit {
     iniciarForms() {
         this.formCentroCo = this.formBuilder.group({
             idCentroCosto: new FormControl(null),
-            codCentroCosto: new FormControl('',Validators.compose([Validators.required])),
+            codCentroCosto: new FormControl('SC-00000', [
+                Validators.required,
+                Validators.pattern(/^SC-\d{5}$/)
+              ]),
+            
             nombreCentroCosto: new FormControl('',Validators.compose([Validators.required])),
             descCentroCosto: new FormControl('',Validators.compose([Validators.required])),
             estadoCentroCosto: new FormControl(true, Validators.compose([Validators.requiredTrue])),
@@ -80,11 +81,6 @@ export class CentroCostosComponent implements OnInit {
         this.centros = obj;
         this.formCentroCo = this.formBuilder.group(this.centros);
          this.f.estadoCentroCosto.setValue(this.centros.estadoCentroCosto === 'ACTIVO');
-
-        //  this.f.codCentroCosto.setValue(this.centros.codCentroCosto =="0000");
-        // this.f.fechaCentroCosto.setValue(
-        //     new Date(this.centros.fechaCentroCosto).toLocaleString()
-        // );
         console.log('EMITI', this.centros);
 
     }
@@ -114,10 +110,12 @@ export class CentroCostosComponent implements OnInit {
     }
 
 
-
-    private formatNumber(num: string): string {
-        return `SC-${num.toString().padStart(5, '0')}`;
-    }
+    onCodCentroCostoInput(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        const numericValue = inputElement.value.replace(/\D/g, '');
+        inputElement.value = `SC-${numericValue}`;
+        this.formCentroCo.controls['codCentroCosto'].setValue(inputElement.value);
+      }
 
     
     guardarCentro() {
@@ -132,11 +130,10 @@ export class CentroCostosComponent implements OnInit {
         
         this.centros = this.formCentroCo.value;
         this.centros.nombreCentroCosto = this.f.nombreCentroCosto.value;
-        // this.centros.codCentroCosto = this.formatNumber(this.f.codCentroCosto.value);
         this.centros.codCentroCosto = this.f.codCentroCosto.value;
         this.centros.descCentroCosto = this.f.descCentroCosto.value;
         this.centros.estadoCentroCosto = this.formCentroCo.value.estadoCentroCosto ? 'ACTIVO' : 'INACTIVO';
-        this.centros.idUsuarioCentroCosto = this.token.id;;
+        this.centros.idUsuarioCentroCosto = this.token.id;
           
 
         if (this.centros.idCentroCosto) {
@@ -146,11 +143,11 @@ export class CentroCostosComponent implements OnInit {
         }      
       
 
-        //VALIDACION
+        // VALIDACION
         const nombreCentroCosto = this.f.nombreCentroCosto.value;
         const codCentroCosto = this.f.codCentroCosto.value;
 
-        if (this.existeRegistro(nombreCentroCosto, codCentroCosto)) {
+        if (this.existeRegistro(nombreCentroCosto, codCentroCosto, this.centros.idCentroCosto)) {
             this.appService.msgInfoDetail('warn', 'Registro Duplicado', 'Este registro ya existe');
             return;
         }
@@ -182,13 +179,15 @@ export class CentroCostosComponent implements OnInit {
 
       private existeRegistro(
         nombreCentroCosto: string, 
-        codCentroCosto: string): 
+        codCentroCosto: string,
+        idCentroCosto: number): 
         boolean {
         // Estamos en modo creación, realizamos la validación de duplicados.
         return this.listCentrosCo.some(
         (centro)=>
             (centro.nombreCentroCosto == nombreCentroCosto ||
-             centro.codCentroCosto == codCentroCosto  )         
+             centro.codCentroCosto == codCentroCosto  ) &&
+             centro.idCentroCosto !==idCentroCosto         
         );
     }
 
@@ -196,7 +195,6 @@ export class CentroCostosComponent implements OnInit {
     setearForm() {
         this.formCentroCo.reset();
         this.iniciarForms();
-       // this.centros = null;
     }
 
     cancelar() {
