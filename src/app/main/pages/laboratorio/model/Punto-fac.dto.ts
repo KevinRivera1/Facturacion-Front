@@ -5,6 +5,11 @@ export class PuntoDto {
   nombrePuntoFact: string;
   fechaCreacionPuntoFact: Date;
   idUsuarioPuntoFact: number;
+  estadoPuntoFact: string;
+  idUsuarioRel:number;
+
+  
+  estado:boolean;
 
   fechaTxt: string
 
@@ -15,6 +20,7 @@ export class PuntoDto {
       this.nombrePuntoFact = data.nombrePuntoFact
       this.fechaCreacionPuntoFact = data.fechaCreacionPuntoFact
       this.idUsuarioPuntoFact = data.idUsuarioPuntoFact
+      this.idUsuarioRel = data.idUsuarioRel
   }
 }
 

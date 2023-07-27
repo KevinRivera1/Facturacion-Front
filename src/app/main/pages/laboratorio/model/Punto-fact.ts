@@ -1,8 +1,7 @@
 export interface PuntoModel {
-  
   listado: Punto[];
-
 }
+
 export interface Punto {
   idPuntoFacturacion: number;
   secuencialPuntoFact: string;
@@ -10,5 +9,7 @@ export interface Punto {
   nombrePuntoFact: string;
   fechaCreacionPuntoFact: string;
   idUsuarioPuntoFact: number;
+  estadoPuntoFact:string;
+  idUsuarioRel:number;
 }
 

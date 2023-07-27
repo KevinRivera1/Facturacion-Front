@@ -21,35 +21,40 @@ import { CentroCostosComponent } from '../centro-costos/centro-costos.component'
     styleUrls: ['./centro-costos-table.component.scss'],
 })
 export class CentroCostosTableComponent implements OnInit {
-    proceso: string = 'centroC';
-    @Input() listCentroC: CentroCostoDto[];
-    @Output() centroCSelect = new EventEmitter();
 
-    CentroCs: CentroCostoDto;
-    selectedCentroCostos: CentroCostoDto[];
-    submitted: boolean;
-    loading: boolean;
-    exportColumns: any[];
+    proceso: string = 'centroC';                  //Almacena el valor 'centroC'
+   
+    @Input() listCentroC: CentroCostoDto[];       //Recibir una lista de objetos CentroCostoDto desde un componente padre
+   
+    @Output() centroCSelect = new EventEmitter(); //Salida que emite un objeto CentroCostoDto cuando es seleccionado
+   
+    CentroCs: CentroCostoDto;                     //Almacenar un centro de costo
+   
+    selectedCentroCostos: CentroCostoDto[];       //Almacena los centros de costo seleccionados
+   
+    submitted: boolean;                           //Eenviado el formulario
+   
+    loading: boolean;                             //Cargando informacion
+   
+    exportColumns: any[];                         //Define las columnas de la tabla de centros de costo
+   
     cols: any[];
 
-    constructor(
+
+    constructor(                     //Inyectan los servicios y dependencias necesarios
         private CentroCostosServcice: CentroCostosService,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService,
         private centroCostosComponent: CentroCostosComponent
-
     ) {
-        
     }
 
-    ngOnInit(): void {
-        this.construirTabla();
+    ngOnInit(): void {                //Ejecuta cuando el componente es inicializado
+        this.construirTabla();        // Se construye la tabla con las columnas definidas
     }
 
-
-    construirTabla() {
-        // Inicializa las columnas de una tabla, crea una estructura de columnas para su exportación 
+    construirTabla() {    //Construir la tabla con sus columnas y configuraciones
         this.cols = [
             { field: 'idCentroCosto', header: 'Nro.' },
             { field: 'nombreCentroCosto', header: 'NOMBRE.' },
@@ -57,25 +62,20 @@ export class CentroCostosTableComponent implements OnInit {
             { field: 'descCentroCosto', header: 'DETALLE.' },
             { field: 'estadoCentroCosto', header: 'ESTADO.' },
         ];
-        this.exportColumns = this.cols.map((col) => ({
+        this.exportColumns = this.cols.map((col) => ({//Exportar las columnas a archivos PDF y Excel
             title: col.header,
             dataKey: col.field,
         }));
-        this.loading = false;
+        this.loading = false;                          // Se establece loading a false
     }
     
-    
-    clear(table: Table) {
-        // Se utiliza para borrar el contenido de una tabla 
+    clear(table: Table) {//Limpiar la tabla
         table.clear();
     }
 
-    loadData(event) {
+    loadData(event) {    //Cargar datos en la tabla
         this.loading = true;
-        //Cargar datos de los centros de costos desde un servicio,
-        //Actualizar una variable que almacena los datos y mostrar información en la consola
         setTimeout(() => {
-            //Espera de 1 segundo es comúnmente utilizado para simular una operación asíncrona de carga de datos.
             this.CentroCostosServcice.getAllC().subscribe((res) => {
                 this.listCentroC = res;
                 console.log('LLAMADA');
@@ -85,16 +85,14 @@ export class CentroCostosTableComponent implements OnInit {
         }, 1000);
     }
 
-    registrarNuevoC() {
+    registrarNuevoC() {    //Registrar un nuevo centro de costo
         // @ts-ignore
         this.CentroCs = new CentroCostoDto();
-        // Inicializar un nuevo objeto CentroCostoDto 
         this.submitted = false;
-        // Restablecer el estado de envío del formulario estableciendo submitted FALSO
     }
 
+    //Eliminar los centros de costo seleccionados despues de confirmar
     deleteSelectedCentroCosto() {
-        // Muestra un cuadro de diálogo de confirmación al usuario con opciones para aceptar o cancelar.
         this.confirmationService.confirm({
             acceptLabel: 'Aceptar',
             rejectLabel: 'Cancelar',
@@ -102,18 +100,17 @@ export class CentroCostosTableComponent implements OnInit {
                 'p-button-outlined p-button-rounded p-button-success',
             rejectButtonStyleClass:
                 'p-button-outlined p-button-rounded p-button-danger',
-            message: 'Esta seguro de Eliminar los elementos seleccionados?',
+            message: '¿Esta seguro de eliminar los elementos seleccionados?',
             header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.eliminarCentroCostoSelected();
             },
-            //Elimina los elementos de centro de costo seleccionados
         });
     }
 
+    //Eliminar los centros de costo seleccionados
     eliminarCentroCostoSelected() {
-        //Elimina uno por uno mediante llamadas al servicio
         let indexLista: number = 0;
         for (let i = 0; i < this.selectedCentroCostos.length; i++) {
             this.CentroCostosServcice
@@ -130,7 +127,7 @@ export class CentroCostosTableComponent implements OnInit {
                         this.selectedCentroCostos = null;
                         this.appservie.msgInfoDetail(
                             'error',
-                            'Eliminación',
+                            'Eliminacion',
                             'Se han eliminado todos los datos seleccionados'
                         );
                     }
@@ -138,28 +135,19 @@ export class CentroCostosTableComponent implements OnInit {
         }
     }
 
+    //Editar un centro de costo seleccionado
     editCentroCosto(doc: CentroCostoDto) {
         this.CentroCs = { ...doc };
-        //Asigna una copia del objeto doc a una variable 
-
-
-        // if (doc.estadoCentroCosto == 'ACTIVO') {
-        //     doc.estado = true;
-        // } else {
-            
-        //     doc.estado = false;
-        // }
-
         this.centroCSelect.emit(doc);
     }
 
-
+    //Llamar al metodo abrirmodal() del componente CentroCostosComponent
     llamarModal (){
         this.centroCostosComponent.abrirmodal();
     }
 
+    //Eliminar un centro de costo despues de confirmar
     deleteCentroCosto(doc: CentroCostoDto) {
-        //Muestra un cuadro de diálogo de confirmación al usuario con opciones para aceptar o cancelar
         this.confirmationService.confirm({
             acceptLabel: 'Aceptar',
             rejectLabel: 'Cancelar',
@@ -167,7 +155,7 @@ export class CentroCostosTableComponent implements OnInit {
                 'p-button-outlined p-button-rounded p-button-success',
             rejectButtonStyleClass:
                 'p-button-outlined p-button-rounded p-button-danger',
-            message: 'Esta seguro de eliminar el id ' + doc.idCentroCosto + '?',
+            message: '¿Esta seguro de eliminar el id ' + doc.idCentroCosto + '?',
             header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
@@ -176,8 +164,8 @@ export class CentroCostosTableComponent implements OnInit {
         });
     }
 
+    //Eliminar un centro de costo
     async eliminarCentroCostoSimple(doc: CentroCostoDto) {
-        //Eliminar un centro de costo específico
         this.CentroCostosServcice.deleteObjectC(doc.idCentroCosto).subscribe((data) => {
             this.appservie.msgDelete();
             this.CentroCostosServcice.getAllC().subscribe({
@@ -188,10 +176,12 @@ export class CentroCostosTableComponent implements OnInit {
         });
     }
 
+    //Ocultar el dialogo del formulario
     hideDialog() {
         this.submitted = false;
     }
 
+    //Exportar los datos de la tabla a un archivo PDF
     exportPdf() {
         let indexLista: number = 0;
         this.listCentroC.forEach((element) => {
@@ -206,17 +196,18 @@ export class CentroCostosTableComponent implements OnInit {
         );
     }
 
+    //Exportar los datos de la tabla a un archivo Excel
     exportExcel() {
         let indexLista: number = 0;
         this.listCentroC.forEach((element) => {
             indexLista++;
             element.idCentroCosto = indexLista;
             element.idUsuarioCentroCosto = null;
-            // element.fechaCentroCosto= null;
         });
         this.appservie.exportExcel(this.listCentroC, 'Centro de Costos');
     }
 
+    //Descargar un archivo
     descargarArchivo(fileName: string) {
         try {
             this.fileService.getFileByName(fileName, this.proceso);
@@ -228,5 +219,4 @@ export class CentroCostosTableComponent implements OnInit {
             );
         }
     }
-    
 }

@@ -35,13 +35,15 @@ export class FormaPagoComponent implements OnInit {
 
     token: TokenDto;
 
+    
+
     constructor(
         public appService: AppService,
         private formBuilder: FormBuilder,
         private tokenService: TokenService,
         private breadcrumbService: BreadcrumbService,
-
         private formapagoService: FormaPagoService
+        
     ) {
         this.breadcrumbService.setItems([{ label: 'Forma Pago ' }]);
     }

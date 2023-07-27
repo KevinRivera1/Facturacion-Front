@@ -75,33 +75,13 @@ export class ConceptoComponent implements OnInit {
         this.formConceptos = this.formBuilder.group({
             idConcepto: new FormControl(null),
             codigoConcepto: new FormControl('SC-00000', [
-                Validators.required,
-                Validators.pattern(/^SC-\d{5}$/)
-              ]),
-            idTipoConceptoDto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            idIva: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            nombreConcepto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            descConcepto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            valorConcepto: new FormControl(
-                '',
-                Validators.compose([Validators.required])
-            ),
-            estadoConcetpto: new FormControl(
-                true,
-                Validators.compose([Validators.requiredTrue])
-            ),
+            Validators.required,Validators.pattern(/^SC-\d{5}$/)]),
+            idTipoConceptoDto: new FormControl('',Validators.compose([Validators.required])),
+            idIva: new FormControl('',Validators.compose([Validators.required])),
+            nombreConcepto: new FormControl('',Validators.compose([Validators.required])),
+            descConcepto: new FormControl('',Validators.compose([Validators.required])),
+            valorConcepto: new FormControl('',Validators.compose([Validators.required])),
+            estadoConcetpto: new FormControl(true,Validators.compose([Validators.requiredTrue])),
             fechaConcepto: new FormControl(new Date().toLocaleDateString()),
         });
 
@@ -124,6 +104,7 @@ export class ConceptoComponent implements OnInit {
 
         console.log('EMITI', this.conceptos);
     }
+
 
     loadData(event) {
         this.loading = true;

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CentroCostosService {
     // private url = 'http://172.31.203.246:8081/';
+    // endpoint: string = 'centrocosto';
 
     url = `${environment.HOST}`;
     endpoint: string = '/CentroCosto';

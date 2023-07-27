@@ -1,26 +1,21 @@
 <p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="modal" [modal]="true"
-[style]="{ width: '45vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
-       
+[style]="{ width: '35vw' }" (onHide)="cerrar()" [draggable]="true" [resizable]="true" xmlns:p="http://www.w3.org/1999/html" >
+    
 
 
     <p-header>
         <h4 class="">Punto Facturación</h4>
     </p-header>
-    <form [formGroup]="formPunto">
-
-        <br>
-
-        <div class="p-fluid p-formgrid grid">
+    <form [formGroup]="formPunto" >
+        <br><br>
+        <div class="p-fluid p-formgrid grid" style="margin-left: 25px;">
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-nombrePuntoFact" type="text" required="true"
                         formControlName="nombrePuntoFact">
                     <label for="ftxt-nombrePuntoFact">* Nombre</label>
                 </span>
-            </div>  
-        </div>
-
-        <div class="p-fluid p-formgrid grid">
+            </div>
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-secuencialPuntoFact" type="text" required="true"
@@ -28,44 +23,64 @@
                     <label for="ftxt-secuencialPuntoFact">* Secuencial</label>
                 </span>
             </div>
-        </div>
-
-        <div class="p-fluid p-formgrid grid">
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" >
+                <label for="ftxt-estadoPuntoFact" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-fechaCreacionPuntoFact" type="text" dateFormat="yyyy/mm/dd"
-                        formControlName="fechaCreacionPuntoFact" readonly>
-                    <label for="ftxt-fechaCreacionPuntoFact">* Fecha Registro </label>
-                </span>
+                <p-inputSwitch  id="ftxt-estadoPuntoFact"
+                                formControlName="estadoPuntoFact"></p-inputSwitch>
+            </span>
             </div>
+          
+
+            <div class="field col-12 md:col-4" style="margin-left: 4px; width: 284px;">
+                <span class="p-float-label">
+                <p-dropdown [options]="listUsuario"
+                formControlName="idUsuarioRel"
+                 placeholder="Seleccionar Usuario"
+               [virtualScroll]="true"
+               [(ngModel)]="selectedUsuario"
+               optionLabel="nombres"
+                            optionValue="idUsuario"
+                 id="ftxt-idUsuarioRel"
+                 [virtualScrollItemSize]="38"
+                 filter="true"
+                 filterBy="nombres"></p-dropdown>
+                 <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-idUsuarioRel">* Usuarios</label>
+                 </span>
+                </div>
+
         </div>
+    
+        <!-- Resto del formulario... -->
+    
         <div class="central">
             <p-toolbar>
                 <div class="p-toolbar-group-center">
                     <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-send"
                         type="submit" (click)="guardarpunto()" pTooltip="Guardar" tooltipPosition="right"></button>
-                
+    
                     <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger cancelar-button" icon="pi pi-times"
                         (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
                 </div>
             </p-toolbar>
         </div>
-
-
     </form>
 
 </p-dialog>
+<p-card>
+    <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
+        <h4>Punto Facturacion</h4>
+    </p-header>
+    <div class="caja-boton-principal">
+        <button pButton label="Agregar Punto de Facturacion" class="p-button p-button-lg m-1 p-button-info bg-blue-900 "
+            icon="pi pi-plus" pTooltip="Agregar Punto de Facturacion" (click)="abrimodal()"
+            tooltipPosition="right"></button>
 
-<div class="button-container">
-    <button pButton label="Agregar Punto Facturacion" icon="pi pi-plus" (click)="abrimodal()"
-        pTooltip="Agregar Comprobante" tooltipPosition="right"></button>
-</div>
+    </div>
 
-
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
-
-<p-divider></p-divider>
-
-<app-punto-facturacion-table [listPunto]="listPunto"
+    <p-divider></p-divider>
+    <app-punto-facturacion-table [listPunto]="listPunto"
     (puntoSelect)=setSeleccionado($event)>
 </app-punto-facturacion-table> 
+
+</p-card>

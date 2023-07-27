@@ -1,6 +1,6 @@
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 <p-dialog [contentStyle]="{'overflow': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
-    [style]="{ width: '45vw' }" [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+ [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Registro Forma de Pago</h4>
     </p-header>
@@ -22,13 +22,13 @@
 
 
             <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3 ">
                     <span class="p-float-label">
                         <input pInputText id="ftxt-nombreFp" type="text" required="true" formControlName="nombreFp">
                         <label for="ftxt-nombreFp">* Nombre</label>
                     </span>
                 </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3 ">
                     <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                     <span class="p-float-label">
                         <p-inputSwitch id="ftxt-activo" formControlName="activo"></p-inputSwitch>
@@ -71,7 +71,7 @@
                             <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descripcionFp">* Descripción</label>
                     </span>
                 </div> -->
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="margin-top: 10px;">
                     <span class="p-float-label">
                         <textarea  pInputText id="ftxt-descripcionFp" rows="4"  required="true"
                             formControlName="descripcionFp" style="resize: none;"></textarea>

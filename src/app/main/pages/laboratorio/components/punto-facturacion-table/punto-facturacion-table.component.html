@@ -1,102 +1,117 @@
-
 <section class="content">
-  <div class="container-fluid">
-      <div class="card">
-          <p-table #dt [value]="listPunto" [rows]="10" [paginator]="true" [loading]="loading"
-                   [globalFilterFields]="[
+    <div class="container-fluid">
+        <div class="card">
+            <p-table #dt [value]="listPunto" [rows]="10" [paginator]="true" [loading]="loading"
+                [globalFilterFields]="[
+                    'rowIndex',
                       'idPuntoFacturacion',
                       'secuencialPuntoFact',
                       'ncedUsuario',
                       'nombrePuntoFact',
                       'fechaCreacionPuntoFact',
                       'idUsuarioPuntoFact'
-                   ]"
-                
-                   responsiveLayout="scroll" [(selection)]="selectedpuntoFac"
-                   [rowHover]="true" dataKey="idPuntoFacturacion"
-                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-              <ng-template pTemplate="caption">
-                  <div class="flex justify-content-between flex-wrap">
-                      <div>
-                          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
-                                  class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
-                                  tooltipPosition="bottom"></button>
-                          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
-                                  class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
-                                  tooltipPosition="bottom"></button>
-                          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
-                                  (click)="deleteSelectedPunto()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
-                                  [disabled]="!selectedpuntoFac || !selectedpuntoFac.length"></button>
-                          <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
-                                  (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
-                      </div>
+                   ]" responsiveLayout="scroll" [(selection)]="selectedpuntoFac" [rowHover]="true"
+                dataKey="idPuntoFacturacion"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-wrap">
+                        <div>
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                tooltipPosition="bottom"></button>
+                            <button pButton pRipple label="Delete" icon="pi pi-trash"
+                                class="p-button-danger p-button-sm m-1" (click)="deleteSelectedPunto()"
+                                pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                                [disabled]="!selectedpuntoFac || !selectedpuntoFac.length"></button>
+                            <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
+                                icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros"
+                                tooltipPosition="right"></button>
+                        </div>
 
-                      <label class="text-center">Punto De Fcaturacion</label>
-                      <span class="p-input-icon-left ">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" class="p-inputtext-sm"
-                   (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
-          </span>
-                  </div>
-              </ng-template>
-              <ng-template pTemplate="header">
-                  <tr>
-                      <th style="width: 3rem">
-                          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                      </th>
-                      <th pSortableColumn="idPuntoFacturacion">
-                          <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
-                              <p-sortIcon field="idPuntoFacturacion"></p-sortIcon>
-                              <p-columnFilter type="text" field="idPuntoFacturacion" display="menu"></p-columnFilter>
-                          </div>
-                      </th>
-                      <th pSortableColumn="nombrePuntoFact">
-                          <div class="flex justify-content-between align-items-center">Nombre
-                              <p-sortIcon field="nombrePuntoFact"></p-sortIcon>
-                              <p-columnFilter type="text" field="nombrePuntoFact" display="menu"></p-columnFilter>
-                          </div>
-                      </th>
-                      <th pSortableColumn="secuencialPuntoFact">
-                          <div class="flex justify-content-between align-items-center">Secuencia
-                              <p-sortIcon field="secuencialPuntoFact"></p-sortIcon>
-                              <p-columnFilter type="text" field="secuencialPuntoFact" display="menu"></p-columnFilter>
-                          </div>
-                      </th>
-                   
+                        <label class="text-center">Punto De Fcaturacion</label>
+                        <span class="p-input-icon-left ">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" class="p-inputtext-sm"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Busqueda General" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="idPuntoFacturacion">
+                            <div class="flex justify-content-between align-items-center">
+                                <bold style="font-weight: bold;">&#8470;</bold>
+                                <p-sortIcon field="idPuntoFacturacion"></p-sortIcon>
+                                <p-columnFilter type="text" field="idPuntoFacturacion" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="nombrePuntoFact">
+                            <div class="flex justify-content-between align-items-center">Nombre
+                                <p-sortIcon field="nombrePuntoFact"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombrePuntoFact" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="secuencialPuntoFact">
+                            <div class="flex justify-content-between align-items-center">Secuencia
+                                <p-sortIcon field="secuencialPuntoFact"></p-sortIcon>
+                                <p-columnFilter type="text" field="secuencialPuntoFact" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="estadoPuntoFact">
+                            <div class="flex justify-content-between align-items-center">Estado
+                                <p-sortIcon field="estadoPuntoFact"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoPuntoFact" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <!-- <th pSortableColumn="estadoPuntoFact">
+                            <div class="flex justify-content-between align-items-center">Usuarios
+                                <p-sortIcon field="estadoPuntoFact"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoPuntoFact" display="menu"></p-columnFilter>
+                            </div>
+                        </th> -->
 
-                      <th>Acciones</th>
-                  </tr>
+                        <th>Acciones</th>
+                    </tr>
 
-              </ng-template>
-              <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
-                  <tr>
-                      <td>
-                          <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                      </td>
-                      <td>{{rowIndex+1}}</td>
-                      <td>{{item.nombrePuntoFact}}</td>
-                      <td>{{item.secuencialPuntoFact}}</td>
-
-
-                      <td>
-                          <button pButton pRipple icon="pi pi-pencil" 
-                                  class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editPunto(item)"
-                                  pTooltip="Editar" tooltipPosition="left" (click)="llamarmodal()"  ></button>
-                          <button pButton pRipple icon="pi pi-trash"
-                                  class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deletePunto(item)"
-                                  pTooltip="Eliminar" tooltipPosition="left"  ></button>
-                      </td>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="summary">
-                  <div class="p-d-flex p-ai-center p-jc-between">
-                      Registros Totales: {{listPunto ? listPunto.length : 0 }}.
-                  </div>
-              </ng-template>
-          </p-table>
-      </div>
-  </div>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                        </td>
+                        <td>{{rowIndex+1}}</td>
+                        <td>{{item.nombrePuntoFact}}</td>
+                        <td>{{item.secuencialPuntoFact}}</td>
+                        <td> <mark [ngClass]="item.estadoPuntoFact == 'ACTIVO'
+                        ? 'border-green-500' : 'border-red-500' ">{{item.estadoPuntoFact}}</mark></td>
+                        <!-- <td>{{item.nombres}}</td> -->
+                        
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                                (click)="editPunto(item)"  pTooltip="Editar" tooltipPosition="left"
+                                (click)="llamarmodal()"></button>
+                            <button pButton pRipple icon="pi pi-trash"
+                                class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                                (click)="deletePunto(item)" pTooltip="Eliminar" tooltipPosition="left"
+                                *ngIf="item.estadoPuntoFact =='ACTIVO'"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Registros Totales: {{listPunto ? listPunto.length : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
 </section>
-
-
-

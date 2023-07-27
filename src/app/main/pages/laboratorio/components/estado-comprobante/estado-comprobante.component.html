@@ -6,10 +6,19 @@
         (click)=" onDisplayForm()"></button>
 </div>
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [draggable]="true" [resizable]="true"
-    (onHide)="cancelar()" [dismissableMask]="true">
-    <p-header>
-        <h4 class="vertical-align-middle text-center">Registro Estados comprobante</h4>
-    </p-header>
+    [closable]="false" [responsive]="true" (onHide)="cancelar()" [dismissableMask]="false">
+
+    <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center" style="width: 100%;">
+            <div class="text-2xl text-center">Registro Estado Comprobante</div>
+            <div class="flex align-items-center">
+                <button type="button" pButton icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-danger p-button-text text-white p-mr-2"></button>
+            </div>
+        </div>
+    </ng-template>
+
     <form [formGroup]="formEstadoFact" class="mt-6">
         <div class="p-grid p-fluid">
             <div class="p-field p-col-12 p-md-6 px-3">
@@ -19,14 +28,14 @@
                     <label for="ftxt-nombreEstadoComp">* Nombre Estado Comprobante</label>
                 </span>
             </div>
-    
+
             <div class="p-field p-col-12 p-md-6 px-3">
                 <label for="ftxt-estadoCompr">* Estado</label>
                 <span class="p-float-label">
                     <p-inputSwitch id="ftxt-estadoCompr" formControlName="estadoCompr"></p-inputSwitch>
                 </span>
             </div>
-    
+
             <div class="p-field p-col-12 px-3">
                 <span class="p-float-label">
                     <textarea pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
@@ -35,14 +44,14 @@
                 </span>
             </div>
         </div>
-    
+
         <div class="central">
             <p-toolbar>
                 <div class="p-toolbar-group-center">
                     <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-outlined p-button-primary"
                         icon="pi pi-send" type="submit" (click)="guardarEstadoFact()" pTooltip="Guardar"
                         tooltipPosition="right"></button>
-    
+
                     <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-outlined p-button-danger"
                         icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
                 </div>

@@ -109,7 +109,7 @@ export class EstadoComprobanteComponent implements OnInit {
             this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
             //this.estadoFact.idEstadoComprobante = 1;
 
-            //Este me asigna el usuario logeado al guardar un registro
+            //Este asigna el ID del usuario logeado al guardar un registro
             this.estadoFact.idUsuarioEstComprob = this.token.id;
 
             this.estadoFact.nombreEstadoComp = this.formEstadoFact.value
@@ -135,7 +135,7 @@ export class EstadoComprobanteComponent implements OnInit {
                 this.estadoFact.estadoCompr = 'INACTIVO';
             } */
 
-            //Verificar si el registro ya existe
+            //Comprueba si el registro ya existe en base a los parametros proporcionados en la función registroExiste.
             if (
                 this.registroExiste(
                     this.estadoFact.detalleEstadoComp,
@@ -175,7 +175,7 @@ export class EstadoComprobanteComponent implements OnInit {
         }
     }
 
-    //Este verifica si un Registro existe pero con un ID diferente
+    //Este verifica si un Registro existe mediante el detalleEstado pero con un ID diferente
     registroExiste(
         detalleEstadoComp: string,
         idEstadoComprobante: number
