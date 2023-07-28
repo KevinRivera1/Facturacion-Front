@@ -42,13 +42,15 @@ import { FormaPagoComponent } from '../components/forma-pago/forma-pago.componen
 import { ConceptosTableComponent } from '../components/concepto-table/concepto-table.component';
 import { CentroCostosComponent } from '../components/centro-costos/centro-costos.component';
 import { CentroCostosTableComponent } from '../components/centro-costos-table/centro-costos-table.component';
-import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
+
 import { TipoConceptoTableComponent } from '../components/tipo-concepto-table/tipo-concepto-table.component';
 import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
 import { PuntoFacturacionTableComponent } from '../components/punto-facturacion-table/punto-facturacion-table.component';
 
 import { EstadoComprobanteTableComponent } from '../components/estado-comprobante-table/estado-comprobante-table.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
+import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
+
 
 
 
@@ -62,12 +64,13 @@ import { EstadoComprobanteComponent } from '../components/estado-comprobante/est
         ConceptosTableComponent,
         CentroCostosComponent,
         CentroCostosTableComponent,
-        TipoConceptoComponent,
         TipoConceptoTableComponent,
         PuntoFacturacionComponent,
         PuntoFacturacionTableComponent,
         EstadoComprobanteTableComponent,
-        EstadoComprobanteComponent
+        EstadoComprobanteComponent,
+        TipoConceptoComponent
+
 
     ],
     imports: [

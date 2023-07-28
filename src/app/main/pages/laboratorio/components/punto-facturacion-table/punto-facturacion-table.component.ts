@@ -134,7 +134,6 @@ export class PuntoFacturacionTableComponent implements OnInit {
     // }
 
 
-
     eliminarPuntosSelected() {
         let indexLista: number = 0;
         for (let i = 0; i < this.selectedpuntoFac.length; i++) {
@@ -148,32 +147,34 @@ export class PuntoFacturacionTableComponent implements OnInit {
                                 this.listPunto = data.listado;
                                 this.selectedpuntoFac = null;
                                 this.appservie.msgInfoDetail('error', 'Eliminación', 'Se han eliminado todos los datos seleccionados');
-                                this.refreshPage();
                             }
                         });
                     }
                 },
                 error => {
+                    indexLista++;
 
-                    this.refreshPage();
-
-                    //  return this.appservie.msgInfoDetail('error', 'Eliminación', 'Este punto de facturación está siendo usado por otra tabla.');
-
+                    if (indexLista == 1) {
+                        this.puntoFacService.getAll().subscribe({
+                            next: data => {
+                                this.listPunto = data.listado;
+                                this.selectedpuntoFac = null;
+                                this.appservie.msgInfoDetail('error', 'Eliminación', 'Este punto de facturación está siendo usado por otra tabla.');
+                            }
+                        });
+                    }
                 }
             );
         }
     }
 
-    refreshPage() {
-        // Esperar 100ms antes de recargar la página para asegurar que todos los cambios se hayan reflejado en la interfaz.
-        setTimeout(() => {
-            window.location.reload();
-            this.appservie.msgInfoDetail('error', 'Eliminación', 'Se han eliminado todos los datos seleccionados');
-        }, 600); return this.appservie.msgInfoDetail('error', 'Eliminación', 'Este punto de facturación está siendo usado por otra tabla.');
-    }
-
-
-
+    // refreshPage() {
+    //     setTimeout(() => {
+    //         window.location.reload();
+    //         // this.appservie.msgInfoDetail('error', 'Eliminación', 'Este punto de facturación está siendo usado por otra tabla.');
+    //         // this.appservie.msgInfoDetail('error', 'Eliminación', 'Se han eliminado todos los datos seleccionados');
+    //     },);
+    // }
 
     editPunto(doc: PuntoDto) {
         this.puntoFac = { ...doc };
