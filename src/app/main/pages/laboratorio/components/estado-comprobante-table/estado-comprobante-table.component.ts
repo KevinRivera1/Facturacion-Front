@@ -141,9 +141,12 @@ export class EstadoComprobanteTableComponent implements OnInit {
                 'p-button-outlined p-button-rounded p-button-success',
             rejectButtonStyleClass:
                 'p-button-outlined p-button-rounded p-button-danger',
-            message: 'Esta seguro de eliminar ' + doc.idEstadoComprobante + '?',
+            message:
+                'Esta seguro de eliminar este registro: ' +
+                doc.detalleEstadoComp +
+                '?',
             header: 'Confirmar',
-            icon: 'pi pi-exclamation-triangle',
+            icon: 'pi pi-trash',
             accept: () => {
                 this.eliminarEstadofactSimple(doc);
             },
@@ -153,14 +156,29 @@ export class EstadoComprobanteTableComponent implements OnInit {
     async eliminarEstadofactSimple(doc: EstadoComprobanteDto) {
         this.estadoComprobanteService
             .deleteObject(doc.idEstadoComprobante)
-            .subscribe((data) => {
-                this.appservie.msgDelete();
-                this.estadoComprobanteService.getAll().subscribe({
-                    next: (data) => {
-                        this.listestadoFact = data.listado;
-                    },
-                });
-            });
+            .subscribe(
+                (data) => {
+                    this.appservie.msgDelete();
+                    this.estadoComprobanteService.getAll().subscribe({
+                        next: (data) => {
+                            this.listestadoFact = data.listado;
+                        },
+                    });
+                },
+                (error) => {
+                    if (
+                        error.status === 404 &&
+                        error.error === 'REGISTRO_NO_EXISTENTE'
+                    ) {
+                        this.appservie.msgInfoDetail(
+                            'info',
+                            'Error al Eliminar',
+                            'Este registro esta presente en otra tabla'
+                        );
+                        return;
+                    }
+                }
+            );
     }
 
     hideDialog() {

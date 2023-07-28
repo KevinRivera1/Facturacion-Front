@@ -115,6 +115,7 @@ export class TipoConceptoComponent implements OnInit {
     }
 
     setSeleccionado(obj) {
+        this.f.estadoTC.enable(); 
         this.tipoConcepto = obj;
         this.formtipoConcepto = this.formBuilder.group(this.tipoConcepto);
         this.f.estadoTC.setValue(this.tipoConcepto.estadoTC === 'ACTIVO');
@@ -143,7 +144,7 @@ this.f.fechaTc.setValue(fechaSinHora); */
                 this.appService.msgInfoDetail(
                     severities.INFO,
                     'INFO',
-                    'Datos Cargados exitosamente'
+                    'Datos Cargados exitosamente', 500
                 );
             },
             error: (error) => {
@@ -317,8 +318,11 @@ this.f.fechaTc.setValue(fechaSinHora); */
         this.modal = true;
     }
     cerrar() {
+        this.f.estadoTC.disable(); 
         this.formtipoConcepto.reset();
         this.iniciarForms();
         this.modal = false;
+        
+
     }
 }

@@ -73,7 +73,7 @@
                         style=" margin-left: 420px; margin-top: -70px;">
                         <label for="ftxt-estadoConcetpto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                         <span class="p-float-label">
-                            <p-inputSwitch id="ftxt-estadoConcetpto" formControlName="estadoConcetpto"></p-inputSwitch>
+                            <p-inputSwitch id="ftxt-estadoConcetpto" [disabled]="true" formControlName="estadoConcetpto"></p-inputSwitch>
                         </span>
                     </div>
 
@@ -118,7 +118,7 @@
                 <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-codigoConcepto" type="text" required="true"
+                            <input pInputText id="ftxt-codigoConcepto"  maxlength="8" pattern="SC-\d{5}" type="text" required="true"
                                 formControlName="codigoConcepto" >
                             <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-codigoConcepto" >* Codigo</label>
                         </span>

@@ -68,7 +68,7 @@
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
               <label for="ftxt-estadoTC" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
               <span class="p-float-label">
-                  <p-inputSwitch id="ftxt-estadoTC" formControlName="estadoTC"></p-inputSwitch>
+                  <p-inputSwitch disabled="true" id="ftxt-estadoTC" formControlName="estadoTC"></p-inputSwitch>
               </span>
           </div>
             </div>
@@ -100,10 +100,10 @@
             <div class="central">
               <p-toolbar>
                 <div class="p-toolbar-group-center">
-                  <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info" icon="pi pi-send" type="submit"
+                  <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-send" type="submit"
                           (click)="guardarTipoConcepto()" pTooltip="Guardar" tooltipPosition="right"></button>
         
-                  <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger" icon="pi pi-times" (click)="cancelar()"
+                  <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger cancelar-button" icon="pi pi-times" (click)="cancelar()"
                           pTooltip="Cancelar" tooltipPosition="right"></button>
                 </div>
               </p-toolbar>

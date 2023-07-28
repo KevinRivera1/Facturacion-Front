@@ -2,40 +2,39 @@
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 <p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="modal" [modal]="true"
-    [style]="{ width: '45vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
+    [style]="{ width: '42vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
-        <h4 class="">CEMTRO DE COSTOS</h4>
+        <h4 class="">CENTRO DE COSTOS</h4>
     </p-header>
 
 
-    <form [formGroup]="formCentroCo">
-        <div class="">
+    <form [formGroup]="formCentroCo" class="mt-2">
+        <div class="form--center">
             <!-- card no-gutter widget-overview-box widget-overview-box-1 -->
             <br>
 
-            <div class="p-fluid p-formgrid grid">
+            <div class="p-formgrid grid input">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                     <span class="p-float-label">
-                        <input pInputText id="ftxt-nombreCentroCosto" type="text" required="true" formControlName="nombreCentroCosto">
+                        <input pInputText id="ftxt-nombreCentroCosto" class="text" required="true" formControlName="nombreCentroCosto">
                         <label for="ftxt-nombreCentroCosto">* Nombre</label>
-                    </span>
-                </div>
-                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                            <span class="p-float-label">
-                                <input pInputText id="ftxt-codCentroCosto" type="text" maxlength="8" pattern="SC-\d{5}" required="true" (input)="onCodCentroCostoInput($event)" formControlName="codCentroCosto">
-                                <label for="ftxt-codCentroCosto">* Codigo</label>
-                            </span>
-                        </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <label for="ftxt-estadoCentroCosto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
-                    <span class="p-float-label">
-                        <p-inputSwitch id="ftxt-estadoCentroCosto" formControlName="estadoCentroCosto"></p-inputSwitch>
                     </span>
                 </div>
             </div>
 
             <div class="p-fluid p-formgrid grid">
-    
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input pInputText id="ftxt-codCentroCosto" type="text" maxlength="8" pattern="SC-\d{5}" required="true" (input)="onCodCentroCostoInput($event)" formControlName="codCentroCosto">
+                        <label for="ftxt-codCentroCosto">* Codigo</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <label for="ftxt-estadoCentroCosto" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                    <span class="p-float-label">
+                        <p-inputSwitch disabled="true" id="ftxt-estadoCentroCosto" formControlName="estadoCentroCosto"></p-inputSwitch>
+                    </span>
+                </div>
 
             </div>
             <div class=" p-formgrid grid">
@@ -43,7 +42,7 @@
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                     <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descCentroCosto">* Detalle</label>
                     <span class="p-float-label">
-                        <textarea pInputTextarea rows="4" style="resize: none;" id="ftxt-descCentroCosto" required="true"
+                        <textarea pInputTextarea rows="4" id="ftxt-descCentroCosto" required="true"
                             formControlName="descCentroCosto"></textarea>
                     </span>
                 </div>

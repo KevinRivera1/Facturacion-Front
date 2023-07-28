@@ -1,28 +1,42 @@
+.form--center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+}
+
 .guardar-button {
     background-color: white !important;
     color: blue !important;
-    border: solid blue 1px !important  ;
-  
-  }
-  
-  .cancelar-button {
+    border: solid blue 1px !important;
+
+}
+
+.cancelar-button {
     background-color: white !important;
     color: red !important;
     border: solid red 1px !important;
-  }
+}
 
 textarea {
-    min-width: 39vw;
+    min-width: 38vw;
+    resize: none;
+}
+
+.text {
+    min-width: 38vw;
+    resize: none;
 }
 
 @media (max-width: 576px) {
-    textarea {
+    textarea .text {
         min-width: 40vw;
     }
 }
 
 @media (max-width: 640px) {
-    textarea {
+    textarea .text {
         min-width: 42vw;
     }
 }

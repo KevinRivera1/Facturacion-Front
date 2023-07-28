@@ -154,7 +154,7 @@ export class TipoConceptoTableComponent implements OnInit {
         rejectLabel: 'Cancelar',
         acceptButtonStyleClass: 'p-button-outlined p-button-rounded p-button-success',
         rejectButtonStyleClass: 'p-button-outlined p-button-rounded p-button-danger',
-        message: '¿Está seguro de eliminar ' + doc.idTipoConcepto + '?',
+        message: '¿Está seguro de eliminar el Tipo Concepto con el nombre: ' + doc.nombreTipoConcepto + '?',
         header: 'Confirmar',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {

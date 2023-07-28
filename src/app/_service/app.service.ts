@@ -109,7 +109,7 @@ export class AppService {
     msgCreate() {
         this.messageService.add({
             severity: 'success',
-            summary: 'Success',
+            summary: 'CREADO',
             detail: 'Registro creado con éxito',
         });
     }
@@ -117,7 +117,7 @@ export class AppService {
     msgUpdate() {
         this.messageService.add({
             severity: 'warn',
-            summary: 'Success',
+            summary: 'ACTUALIZADO',
             detail: 'Registro actualizado con éxito',
         });
     }
@@ -125,13 +125,23 @@ export class AppService {
     msgDelete() {
         this.messageService.add({
             severity: 'error',
-            summary: 'Delete',
+            summary: 'ELIMINADO',
             detail: 'Registro eliminado con éxito',
         });
     }
 
-    msgInfoDetail(severity: string, header: string, content: string) {
-        this.messageService.add({ severity, summary: header, detail: content });
+    msgInfoDetail(
+        severity: string,
+        header: string,
+        content: string,
+        duration: number = 2000
+    ) {
+        this.messageService.add({
+            severity,
+            summary: header,
+            detail: content,
+            life: duration,
+        });
     }
 
     /*******

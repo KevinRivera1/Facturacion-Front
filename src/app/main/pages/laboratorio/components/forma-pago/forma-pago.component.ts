@@ -81,8 +81,10 @@ export class FormaPagoComponent implements OnInit {
         this.token = JSON.parse(this.tokenService.getResponseAuth());
         //  this.f.idFormaPago.setValue(this.token.id)
     }
-
+    public activoControl: FormControl;
+    
     setSeleccionado(obj) {
+        this.f.activo.enable(); 
         this.formapago = obj;
         this.formFormaPago = this.formBuilder.group(this.formapago);
         this.f.activo.setValue(this.formapago.activo === 'ACTIVO');
@@ -90,7 +92,9 @@ export class FormaPagoComponent implements OnInit {
         /*  this.f.fechaFp.setValue(
             new Date(this.formapago.fechaFp).toLocaleString()
         ); */
+        
         console.log('EMITI', this.formapago);
+      
     }
 
     async llenarListFormaPago() {
@@ -104,7 +108,8 @@ export class FormaPagoComponent implements OnInit {
                 this.appService.msgInfoDetail(
                     severities.INFO,
                     'INFO',
-                    'Datos Cargados exitosamente'
+                    'Datos Cargados exitosamente' ,
+                    500
                 );
             },
             error: (error) => {
@@ -151,7 +156,7 @@ export class FormaPagoComponent implements OnInit {
                 this.formapago.activo = 'INACTIVO';
             }
 
-
+           
             // Verificar si el registro ya existe
 
             const nombreFp = this.f.nombreFp.value;
@@ -219,10 +224,14 @@ export class FormaPagoComponent implements OnInit {
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
         this.modal = false;
     }
+    
     cerrar() {
         this.formFormaPago.reset();
+        this.f.activo.disable(); 
         this.iniciarForms();
         this.modal = false;
+        
+
     }
 
     abrirmodal() {

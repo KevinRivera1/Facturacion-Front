@@ -89,6 +89,7 @@ export class ConceptoComponent implements OnInit {
     }
 
     setSeleccionado(obj) {
+        this.f.estadoConcetpto.enable();
         this.conceptos = obj;
         this.formConceptos = this.formBuilder.group(this.conceptos);
         this.f.estadoConcetpto.setValue(
@@ -141,7 +142,8 @@ export class ConceptoComponent implements OnInit {
                 this.appService.msgInfoDetail(
                     severities.INFO,
                     'INFO',
-                    'Datos Cargados exitosamente'
+                    'Datos Cargados exitosamente' ,
+                    500
                 );
             },
             error: (error) => {
@@ -199,18 +201,23 @@ export class ConceptoComponent implements OnInit {
         const inputElement = event.target as HTMLInputElement;
         const numericValue = inputElement.value.replace(/\D/g, '');
         inputElement.value = `SC-${numericValue}`;
-        this.formConceptos.controls['codConcepto'].setValue(inputElement.value);
+        this.formConceptos.controls['codigoConcepto'].setValue(inputElement.value);
       }
 
     guardarConceptos() {
         if (this.formConceptos.invalid) {
-            this.appService.msgInfoDetail(
-                'warn',
-                'Verificación',
-                'Verificar los Datos a Ingresar'
-            );
-            return;
-        } else {
+            let mensajes = [];
+        if (this.f.descConcepto.invalid || this.f.nombreConcepto.invalid) {
+          mensajes.push('Faltan Campos por llenar.');
+        }
+        if (this.f.codigoConcepto.invalid) {
+            mensajes.push('El campo Codigo debe contener 5 digitos numericos.');
+        }
+        if (mensajes.length > 0) {
+          this.appService.msgInfoDetail('warn', 'ALERTA', mensajes.join(' '));
+          return;
+        }
+      } 
             this.conceptos = this.formConceptos.value;
             this.conceptos.codigoConcepto = this.f.codigoConcepto.value;
             (this.conceptos.idTipoConceptoDto = {idTipoConcepto: this.f.idTipoConceptoDto.value,}),
@@ -273,7 +280,7 @@ export class ConceptoComponent implements OnInit {
                 complete: () => {},
                 error: (error) => {},
             });
-        }
+        
         this.display = false;
     }
 
@@ -311,6 +318,7 @@ export class ConceptoComponent implements OnInit {
     }
     cerrar() {
         this.formConceptos.reset();
+        this.f.estadoConcetpto.disable();
         this.iniciarForms();
         this.display = false;
     }

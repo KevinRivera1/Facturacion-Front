@@ -146,7 +146,7 @@ export class FormaPagoTableComponent implements OnInit {
                 'p-button-outlined p-button-rounded p-button-success',
             rejectButtonStyleClass:
                 'p-button-outlined p-button-rounded p-button-danger',
-            message: 'Esta seguro de eliminar el id ' + doc.idFormaPago + '?',
+            message: 'Estas seguro de eliminar una Forma de Pago con el nombre: ' + doc.nombreFp + '?',
             header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {

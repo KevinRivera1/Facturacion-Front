@@ -41,6 +41,8 @@ export class PuntoFacturacionComponent implements OnInit {
 
     selectedUsuario: UsuarioRelDto[];
 
+    
+
 
     constructor(
         public appService: AppService,
@@ -77,9 +79,9 @@ export class PuntoFacturacionComponent implements OnInit {
     iniciarForms() {
         this.formPunto = this.formBuilder.group({
             idPuntoFacturacion: new FormControl(null),
-            secuencialPuntoFact: new FormControl('SC-000-000', [
+            secuencialPuntoFact: new FormControl('000-000', [
                 Validators.required,
-                Validators.pattern(/^SC-\d{3}-\d{3}$/)
+                Validators.pattern(/^\d{3}-\d{3}$/)
               ]),
             nombrePuntoFact: new FormControl('', Validators.compose([Validators.required])),
             fechaCreacionPuntoFact: new FormControl(new Date().toLocaleDateString(), Validators.compose([Validators.required])),
@@ -89,10 +91,20 @@ export class PuntoFacturacionComponent implements OnInit {
 
         this.token = JSON.parse(this.tokenService.getResponseAuth());
     }
-
     setSeleccionado(obj) {
+        this.f.estadoPuntoFact.enable()
         this.puntoFac = obj;
-        this.formPunto = this.formBuilder.group(this.puntoFac);
+        this.formPunto = this.formBuilder.group({
+            idPuntoFacturacion: new FormControl(this.puntoFac.idPuntoFacturacion),
+            secuencialPuntoFact: new FormControl(this.puntoFac.secuencialPuntoFact, [
+                Validators.required,
+                Validators.pattern(/^\d{3}-\d{3}$/)
+            ]),
+            nombrePuntoFact: new FormControl(this.puntoFac.nombrePuntoFact, Validators.compose([Validators.required])),
+            fechaCreacionPuntoFact: new FormControl(new Date(this.puntoFac.fechaCreacionPuntoFact).toLocaleDateString(), Validators.compose([Validators.required])),
+            estadoPuntoFact: new FormControl(this.puntoFac.estadoPuntoFact === 'ACTIVO', Validators.compose([Validators.requiredTrue])),
+            idUsuarioRel: new FormControl(this.puntoFac.idUsuarioRel, Validators.compose([Validators.required])),
+        });
         this.f.estadoPuntoFact.setValue(this.puntoFac.estadoPuntoFact === 'ACTIVO');
     }
 
@@ -119,12 +131,7 @@ export class PuntoFacturacionComponent implements OnInit {
                 console.log("CORRECTO");
                 console.log(this.listUsuario);
             },
-            complete: () => {
-                this.appService.msgInfoDetail(severities.INFO, 'INFO', 'Datos Cargados exitosamente');
-            },
-            error: error => {
-                this.appService.msgInfoDetail(severities.ERROR, 'ERROR', error.error);
-            }
+          
         })
     }
 
@@ -135,38 +142,43 @@ export class PuntoFacturacionComponent implements OnInit {
         this.formPunto.controls['secuencialPuntoFact'].setValue(inputElement.value);
       }
 
-    guardarpunto() {
+      guardarpunto() {
         if (this.formPunto.invalid) {
-            this.appService.msgInfoDetail('warn', 'Verificación', 'Verificar los Datos a Ingresar');
+            if (this.f.secuencialPuntoFact.errors?.pattern) {
+                this.appService.msgInfoDetail(
+                    'warn',
+                    'Campo Secuencial Incorrecto',
+                    'El campo secuencial no cumple con los caracteres esperados (ejemplo: 000-000).'
+                );
+            } else {
+                this.appService.msgInfoDetail(
+                    'warn',
+                    'Verificación',
+                    'Verificar los Datos a Ingresar'
+                );
+            }
             return;
         }
-
+    
         this.puntoFac = this.formPunto.value;
         this.puntoFac.nombrePuntoFact = this.f.nombrePuntoFact.value;
         this.puntoFac.secuencialPuntoFact = this.f.secuencialPuntoFact.value;
         this.puntoFac.fechaCreacionPuntoFact = this.f.fechaCreacionPuntoFact.value;
         this.puntoFac.idUsuarioRel = this.f.idUsuarioRel.value;
         this.puntoFac.idUsuarioPuntoFact = this.token.id;
-
+    
         if (this.puntoFac.idPuntoFacturacion != null) {
             this.puntoFac.fechaCreacionPuntoFact = new Date(this.puntoFac.fechaCreacionPuntoFact);
         } else {
             this.puntoFac.fechaCreacionPuntoFact = new Date();
         }
-
+    
         this.puntoFac.estadoPuntoFact = this.formPunto.value.estadoPuntoFact ? "ACTIVO" : "INACTIVO";
-
+    
         const nombrePuntoFact = this.f.nombrePuntoFact.value;
         const secuencialPuntoFact = this.f.secuencialPuntoFact.value;
-
-        if (
-            this.existeRegistro(
-                nombrePuntoFact,
-                secuencialPuntoFact,
-                this.puntoFac.idPuntoFacturacion
-
-            )
-        ) {
+    
+        if (this.existeRegistro(nombrePuntoFact, secuencialPuntoFact, this.puntoFac.idPuntoFacturacion)) {
             this.appService.msgInfoDetail(
                 'warn',
                 'Registro Duplicado',
@@ -174,7 +186,7 @@ export class PuntoFacturacionComponent implements OnInit {
             );
             return;
         }
-
+    
         this.PuntoService.saveObject(this.puntoFac).subscribe({
             next: (data) => {
                 this.response = data;
@@ -184,17 +196,18 @@ export class PuntoFacturacionComponent implements OnInit {
                     } else {
                         this.appService.msgUpdate();
                     }
-
+    
                     this.setearForm();
                     this.llenarListPunto();
                 }
             },
-            complete: () => { },
-            error: error => { }
+            complete: () => {},
+            error: (error) => {},
         });
-
+    
         this.modal = false;
     }
+    
 
 
     setearForm() {
@@ -233,6 +246,7 @@ export class PuntoFacturacionComponent implements OnInit {
 
     cerrar() {
         this.formPunto.reset();
+        this.f.estadoPuntoFact.disable()
         this.iniciarForms();
         this.modal = false;
     }

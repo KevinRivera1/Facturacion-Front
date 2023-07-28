@@ -64,6 +64,7 @@ export class EstadoComprobanteComponent implements OnInit {
     }
 
     setSeleccionado(obj) {
+        this.f.estadoCompr.enable();
         this.estadoFact = obj;
         this.formEstadoFact = this.formBuilder.group(this.estadoFact);
         this.f.estadoCompr.setValue(this.estadoFact.estadoCompr === 'ACTIVO');
@@ -81,7 +82,8 @@ export class EstadoComprobanteComponent implements OnInit {
                 this.appService.msgInfoDetail(
                     severities.INFO,
                     'INFO',
-                    'Datos Cargados exitosamente'
+                    'Datos Cargados exitosamente',
+                    500
                 );
             },
             error: (error) => {
@@ -103,10 +105,11 @@ export class EstadoComprobanteComponent implements OnInit {
             );
             return;
         } else {
-
             this.estadoFact = this.formEstadoFact.value;
-            this.estadoFact.nombreEstadoComp = this.f.nombreEstadoComp.value.toUpperCase();
-            this.estadoFact.detalleEstadoComp = this.f.detalleEstadoComp.value;
+            this.estadoFact.nombreEstadoComp =
+                this.f.nombreEstadoComp.value.toUpperCase();
+            this.estadoFact.detalleEstadoComp =
+                this.f.detalleEstadoComp.value.toUpperCase();
             //this.estadoFact.idEstadoComprobante = 1;
 
             //Este asigna el ID del usuario logeado al guardar un registro
@@ -169,7 +172,10 @@ export class EstadoComprobanteComponent implements OnInit {
                     },
                     complete: () => {},
                     error: (error) => {
-                        console.error('Ocurrió un error al guardar un registro: ', error)
+                        console.error(
+                            'Ocurrió un error al guardar un registro: ',
+                            error
+                        );
                     },
                 });
         }
@@ -194,8 +200,16 @@ export class EstadoComprobanteComponent implements OnInit {
     }
 
     cancelar() {
+        this.f.estadoCompr.disable();
         this.setearForm();
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
+        this.display = false;
+    }
+
+    cerrar() {
+        this.f.estadoCompr.disable();
+        this.formEstadoFact.reset();
+        this.iniciarForms();
         this.display = false;
     }
 

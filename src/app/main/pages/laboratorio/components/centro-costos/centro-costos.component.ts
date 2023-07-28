@@ -83,6 +83,7 @@ export class CentroCostosComponent implements OnInit {
 
   setSeleccionado(obj) {              //Establecer el objeto seleccionado en el formulario
       this.centros = obj;
+      this.f.estadoCentroCosto.enable(); 
       this.formCentroCo = this.formBuilder.group(this.centros);
       this.f.estadoCentroCosto.setValue(this.centros.estadoCentroCosto === 'ACTIVO');
       console.log('EMITI', this.centros);
@@ -101,7 +102,8 @@ export class CentroCostosComponent implements OnInit {
               this.appService.msgInfoDetail(
                   severities.INFO,
                   'INFO',
-                  'Datos Cargados exitosamente'
+                  'Datos Cargados exitosamente',
+                  500
               );
           },
           error: (error) => {
@@ -122,15 +124,22 @@ export class CentroCostosComponent implements OnInit {
   }
 
   guardarCentro() {                         //Guardar el centro de costo
-      if (this.formCentroCo.invalid) {      //Verifica si el formulario es invalido
-          this.appService.msgInfoDetail(
-              'warn',
-              'Verificacion',
-              'Verificar los Datos a Ingresar'
-          );
+    if (this.formCentroCo.invalid) {
+        let mensajes = [];
+        if (this.f.descCentroCosto.invalid || this.f.nombreCentroCosto.invalid) {
+          mensajes.push('Faltan Campos por llenar.');
+        }
+        if (this.f.codCentroCosto.invalid) {
+            mensajes.push('El campo Codigo debe contener 5 digitos numericos.');
+        }
+        if (mensajes.length > 0) {
+          this.appService.msgInfoDetail('warn', 'ALERTA', mensajes.join(' '));
           return;
+        }
       }
+      
 
+      
       //Obtienen los valores del formulario y se asignan al objeto centros
       this.centros = this.formCentroCo.value;
       this.centros.nombreCentroCosto = this.f.nombreCentroCosto.value;
@@ -149,11 +158,21 @@ export class CentroCostosComponent implements OnInit {
       //Validacion de duplicados llamando a la funcion existeRegistro
       const nombreCentroCosto = this.f.nombreCentroCosto.value;
       const codCentroCosto = this.f.codCentroCosto.value;
-
-      if (this.existeRegistro(nombreCentroCosto, codCentroCosto, this.centros.idCentroCosto)) {
-          this.appService.msgInfoDetail('warn', 'Registro Duplicado', 'Este registro ya existe');
-          return;
-      }
+       
+            if (this.existeRegistro(nombreCentroCosto, codCentroCosto, this.centros.idCentroCosto)) {
+            let mensajes = [];
+            if (this.existeRegistroNombre(nombreCentroCosto, this.centros.idCentroCosto)) {
+            mensajes.push(`El nombre "${nombreCentroCosto}" ya existe.`);
+            }
+            if (this.existeRegistroCodigo(codCentroCosto, this.centros.idCentroCosto)) {
+            mensajes.push(`El código "${codCentroCosto}" ya existe.`);
+            }
+            mensajes.forEach(mensaje => {
+            this.appService.msgInfoDetail('warn', 'Registro Duplicado', mensaje);
+            });
+            return;
+        }  
+        
 
       //Guarda el objeto centro de costo a traves del servicio CentroCostosService
       this.CentroCostosService.saveObjectC(this.centros).subscribe({
@@ -179,15 +198,31 @@ export class CentroCostosComponent implements OnInit {
       this.modal = false;
   }
 
+  
+  
   //Verificar si existe un registro con el mismo nombre o codigo
   private existeRegistro(nombreCentroCosto: string, codCentroCosto: string, idCentroCosto: number): boolean {
-      return this.listCentrosCo.some(
-          (centro) =>
-              (centro.nombreCentroCosto == nombreCentroCosto ||
-                  centro.codCentroCosto == codCentroCosto) &&
-              centro.idCentroCosto !== idCentroCosto
-      );
+    return this.listCentrosCo.some(
+      (centro) =>
+        (centro.nombreCentroCosto === nombreCentroCosto ||
+          centro.codCentroCosto === codCentroCosto) &&
+        centro.idCentroCosto !== idCentroCosto
+    );
   }
+  
+  private existeRegistroNombre(nombreCentroCosto: string, idCentroCosto: number): boolean {
+    return this.listCentrosCo.some(
+      (centro) => centro.nombreCentroCosto === nombreCentroCosto && centro.idCentroCosto !== idCentroCosto
+    );
+  }
+  
+  private existeRegistroCodigo(codCentroCosto: string, idCentroCosto: number): boolean {
+    return this.listCentrosCo.some(
+      (centro) => centro.codCentroCosto === codCentroCosto && centro.idCentroCosto !== idCentroCosto
+    );
+  }
+
+
 
   //Restablecer el formulario
   setearForm() {
@@ -198,7 +233,6 @@ export class CentroCostosComponent implements OnInit {
   //Cancelar la accion y restablecer el formulario
   cancelar() {
       this.setearForm();
-      this.appService.msgInfoDetail('info', '', 'Accion Cancelada');
       this.modal = false;
   }
 
@@ -209,7 +243,9 @@ export class CentroCostosComponent implements OnInit {
 
   //Cerrar el modal y restablecer el formulario
   cerrar() {
+    this.f.estadoCentroCosto.disable(); 
       this.setearForm();
+      
       this.modal = false;
   }
 }

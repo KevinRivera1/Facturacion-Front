@@ -137,7 +137,7 @@ export class ConceptosTableComponent implements OnInit {
                 'p-button-outlined p-button-rounded p-button-success',
             rejectButtonStyleClass:
                 'p-button-outlined p-button-rounded p-button-danger',
-            message: 'Esta seguro de eliminar ' + doc.idConcepto + '?',
+            message: 'Esta seguro de eliminar el Concepto ' + doc.nombreConcepto + '?',
             header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {

@@ -62,7 +62,7 @@ export class PuntoFacturacionTableComponent implements OnInit {
             { field: 'idPuntoFacturacion', header: 'Nro.' },
             { field: 'nombrePuntoFact', header: 'NOMBRE.' },
             { field: 'secuencialPuntoFact', header: 'SECUENCIAL.' },
-            { field: 'fechaCreacionPuntoFact', header: 'FECHA.' },
+            { field: 'estadoPuntoFact', header: 'ESTADO.' },
 
         ];
         this.exportColumns = this.cols.map(col => ({ title: col.header, dataKey: col.field }));
@@ -188,7 +188,7 @@ export class PuntoFacturacionTableComponent implements OnInit {
             rejectLabel: 'Cancelar',
             acceptButtonStyleClass: 'p-button-outlined p-button-rounded p-button-success',
             rejectButtonStyleClass: 'p-button-outlined p-button-rounded p-button-danger',
-            message: 'Esta seguro de eliminar ' + doc.idPuntoFacturacion + '?',
+            message: 'Esta seguro de eliminar el Punto De Facturación con el nombre: ' + doc.nombrePuntoFact + '?',
             header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
@@ -277,20 +277,3 @@ export class PuntoFacturacionTableComponent implements OnInit {
     //   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

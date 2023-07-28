@@ -155,7 +155,7 @@ export class CentroCostosTableComponent implements OnInit {
                 'p-button-outlined p-button-rounded p-button-success',
             rejectButtonStyleClass:
                 'p-button-outlined p-button-rounded p-button-danger',
-            message: '¿Esta seguro de eliminar el id ' + doc.idCentroCosto + '?',
+            message: '¿Esta seguro de eliminar ' + doc.nombreCentroCosto + '?',
             header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
