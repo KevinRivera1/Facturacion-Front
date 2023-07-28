@@ -5,17 +5,16 @@
     <button pButton style="background:#0d3c61;" type="button" label="Registrar Nuevo Comprobante" icon="pi pi-plus"
         (click)=" onDisplayForm()"></button>
 </div>
-<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [draggable]="true" [resizable]="true"
-    [closable]="false" [responsive]="true" (onHide)="cancelar()" [dismissableMask]="false">
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '45vw'}" [draggable]="true" [resizable]="true" [contentStyle]="{'overflow': 'visible'}" [closable]="true" [responsive]="true" (onHide)="cancelar()" [dismissableMask]="false">
 
     <ng-template pTemplate="header">
         <div class="flex justify-content-between align-items-center" style="width: 100%;">
             <div class="text-2xl text-center">Registro Estado Comprobante</div>
-            <div class="flex align-items-center">
+            <!-- <div class="flex align-items-center">
                 <button type="button" pButton icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
                     tooltipPosition="top"
                     class="p-button-rounded p-button-danger p-button-text text-white p-mr-2"></button>
-            </div>
+            </div> -->
         </div>
     </ng-template>
 
@@ -66,7 +65,7 @@
 
 <br>
 
+<!-- <p-card></p-card> -->
 
 <app-estado-comprobante-table [listestadoFact]="listEstadoFact" (estadoFactSelect)=setSeleccionado($event)>
-
 </app-estado-comprobante-table>

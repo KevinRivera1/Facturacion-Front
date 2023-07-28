@@ -1,13 +1,14 @@
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 <p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="modal" [modal]="true"
-[style]="{ width: '35vw' }" (onHide)="cerrar()" [draggable]="true" [resizable]="true" xmlns:p="http://www.w3.org/1999/html" >
-    
+    [style]="{ width: '35vw' }" (onHide)="cerrar()" [draggable]="true" [resizable]="true"
+    xmlns:p="http://www.w3.org/1999/html">
+
 
 
     <p-header>
         <h4 class="">Punto Facturación</h4>
     </p-header>
-    <form [formGroup]="formPunto" >
+    <form [formGroup]="formPunto">
         <br><br>
         <div class="p-fluid p-formgrid grid" style="margin-left: 25px;">
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
@@ -24,44 +25,37 @@
                     <label for="ftxt-secuencialPuntoFact">* Secuencial</label>
                 </span>
             </div>
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" >
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                 <label for="ftxt-estadoPuntoFact" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
                 <span class="p-float-label">
-                <p-inputSwitch  id="ftxt-estadoPuntoFact"
-                                formControlName="estadoPuntoFact"></p-inputSwitch>
-            </span>
+                    <p-inputSwitch id="ftxt-estadoPuntoFact" formControlName="estadoPuntoFact"></p-inputSwitch>
+                </span>
             </div>
-          
+
 
             <div class="field col-12 md:col-4" style="margin-left: 4px; width: 284px;">
                 <span class="p-float-label">
-                <p-dropdown [options]="listUsuario"
-                formControlName="idUsuarioRel"
-                 placeholder="Seleccionar Usuario"
-               [virtualScroll]="true"
-               [(ngModel)]="selectedUsuario"
-               optionLabel="nombres"
-                            optionValue="idUsuario"
-                 id="ftxt-idUsuarioRel"
-                 [virtualScrollItemSize]="38"
-                 filter="true"
-                 filterBy="nombres"></p-dropdown>
-                 <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-idUsuarioRel">* Usuarios</label>
-                 </span>
-                </div>
+                    <p-dropdown [options]="listUsuario" formControlName="idUsuarioRel" placeholder="Seleccionar Usuario"
+                        [virtualScroll]="true" [(ngModel)]="selectedUsuario" optionLabel="nombres"
+                        optionValue="idUsuario" id="ftxt-idUsuarioRel" [virtualScrollItemSize]="38" filter="true"
+                        filterBy="nombres"></p-dropdown>
+                    <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-idUsuarioRel">* Usuarios</label>
+                </span>
+            </div>
 
         </div>
-    
+
         <!-- Resto del formulario... -->
-    
+
         <div class="central">
             <p-toolbar>
                 <div class="p-toolbar-group-center">
-                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-send"
-                        type="submit" (click)="guardarpunto()" pTooltip="Guardar" tooltipPosition="right"></button>
-    
-                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger cancelar-button" icon="pi pi-times"
-                        (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info guardar-button"
+                        icon="pi pi-send" type="submit" (click)="guardarpunto()" pTooltip="Guardar"
+                        tooltipPosition="right"></button>
+
+                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger cancelar-button"
+                        icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
                 </div>
             </p-toolbar>
         </div>
@@ -81,9 +75,7 @@
     </div>
 
     <p-divider></p-divider>
-    <app-punto-facturacion-table [listPunto]="listPunto"
-    (puntoSelect)=setSeleccionado($event)>
-</app-punto-facturacion-table> 
+    <app-punto-facturacion-table [listPunto]="listPunto" (puntoSelect)=setSeleccionado($event)>
+    </app-punto-facturacion-table>
 
 </p-card>
-

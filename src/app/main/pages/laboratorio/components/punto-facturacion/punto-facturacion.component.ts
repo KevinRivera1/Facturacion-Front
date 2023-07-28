@@ -77,9 +77,9 @@ export class PuntoFacturacionComponent implements OnInit {
     iniciarForms() {
         this.formPunto = this.formBuilder.group({
             idPuntoFacturacion: new FormControl(null),
-            secuencialPuntoFact: new FormControl('SC-00000', [
+            secuencialPuntoFact: new FormControl('SC-000-000', [
                 Validators.required,
-                Validators.pattern(/^SC-\d{5}$/)
+                Validators.pattern(/^SC-\d{3}-\d{3}$/)
               ]),
             nombrePuntoFact: new FormControl('', Validators.compose([Validators.required])),
             fechaCreacionPuntoFact: new FormControl(new Date().toLocaleDateString(), Validators.compose([Validators.required])),
