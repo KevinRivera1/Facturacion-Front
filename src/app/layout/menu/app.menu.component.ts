@@ -25,43 +25,7 @@ export class AppMenuComponent implements OnInit {
         private menuService: MenuLightService
     ) {}
 
-    menuItems = [
-        {
-            label: 'Catalogos',
-            items: [
-                {
-                    label: 'Forma pago',
-                    icon: 'pi pi-check',
-                    routerLink: ['/formapago'],
-                },
-                {
-                    label: 'Estado Comprobante',
-                    icon: 'pi pi-check',
-                    routerLink: ['/estadoComprobante'],
-                },
-                {
-                    label: 'Concepto',
-                    icon: 'pi pi-check',
-                    routerLink: ['/conceptos'],
-                },
-                {
-                    label: 'Tipo Concepto',
-                    icon: 'pi pi-check',
-                    routerLink: ['/tipoConcepto'],
-                },
-                {
-                    label: 'Centro Costo',
-                    icon: 'pi pi-check',
-                    routerLink: ['/centroCostos'],
-                },
-                {
-                    label: 'Punto Factura',
-                    icon: 'pi pi-check',
-                    routerLink: ['/punto-fac'],
-                },
-            ],
-        },
-    ];
+
 
     ngOnInit() {
         this.model = [
