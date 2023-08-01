@@ -19,6 +19,8 @@ import { FormaPagoTableComponent } from './laboratorio/components/forma-pago-tab
 import { TipoConceptoComponent } from './laboratorio/components/tipo-concepto/tipo-concepto.component';
 import { TipoConceptoTableComponent } from './laboratorio/components/tipo-concepto-table/tipo-concepto-table.component';
 import { EntidadModule } from './laboratorio/module/entidad.module';
+import { ReciboCajaComponent } from './laboratorio/components/recibo-caja/recibo-caja.component';
+import { ReciboCajaTableComponent } from './laboratorio/components/recibo-caja-table/recibo-caja-table.component';
 
 @NgModule({
     declarations: [
@@ -27,9 +29,8 @@ import { EntidadModule } from './laboratorio/module/entidad.module';
         CretencionComponent,
         CretencionTableComponent,
         FormaPagoComponent,
-        FormaPagoTableComponent
-
-       
+        FormaPagoTableComponent,
+        ReciboCajaTableComponent,
     ],
     imports: [
         CommonModule,
