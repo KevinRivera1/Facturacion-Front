@@ -1,11 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { ResponseGenerico } from '../../../../../_dto/response-generico';
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    Validators,
-} from '@angular/forms';
+import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { TokenDto } from '../../../../../_dto/token-dto';
 import { AppService } from '../../../../../_service/app.service';
 import { TokenService } from '../../../../../_service/token.service';
