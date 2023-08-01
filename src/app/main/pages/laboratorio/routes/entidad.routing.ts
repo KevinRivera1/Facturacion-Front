@@ -13,6 +13,7 @@ import { ConceptoComponent } from '../components/concepto/concepto.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
 import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
+import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
 
 
 
@@ -72,6 +73,12 @@ export const RUTA_ENTIDAD: Routes = [
         component: PuntoFacturacionComponent,
         canActivate: [AuthGuard],
     },
+    {
+        path: 'factura-lab',
+        component: FacturaLaboratorioComponent,
+        canActivate: [AuthGuard],
+    },
+
 
  
 
