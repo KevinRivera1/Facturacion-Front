@@ -25,8 +25,6 @@ export class AppMenuComponent implements OnInit {
         private menuService: MenuLightService
     ) {}
 
-
-
     ngOnInit() {
         this.model = [
             {
@@ -83,6 +81,10 @@ export class AppMenuComponent implements OnInit {
                             this.menus = data;
 
                             this.items = new Array();
+                            console.log(
+                                '🚀 ~ file: app.menu.component.ts:86 ~ AppMenuComponent ~ llenarMenus ~ items:',
+                                this.items
+                            );
 
                             for (let objMenu of this.menus) {
                                 let item: MenuItem;
