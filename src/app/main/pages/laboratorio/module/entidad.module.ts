@@ -50,6 +50,7 @@ import { PuntoFacturacionTableComponent } from '../components/punto-facturacion-
 import { EstadoComprobanteTableComponent } from '../components/estado-comprobante-table/estado-comprobante-table.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
+import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
 
 
 
@@ -69,8 +70,8 @@ import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto
         PuntoFacturacionTableComponent,
         EstadoComprobanteTableComponent,
         EstadoComprobanteComponent,
-        TipoConceptoComponent
-
+        TipoConceptoComponent,
+        AnularResiboCajaComponent
 
     ],
     imports: [
