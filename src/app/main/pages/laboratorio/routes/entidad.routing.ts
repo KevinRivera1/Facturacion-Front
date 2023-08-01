@@ -14,11 +14,9 @@ import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto
 import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
-<<<<<<< HEAD
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
-=======
 import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
->>>>>>> a275ca7a44f9fd6e3256a11e197a2efc5db0bead
+
 
 
 
@@ -79,16 +77,16 @@ export const RUTA_ENTIDAD: Routes = [
         canActivate: [AuthGuard],
     },
     {
-<<<<<<< HEAD
+
         path: 'reciboC',
         component: ReciboCajaComponent,
         canActivate: [AuthGuard],
     },
-=======
+{
         path: 'anular-reciboCaja',
         component: AnularResiboCajaComponent,
         canActivate: [AuthGuard],
-    }
+    },
      {
         path: 'factura-lab',
         component: FacturaLaboratorioComponent,
