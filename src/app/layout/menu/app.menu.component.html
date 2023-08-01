@@ -1,6 +1,6 @@
 <div class="layout-sidebar" (click)="appMain.onMenuClick($event)">
     <a [routerLink]="['/']" class="logo">
-        <img id="app-logo" class="logo-image" src="../../../assets/img/epn.png" alt="diamond-ng"/>
+        <img id="app-logo" class="logo-image" src="../../../assets/img/epn.png" alt="diamond-ng" />
         <span class="app-name">EPN</span>
     </a>
 
@@ -15,11 +15,9 @@
             </ng-container>
         </ul>
 
-        <p-panelMenu [multiple]="false" [model]="items"
-                     class="nav nav-pills nav-sidebar flex-column"
-                     [style]="{'width':'auto','background':'transparent','padding': '.5rem 1px',
+        <p-panelMenu [multiple]="false" [model]="items" class="nav nav-pills nav-sidebar flex-column" [style]="{'width':'auto','background':'transparent','padding': '.5rem 1px',
                      'transition': 'transform 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99)'}"></p-panelMenu>
-      
+
 
 
 
