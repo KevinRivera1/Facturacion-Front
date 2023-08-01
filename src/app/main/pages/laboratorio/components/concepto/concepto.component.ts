@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { ResponseGenerico } from '../../../../../_dto/response-generico';
 import {
     FormBuilder,
@@ -14,7 +14,6 @@ import { severities } from '../../../../../_enums/constDomain';
 import { ConceptoDto } from '../../model/ConceptoDto';
 import { ConceptoService } from '../../services/concepto.service';
 import { IvaDto } from '../../model/IvaDto copy';
-import { ConceptoTcDto } from '../../model/ConceptoTc.Dto';
 import { TipoConceptoDto } from '../../model/TipoConcepto.dto';
 
 @Component({
