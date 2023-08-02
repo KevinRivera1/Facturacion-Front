@@ -6,10 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./factura-matricula.component.css']
 })
 export class FacturaMatriculaComponent implements OnInit {
+  modal: boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+
+  cerrar() {
+
+    this.modal = false;
+    
+
+}
+
+abrirmodal() {
+    this.modal = true;
+}
 
 }
