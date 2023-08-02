@@ -53,6 +53,7 @@ import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto
 import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
+import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
 
 
 
@@ -75,7 +76,8 @@ import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/f
         TipoConceptoComponent,
         AnularResiboCajaComponent,
         ReciboCajaComponent,
-        FacturaLaboratorioComponent
+        FacturaLaboratorioComponent,
+        FacturaLaboratorioTableComponent
     ],
 
     imports: [
