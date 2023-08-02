@@ -107,7 +107,12 @@ export class AppMenuComponent implements OnInit {
                 {
                     label: 'Factura Matricula',
                     icon: 'pi pi-check',
-                    routerLink: ['/factura-matricula'],
+                    routerLink: ['/factura-matricula']
+                },
+                {
+                    label: 'Nota de Credito',
+                    icon: 'pi pi-check',
+                    routerLink: ['/nota-credito'],
                 },
             ],
         },

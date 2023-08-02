@@ -17,6 +17,7 @@ import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/f
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
 import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
 import { FacturaMatriculaComponent } from '../components/factura-matricula/factura-matricula.component';
+import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
 
 
 
@@ -98,8 +99,13 @@ export const RUTA_ENTIDAD: Routes = [
         path: 'factura-matricula',
         component: FacturaMatriculaComponent,
         canActivate: [AuthGuard],
-    }
+    },
 
+    {
+        path: 'nota-credito',
+        component: NotaCreditoComponent,
+        canActivate: [AuthGuard],
+    },
 
 
 
