@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AnularResiboCajaComponent } from './anular-resibo-caja.component';
+import { AnularReciboCajaTableComponent } from './anular-recibo-caja-table.component';
 
-describe('AnularResiboCajaComponent', () => {
-  let component: AnularResiboCajaComponent;
-  let fixture: ComponentFixture<AnularResiboCajaComponent>;
+describe('AnularReciboCajaTableComponent', () => {
+  let component: AnularReciboCajaTableComponent;
+  let fixture: ComponentFixture<AnularReciboCajaTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnularResiboCajaComponent ]
+      declarations: [ AnularReciboCajaTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnularResiboCajaComponent);
+    fixture = TestBed.createComponent(AnularReciboCajaTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

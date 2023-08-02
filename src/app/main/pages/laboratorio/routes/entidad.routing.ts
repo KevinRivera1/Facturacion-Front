@@ -1,11 +1,11 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
 
-import {AuthGuard} from "../../../../_guards/auth.guard";
+import { AuthGuard } from '../../../../_guards/auth.guard';
 
-import {EntidadComponent} from "../components/entidad/entidad.component";
-import {BancosComponent} from "../components/bancos/bancos.component";
-import {ConceptoLiquidacionComponent} from "../components/concepto-liquidacion/concepto-liquidacion.component";
-import {CretencionComponent} from "../components/cretencion/cretencion.component";
+import { EntidadComponent } from '../components/entidad/entidad.component';
+import { BancosComponent } from '../components/bancos/bancos.component';
+import { ConceptoLiquidacionComponent } from '../components/concepto-liquidacion/concepto-liquidacion.component';
+import { CretencionComponent } from '../components/cretencion/cretencion.component';
 import { CentroCostosComponent } from '../components/centro-costos/centro-costos.component';
 
 import { FormaPagoComponent } from '../components/forma-pago/forma-pago.component';
@@ -15,13 +15,9 @@ import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
-import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
-
-
-
+import { AnularReciboCajaComponent } from '../components/anular-recibo-caja/anular-recibo-caja.component';
 
 export const RUTA_ENTIDAD: Routes = [
-
     {
         path: 'entidad',
         component: EntidadComponent,
@@ -60,7 +56,7 @@ export const RUTA_ENTIDAD: Routes = [
         component: FormaPagoComponent,
         canActivate: [AuthGuard],
     },
-    
+
     {
         path: 'conceptos',
         component: ConceptoComponent,
@@ -77,23 +73,18 @@ export const RUTA_ENTIDAD: Routes = [
         canActivate: [AuthGuard],
     },
     {
-
         path: 'reciboC',
         component: ReciboCajaComponent,
         canActivate: [AuthGuard],
     },
-{
+    {
         path: 'anular-reciboCaja',
-        component: AnularResiboCajaComponent,
+        component: AnularReciboCajaComponent,
         canActivate: [AuthGuard],
     },
-     {
+    {
         path: 'factura-lab',
         component: FacturaLaboratorioComponent,
         canActivate: [AuthGuard],
     },
-
-
-
-
 ];
