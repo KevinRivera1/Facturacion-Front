@@ -19,6 +19,8 @@ import { FormaPagoTableComponent } from './laboratorio/components/forma-pago-tab
 import { TipoConceptoComponent } from './laboratorio/components/tipo-concepto/tipo-concepto.component';
 import { TipoConceptoTableComponent } from './laboratorio/components/tipo-concepto-table/tipo-concepto-table.component';
 import { EntidadModule } from './laboratorio/module/entidad.module';
+import { FactOtrosConceptosComponent } from './laboratorio/components/fact-otros-conceptos/fact-otros-conceptos.component';
+import { FactOtrosConceptosTableComponent } from './laboratorio/components/fact-otros-conceptos-table/fact-otros-conceptos-table.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +29,9 @@ import { EntidadModule } from './laboratorio/module/entidad.module';
         CretencionComponent,
         CretencionTableComponent,
         FormaPagoComponent,
-        FormaPagoTableComponent
+        FormaPagoTableComponent,
+        FactOtrosConceptosComponent,
+        FactOtrosConceptosTableComponent
 
        
     ],
