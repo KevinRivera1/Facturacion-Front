@@ -12,8 +12,8 @@
                    [rowHover]="true" dataKey="idFormaPago"
                    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
               <ng-template pTemplate="caption">
-                  <div class="flex justify-content-between flex-wrap">
-                      <div>
+                  <div class="text-center">
+                <!--       <div>
                           <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
                                   class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
                                   tooltipPosition="bottom"></button>
@@ -25,15 +25,19 @@
                                   [disabled]="!selectedFormaPago || !selectedFormaPago.length"></button>
                           <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
                                   (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
-                      </div>
+                               
+                                  
+                      </div> -->
 
-                      <label class="text-center">FACTURAS</label>
+                      <!-- 
                       <span class="p-input-icon-left ">
             <i class="pi pi-search"></i>
             <input pInputText type="text" class="p-inputtext-sm"
                    (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
-          </span>
+          </span>  -->
+          <label class="text-center" >FACTURACION</label>
                   </div>
+              
               </ng-template>
               <ng-template pTemplate="header">
                   <tr>
