@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FactOtrosConceptosComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+
+    private breadcrumbService: BreadcrumbService
+  ) {
+    {
+      this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
+    }
+  }
 
   ngOnInit() {
   }
