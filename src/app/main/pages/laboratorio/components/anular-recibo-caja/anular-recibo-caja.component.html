@@ -1,0 +1,66 @@
+<!-- [style]="{width: '70vw'}" -->
+<p-card>
+    <p-header class="mb-4">
+        <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">Buscar Recibo Caja</h4>
+    </p-header>
+
+    <form [formGroup]="" class="mt-6 px-4">
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 p-md-6 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-NroReciboCaja" type="text" required="true"
+                        formControlName="NroReciboCaja" style="text-transform: uppercase;">
+                    <label for="ftxt-NroReciboCaja">Nro.Recibo Caja</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-6 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-NombreCliente" type="text" required="true"
+                        formControlName="NombreCliente" style="text-transform: uppercase;">
+                    <label for="ftxt-NombreCliente">Nombre Cliente</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-6 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-Ruc" type="text" required="true" formControlName="Ruc"
+                        style="text-transform: uppercase;">
+                    <label for="ftxt-Ruc">RUC</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-6 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-Cedula" type="text" required="true" formControlName="Cedula"
+                        style="text-transform: uppercase;">
+                    <label for="ftxt-Cedula">Cédula</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-6 px-3">
+                <span class="p-float-label">
+                    <p-calendar [(ngModel)]="fechaDesde" [showIcon]="true"></p-calendar>
+                    <label for="ftxt-fechaDesde">Fecha Desde: </label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-6 px-3">
+                <span class="p-float-label">
+                    <p-calendar [(ngModel)]="fechaHasta" [showIcon]="true"></p-calendar>
+                    <label for="ftxt-fechaHasta">Fecha Hasta: </label>
+                </span>
+            </div>
+        </div>
+
+        <div class="central">
+            <p-toolbar>
+                <div class="p-toolbar-group-center">
+                    <button pButton label="Consultar"
+                        class="p-button p-button-lg m-1 p-button-outlined p-button-primary" icon="pi pi-search"
+                        type="submit" (click)="Buscar()" pTooltip="Consultar" tooltipPosition="right"></button>
+                </div>
+            </p-toolbar>
+        </div>
+    </form>
+
+</p-card>
+
+<p-divider></p-divider>
+
+<app-anular-recibo-caja-table></app-anular-recibo-caja-table>

@@ -50,9 +50,11 @@ import { PuntoFacturacionTableComponent } from '../components/punto-facturacion-
 import { EstadoComprobanteTableComponent } from '../components/estado-comprobante-table/estado-comprobante-table.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
-import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
+
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
+import { AnularReciboCajaComponent } from '../components/anular-recibo-caja/anular-recibo-caja.component';
+import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja-table/anular-recibo-caja-table.component';
 import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
 import { FacturaMatriculaComponent } from '../components/factura-matricula/factura-matricula.component';
 import { FacturaMatriculaTableComponent } from '../components/factura-matricula-table/factura-matricula-table.component';
@@ -78,7 +80,8 @@ import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota
         EstadoComprobanteTableComponent,
         EstadoComprobanteComponent,
         TipoConceptoComponent,
-        AnularResiboCajaComponent,
+        AnularReciboCajaComponent,
+        AnularReciboCajaTableComponent,
         ReciboCajaComponent,
         FacturaLaboratorioComponent,
         FacturaLaboratorioTableComponent,
