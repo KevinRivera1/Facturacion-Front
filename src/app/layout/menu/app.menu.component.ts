@@ -79,7 +79,7 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/estadoComprobante'],
                 },
                 {
-                    label: 'Concepto',
+                    label: 'Conceptos',
                     icon: 'pi pi-check',
                     routerLink: ['/conceptos'],
                 },

@@ -75,7 +75,7 @@ import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/f
         ReciboCajaComponent,
         FacturaLaboratorioComponent
     ],
-    
+
     imports: [
         CommonModule,
         RouterModule.forChild(RUTA_ENTIDAD),

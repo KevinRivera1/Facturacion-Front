@@ -82,7 +82,7 @@ export const RUTA_ENTIDAD: Routes = [
         component: ReciboCajaComponent,
         canActivate: [AuthGuard],
     },
-{
+    {
         path: 'anular-reciboCaja',
         component: AnularResiboCajaComponent,
         canActivate: [AuthGuard],
