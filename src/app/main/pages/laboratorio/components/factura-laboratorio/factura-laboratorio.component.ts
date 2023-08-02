@@ -8,6 +8,9 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 })
 export class FacturaLaboratorioComponent implements OnInit {
 
+
+  modal: boolean;
+
   constructor(
 
     private breadcrumbService: BreadcrumbService
@@ -20,4 +23,15 @@ export class FacturaLaboratorioComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  cerrar() {
+
+    this.modal = false;
+    
+
+}
+
+abrirmodal() {
+    this.modal = true;
+}
 }

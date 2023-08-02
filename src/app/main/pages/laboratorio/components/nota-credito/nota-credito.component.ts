@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
@@ -7,6 +8,9 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
   styleUrls: ['./nota-credito.component.css']
 })
 export class NotaCreditoComponent implements OnInit {
+
+  display: boolean = false;
+  formListFac: FormGroup;
 
   constructor(
 
@@ -19,5 +23,13 @@ export class NotaCreditoComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  abrirmodal() {
+    this.display = true;
+}
+
+  cerrar() {
+    this.display = false;
+}
 
 }

@@ -1,125 +1,120 @@
+<p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="display" [modal]="true"
+    [style]="{ width: '80vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true"
+    xmlns:p="http://www.w3.org/1999/html">
+    <p-header>
+        <h4 class="">Lista de Facturas</h4>
+    </p-header>
+    <form [formGroup]="formListFac">
+        <div class="">
+            
+            <br>
+            <header class="text-center">BUSCAR FACTURAS</header>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input pInputText id="ftxt-nombreConcepto" type="text" style="width: 400px;"
+                            formControlName="nombreConcepto">
+                        <label for="ftxt-nombreConcepto">* Factura No.</label>
+                    </span>
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input pInputText id="ftxt-valorConcepto" type="text" formControlName="valorConcepto">
+                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Nombre Cliente</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input pInputText id="ftxt-valorConcepto" type="text" formControlName="valorConcepto">
+                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* RUC/CI</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <app-nota-credito-table>
+    </app-nota-credito-table>
+</p-dialog>
+
+
+
+
+
 <p-card>
     <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
         <h4>Nota Credito</h4>
     </p-header>
     <div class="caja-boton-principal central" style="align-items: center">
-        <button
-            pButton
-            label="Agregar Nota de Credito"
-            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-            icon="pi pi-plus"
-            pTooltip="Agregar Nota de Credito"
-            label="Agregar"
-            tooltipPosition="right"
-        ></button>
+        <button pButton label="Agregar" class="p-button p-button-lg m-1 p-button-info bg-blue-900 " icon="pi pi-plus"
+            pTooltip="Agregar Nota de Credito" tooltipPosition="right" (click)="abrirmodal()"></button>
     </div>
 
     <p-divider></p-divider>
-    <header  class="text-center">BUSCAR NOTAS DE CREDITO</header>
+    <header class="text-center">BUSCAR NOTAS DE CREDITO</header>
     <div class="p-d-flex">
         <form>
             <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreFp"
-                            type="text"
-                            required="true"
-                        />
+                        <input pInputText id="ftxt-nombreFp" type="text" required="true" />
                         <label for="ftxt-nombreFp">* Nota de Crédito no.</label>
                     </span>
                 </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                    <span class="p-float-label" >
-                        <input
-                            pInputText
-                            id="ftxt-facturaNo"
-                            type="text"
-                            required="true"
-                        />
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                    <span class="p-float-label">
+                        <input pInputText id="ftxt-facturaNo" type="text" required="true" />
                         <label for="ftxt-facturaNo">* Factura no.</label>
                     </span>
                 </div>
             </div>
 
             <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreCliente"
-                            type="text"
-                            required="true"
-                        />
+                        <input pInputText id="ftxt-nombreCliente" type="text" required="true" />
                         <label for="ftxt-nombreCliente">* Nombre Cliente</label>
                     </span>
                 </div>
             </div>
 
             <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-ruc"
-                            type="text"
-                            required="true"
-                        />
+                        <input pInputText id="ftxt-ruc" type="text" required="true" />
                         <label for="ftxt-ruc">* Ruc</label>
                     </span>
                 </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-cedula"
-                            type="text"
-                            required="true"
-                        />
+                        <input pInputText id="ftxt-cedula" type="text" required="true" />
                         <label for="ftxt-cedula">* Cédula</label>
                     </span>
                 </div>
             </div>
             <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <label for="ftxt-fechaDesde">* Fecha Desde</label>
                     <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-fechaDesde"
-                            type="date"
-                            required="true"
-                        />
+                        <input pInputText id="ftxt-fechaDesde" type="date" required="true" />
                     </span>
                 </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <label for="ftxt-fechaHasta">* Fecha Hasta</label>
                     <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-fechaHasta"
-                            type="date"
-                            required="true"
-                        />
+                        <input pInputText id="ftxt-fechaHasta" type="date" required="true" />
                     </span>
                 </div>
             </div>
 
             <div class="central">
-                <button
-                    pButton
-                    label="Buscar"
-                    class="p-button p-button-lg m-1 p-button-info guardar-button"
-                    icon="pi pi-search"
-                    type="submit"
-                    pTooltip="Buscar"
-                    tooltipPosition="right"
-                ></button>
+                <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info guardar-button"
+                    icon="pi pi-search" type="submit" pTooltip="Buscar" tooltipPosition="right"></button>
             </div>
         </form>
     </div>
 
-    <app-nota-credito-table >
+    <app-nota-credito-table>
     </app-nota-credito-table>
 </p-card>

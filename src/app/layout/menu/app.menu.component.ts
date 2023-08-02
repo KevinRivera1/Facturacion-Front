@@ -125,6 +125,17 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/anular-reciboCaja'],
                 },
                
+                {
+                    label: 'Recibo de Caja',
+                    icon: 'pi pi-check',
+                    routerLink: ['/reciboC'],
+                },
+                {
+                    label: 'Factura Otros Conceptos',
+                    icon: 'pi pi-check',
+                    routerLink: ['/otros_conceptos'],
+                },
+                
             ],
         },
     ];
