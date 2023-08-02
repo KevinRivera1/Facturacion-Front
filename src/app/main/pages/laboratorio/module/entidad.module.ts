@@ -55,6 +55,12 @@ import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.compo
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
 import { AnularReciboCajaComponent } from '../components/anular-recibo-caja/anular-recibo-caja.component';
 import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja-table/anular-recibo-caja-table.component';
+import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
+import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
+import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota-credito-table.component';
+
+
+
 
 @NgModule({
     declarations: [
@@ -75,9 +81,12 @@ import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja
         AnularReciboCajaComponent,
         AnularReciboCajaTableComponent,
         ReciboCajaComponent,
-        FacturaLaboratorioComponent
+        FacturaLaboratorioComponent,
+        FacturaLaboratorioTableComponent,
+        NotaCreditoComponent,
+        NotaCreditoTableComponent
     ],
-    
+
     imports: [
         CommonModule,
         RouterModule.forChild(RUTA_ENTIDAD),

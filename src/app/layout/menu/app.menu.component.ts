@@ -79,7 +79,7 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/estadoComprobante'],
                 },
                 {
-                    label: 'Concepto',
+                    label: 'Conceptos',
                     icon: 'pi pi-check',
                     routerLink: ['/conceptos'],
                 },
@@ -104,10 +104,15 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/factura-lab'],
                 },
                 {
-                    label: 'Anular Recibo caja',
+                    label: 'Nota de Credito',
+                    icon: 'pi pi-check',
+                    routerLink: ['/nota-credito'],
+                },
+                {
+                    label: 'Anular Recibo',
                     icon: 'pi pi-check',
                     routerLink: ['/anular-reciboCaja'],
-                }
+                },
             ],
         },
     ];

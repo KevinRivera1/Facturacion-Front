@@ -1,3 +1,146 @@
-<p>
-  factura-laboratorio-table works!
-</p>
+<section class="content">
+  <div class="container-fluid">
+      <div class="card">
+          <p-table #dt [rows]="10" [paginator]="true" 
+                   [globalFilterFields]="[
+                      'idFormaPago',
+                      'nombreFp',
+                      'descripcionFp',
+                      'activo'
+                   ]"
+                   responsiveLayout="scroll" 
+                   [rowHover]="true" dataKey="idFormaPago"
+                   currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+              <ng-template pTemplate="caption">
+                  <div class="text-center">
+                <!--       <div>
+                          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                  class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                  tooltipPosition="bottom"></button>
+                          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                  class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                  tooltipPosition="bottom"></button>
+                          <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                                  (click)="deleteSelectedFormaPago()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                                  [disabled]="!selectedFormaPago || !selectedFormaPago.length"></button>
+                          <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
+                                  (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+                               
+                                  
+                      </div> -->
+
+                      <!-- 
+                      <span class="p-input-icon-left ">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" class="p-inputtext-sm"
+                   (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+          </span>  -->
+          <label class="text-center" >FACTURACION</label>
+                  </div>
+              
+              </ng-template>
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th style="width: 3rem">
+                          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                      </th>
+                 <!--      <th pSortableColumn="idFormaPago">
+                          <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
+                              <p-sortIcon field="idFormaPago"></p-sortIcon>
+                              <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
+                          </div>
+                      </th> -->
+                      <th pSortableColumn="nombreFp">
+                          <div class="flex justify-content-between align-items-center">Factura No.
+                              <p-sortIcon field="nombreFp"></p-sortIcon>
+                              <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
+                          </div>
+                      </th>
+                     
+                      <th pSortableColumn="descripcionFp">
+                          <div class="flex justify-content-between align-items-center">Cliente
+                              <p-sortIcon field="descripcionFp"></p-sortIcon>
+                              <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
+                          </div>
+                       </th>
+                       <th pSortableColumn="activo">
+                        <div class="flex justify-content-between align-items-center">RUC/CI
+                            <p-sortIcon field="activo"></p-sortIcon>
+                            <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                      <th pSortableColumn="codigoSri">
+                        <div class="flex justify-content-between align-items-center">Proforma
+                            <p-sortIcon field="codigoSri"></p-sortIcon>
+                            <p-columnFilter type="text" field="codigoSri" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="codigoSae">
+                        <div class="flex justify-content-between align-items-center">Fecha
+                            <p-sortIcon field="codigoSae"></p-sortIcon>
+                            <p-columnFilter type="text" field="codigoSae" display="menu"></p-columnFilter>
+                        </div>
+                    </th>  
+                    <th pSortableColumn="fechaFp">
+                        <div class="flex justify-content-between align-items-center">Subtotal
+                            <p-sortIcon field="fechaFp"></p-sortIcon>
+                            <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="fechaFp">
+                      <div class="flex justify-content-between align-items-center">IVA
+                          <p-sortIcon field="fechaFp"></p-sortIcon>
+                          <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                      </div>
+                  </th>
+                  <th pSortableColumn="fechaFp">
+                    <div class="flex justify-content-between align-items-center">Total
+                        <p-sortIcon field="fechaFp"></p-sortIcon>
+                        <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="activo">
+                  <div class="flex justify-content-between align-items-center">Estado
+                      <p-sortIcon field="activo"></p-sortIcon>
+                      <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                  </div>
+              </th>
+                      <th>ACCIONES</th>
+                  </tr>
+
+              </ng-template>
+              <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
+                  <tr>
+                      <td>
+                          <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                      </td>
+                      <td>{{rowIndex+1}}</td>
+                      <td>{{item.nombreFp}}</td>
+                      <td>{{item.descripcionFp}}</td>
+                      <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
+                        ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
+<!--                       <td>{{item.codigoSri}}</td>
+                      <td>{{item.codigoSae}}</td> -->
+                      <!-- <td>{{item.fechaFp}}</td> -->
+                      
+
+                      <td>
+                          <button pButton pRipple icon="pi pi-pencil"
+                                  class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item);llamarFuncion()"
+                                  pTooltip="Editar" tooltipPosition="left"   ></button>
+                          <button pButton pRipple icon="pi pi-trash"
+                                  class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago(item)"
+                                  pTooltip="Eliminar" tooltipPosition="left"  ></button>
+                      </td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                  <div class="p-d-flex p-ai-center p-jc-between">
+                      Registros Totales: {{listFormaPago ? listFormaPago.length : 0 }}.
+                  </div>
+              </ng-template>
+          </p-table>
+      </div>
+  </div>
+</section>
+
