@@ -1,10 +1,5 @@
 export interface ReciboCaja {
-    codigoRespuestaName:  string;
-    codigoRespuestaValue: number;
-    mensaje:              string;
-    objeto:               null;
     listado:              Listado[];
-    totalRegistros:       number;
 }
 
 export interface Listado {

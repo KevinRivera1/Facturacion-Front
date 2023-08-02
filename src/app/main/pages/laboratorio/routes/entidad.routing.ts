@@ -1,11 +1,11 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
 
-import {AuthGuard} from "../../../../_guards/auth.guard";
+import { AuthGuard } from '../../../../_guards/auth.guard';
 
-import {EntidadComponent} from "../components/entidad/entidad.component";
-import {BancosComponent} from "../components/bancos/bancos.component";
-import {ConceptoLiquidacionComponent} from "../components/concepto-liquidacion/concepto-liquidacion.component";
-import {CretencionComponent} from "../components/cretencion/cretencion.component";
+import { EntidadComponent } from '../components/entidad/entidad.component';
+import { BancosComponent } from '../components/bancos/bancos.component';
+import { ConceptoLiquidacionComponent } from '../components/concepto-liquidacion/concepto-liquidacion.component';
+import { CretencionComponent } from '../components/cretencion/cretencion.component';
 import { CentroCostosComponent } from '../components/centro-costos/centro-costos.component';
 
 import { FormaPagoComponent } from '../components/forma-pago/forma-pago.component';
@@ -13,9 +13,10 @@ import { ConceptoComponent } from '../components/concepto/concepto.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
 import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
-import { FactOtrosConceptosComponent } from '../components/fact-otros-conceptos/fact-otros-conceptos.component';
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
-import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
+import { FactOtrosConceptosComponent } from '../components/fact-otros-conceptos/fact-otros-conceptos.component';
+import { AnularReciboCajaComponent } from '../components/anular-recibo-caja/anular-recibo-caja.component';
+
 import { FacturaMatriculaComponent } from '../components/factura-matricula/factura-matricula.component';
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
 import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
@@ -26,7 +27,6 @@ import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.co
 
 
 export const RUTA_ENTIDAD: Routes = [
-
     {
         path: 'entidad',
         component: EntidadComponent,
@@ -65,7 +65,7 @@ export const RUTA_ENTIDAD: Routes = [
         component: FormaPagoComponent,
         canActivate: [AuthGuard],
     },
-    
+
     {
         path: 'conceptos',
         component: ConceptoComponent,
@@ -91,12 +91,13 @@ export const RUTA_ENTIDAD: Routes = [
         component: ReciboCajaComponent,
         canActivate: [AuthGuard],
     },
+
     {
         path: 'anular-reciboCaja',
-        component: AnularResiboCajaComponent,
+        component: AnularReciboCajaComponent,
         canActivate: [AuthGuard],
     },
-     {
+    {
         path: 'factura-lab',
         component: FacturaLaboratorioComponent,
         canActivate: [AuthGuard],
@@ -113,7 +114,4 @@ export const RUTA_ENTIDAD: Routes = [
         component: NotaCreditoComponent,
         canActivate: [AuthGuard],
     },
-
-
-
 ];
