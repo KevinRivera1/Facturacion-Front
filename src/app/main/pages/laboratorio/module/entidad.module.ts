@@ -54,6 +54,8 @@ import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anul
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
 import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
+import { FacturaMatriculaComponent } from '../components/factura-matricula/factura-matricula.component';
+import { FacturaMatriculaTableComponent } from '../components/factura-matricula-table/factura-matricula-table.component';
 
 
 
@@ -77,7 +79,9 @@ import { FacturaLaboratorioTableComponent } from '../components/factura-laborato
         AnularResiboCajaComponent,
         ReciboCajaComponent,
         FacturaLaboratorioComponent,
-        FacturaLaboratorioTableComponent
+        FacturaLaboratorioTableComponent,
+        FacturaMatriculaComponent,
+        FacturaMatriculaTableComponent
     ],
 
     imports: [

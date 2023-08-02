@@ -103,6 +103,12 @@ export class AppMenuComponent implements OnInit {
                     icon: 'pi pi-check',
                     routerLink: ['/factura-lab'],
                 },
+
+                {
+                    label: 'Factura Matricula',
+                    icon: 'pi pi-check',
+                    routerLink: ['/factura-matricula'],
+                },
             ],
         },
     ];

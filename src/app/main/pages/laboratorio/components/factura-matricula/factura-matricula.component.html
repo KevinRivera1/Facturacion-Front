@@ -1,0 +1,118 @@
+<p-card>
+  <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
+      <h4>Factura Laboratorio</h4>
+  </p-header>
+  <div class="caja-boton-principal central" style="align-items: center">
+      <button
+          pButton
+          label="Agregar Forma de Pago"
+          class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+          icon="pi pi-plus"
+          pTooltip="Agregar Forma de Pago"
+          label="Agregar"
+          tooltipPosition="right"
+      ></button>
+  </div>
+
+  <p-divider></p-divider>
+  <header>BUSCAR FACTURAS DE MATRICULAS</header>
+  <form>
+      <div class="">
+          <br />
+
+          <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                  <span class="p-float-label">
+                      <input
+                          pInputText
+                          id="ftxt-nombreFp"
+                          type="text"
+                          required="true"
+                      />
+                      <label for="ftxt-nombreFp">* Factura no.</label>
+                  </span>
+              </div>
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                  <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
+                      >* Estado</label
+                  >
+                  <span class="p-float-label">
+                      <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
+                  </span>
+              </div>
+          </div>
+
+          <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                  <span class="p-float-label">
+                      <input
+                          pInputText
+                          id="ftxt-nombreFp"
+                          type="text"
+                          required="true"
+                      />
+                      <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                  </span>
+              </div>
+          </div>
+
+          <div class="p-fluid p-formgrid grid">
+              
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                  <span class="p-float-label">
+                      <input
+                          pInputText
+                          id="ftxt-nombreFp"
+                          type="text"
+                          required="true"
+                      />
+                      <label for="ftxt-nombreFp">* Cedula - Ruc</label>
+                  </span>
+              </div>
+          </div>
+          <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                  <label for="ftxt-nombreFp">* Fecha Desde</label>
+                  <span class="p-float-label">
+                      <input
+                          pInputText
+                          id="ftxt-nombreFp"
+                          type="date"
+                          required="true"
+                      />
+                  </span>
+              </div>
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                  <label for="ftxt-nombreFp">* Fecha Hasta</label>
+                  <span class="p-float-label">
+                      <input
+                          pInputText
+                          id="ftxt-nombreFp"
+                          type="date"
+                          required="true"
+                      />
+                  </span>
+              </div>
+          </div>
+
+          <div class="central">
+              <p-toolbar>
+                  <div class="p-toolbar-group-center">
+                      <button
+                          pButton
+                          label="Buscar"
+                          class="p-button p-button-lg m-1 p-button-info guardar-button"
+                          icon="pi pi-search"
+                          type="submit"
+                          pTooltip="Buscar"
+                          tooltipPosition="right"
+                      ></button>
+                  </div>
+              </p-toolbar>
+          </div>
+      </div>
+  </form>
+
+  <app-factura-matricula-table >
+  </app-factura-matricula-table>
+</p-card>
