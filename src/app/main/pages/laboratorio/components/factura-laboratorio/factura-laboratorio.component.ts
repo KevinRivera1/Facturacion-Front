@@ -14,8 +14,8 @@ export class FacturaLaboratorioComponent implements OnInit {
   ) {
     {
       this.breadcrumbService.setItems([{ label: 'Factura Laboratorio ' }]);
+    }
   }
-   }
 
   ngOnInit() {
   }
