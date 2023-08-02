@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
   selector: 'app-recibo-caja',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recibo-caja.component.scss']
 })
 export class ReciboCajaComponent implements OnInit {
+  constructor(
 
-  constructor() { }
-
-  ngOnInit(): void {
+    private breadcrumbService: BreadcrumbService
+  ) {
+    {
+      this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
+    }
   }
 
+  ngOnInit() {
+  }
 }
