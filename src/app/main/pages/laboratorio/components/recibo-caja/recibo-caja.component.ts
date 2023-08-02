@@ -7,15 +7,34 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
   styleUrls: ['./recibo-caja.component.scss']
 })
 export class ReciboCajaComponent implements OnInit {
-  constructor(
+  
+  modal: boolean;                             //Visibilidad de un modal
 
-    private breadcrumbService: BreadcrumbService
-  ) {
-    {
+  constructor(
+    private breadcrumbService: BreadcrumbService  ){{
       this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
     }
   }
 
+
   ngOnInit() {
+  }
+
+  cancelar() {
+    // this.setearForm();
+    this.modal = false;
+}
+
+  //Abrir el modal
+  abrirmodal() {
+      this.modal = true;
+  }
+
+  //Cerrar el modal y restablecer el formulario
+  cerrar() {
+    // this.f.estadoCentroCosto.disable(); 
+      // this.setearForm();
+      
+      this.modal = false;
   }
 }
