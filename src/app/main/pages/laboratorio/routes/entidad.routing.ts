@@ -14,6 +14,12 @@ import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto
 import { PuntoFacturacionComponent } from '../components/punto-facturacion/punto-facturacion.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { FactOtrosConceptosComponent } from '../components/fact-otros-conceptos/fact-otros-conceptos.component';
+import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
+import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
+import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
+import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
+
+
 
 
 
@@ -76,9 +82,29 @@ export const RUTA_ENTIDAD: Routes = [
     {
         path: 'otros_conceptos',
         component: FactOtrosConceptosComponent
-    }
+    },
+    {  
 
- 
+        path: 'reciboC',
+        component: ReciboCajaComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'anular-reciboCaja',
+        component: AnularResiboCajaComponent,
+        canActivate: [AuthGuard],
+    },
+     {
+        path: 'factura-lab',
+        component: FacturaLaboratorioComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'nota-credito',
+        component: NotaCreditoComponent,
+        canActivate: [AuthGuard],
+    },
+
 
 
 ];

@@ -50,6 +50,12 @@ import { PuntoFacturacionTableComponent } from '../components/punto-facturacion-
 import { EstadoComprobanteTableComponent } from '../components/estado-comprobante-table/estado-comprobante-table.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
+import { AnularResiboCajaComponent } from '../components/anular-resibo-caja/anular-resibo-caja.component';
+import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
+import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
+import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
+import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
+import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota-credito-table.component';
 
 
 
@@ -69,10 +75,15 @@ import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto
         PuntoFacturacionTableComponent,
         EstadoComprobanteTableComponent,
         EstadoComprobanteComponent,
-        TipoConceptoComponent
-
-
+        TipoConceptoComponent,
+        AnularResiboCajaComponent,
+        ReciboCajaComponent,
+        FacturaLaboratorioComponent,
+        FacturaLaboratorioTableComponent,
+        NotaCreditoComponent,
+        NotaCreditoTableComponent
     ],
+
     imports: [
         CommonModule,
         RouterModule.forChild(RUTA_ENTIDAD),
