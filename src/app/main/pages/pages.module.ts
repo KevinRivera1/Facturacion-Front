@@ -13,14 +13,14 @@ import { ConceptoLiquidacionTableComponent } from './laboratorio/components/conc
 import { CretencionComponent } from './laboratorio/components/cretencion/cretencion.component';
 import { CretencionTableComponent } from './laboratorio/components/cretencion-table/cretencion-table.component';
 import { FormaPagoComponent } from './laboratorio/components/forma-pago/forma-pago.component';
-import { ConceptoComponent } from './laboratorio/components/concepto/concepto.component';
-import { ConceptosTableComponent } from './laboratorio/components/concepto-table/concepto-table.component';
 import { FormaPagoTableComponent } from './laboratorio/components/forma-pago-table/forma-pago-table.component';
-import { TipoConceptoComponent } from './laboratorio/components/tipo-concepto/tipo-concepto.component';
-import { TipoConceptoTableComponent } from './laboratorio/components/tipo-concepto-table/tipo-concepto-table.component';
 import { EntidadModule } from './laboratorio/module/entidad.module';
-import { ReciboCajaComponent } from './laboratorio/components/recibo-caja/recibo-caja.component';
+
+import { FactOtrosConceptosComponent } from './laboratorio/components/fact-otros-conceptos/fact-otros-conceptos.component';
+import { FactOtrosConceptosTableComponent } from './laboratorio/components/fact-otros-conceptos-table/fact-otros-conceptos-table.component';
+
 import { ReciboCajaTableComponent } from './laboratorio/components/recibo-caja-table/recibo-caja-table.component';
+
 
 @NgModule({
     declarations: [
@@ -30,6 +30,9 @@ import { ReciboCajaTableComponent } from './laboratorio/components/recibo-caja-t
         CretencionTableComponent,
         FormaPagoComponent,
         FormaPagoTableComponent,
+        FactOtrosConceptosComponent,
+        FactOtrosConceptosTableComponent,
+
     ],
     imports: [
         CommonModule,

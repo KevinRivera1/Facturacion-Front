@@ -1,0 +1,125 @@
+<p-card>
+    <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
+        <h4>Nota Credito</h4>
+    </p-header>
+    <div class="caja-boton-principal central" style="align-items: center">
+        <button
+            pButton
+            label="Agregar Nota de Credito"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            icon="pi pi-plus"
+            pTooltip="Agregar Nota de Credito"
+            label="Agregar"
+            tooltipPosition="right"
+        ></button>
+    </div>
+
+    <p-divider></p-divider>
+    <header  class="text-center">BUSCAR NOTAS DE CREDITO</header>
+    <div class="p-d-flex">
+        <form>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreFp"
+                            type="text"
+                            required="true"
+                        />
+                        <label for="ftxt-nombreFp">* Nota de Crédito no.</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                    <span class="p-float-label" >
+                        <input
+                            pInputText
+                            id="ftxt-facturaNo"
+                            type="text"
+                            required="true"
+                        />
+                        <label for="ftxt-facturaNo">* Factura no.</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCliente"
+                            type="text"
+                            required="true"
+                        />
+                        <label for="ftxt-nombreCliente">* Nombre Cliente</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-ruc"
+                            type="text"
+                            required="true"
+                        />
+                        <label for="ftxt-ruc">* Ruc</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-cedula"
+                            type="text"
+                            required="true"
+                        />
+                        <label for="ftxt-cedula">* Cédula</label>
+                    </span>
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                    <label for="ftxt-fechaDesde">* Fecha Desde</label>
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-fechaDesde"
+                            type="date"
+                            required="true"
+                        />
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                    <label for="ftxt-fechaHasta">* Fecha Hasta</label>
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-fechaHasta"
+                            type="date"
+                            required="true"
+                        />
+                    </span>
+                </div>
+            </div>
+
+            <div class="central">
+                <button
+                    pButton
+                    label="Buscar"
+                    class="p-button p-button-lg m-1 p-button-info guardar-button"
+                    icon="pi pi-search"
+                    type="submit"
+                    pTooltip="Buscar"
+                    tooltipPosition="right"
+                ></button>
+            </div>
+        </form>
+    </div>
+
+    <app-nota-credito-table >
+    </app-nota-credito-table>
+</p-card>

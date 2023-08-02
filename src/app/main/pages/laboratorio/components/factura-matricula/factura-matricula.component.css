@@ -1,0 +1,21 @@
+.p-d-flex {
+    display: flex;
+    justify-content: center; 
+}
+.p-formgrid .p-field {
+    margin: 10px;
+}
+.central {
+    text-align: center;
+    margin: 10px;
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+}
+
+.text-center {
+    display: flex;
+    align-items: center;
+}

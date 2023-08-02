@@ -50,8 +50,17 @@ import { PuntoFacturacionTableComponent } from '../components/punto-facturacion-
 import { EstadoComprobanteTableComponent } from '../components/estado-comprobante-table/estado-comprobante-table.component';
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
+
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
 import { ReciboCajaTableComponent } from '../components/recibo-caja-table/recibo-caja-table.component';
+import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
+import { AnularReciboCajaComponent } from '../components/anular-recibo-caja/anular-recibo-caja.component';
+import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja-table/anular-recibo-caja-table.component';
+import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
+import { FacturaMatriculaComponent } from '../components/factura-matricula/factura-matricula.component';
+import { FacturaMatriculaTableComponent } from '../components/factura-matricula-table/factura-matricula-table.component';
+import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
+import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota-credito-table.component';
 
 
 
@@ -76,7 +85,17 @@ import { ReciboCajaTableComponent } from '../components/recibo-caja-table/recibo
         ReciboCajaComponent,
         ReciboCajaTableComponent,
 
+        AnularReciboCajaComponent,
+        AnularReciboCajaTableComponent,
+        ReciboCajaComponent,
+        FacturaLaboratorioComponent,
+        FacturaLaboratorioTableComponent,
+        FacturaMatriculaComponent,
+       FacturaMatriculaTableComponent,
+       NotaCreditoComponent,
+       NotaCreditoTableComponent
     ],
+
     imports: [
         CommonModule,
         RouterModule.forChild(RUTA_ENTIDAD),
