@@ -30,7 +30,6 @@ import { ReciboCajaTableComponent } from './laboratorio/components/recibo-caja-t
         CretencionTableComponent,
         FormaPagoComponent,
         FormaPagoTableComponent,
-        ReciboCajaTableComponent,
     ],
     imports: [
         CommonModule,

@@ -51,6 +51,7 @@ import { EstadoComprobanteTableComponent } from '../components/estado-comprobant
 import { EstadoComprobanteComponent } from '../components/estado-comprobante/estado-comprobante.component';
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
+import { ReciboCajaTableComponent } from '../components/recibo-caja-table/recibo-caja-table.component';
 
 
 
@@ -72,7 +73,8 @@ import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.compo
         EstadoComprobanteComponent,
         TipoConceptoComponent,
 
-        ReciboCajaComponent
+        ReciboCajaComponent,
+        ReciboCajaTableComponent,
 
     ],
     imports: [

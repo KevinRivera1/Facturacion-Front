@@ -1,7 +1,8 @@
 
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
-<p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [modal]="true"
+
+<p-dialog [contentStyle]="{'overflow': 'visible'}" header=""  [modal]="true"
     [style]="{ width: '42vw' }" [draggable]="true"  [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">RECIBO DE CAJAS</h4>
@@ -26,7 +27,7 @@
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                     <span class="p-float-label">
-                        <input pInputText id="ftxt-codCentroCosto" type="text" maxlength="8" pattern="SC-\d{5}" required="true"  formControlName="codCentroCosto">
+                        <input pInputText id="ftxt-codCentroCosto" type="text" maxlength="8" pattern="SC-\d{5}" required="true" formControlName="codCentroCosto">
                         <label for="ftxt-codCentroCosto">* Codigo</label>
                     </span>
                 </div>
@@ -53,7 +54,7 @@
                 <p-toolbar>
                     <div class="p-toolbar-group-center">
                         <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-send"
-                            type="submit"pTooltip="Guardar"
+                            type="submit" pTooltip="Guardar"
                             tooltipPosition="right"></button>
 
                             <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger cancelar-button"
@@ -66,84 +67,89 @@
     </form>
 </p-dialog>
 
-
-
-
 <p-card>
 
 
     <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
-        <h4>RECIBO DE CAJAS</h4>
+        <h4>RECIBO DE CAJA</h4>
     </p-header>
 
 
-    <div class="caja-boton-principal">
-        <button pButton label="Agregar recibo de cajas"class="p-button p-button-lg m-1 p-button-info bg-blue-900 "
-            icon="pi pi-plus" pTooltip="Agregar"
+    <div class="caja-boton-principal center-button">
+        <button pButton label="Agregar Recibo de Caja" class="p-button p-button-lg m-1 p-button-info bg-blue-900 "
+            icon="pi pi-plus" pTooltip="Agregar" 
             tooltipPosition="right"></button>
 
     </div>
 
-    <p-divider></p-divider>
-       
-    <form [formGroup]="">
-        <div>
+        <br>
+        <form [formGroup]="" class="form">
+            <div>
+                <!-- card no-gutter widget-overview-box widget-overview-box-1 -->
+                <br>
     
-            <br>
-    
-    
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <input pInputText id="ftxt-nombreBancos" type="text" required="true" formControlName="nombreBancos">
-                        <label for="ftxt-nombreBancos">* Nombre</label>
-                    </span>
+                <div class="p-fluid p-formgrid grid input">
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreCentroCosto" required="true" formControlName="nombreCentroCosto">
+                            <label for="ftxt-nombreCentroCosto">* Nº Recibo de Caja</label>
+                        </span>
+                    </div>
+                    
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreCentroCosto"  required="true" formControlName="nombreCentroCosto">
+                            <label for="ftxt-nombreCentroCosto">* Nombre Cliente</label>
+                        </span>
+                    </div>
                 </div>
     
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <label for="ftxt-estadoBancos" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
-                    <span class="p-float-label">
-                        <p-inputSwitch id="ftxt-estadoBancos" formControlName="estado"></p-inputSwitch>
-                    </span>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreCentroCosto"  required="true" formControlName="nombreCentroCosto">
+                            <label for="ftxt-nombreCentroCosto">* RUC/CL</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreCentroCosto"  required="true" formControlName="nombreCentroCosto">
+                            <label for="ftxt-nombreCentroCosto">* Observaciones</label>
+                        </span>
+                    </div>
                 </div>
     
-    
+                <div class="p-fluid p-formgrid grid">
+
+                <div class="calendar">
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
+                            <label for="ftxt-fechaBancos">* Fecha Desde </label>
+                        </span>
+                    </div>
+                    <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                            <label for="ftxt-fechaBancos">* Fecha Hasta </label>
+                        </span>
+                    </div>
+                </div>
             </div>
-    
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descBancos">* Detalle</label>
-                    <span class="p-float-label">
-                        <textarea pInputTextarea rows="4" cols="30" id="ftxt-descBancos" required="true"
-                            formControlName="descBancos"></textarea>
-                    </span>
-                </div>
+                    <p-toolbar class="center-button">
+                            <button pButton label="Consultar"class="p-button p-button-lg m-1 p-button-info bg-blue-900 " icon="pi pi-search"
+                                type="submit" pTooltip="Guardar"
+                                tooltipPosition="right"></button>
+                    </p-toolbar>
             </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <input pInputText id="ftxt-fechaBancos" type="text" dateFormat="yyyy/mm/dd"
-                            formControlName="fechaBancos" readonly>
-                        <label for="ftxt-fechaBancos">* Fecha Registro </label>
-                    </span>
-                </div>
-            </div>
-            <div class="central">
-                <p-toolbar>
-                    <div class="p-toolbar-group-center">
-                        <button pButton label="Consultar" class="p-button p-button-lg m-1 p-button-info bg-blue-900" icon="pi pi-send"
-                            type="submit"  pTooltip="Consultar" tooltipPosition="right"></button>
+        </form>
+
+   
 
     
-    
-                    </div>
-                </p-toolbar>
-            </div>
-    
-    
-        </div>
-    </form>
-    
+    <p-divider></p-divider>
+
+
 </p-card>
 
 
