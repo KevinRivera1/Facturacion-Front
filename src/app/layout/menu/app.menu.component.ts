@@ -110,6 +110,11 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/factura-matricula']
                 },
                 {
+                    label: 'Factura Otros Conceptos',
+                    icon: 'pi pi-check',
+                    routerLink: ['/otros_conceptos'],
+                },
+                {
                     label: 'Nota de Credito',
                     icon: 'pi pi-check',
                     routerLink: ['/nota-credito'],
@@ -119,11 +124,7 @@ export class AppMenuComponent implements OnInit {
                     icon: 'pi pi-check',
                     routerLink: ['/anular-reciboCaja'],
                 },
-                {
-                    label: 'Factura Otros Conceptos',
-                    icon: 'pi pi-check',
-                    routerLink: ['/otros_conceptos'],
-                },
+               
             ],
         },
     ];
