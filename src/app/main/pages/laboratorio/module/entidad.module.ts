@@ -56,6 +56,8 @@ import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/f
 import { AnularReciboCajaComponent } from '../components/anular-recibo-caja/anular-recibo-caja.component';
 import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja-table/anular-recibo-caja-table.component';
 import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
+import { FacturaMatriculaComponent } from '../components/factura-matricula/factura-matricula.component';
+import { FacturaMatriculaTableComponent } from '../components/factura-matricula-table/factura-matricula-table.component';
 import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
 import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota-credito-table.component';
 
@@ -83,8 +85,10 @@ import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota
         ReciboCajaComponent,
         FacturaLaboratorioComponent,
         FacturaLaboratorioTableComponent,
-        NotaCreditoComponent,
-        NotaCreditoTableComponent
+        FacturaMatriculaComponent,
+       FacturaMatriculaTableComponent,
+       NotaCreditoComponent,
+       NotaCreditoTableComponent
     ],
 
     imports: [
