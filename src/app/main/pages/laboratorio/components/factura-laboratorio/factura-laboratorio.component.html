@@ -1,6 +1,6 @@
 
 
-<p-dialog [contentStyle]="{'overflow': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
+<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
  [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">FACTURAS DE LABORATORIOS</h4>
@@ -12,7 +12,7 @@
         <form>
             
             <div class="">
-                <br />
+          
                 <header class="text-center">BUSCAR FACTURAS DE LABORATORIOS</header>
                 <br />
     
@@ -118,11 +118,11 @@
                 </div>
             </div>
         </form>
-        <app-factura-laboratorio-table >
-        </app-factura-laboratorio-table>
+      
     </p-card>  
     </div>
-   
+    <app-factura-laboratorio-table >
+    </app-factura-laboratorio-table>
 </p-dialog>
 
 
