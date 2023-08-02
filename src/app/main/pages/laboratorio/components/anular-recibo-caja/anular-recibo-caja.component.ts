@@ -1,4 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
+import { ResponseGenerico } from 'src/app/_dto/response-generico';
+import { TokenDto } from 'src/app/_dto/token-dto';
+import { TokenService } from 'src/app/_service/token.service';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { ReciboCaja } from '../../model/reciboCaja';
 
 @Component({
     selector: 'app-anular-recibo-caja',
@@ -6,13 +17,58 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./anular-recibo-caja.component.scss'],
 })
 export class AnularReciboCajaComponent implements OnInit {
+    @Input() reciboCaja: ReciboCaja; //Va reciboDTo
+    reciboCajaFiltrados: ReciboCaja; //va ReciboDto
 
-    fechaDesde: Date;
-    fechaHasta:Date;
+    proceso: string = 'anular recibos caja';
+    response: ResponseGenerico;
+    token: TokenDto;
+    anularRecibCajaForm: FormGroup;
 
-    constructor() {}
+    constructor(
+        private breadcrumbService: BreadcrumbService,
+        private formBuilder: FormBuilder,
+        private tokenService: TokenService
+    ) {
+        {
+            this.breadcrumbService.setItems([{ label: 'Anular Recibo Caja' }]);
+        }
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.iniciarForms();
+    }
 
-    Buscar() {}
+    get f() {
+        return this.anularRecibCajaForm.controls;
+    }
+
+    iniciarForms() {
+        this.anularRecibCajaForm = this.formBuilder.group({
+            //idEstadoComprobante: [null],
+            NroReciboCaja: ['', Validators.required],
+            NombreCliente: ['', Validators.required],
+            Ruc: ['', Validators.required],
+            Cedula: ['', Validators.required],
+            fechaDesde: ['', Validators.required],
+            fechaHasta: ['', Validators.required],
+            //estadoCompr: [true, Validators.requiredTrue],
+        });
+        this.token = JSON.parse(this.tokenService.getResponseAuth());
+        //this.f.idUsuarioEstComprob.setValue(this.token.id)
+    }
+
+    obtenerdaData() {}
+
+    Buscar() {
+        const fechaDesde = this.anularRecibCajaForm.value.fechaDesde;
+        const fechaHasta = this.anularRecibCajaForm.value.fechaDesde;
+        console.log('filtrando info: ' + fechaDesde);
+        console.log('filtrando info  hasta: ' + fechaHasta);
+
+        /*  this.reciboCaja = this.reciboCaja.filter((recibo) => {
+            const fechaRecibo = new Date(recibo.fecha);
+            return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
+        }); */
+    }
 }

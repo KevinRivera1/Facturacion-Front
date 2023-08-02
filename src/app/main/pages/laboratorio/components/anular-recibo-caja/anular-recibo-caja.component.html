@@ -1,10 +1,10 @@
 <!-- [style]="{width: '70vw'}" -->
-<p-card>
+<p-card [style]="{width: '75vw'}" class="central">
     <p-header class="mb-4">
         <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">Buscar Recibo Caja</h4>
     </p-header>
 
-    <form [formGroup]="" class="mt-6 px-4">
+    <form [formGroup]="anularRecibCajaForm" class="mt-2 px-4">
         <div class="p-grid p-fluid">
             <div class="p-field p-col-12 p-md-6 px-3">
                 <span class="p-float-label">
@@ -36,13 +36,13 @@
             </div>
             <div class="p-field p-col-12 p-md-6 px-3">
                 <span class="p-float-label">
-                    <p-calendar [(ngModel)]="fechaDesde" [showIcon]="true"></p-calendar>
+                    <p-calendar formControlName="fechaDesde" [showIcon]="true"></p-calendar>
                     <label for="ftxt-fechaDesde">Fecha Desde: </label>
                 </span>
             </div>
             <div class="p-field p-col-12 p-md-6 px-3">
                 <span class="p-float-label">
-                    <p-calendar [(ngModel)]="fechaHasta" [showIcon]="true"></p-calendar>
+                    <p-calendar formControlName="fechaHasta" [showIcon]="true"></p-calendar>
                     <label for="ftxt-fechaHasta">Fecha Hasta: </label>
                 </span>
             </div>
