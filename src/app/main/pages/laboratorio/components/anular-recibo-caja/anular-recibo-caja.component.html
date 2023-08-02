@@ -5,42 +5,42 @@
     </p-header>
 
     <form [formGroup]="anularRecibCajaForm" class="mt-2 px-4">
-        <div class="p-grid p-fluid">
-            <div class="p-field p-col-12 p-md-6 px-3">
+        <div class="formgrid p-grid p-fluid">
+            <div class="field col-12 md:col-6 lg:col-4">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NroReciboCaja" type="text" required="true"
                         formControlName="NroReciboCaja" style="text-transform: uppercase;">
                     <label for="ftxt-NroReciboCaja">Nro.Recibo Caja</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-6 px-3">
+            <div class="field col-12 md:col-6 lg:col-4">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NombreCliente" type="text" required="true"
                         formControlName="NombreCliente" style="text-transform: uppercase;">
                     <label for="ftxt-NombreCliente">Nombre Cliente</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-6 px-3">
+            <div class="field col-12 md:col-6 lg:col-4">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-Ruc" type="text" required="true" formControlName="Ruc"
                         style="text-transform: uppercase;">
                     <label for="ftxt-Ruc">RUC</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-6 px-3">
+            <div class="field col-12 md:col-6 lg:col-4">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-Cedula" type="text" required="true" formControlName="Cedula"
                         style="text-transform: uppercase;">
                     <label for="ftxt-Cedula">Cédula</label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-6 px-3">
+            <div class="field col-12 md:col-6 lg:col-4">
                 <span class="p-float-label">
                     <p-calendar formControlName="fechaDesde" [showIcon]="true"></p-calendar>
                     <label for="ftxt-fechaDesde">Fecha Desde: </label>
                 </span>
             </div>
-            <div class="p-field p-col-12 p-md-6 px-3">
+            <div class="field col-12 md:col-6 lg:col-4">
                 <span class="p-float-label">
                     <p-calendar formControlName="fechaHasta" [showIcon]="true"></p-calendar>
                     <label for="ftxt-fechaHasta">Fecha Hasta: </label>
