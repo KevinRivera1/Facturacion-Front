@@ -1,49 +1,49 @@
 <!-- [style]="{width: '70vw'}" -->
-<p-card [style]="{width: '75vw'}" class="central">
+<p-card [style]="{width: '45vw'}" class="central">
     <p-header class="mb-4">
-        <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">Buscar Recibo Caja</h4>
+        <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">BUSCAR RECIBOS CAJA</h4>
     </p-header>
 
-    <form [formGroup]="anularRecibCajaForm" class="mt-2 px-4">
+    <form [formGroup]="anularRecibCajaForm" class="mt-2 px-4" [style]="{width: '100%'}">
         <div class="formgrid p-grid p-fluid">
-            <div class="field col-12 md:col-6 lg:col-4">
+            <div class="col-12 md:col-6 ">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NroReciboCaja" type="text" required="true"
                         formControlName="NroReciboCaja" style="text-transform: uppercase;">
                     <label for="ftxt-NroReciboCaja">Nro.Recibo Caja</label>
                 </span>
             </div>
-            <div class="field col-12 md:col-6 lg:col-4">
+            <div class="col-12 md:col-6">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NombreCliente" type="text" required="true"
                         formControlName="NombreCliente" style="text-transform: uppercase;">
                     <label for="ftxt-NombreCliente">Nombre Cliente</label>
                 </span>
             </div>
-            <div class="field col-12 md:col-6 lg:col-4">
+            <div class="col-12 md:col-6">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-Ruc" type="text" required="true" formControlName="Ruc"
-                        style="text-transform: uppercase;">
+                    <input pInputText id="ftxt-Ruc" type="number" required="true" formControlName="Ruc"
+                        style="text-transform: uppercase;" (input)="onInputRuc($event)">
                     <label for="ftxt-Ruc">RUC</label>
                 </span>
             </div>
-            <div class="field col-12 md:col-6 lg:col-4">
+            <div class="col-12 md:col-6 ">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-Cedula" type="text" required="true" formControlName="Cedula"
-                        style="text-transform: uppercase;">
+                    <input pInputText id="ftxt-Cedula" type="number" required="true" formControlName="Cedula"
+                        style="text-transform: uppercase;" (input)="onInput($event)" [maxlength]="10">
                     <label for="ftxt-Cedula">Cédula</label>
                 </span>
             </div>
-            <div class="field col-12 md:col-6 lg:col-4">
+            <div class="col-12 md:col-6 text-left">
+                <label for="ftxt-fechaDesde" class="mb-1">Fecha Desde: </label>
                 <span class="p-float-label">
-                    <p-calendar formControlName="fechaDesde" [showIcon]="true"></p-calendar>
-                    <label for="ftxt-fechaDesde">Fecha Desde: </label>
+                    <p-calendar formControlName="fechaDesde" [showIcon]="true" [showButtonBar]="true"></p-calendar>
                 </span>
             </div>
-            <div class="field col-12 md:col-6 lg:col-4">
+            <div class="col-12 md:col-6 text-left">
+                <label for="ftxt-fechaHasta">Fecha Hasta: </label>
                 <span class="p-float-label">
-                    <p-calendar formControlName="fechaHasta" [showIcon]="true"></p-calendar>
-                    <label for="ftxt-fechaHasta">Fecha Hasta: </label>
+                    <p-calendar formControlName="fechaHasta" [showIcon]="true" [showButtonBar]="true"></p-calendar>
                 </span>
             </div>
         </div>

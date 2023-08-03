@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -24,6 +24,8 @@ export class AnularReciboCajaComponent implements OnInit {
     response: ResponseGenerico;
     token: TokenDto;
     anularRecibCajaForm: FormGroup;
+    maxLength: number = 10;
+    maxLengthRuc: number = 13;
 
     constructor(
         private breadcrumbService: BreadcrumbService,
@@ -48,8 +50,8 @@ export class AnularReciboCajaComponent implements OnInit {
             //idEstadoComprobante: [null],
             NroReciboCaja: ['', Validators.required],
             NombreCliente: ['', Validators.required],
-            Ruc: ['', Validators.required],
-            Cedula: ['', Validators.required],
+            Ruc: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
+            Cedula: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
             fechaDesde: ['', Validators.required],
             fechaHasta: ['', Validators.required],
             //estadoCompr: [true, Validators.requiredTrue],
@@ -70,5 +72,26 @@ export class AnularReciboCajaComponent implements OnInit {
             const fechaRecibo = new Date(recibo.fecha);
             return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
         }); */
+    }
+    
+    onInput(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        const value = inputElement.value;
+        if (value.length > this.maxLength) {
+            inputElement.value = value.slice(0, this.maxLength);
+            this.anularRecibCajaForm.controls['Cedula'].setValue(
+                inputElement.value
+            );
+        }
+    }
+    onInputRuc(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        const value = inputElement.value;
+        if (value.length > this.maxLengthRuc) {
+            inputElement.value = value.slice(0, this.maxLengthRuc);
+            this.anularRecibCajaForm.controls['Ruc'].setValue(
+                inputElement.value
+            );
+        }
     }
 }
