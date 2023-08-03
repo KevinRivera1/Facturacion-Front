@@ -41,7 +41,7 @@
             </div>
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
               <span class="p-float-label">
-                <input pInputText id="ftxt-rucCedula" type="text" required="true" />
+                <input pInputText id="ftxt-rucCedula" type="number"  onKeyPress="if(this.value.length==10) return false;" required="true" />
                 <label for="ftxt-rucCedula">* Ruc/Cédula</label>
               </span>
             </div>
@@ -77,6 +77,8 @@
                         </div>
                     </p-toolbar>
                 </div>
+
+                <button pButton type="button" icon="pi pi-arrow-left" (click)="cerrar()" label="Volver"></button>
             </div>
         </form>
       

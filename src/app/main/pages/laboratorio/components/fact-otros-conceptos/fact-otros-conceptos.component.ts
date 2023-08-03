@@ -25,12 +25,13 @@ export class FactOtrosConceptosComponent implements OnInit {
   cerrar() {
 
     this.modal = false;
-    
-
 }
 
 abrirmodal() {
     this.modal = true;
 }
+
+
+
 
 }
