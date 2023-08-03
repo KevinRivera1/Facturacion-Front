@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
@@ -9,6 +10,10 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 export class ReciboCajaComponent implements OnInit {
   
   modal: boolean;                             //Visibilidad de un modal
+  busquedaForm: FormGroup;
+
+  maxLengthR: number= 13 ; 
+  maxLengthC: number= 10 ; 
 
   constructor(
     private breadcrumbService: BreadcrumbService  ){{
@@ -24,6 +29,26 @@ export class ReciboCajaComponent implements OnInit {
     // this.setearForm();
     this.modal = false;
 }
+
+
+  onInputR(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.value;
+    if (value.length > this.maxLengthR) {
+      inputElement.value = value.slice(0, this.maxLengthR); // Truncar el valor a la longitud máxima
+      this.busquedaForm.controls['Cantidad'].setValue(inputElement.value); // Actualizar el valor del formulario
+    }
+  }
+
+  onInputC(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.value;
+    if (value.length > this.maxLengthC) {
+      inputElement.value = value.slice(0, this.maxLengthC); // Truncar el valor a la longitud máxima
+      this.busquedaForm.controls['Cantidad'].setValue(inputElement.value); // Actualizar el valor del formulario
+    }
+  }
+
 
   //Abrir el modal
   abrirmodal() {

@@ -8,19 +8,18 @@
         </p-header>
     
     <!--ANDRES MONTOYA-->
-    
-        <img alt="Card" src="../../../../../../assets/img/epn.png" />
-
-        <h1>ESCUELA POLITECNICA NACIONAL</h1>   
-        <p>
-            Campus Politecnico "J. Ruben Orellana R."<br>
-            Ladron de Guevara E11-253 y Andalucia<br>
-            Telf.: 2507-144 / Fax: 2567-848<br>
-            P.O. Box: 17-01-2759 / QUITO-ECUADOR<br>
-        </p>
-            
-        
-        <p-fieldset class="flex justify-content-center" legend="Buscar Cliente/Estudiante/Empleado EPN">     
+                <img alt="Card" src="../../../../../../assets/img/epn.png" />
+        <div class="header-card">
+                <h4>ESCUELA POLITECNICA NACIONAL</h4>   
+                <p>
+                    Campus Politecnico "J. Ruben Orellana R."<br>
+                    Ladron de Guevara E11-253 y Andalucia<br>
+                    Telf.: 2507-144 / Fax: 2567-848<br>
+                    P.O. Box: 17-01-2759 / QUITO-ECUADOR<br>
+                </p>
+            </div>
+                <p-divider></p-divider>
+        <p-fieldset align="center" class="flex justify-content-center" legend="Buscar Cliente/Estudiante/Empleado EPN">     
                 <div class="flex flex-wrap gap-3">
                     <div class="flex align-items-center">
                         <p-radioButton name="cliente" value="1" inputId="1"></p-radioButton>
@@ -59,6 +58,7 @@
     </div>
 
     <p-divider></p-divider>
+    
     <p-fieldset class="form" legend="BUSCAR RECIBO DE CAJA">
             
 
@@ -85,18 +85,20 @@
                 <div class="p-fluid p-formgrid grid">
                     <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreCentroCosto"  required="true">
-                            <label for="ftxt-nombreCentroCosto">* RUC/CL</label>
+                            <input pInputText id="ftxt-nombreCentroCosto" type="number" maxlength="10" (input)="onInputR($event)">
+                            <label for="ftxt-nombreCentroCosto">* RUC</label>
                         </span>
                     </div>
                     <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreCentroCosto"  required="true">
-                            <label for="ftxt-nombreCentroCosto">* Observaciones</label>
+                            <input pInputText id="ftxt-nombreCentroCosto" type="number" maxlength="13" (input)="onInputC($event)"required="true">
+                            <label for="ftxt-nombreCentroCosto">* Cedula</label>
                         </span>
                     </div>
                 </div>
     
+               
+
                 <div class="p-fluid p-formgrid grid">
     
                 <div class="calendar">
@@ -110,6 +112,16 @@
                         <span class="p-float-label">
                             <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
                             <label for="ftxt-fechaBancos">* Fecha Hasta </label>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-descCentroCosto">* Observaciones</label>
+                        <span class="p-float-label">
+                            <textarea pInputTextarea rows="1" id="ftxt-descCentroCosto" required="true"
+                            formControlName="descCentroCosto"></textarea>
                         </span>
                     </div>
                 </div>
