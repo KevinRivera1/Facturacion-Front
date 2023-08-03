@@ -7,6 +7,8 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
   styleUrls: ['./fact-otros-conceptos.component.css']
 })
 export class FactOtrosConceptosComponent implements OnInit {
+  modal: boolean;
+
 
   constructor(
 
@@ -19,5 +21,17 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  cerrar() {
+
+    this.modal = false;
+}
+
+abrirmodal() {
+    this.modal = true;
+}
+
+
+
 
 }

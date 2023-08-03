@@ -32,7 +32,6 @@ import { ReciboCajaTableComponent } from './laboratorio/components/recibo-caja-t
         FormaPagoTableComponent,
         FactOtrosConceptosComponent,
         FactOtrosConceptosTableComponent,
-        ReciboCajaTableComponent,
 
     ],
     imports: [

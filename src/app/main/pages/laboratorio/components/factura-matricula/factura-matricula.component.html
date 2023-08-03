@@ -11,12 +11,17 @@
           pTooltip="Agregar Forma de Pago"
           label="Agregar"
           tooltipPosition="right"
+          (click)="abrirmodal()"
       ></button>
   </div>
 
-  <p-divider></p-divider>
+
+  <p-dialog  [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
+  [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+
   <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
-  <div >
+  <div class="p-d-flex">
+ <p-card>
   <form>
       <div class="">
           <br />
@@ -72,29 +77,125 @@
               </div>
           </div>
           <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <label for="ftxt-nombreFp">* Fecha Desde</label>
+                <span class="p-float-label">
+                    <input
+                        pInputText
+                        id="ftxt-nombreFp"
+                        type="date"
+                        required="true"
+                    />
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <label for="ftxt-nombreFp">* Fecha Hasta</label>
+                <span class="p-float-label">
+                    <input
+                        pInputText
+                        id="ftxt-nombreFp"
+                        type="date"
+                        required="true"
+                    />
+                </span>
+            </div>
+        </div>
+
+
+         
+      </div>
+  </form>
+</p-card>
+</div>
+
+  <app-factura-matricula-table >
+  </app-factura-matricula-table>
+    
+  </p-dialog>
+
+  <p-divider></p-divider>
+  <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
+  <div class="p-d-flex">
+ 
+  <form>
+      <div class="">
+          <br />
+
+          <div class="p-fluid p-formgrid grid">
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                  <label for="ftxt-nombreFp">* Fecha Desde</label>
                   <span class="p-float-label">
                       <input
                           pInputText
                           id="ftxt-nombreFp"
-                          type="date"
+                          type="text"
                           required="true"
                       />
+                      <label for="ftxt-nombreFp">* Factura no.</label>
                   </span>
               </div>
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                  <label for="ftxt-nombreFp">* Fecha Hasta</label>
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                  <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
+                      >* Estado</label
+                  >
                   <span class="p-float-label">
-                      <input
-                          pInputText
-                          id="ftxt-nombreFp"
-                          type="date"
-                          required="true"
-                      />
+                      <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
                   </span>
               </div>
           </div>
+
+          <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                  <span class="p-float-label">
+                      <input
+                          pInputText
+                          id="ftxt-nombreFp"
+                          type="text"
+                          required="true"
+                      />
+                      <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                  </span>
+              </div>
+          </div>
+
+          <div class="p-fluid p-formgrid grid">
+              
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                  <span class="p-float-label">
+                      <input
+                          pInputText
+                          id="ftxt-nombreFp"
+                          type="text"
+                          required="true"
+                      />
+                      <label for="ftxt-nombreFp">* Cedula - Ruc</label>
+                  </span>
+              </div>
+          </div>
+          <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <label for="ftxt-nombreFp">* Fecha Desde</label>
+                <span class="p-float-label">
+                    <input
+                        pInputText
+                        id="ftxt-nombreFp"
+                        type="date"
+                        required="true"
+                    />
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                <label for="ftxt-nombreFp">* Fecha Hasta</label>
+                <span class="p-float-label">
+                    <input
+                        pInputText
+                        id="ftxt-nombreFp"
+                        type="date"
+                        required="true"
+                    />
+                </span>
+            </div>
+        </div>
+
 
           <div class="central">
               <p-toolbar>

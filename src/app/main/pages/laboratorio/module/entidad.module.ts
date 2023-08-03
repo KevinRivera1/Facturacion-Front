@@ -1,41 +1,42 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from "@angular/router";
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from "primeng/button";
+import { CalendarModule } from "primeng/calendar";
+import { TooltipModule } from "primeng/tooltip";
 
-import { RUTA_ENTIDAD } from '../routes/entidad.routing';
-import { DataViewModule } from 'primeng/dataview';
-import { DropdownModule } from 'primeng/dropdown';
+
+import { RUTA_ENTIDAD } from "../routes/entidad.routing";
+import { DataViewModule } from "primeng/dataview";
+import { DropdownModule } from "primeng/dropdown";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PanelModule } from 'primeng/panel';
-import { StyleClassModule } from 'primeng/styleclass';
-import { RippleModule } from 'primeng/ripple';
+import { StyleClassModule } from "primeng/styleclass";
+import { RippleModule } from "primeng/ripple";
 
-import { ToolbarModule } from 'primeng/toolbar';
-import { TableModule } from 'primeng/table';
-import { DividerModule } from 'primeng/divider';
+import { ToolbarModule } from "primeng/toolbar";
+import { TableModule } from "primeng/table";
+import { DividerModule } from "primeng/divider";
 
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { FileUploadModule } from 'primeng/fileupload';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from "primeng/inputtextarea";
+import { FileUploadModule } from "primeng/fileupload";
+import { InputNumberModule } from "primeng/inputnumber";
+import { DialogModule } from "primeng/dialog";
 
-import { SpeedDialModule } from 'primeng/speeddial';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { PrimengModule } from 'src/app/primeng/primeng.module';
+import { SpeedDialModule } from "primeng/speeddial";
+import { AutoCompleteModule } from "primeng/autocomplete";
+import { PrimengModule } from "src/app/primeng/primeng.module";
 
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 
-import { EntidadComponent } from '../components/entidad/entidad.component';
-import { EntidadTableComponent } from '../components/entidad-table/entidad-table.component';
+import { EntidadComponent } from "../components/entidad/entidad.component";
+import { EntidadTableComponent } from "../components/entidad-table/entidad-table.component";
 
-import { CdkTableModule } from '@angular/cdk/table';
-import { BancosComponent } from '../components/bancos/bancos.component';
-import { BancosTableComponent } from '../components/bancos-table/bancos-table.component';
+import { CdkTableModule } from "@angular/cdk/table";
+import { BancosComponent } from "../components/bancos/bancos.component";
+import { BancosTableComponent } from "../components/bancos-table/bancos-table.component";
 import { ConceptoComponent } from '../components/concepto/concepto.component';
 import { FormaPagoComponent } from '../components/forma-pago/forma-pago.component';
 import { ConceptosTableComponent } from '../components/concepto-table/concepto-table.component';
@@ -51,6 +52,7 @@ import { EstadoComprobanteComponent } from '../components/estado-comprobante/est
 import { TipoConceptoComponent } from '../components/tipo-concepto/tipo-concepto.component';
 
 import { ReciboCajaComponent } from '../components/recibo-caja/recibo-caja.component';
+import { ReciboCajaTableComponent } from '../components/recibo-caja-table/recibo-caja-table.component';
 import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/factura-laboratorio.component';
 import { AnularReciboCajaComponent } from '../components/anular-recibo-caja/anular-recibo-caja.component';
 import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja-table/anular-recibo-caja-table.component';
@@ -76,6 +78,10 @@ import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota
         EstadoComprobanteTableComponent,
         EstadoComprobanteComponent,
         TipoConceptoComponent,
+
+        ReciboCajaComponent,
+        ReciboCajaTableComponent,
+
         AnularReciboCajaComponent,
         AnularReciboCajaTableComponent,
         ReciboCajaComponent,
