@@ -4,120 +4,80 @@
         <h4 class="">FACTURAS DE LABORATORIOS</h4>
     </p-header>
     <div class="p-d-flex">
-      <p-card >
-     
-      
-        <form>
-            
-            <div class="">
-          
-                <header class="text-center">BUSCAR FACTURAS DE LABORATORIOS</header>
-                <br />
-    
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="text"
-                                required="true"
-                            />
-                            <label for="ftxt-nombreFp">* Factura no.</label>
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
-                            >* Estado</label
-                        >
-                        <span class="p-float-label">
-                            <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
-                        </span>
-                    </div>
-                </div>
-    
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="text"
-                                required="true"
-                            />
-                            <label for="ftxt-nombreFp">* Nombre Cliente</label>
-                        </span>
-                    </div>
-                </div>
-    
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="text"
-                                required="true"
-                            />
-                            <label for="ftxt-nombreFp">* Ruc</label>
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="text"
-                                required="true"
-                            />
-                            <label for="ftxt-nombreFp">* Cedula</label>
-                        </span>
-                    </div>
-                </div>
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                        <label for="ftxt-nombreFp">* Fecha Desde</label>
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="date"
-                                required="true"
-                            />
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                        <label for="ftxt-nombreFp">* Fecha Hasta</label>
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="date"
-                                required="true"
-                            />
-                        </span>
-                    </div>
-                </div>
-    
-                <div class="central">
-                    <p-toolbar>
-                        <div class="p-toolbar-group-center">
-                            <button
-                                pButton
-                                label="Buscar"
-                                class="p-button p-button-lg m-1 p-button-info guardar-button"
-                                icon="pi pi-search"
-                                type="submit"
-                                pTooltip="Buscar"
-                                tooltipPosition="right"
-                            ></button>
+        <p-card>
+
+            <form>
+                <div class="">
+
+                    <header class="text-center">BUSCAR FACTURAS DE LABORATORIOS</header>
+                    <br />
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <label for="ftxt-nombreFp">* Factura no.</label>
+                            </span>
                         </div>
-                    </p-toolbar>
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)">* Estado</label>
+                            <span class="p-float-label">
+                                <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <label for="ftxt-nombreFp">* Ruc</label>
+                            </span>
+                        </div>
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <label for="ftxt-nombreFp">* Cedula</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <label for="ftxt-nombreFp">* Fecha Desde</label>
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="date" required="true" />
+                            </span>
+                        </div>
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <label for="ftxt-nombreFp">* Fecha Hasta</label>
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="date" required="true" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="central">
+                        <p-toolbar>
+                            <div class="p-toolbar-group-center">
+                                <button pButton label="Buscar"
+                                    class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-search"
+                                    type="submit" pTooltip="Buscar" tooltipPosition="right"></button>
+                            </div>
+                        </p-toolbar>
+                    </div>
                 </div>
-            </div>
-        </form>
-      
-    </p-card>  
+            </form>
+
+        </p-card>
     </div>
     <app-factura-laboratorio-table>
     </app-factura-laboratorio-table>
@@ -139,94 +99,62 @@
     <header class="text-center">BUSCAR FACTURAS DE LABORATORIOS</header>
 
     <div class="p-d-flex">
-    <form>
-        <div class="">
-            <br />
+        <form>
+            <div class="">
+                <br />
 
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                    <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreFp"
-                            type="text"
-                            required="true"
-                        />
-                        <label for="ftxt-nombreFp">* Factura no.</label>
-                    </span>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                            <label for="ftxt-nombreFp">* Factura no.</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                        <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)">* Estado</label>
+                        <span class="p-float-label">
+                            <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
+                        </span>
+                    </div>
                 </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
-                        >* Estado</label
-                    >
-                    <span class="p-float-label">
-                        <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
-                    </span>
-                </div>
-            </div>
 
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                    <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreFp"
-                            type="text"
-                            required="true"
-                        />
-                        <label for="ftxt-nombreFp">* Nombre Cliente</label>
-                    </span>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                            <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                    <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreFp"
-                            type="text"
-                            required="true"
-                        />
-                        <label for="ftxt-nombreFp">* Ruc</label>
-                    </span>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                            <label for="ftxt-nombreFp">* Ruc</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                            <label for="ftxt-nombreFp">* Cedula</label>
+                        </span>
+                    </div>
                 </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                    <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreFp"
-                            type="text"
-                            required="true"
-                        />
-                        <label for="ftxt-nombreFp">* Cedula</label>
-                    </span>
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <label for="ftxt-nombreFp">* Fecha Desde</label>
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreFp" type="date" required="true" />
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <label for="ftxt-nombreFp">* Fecha Hasta</label>
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-nombreFp" type="date" required="true" />
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                    <label for="ftxt-nombreFp">* Fecha Desde</label>
-                    <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreFp"
-                            type="date"
-                            required="true"
-                        />
-                    </span>
-                </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                    <label for="ftxt-nombreFp">* Fecha Hasta</label>
-                    <span class="p-float-label">
-                        <input
-                            pInputText
-                            id="ftxt-nombreFp"
-                            type="date"
-                            required="true"
-                        />
-                    </span>
-                </div>
-            </div>
 
                 <div class="central">
                     <p-toolbar>
