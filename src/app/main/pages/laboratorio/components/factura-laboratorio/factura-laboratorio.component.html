@@ -60,13 +60,16 @@
                                 id="ftxt-nombreFp"
                                 type="text"
                                 required="true"
+                                (input)="onInput($event)"  
+                                maxlength="13"
+                                keyfilter="int"
                             />
                             <label for="ftxt-nombreFp">* Ruc</label>
                         </span>
                     </div>
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
-                          <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="11" />
+                          <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"  keyfilter="int" maxlength="11" />
                           <label for="ftxt-cedula">* Cédula</label>
                         </span>
                       </div>
@@ -186,8 +189,10 @@
                             pInputText
                             id="ftxt-nombreFp"
                             type="text"
-                       
-                          
+                            required="true"
+                            (input)="onInput($event)"  
+                            maxlength="13"
+                            keyfilter="int"
                         />
                         <label for="ftxt-nombreFp">* Ruc</label>
                     </span>
