@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacturaMatriculaComponent implements OnInit {
   modal: boolean;
+  cedula: string;
+
 
   constructor() { }
 
@@ -14,6 +16,16 @@ export class FacturaMatriculaComponent implements OnInit {
   }
 
 
+
+
+  onInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+  
+    // Remover caracteres no numéricos excepto el símbolo "-"
+    const numericValue = value.replace(/[^\d-]/g, '');
+    input.value = numericValue;
+  }
   cerrar() {
 
     this.modal = false;

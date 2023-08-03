@@ -62,9 +62,6 @@ import { FacturaMatriculaTableComponent } from '../components/factura-matricula-
 import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
 import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota-credito-table.component';
 
-
-
-
 @NgModule({
     declarations: [
         EntidadComponent,
@@ -124,8 +121,7 @@ import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota
         SpeedDialModule,
         ScrollPanelModule,
         PrimengModule,
-        CdkTableModule
-    ]
+        CdkTableModule,
+    ],
 })
-export class EntidadModule {
-}
+export class EntidadModule {}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
@@ -9,8 +8,8 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 })
 export class NotaCreditoComponent implements OnInit {
 
-  display: boolean = false;
-  formListFac: FormGroup;
+  display: boolean;
+  cedula: string;
 
   constructor(
 
@@ -23,13 +22,25 @@ export class NotaCreditoComponent implements OnInit {
 
   ngOnInit() {
   }
+  
+  onInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+
+    // Remover caracteres no numéricos excepto el símbolo "-"
+    const numericValue = value.replace(/[^\d-]/g, '');
+    input.value = numericValue;
+  }
+
+
+  cerrar() {
+    this.display = false;
+}
+
 
   abrirmodal() {
     this.display = true;
 }
 
-  cerrar() {
-    this.display = false;
-}
 
 }

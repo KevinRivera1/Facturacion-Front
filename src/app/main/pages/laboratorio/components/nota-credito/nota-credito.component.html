@@ -1,39 +1,54 @@
-<p-dialog [contentStyle]="{'overflow': 'visible'}" header="" [(visible)]="display" [modal]="true"
-    [style]="{ width: '80vw' }" [draggable]="true" (onHide)="cerrar()" [resizable]="true"
-    xmlns:p="http://www.w3.org/1999/html">
+<p-dialog [contentStyle]="{'': 'visible'}" header="" [(visible)]="display" [modal]="true" [draggable]="true"
+    (onHide)="cerrar()" [resizable]="true" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Lista de Facturas</h4>
     </p-header>
-    <form [formGroup]="formListFac">
-        <div class="">
-            
-            <br>
-            <header class="text-center">BUSCAR FACTURAS</header>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <input pInputText id="ftxt-nombreConcepto" type="text" style="width: 400px;"
-                            formControlName="nombreConcepto">
-                        <label for="ftxt-nombreConcepto">* Factura No.</label>
-                    </span>
+    <div class="p-d-flex" >
+        <p-card >
+
+            <form>
+                <div class="">
+
+                    <header class="text-center">BUSCAR FACTURAS</header>
+                    <br />
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <label for="ftxt-nombreFp">* Factura no.</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                            </span>
+                        </div>
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <label for="ftxt-nombreFp">* RUC/CI </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="central">
+                        <p-toolbar>
+                            <div class="p-toolbar-group-center">
+                                <button pButton label="Buscar"
+                                    class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-search"
+                                    type="submit" pTooltip="Buscar" tooltipPosition="right"></button>
+                            </div>
+                        </p-toolbar>
+                    </div>
                 </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <input pInputText id="ftxt-valorConcepto" type="text" formControlName="valorConcepto">
-                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* Nombre Cliente</label>
-                    </span>
-                </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <input pInputText id="ftxt-valorConcepto" type="text" formControlName="valorConcepto">
-                        <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-valorConcepto">* RUC/CI</label>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </form>
+            </form>
+
+        </p-card>
+    </div>
+    <p-divider></p-divider>
     <app-nota-credito-table>
     </app-nota-credito-table>
 </p-dialog>
@@ -88,10 +103,10 @@
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                        <input pInputText id="ftxt-cedula" type="text" required="true" />
-                        <label for="ftxt-cedula">* Cédula</label>
+                      <input pInputText id="ftxt-cedula" type="text" (input)="onInput($event)" required="true" [(ngModel)]="cedula" keyfilter="int" maxlength="11" />
+                      <label for="ftxt-cedula">* Cédula</label>
                     </span>
-                </div>
+                  </div>
             </div>
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
