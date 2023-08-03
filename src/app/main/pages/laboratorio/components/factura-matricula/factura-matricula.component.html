@@ -66,11 +66,7 @@
               
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                   <span class="p-float-label">
-                      <input
-                          pInputText
-                          id="ftxt-nombreFp"
-                          type="text"
-                          required="true"
+                      <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="11" 
                       />
                       <label for="ftxt-nombreFp">* Cedula - Ruc</label>
                   </span>
@@ -161,11 +157,8 @@
               
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                   <span class="p-float-label">
-                      <input
-                          pInputText
-                          id="ftxt-nombreFp"
-                          type="text"
-                          required="true"
+                      <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="11" 
+                         
                       />
                       <label for="ftxt-nombreFp">* Cedula - Ruc</label>
                   </span>
