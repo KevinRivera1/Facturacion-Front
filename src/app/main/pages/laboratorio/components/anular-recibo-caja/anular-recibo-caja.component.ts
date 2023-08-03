@@ -24,7 +24,7 @@ export class AnularReciboCajaComponent implements OnInit {
     response: ResponseGenerico;
     token: TokenDto;
     anularRecibCajaForm: FormGroup;
-    maxLength: number = 10;
+    maxLengthCed: number = 10;
     maxLengthRuc: number = 13;
 
     constructor(
@@ -52,8 +52,8 @@ export class AnularReciboCajaComponent implements OnInit {
             NombreCliente: ['', Validators.required],
             Ruc: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
             Cedula: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
-            fechaDesde: ['', Validators.required],
-            fechaHasta: ['', Validators.required],
+            fechaDesde: [new Date(), Validators.required],
+            fechaHasta: [new Date(), Validators.required],
             //estadoCompr: [true, Validators.requiredTrue],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
@@ -77,8 +77,8 @@ export class AnularReciboCajaComponent implements OnInit {
     onInput(event: Event) {
         const inputElement = event.target as HTMLInputElement;
         const value = inputElement.value;
-        if (value.length > this.maxLength) {
-            inputElement.value = value.slice(0, this.maxLength);
+        if (value.length > this.maxLengthCed) {
+            inputElement.value = value.slice(0, this.maxLengthCed);
             this.anularRecibCajaForm.controls['Cedula'].setValue(
                 inputElement.value
             );
