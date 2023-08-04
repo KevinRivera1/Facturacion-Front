@@ -62,22 +62,42 @@ textarea {
     align-items: center;
 }
 
-img{
-    width: 10%;
-    position: absolute  ;
-    left: 13%;
-    top: 30%;
 
-}
 
 .header-card{
-    padding-top: 30px;
-    width: 100%;
-    font-size: 12px;
+    display: flex;
+    padding-top: 5px;
+    place-items: center;
+    font-size: 10px;
     text-align: center;
-    justify-content: center;
+    justify-content: space-around;
     align-content: center;
+
 }
+.header-img{
+    width: 20%;
+}
+img{
+    width: 30%;
+    object-fit: cover;
+}
+.header-container h4 {
+    margin: 0;
+}
+.header-container {
+    width: 50%;
+}
+.header-recibo h1, h3 {
+    font-size: 14px;
+    margin: 0;
+}
+.recibo-caja{
+    padding: 5px;
+    outline: 1px solid rgba(128, 128, 128, 0.642);
+    
+}
+
+
 
 input[type=number] {
     &::-webkit-inner-spin-button,
