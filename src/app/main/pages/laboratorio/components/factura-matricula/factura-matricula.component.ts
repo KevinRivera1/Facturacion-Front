@@ -12,9 +12,37 @@ export class FacturaMatriculaComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit():void {
+    //this.iniciarForms();
   }
 
+  /*   iniciarForms() {
+    this.formFacturaLaboratorio = this.formBuilder.group({
+        factura_no: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        nombrecl: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        estado: new FormControl(
+            true,
+            Validators.compose([Validators.requiredTrue])
+        ),
+        ruc: new FormControl(
+          '',
+          Validators.compose([Validators.required])
+      ),
+      cedula: new FormControl(
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(10)])
+      ),
+    });
+
+    this.token = JSON.parse(this.tokenService.getResponseAuth());
+    //  this.f.idFormaPago.setValue(this.token.id)
+} */
 
 
 
