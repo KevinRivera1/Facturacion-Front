@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SelectItem } from 'primeng/api';
 import { TokenDto } from 'src/app/_dto/token-dto';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
@@ -16,7 +17,8 @@ export class FacturaLaboratorioComponent implements OnInit {
   formFacturaLaboratorio: FormGroup;
   token: TokenDto;
   cedula: string;
-
+  estadoSeleccionado: string;
+  
   constructor(
 
     private breadcrumbService: BreadcrumbService,
@@ -80,4 +82,12 @@ onInput(event: any) {
 abrirmodal() {
     this.modal = true;
 }
+estados: SelectItem[] = [
+  { label: 'Anulada', value: 'anulada' },
+  { label: 'Anulada NC', value: 'anulada_nc' },
+  { label: 'Generada', value: 'generada' },
+  { label: 'Pagada', value: 'pagada' },
+  { label: 'Pendiente', value: 'pendiente' }
+];
+
 }

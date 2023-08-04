@@ -10,6 +10,7 @@ import { TokenDto } from 'src/app/_dto/token-dto';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ReciboCaja } from '../../model/reciboCaja';
+import { FormUtil } from '../../formUtil/FormUtil';
 
 @Component({
     selector: 'app-anular-recibo-caja',
@@ -24,8 +25,7 @@ export class AnularReciboCajaComponent implements OnInit {
     response: ResponseGenerico;
     token: TokenDto;
     anularRecibCajaForm: FormGroup;
-    maxLength: number = 10;
-    maxLengthRuc: number = 13;
+    formUtil: FormUtil;
 
     constructor(
         private breadcrumbService: BreadcrumbService,
@@ -39,6 +39,7 @@ export class AnularReciboCajaComponent implements OnInit {
 
     ngOnInit() {
         this.iniciarForms();
+        this.formUtil = new FormUtil(this.anularRecibCajaForm);
     }
 
     get f() {
@@ -50,10 +51,10 @@ export class AnularReciboCajaComponent implements OnInit {
             //idEstadoComprobante: [null],
             NroReciboCaja: ['', Validators.required],
             NombreCliente: ['', Validators.required],
-            Ruc: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
+            Ruc: ['',[Validators.required, Validators.pattern('^[0-9]{1,13}$')],],
             Cedula: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
-            fechaDesde: ['', Validators.required],
-            fechaHasta: ['', Validators.required],
+            fechaDesde: [new Date(), Validators.required],
+            fechaHasta: [new Date(), Validators.required],
             //estadoCompr: [true, Validators.requiredTrue],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
@@ -73,25 +74,12 @@ export class AnularReciboCajaComponent implements OnInit {
             return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
         }); */
     }
-    
-    onInput(event: Event) {
-        const inputElement = event.target as HTMLInputElement;
-        const value = inputElement.value;
-        if (value.length > this.maxLength) {
-            inputElement.value = value.slice(0, this.maxLength);
-            this.anularRecibCajaForm.controls['Cedula'].setValue(
-                inputElement.value
-            );
-        }
+
+    maxLengthCedula(event: Event) {
+        this.formUtil.limitInputLength(event, 10, 'Cedula');
     }
-    onInputRuc(event: Event) {
-        const inputElement = event.target as HTMLInputElement;
-        const value = inputElement.value;
-        if (value.length > this.maxLengthRuc) {
-            inputElement.value = value.slice(0, this.maxLengthRuc);
-            this.anularRecibCajaForm.controls['Ruc'].setValue(
-                inputElement.value
-            );
-        }
+
+    maxiLengthRuc(event: Event) {
+        this.formUtil.limitInputLength(event, 13, 'Ruc');
     }
 }
