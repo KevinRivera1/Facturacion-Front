@@ -9,6 +9,8 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 })
 export class ReciboCajaComponent implements OnInit {
     modal: boolean;
+    modal2: boolean;
+    modal3: boolean;
     modal1: boolean; //Visibilidad de un modal
     busquedaForm: FormGroup;
 
@@ -53,6 +55,12 @@ export class ReciboCajaComponent implements OnInit {
     abrirmodal1() {
         this.modal1 = true;
     }
+    abrirmodal2() {
+        this.modal2 = true;
+    }
+    abrirmodal3() {
+        this.modal3 = true;
+    }
     //Cerrar el modal y restablecer el formulario
     cerrar() {
         // this.f.estadoCentroCosto.disable();
@@ -60,5 +68,7 @@ export class ReciboCajaComponent implements OnInit {
 
         this.modal = false;
         this.modal1 = false;
+        this.modal2 = false;
+        this.modal3 = false;
     }
 }

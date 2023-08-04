@@ -1,20 +1,18 @@
 <p-card>
     <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
-
     <!-- Dialog 0 -->
-    <p-dialog header="Long Content" [(visible)]="modal" [style]="{ width: '60vw' }">
-
-        <p-header>
-            <h4 class="">Agregar Recibo de Caja</h4>
-        </p-header>
-
+    <p-dialog
+        header="Agregar Recibo de Caja"
+        [(visible)]="modal"
+        [style]="{ width: '60vw' }"
+    >
         <!--ANDRES MONTOYA-->
 
         <!-- HEADER -->
         <div class="header-card">
             <div class="header-img">
-            <img alt="Card" src="../../../../../../assets/img/epn.png" />
+                <img alt="Card" src="../../../../../../assets/img/epn.png" />
             </div>
             <div class="header-container">
                 <h4>ESCUELA POLITECNICA NACIONAL</h4>
@@ -33,9 +31,6 @@
             </div>
         </div>
         <p-divider></p-divider>
-
-
-
 
         <p-fieldset
             align="center"
@@ -73,6 +68,7 @@
                         label="Buscar"
                         class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                         pTooltip="Buscar"
+                        (click)="abrirmodal2()"
                         tooltipPosition="right"
                     ></button>
                 </div>
@@ -133,7 +129,6 @@
                 pTooltip="Agregar"
                 tooltipPosition="right"
                 (click)="abrirmodal1()"
-
             ></button>
         </p-toolbar>
 
@@ -238,14 +233,211 @@
         </div>
     </p-dialog>
 
-    <!-- Dialog 1 -->
-    <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="modal1" [style]="{ width: '60vw' }">
+    <!-- Dialog 1 Agregar -->
+    <p-dialog
+        header="Agregar Detalle Recibo caja"
+        [(visible)]="modal1"
+        [style]="{ width: '60vw' }"
+    >
+        <p-fieldset class="form" legend="Conceptos">
+            <p-table
+                #dt1
+                selectionMode="single"
+                dataKey="id"
+                [tableStyle]="{ 'min-width': '20rem' }"
+                [rows]="4"
+                [paginator]="true"
+                stateStorage="session"
+                stateKey="statedemo-session"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div
+                                class="flex justify-content-between align-items-center"
+                            >
+                                <bold style="font-weight: bold">&#8470;</bold>
+                            </div>
+                        </th>
+                        <th>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'name',
+                                        'contains'
+                                    )
+                                "
+                                [value]="dt1.filters['name']?.value"
+                                placeholder="Concepto"
+                                class="w-full"
+                            />
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr [pSelectableRow]="customer">
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td>
+                            <span class="p-column-title">Country</span>
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                [class]="'flag flag-' + customer.country.code"
+                                style="width: 20px"
+                            />
+                            <span class="ml-1 vertical-align-middle">{{
+                                customer.country.name
+                            }}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-fieldset>
 
+        <p-fieldset class="form" legend="Informacion  Concepto">
+            <div class="p-fluid p-formgrid grid input">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* Nombre: </label>
+                    </span>
+                </div>
 
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto"
+                            >* Precio Unitario:</label
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto">* Stock:</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* Cantidad:</label>
+                    </span>
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto">* Inicio:</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* Fin:</label>
+                    </span>
+                </div>
+            </div>
+        </p-fieldset>
 
-        
+        <p-fieldset class="form" legend="Sanciones Saew">
+            <p-table
+                styleClass="p-datatable-gridlines"
+                [tableStyle]="{ 'min-width': '50rem' }"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Cedula</th>
+                        <th>Gestion</th>
+                        <th>Carrera</th>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-fieldset>
+        <br />
+        <div align="center" class="flex justify-content-center">
+            <div class="caja-boton-principal">
+                <button
+                    pButton
+                    label="Guardar"
+                    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                    pTooltip="Guardar"
+                    tooltipPosition="right"
+                ></button>
+                <button
+                    pButton
+                    label="Cancelar"
+                    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                    pTooltip="Cancelar"
+                    tooltipPosition="right"
+                ></button>
+            </div>
+        </div>
     </p-dialog>
 
+    <!-- Dialog 2 Buscar -->
+
+    <p-dialog header="Buscar" [(visible)]="modal2" [style]="{ width: '60vw' }">
+        <p-fieldset class="form" legend="Buscar">
+            <div class="p-fluid p-formgrid grid input button">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                        />
+                        <label for="ftxt-nombreCentroCosto"
+                            >* Apellidos:
+                        </label>
+                    </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* C.L:</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <button
+                        pButton
+                        label="Buscar"
+                        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                        pTooltip="Cancelar"
+                        tooltipPosition="right"
+                    ></button>
+                </div>
+            </div>
+        </p-fieldset>
+    </p-dialog>
 
     <!-- TABLA -->
     <div>
