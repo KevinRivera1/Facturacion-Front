@@ -26,14 +26,12 @@
                             <label for="ftxt-nombreFp">* Factura no.</label>
                         </span>
                     </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
-                            >* Estado</label
-                        >
-                        <span class="p-float-label">
-                            <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
-                        </span>
-                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                        <!--  <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
+                             >* Estado</label> -->                  
+                             <p-dropdown  [options]="estados" placeholder="Escoja el estado" [(ngModel)]="estadoSeleccionado" optionLabel="label"></p-dropdown>
+                 
+                     </div>
                 </div>
     
                 <div class="p-fluid p-formgrid grid">
@@ -155,13 +153,11 @@
                         <label for="ftxt-nombreFp">* Factura no.</label>
                     </span>
                 </div>
-                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                    <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
-                        >* Estado</label
-                    >
-                    <span class="p-float-label">
-                        <p-inputSwitch  id="ftxt-activo"></p-inputSwitch>
-                    </span>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                   <!--  <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
+                        >* Estado</label> -->                  
+                        <p-dropdown  [options]="estados" placeholder="Escoja el estado" [(ngModel)]="estadoSeleccionado" optionLabel="label"></p-dropdown>
+            
                 </div>
             </div>
 
