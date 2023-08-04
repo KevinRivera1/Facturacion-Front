@@ -17,7 +17,7 @@ export class FacturaLaboratorioComponent implements OnInit {
   formFacturaLaboratorio: FormGroup;
   token: TokenDto;
   cedula: string;
-  estadoSeleccionado: string;
+ 
   
   constructor(
 
