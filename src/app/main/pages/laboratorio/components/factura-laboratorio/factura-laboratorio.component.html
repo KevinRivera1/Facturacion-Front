@@ -6,7 +6,9 @@
     <div class="p-d-flex">
         <p-card>
 
+
             <form>
+
                 <div class="">
 
                     <header class="text-center">BUSCAR FACTURAS DE LABORATORIOS</header>
@@ -39,29 +41,34 @@
                     <div class="p-fluid p-formgrid grid">
                         <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                             <span class="p-float-label">
-                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <input pInputText id="ftxt-nombreFp" type="text" required="true"
+                                    (input)="onInput($event)" maxlength="13" keyfilter="int" />
                                 <label for="ftxt-nombreFp">* Ruc</label>
                             </span>
                         </div>
                         <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                             <span class="p-float-label">
-                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
-                                <label for="ftxt-nombreFp">* Cedula</label>
+                                <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"
+                                    keyfilter="int" maxlength="11" />
+                                <label for="ftxt-cedula">* Cédula</label>
                             </span>
                         </div>
                     </div>
                     <div class="p-fluid p-formgrid grid">
-                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                            <label for="ftxt-nombreFp">* Fecha Desde</label>
-                            <span class="p-float-label">
-                                <input pInputText id="ftxt-nombreFp" type="date" required="true" />
-                            </span>
-                        </div>
-                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                            <label for="ftxt-nombreFp">* Fecha Hasta</label>
-                            <span class="p-float-label">
-                                <input pInputText id="ftxt-nombreFp" type="date" required="true" />
-                            </span>
+
+                        <div class="calendar">
+                            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                    <label for="ftxt-fechaBancos">* Fecha Desde </label>
+                                </span>
+                            </div>
+                            <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                    <label for="ftxt-fechaBancos">* Fecha Hasta </label>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -106,7 +113,7 @@
                 <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                            <input pInputText id="ftxt-nombreFp" type="text" />
                             <label for="ftxt-nombreFp">* Factura no.</label>
                         </span>
                     </div>
@@ -121,7 +128,7 @@
                 <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                            <input pInputText id="ftxt-nombreFp" type="text" />
                             <label for="ftxt-nombreFp">* Nombre Cliente</label>
                         </span>
                     </div>
@@ -130,29 +137,34 @@
                 <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                            <input pInputText id="ftxt-nombreFp" type="text" required="true" (input)="onInput($event)"
+                                maxlength="13" keyfilter="int" />
                             <label for="ftxt-nombreFp">* Ruc</label>
                         </span>
                     </div>
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreFp" type="text" required="true" />
-                            <label for="ftxt-nombreFp">* Cedula</label>
+                            <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"
+                                [(ngModel)]="cedula" keyfilter="int" maxlength="11" />
+                            <label for="ftxt-cedula">* Cédula</label>
                         </span>
                     </div>
                 </div>
                 <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <label for="ftxt-nombreFp">* Fecha Desde</label>
-                        <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreFp" type="date" required="true" />
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <label for="ftxt-nombreFp">* Fecha Hasta</label>
-                        <span class="p-float-label">
-                            <input pInputText id="ftxt-nombreFp" type="date" required="true" />
-                        </span>
+
+                    <div class="calendar">
+                        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                <label for="ftxt-fechaBancos">* Fecha Desde </label>
+                            </span>
+                        </div>
+                        <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                <label for="ftxt-fechaBancos">* Fecha Hasta </label>
+                            </span>
+                        </div>
                     </div>
                 </div>
 

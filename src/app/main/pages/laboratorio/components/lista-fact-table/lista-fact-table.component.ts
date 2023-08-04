@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
-  selector: 'app-nota-credito',
-  templateUrl: './nota-credito.component.html',
-  styleUrls: ['./nota-credito.component.css']
+  selector: 'app-lista-fact-table',
+  templateUrl: './lista-fact-table.component.html',
+  styleUrls: ['./lista-fact-table.component.css']
 })
-export class NotaCreditoComponent implements OnInit {
+export class ListaFactTableComponent implements OnInit {
 
   display: boolean;
 

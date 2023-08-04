@@ -3,8 +3,8 @@
     <p-header>
         <h4 class="">Lista de Facturas</h4>
     </p-header>
-    <div class="p-d-flex" >
-        <p-card >
+    <div class="p-d-flex">
+        <p-card>
 
             <form>
                 <div class="">
@@ -29,7 +29,8 @@
                         </div>
                         <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                             <span class="p-float-label">
-                                <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                                <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"
+                                    keyfilter="int" maxlength="13" />
                                 <label for="ftxt-nombreFp">* RUC/CI </label>
                             </span>
                         </div>
@@ -49,8 +50,8 @@
         </p-card>
     </div>
     <p-divider></p-divider>
-    <app-nota-credito-table>
-    </app-nota-credito-table>
+    <app-lista-fact-table>
+    </app-lista-fact-table>
 </p-dialog>
 
 
@@ -97,16 +98,18 @@
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                        <input pInputText id="ftxt-ruc" type="text" required="true" />
+                        <input pInputText id="ftxt-ruc" type="text" required="true" (input)="onInput($event)"
+                                    keyfilter="int" maxlength="13" />
                         <label for="ftxt-ruc">* Ruc</label>
                     </span>
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                      <input pInputText id="ftxt-cedula" type="text" (input)="onInput($event)" required="true" [(ngModel)]="cedula" keyfilter="int" maxlength="11" />
-                      <label for="ftxt-cedula">* Cédula</label>
+                        <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"
+                                    keyfilter="int" maxlength="11" />
+                        <label for="ftxt-cedula">* Cédula</label>
                     </span>
-                  </div>
+                </div>
             </div>
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">

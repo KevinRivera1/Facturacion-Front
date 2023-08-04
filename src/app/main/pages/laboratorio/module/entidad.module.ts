@@ -61,6 +61,7 @@ import { FacturaMatriculaComponent } from '../components/factura-matricula/factu
 import { FacturaMatriculaTableComponent } from '../components/factura-matricula-table/factura-matricula-table.component';
 import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
 import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota-credito-table.component';
+import { ListaFactTableComponent } from '../components/lista-fact-table/lista-fact-table.component';
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota
         FacturaMatriculaTableComponent,
         NotaCreditoComponent,
         NotaCreditoTableComponent,
+        ListaFactTableComponent
     ],
 
     imports: [
