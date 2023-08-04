@@ -52,7 +52,7 @@ export class AnularReciboCajaComponent implements OnInit {
             NroReciboCaja: ['', Validators.required],
             NombreCliente: ['', Validators.required],
             Ruc: ['',[Validators.required, Validators.pattern('^[0-9]{1,13}$')],],
-            Cedula: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
+            Cedula: [ '',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
             fechaDesde: [new Date(), Validators.required],
             fechaHasta: [new Date(), Validators.required],
             //estadoCompr: [true, Validators.requiredTrue],

@@ -1,7 +1,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card">
-            <p-table #ef [value]="" [rows]="10" [paginator]="true" [loading]="loading"[globalFilterFields]="[
+            <p-table #ef [value]="" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
                       'idEstadoComprobante',
                       'nombreEstadoComp',
                       'detalleEstadoComp'
@@ -66,6 +66,18 @@
                                 <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
                             </div>
                         </th>
+                        <th pSortableColumn="detalleEstadoComp">
+                            <div class="flex justify-content-between align-items-center">Fecha
+                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
+                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="detalleEstadoComp">
+                            <div class="flex justify-content-between align-items-center">Total
+                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
+                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
                         <th pSortableColumn="estadoCompr">
                             <div class="flex justify-content-between align-items-center">Estado
                                 <p-sortIcon field="estadoCompr"></p-sortIcon>
@@ -125,5 +137,45 @@
         </div>
     </div>
 
+    <div class="button__from text-right">
+        <a pButton label="anular" icon="pi pi-plus" (click)=" onDisplayForm()"></a>
+    </div>
 
 </section>
+
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '45vw'}" [draggable]="true" [resizable]="true"
+    [contentStyle]="{'overflow': 'visible'}" [closable]="true" [responsive]="true" (onHide)=" cerrar()"
+    [dismissableMask]="false">
+
+    <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center" style="width: 100%;">
+            <div class="text-2xl text-center">Motivo de Anulación</div>
+        </div>
+    </ng-template>
+
+    <form [formGroup]="formAnulaRecib" class="mt-6">
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 px-3">
+                <span class="p-float-label">
+                    <textarea pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
+                        formControlName="detalleEstadoComp" style="resize: none;"></textarea>
+                    <label for="ftxt-detalleEstadoComp">* Escriba el Motivo de Anulación</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="central">
+            <p-toolbar>
+                <div class="p-toolbar-group-center">
+                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-outlined p-button-primary"
+                        icon="pi pi-send" type="submit" (click)="guardarMotivoAnulacion()" pTooltip="Guardar"
+                        tooltipPosition="right"></button>
+
+                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-outlined p-button-danger"
+                        icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+                </div>
+            </p-toolbar>
+        </div>
+    </form>
+
+</p-dialog>
