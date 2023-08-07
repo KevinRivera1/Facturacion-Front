@@ -1,0 +1,62 @@
+<!-- [style]="{width: '70vw'}" -->
+<p-card [style]="{width: '45vw'}" class="central">
+  <p-header class="mb-4">
+      <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">BUSCAR RECIBOS CAJA</h4>
+  </p-header>
+
+  <form [formGroup]="anularRecibCajaForm" class="mt-2 px-4" [style]="{width: '100%'}">
+      <div class="formgrid p-grid p-fluid">
+          <div class="col-12 md:col-6 ">
+              <span class="p-float-label">
+                  <input pInputText id="ftxt-NroReciboCaja" type="text" required="true"
+                      formControlName="NroReciboCaja" style="text-transform: uppercase;">
+                  <label for="ftxt-NroReciboCaja">Nro.Recibo Caja</label>
+              </span>
+          </div>
+          <div class="col-12 md:col-6">
+              <span class="p-float-label">
+                  <input pInputText id="ftxt-NombreCliente" type="text" required="true"
+                      formControlName="NombreCliente" style="text-transform: uppercase;">
+                  <label for="ftxt-NombreCliente">Nombre Cliente</label>
+              </span>
+          </div>
+          <div class="col-12 md:col-6">
+              <span class="p-float-label">
+                  <input pInputText id="ftxt-Ruc" type="number" required="true" formControlName="Ruc"
+                      style="text-transform: uppercase;" (input)="maxiLengthRuc($event)" [maxlength]="13">
+                  <label for="ftxt-Ruc">RUC</label>
+              </span>
+          </div>
+          <div class="col-12 md:col-6 ">
+              <span class="p-float-label">
+                  <input pInputText id="ftxt-Cedula" type="number" required="true" formControlName="Cedula"
+                      style="text-transform: uppercase;" (input)="maxLengthCedula($event)" [maxlength]="10">
+                  <label for="ftxt-Cedula">Cédula</label>
+              </span>
+          </div>
+          <div class="col-12 md:col-6 text-left">
+              <label for="ftxt-fechaDesde" class="block mb-1">Fecha Desde: </label>
+              <span class="p-float-label">
+                  <p-calendar dateFormat="dd/mm/yy" formControlName="fechaDesde" [showIcon]="true"></p-calendar>
+              </span>
+          </div>
+          <div class="col-12 md:col-6 text-left">
+              <label for="ftxt-fechaHasta" class="block mb-1">Fecha Hasta: </label>
+              <span class="p-float-label">
+                  <p-calendar dateFormat="dd/mm/yy" formControlName="fechaHasta" [showIcon]="true"></p-calendar>
+              </span>
+          </div>
+      </div>
+
+      <div class="central">
+          <p-toolbar>
+              <div class="p-toolbar-group-center">
+                  <button pButton label="Consultar"
+                      class="p-button p-button-lg m-1 p-button-outlined p-button-primary" icon="pi pi-search"
+                      type="submit" (click)="Buscar()" pTooltip="Consultar" tooltipPosition="right"></button>
+              </div>
+          </p-toolbar>
+      </div>
+  </form>
+
+</p-card>

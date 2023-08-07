@@ -1,3 +1,5 @@
+<!--! Aqui va el componente de buscar recibos -->
+<app-buscar-recibos></app-buscar-recibos>
 <section class="content">
     <div class="container-fluid">
         <div class="card">
@@ -143,6 +145,8 @@
 
 </section>
 
+<!-- * Modal Form de anulación de Recibos -->
+
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '45vw'}" [draggable]="true" [resizable]="true"
     [contentStyle]="{'overflow': 'visible'}" [closable]="true" [responsive]="true" (onHide)=" cerrar()"
     [dismissableMask]="false">
@@ -155,6 +159,46 @@
 
     <form [formGroup]="formAnulaRecib" class="mt-6">
         <div class="p-grid p-fluid">
+            <div class="p-field col-12 md:col-6 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;" readonly="true"
+                        value="001-003-58509" class="outline-none">
+                    <label for="ftxt-nombreEstadoComp">Recibo Caja No:</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6  px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;" readonly="true"
+                        value="31/15/2023">
+                    <label for="ftxt-nombreEstadoComp">Fecha</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6  px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;" readonly="true"
+                        value="BONILLA ZALAZAR CARLOS MARCELO">
+                    <label for="ftxt-nombreEstadoComp">Cliente</label>
+                </span>
+            </div>
+            <!-- <div class="p-field p-col-12 p-md-3 px-3">
+                <label for="ftxt-estadoCompr">* Estado</label>
+                <span class="p-float-label">
+                    <p-inputSwitch [disabled]="true" id="ftxt-estadoCompr" formControlName="estadoCompr">
+                    </p-inputSwitch>
+                </span>
+            </div> -->
+            <div class="p-field col-12 md:col-6  px-3 flex">
+                <span class="p-float-label" [style]="{width: '100%'}">
+                    <p-dropdown [options]="estados" placeholder="Selecciona" optionLabel="name" inputId="float-label">
+                    </p-dropdown>
+                    <label for="float-label">* Estado</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-grid p-fluid">
             <div class="p-field p-col-12 px-3">
                 <span class="p-float-label">
                     <textarea pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
@@ -163,7 +207,6 @@
                 </span>
             </div>
         </div>
-
         <div class="central">
             <p-toolbar>
                 <div class="p-toolbar-group-center">

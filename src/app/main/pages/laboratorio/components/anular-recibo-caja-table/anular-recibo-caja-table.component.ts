@@ -25,6 +25,9 @@ export class AnularReciboCajaTableComponent implements OnInit {
     exportColumns: any[];
     cols: any[];
 
+    //? Aqui se define la lista de estados del modal de anular
+    estados: any[] = [{ name: 'Anulada', value: 'Anulada' }];
+
     constructor(
         private fileService: FileService,
         private appservie: AppService,
@@ -52,9 +55,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
         table.clear();
     }
 
-    guardarMotivoAnulacion(){
-
-    }
+    guardarMotivoAnulacion() {}
     exportPdf() {
         /* let indexLista: number = 0;
     this.listFormaPago.forEach((element) => {
@@ -104,7 +105,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     }
 
     cerrar() {
-       /*  this.f.estadoCompr.disable();
+        /*  this.f.estadoCompr.disable();
         this.formEstadoFact.reset();
         this.iniciarForms();
         this.display = false; */
