@@ -8,6 +8,7 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 })
 export class FactOtrosConceptosComponent implements OnInit {
   modal: boolean;
+  cedula: string;
 
 
   constructor(
@@ -17,6 +18,15 @@ export class FactOtrosConceptosComponent implements OnInit {
     {
       this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
     }
+  }
+
+  onInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+  
+    // Remover caracteres no numéricos excepto el símbolo "-"
+    const numericValue = value.replace(/[^\d-]/g, '');
+    input.value = numericValue;
   }
 
   ngOnInit() {
