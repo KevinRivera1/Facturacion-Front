@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { TokenDto } from 'src/app/_dto/token-dto';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { ProformasTableComponent } from '../proformas-table/proformas-table.component';
 
 @Component({
   selector: 'app-factura-laboratorio',
@@ -75,6 +76,7 @@ onInput(event: any) {
   cerrar() {
 
     this.modal = false;
+
     
 
 }

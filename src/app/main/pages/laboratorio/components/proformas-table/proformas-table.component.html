@@ -143,8 +143,8 @@
 
 <!-- Modal de Facturar -->
 
-<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
- [draggable]="true" autoZIndex="" [style]="{ width: '80vw' }" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal2" [modal]="false"
+ [draggable]="true"  [style]="{ width: '80vw','z-index': '3' }" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Ingresar Factura</h4>
     </p-header>
