@@ -6,10 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./factura-laboratorio-table.component.css']
 })
 export class FacturaLaboratorioTableComponent implements OnInit {
+  
+
+  modal: boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+
+  abrirmodal() {
+    this.modal = true;
+}
+cerrar() {
+
+  this.modal = false;
+  
+
+}
 }
