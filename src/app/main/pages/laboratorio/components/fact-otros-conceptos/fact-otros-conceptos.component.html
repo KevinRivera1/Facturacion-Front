@@ -41,8 +41,8 @@
             </div>
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
               <span class="p-float-label">
-                <input pInputText id="ftxt-rucCedula" type="number"  onKeyPress="if(this.value.length==10) return false;" required="true" />
-                <label for="ftxt-rucCedula">* Ruc/Cédula</label>
+                <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="13" />
+                <label for="ftxt-cedula">* Ruc/Cédula</label>
               </span>
             </div>
           </div>
@@ -140,8 +140,8 @@
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
                   <span class="p-float-label">
-                    <input pInputText id="ftxt-rucCedula" type="text" required="true" />
-                    <label for="ftxt-rucCedula">* Ruc/Cédula</label>
+                    <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="13" />
+                    <label for="ftxt-cedula">* Ruc/Cédula</label>
                   </span>
                 </div>
               </div>
