@@ -1,118 +1,5 @@
-<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
- [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
-    <p-header>
-        <h4 class="">FACTURAS DE LABORATORIOS</h4>
-    </p-header>
-    <div class="p-d-flex">
-      <p-card >
-     
-      
-        <form>
-            
-            <div class="">
-          
-                <header class="text-center">BUSCAR FACTURAS DE LABORATORIOS</header>
-                <br />
-    
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="text"
-                                required="true"
-                            />
-                            <label for="ftxt-nombreFp">* Factura no.</label>
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                        <!--  <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
-                             >* Estado</label> -->                  
-                             <p-dropdown  [options]="estados" placeholder="Escoja el estado"  ></p-dropdown>
-                 
-                     </div>
-                </div>
-    
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="text"
-                                required="true"
-                            />
-                            <label for="ftxt-nombreFp">* Nombre Cliente</label>
-                        </span>
-                    </div>
-                </div>
-    
-                <div class="p-fluid p-formgrid grid">
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                        <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="ftxt-nombreFp"
-                                type="text"
-                                required="true"
-                                (input)="onInput($event)"  
-                                maxlength="13"
-                                keyfilter="int"
-                            />
-                            <label for="ftxt-nombreFp">* Ruc</label>
-                        </span>
-                    </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <span class="p-float-label">
-                          <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"  keyfilter="int" maxlength="11" />
-                          <label for="ftxt-cedula">* Cédula</label>
-                        </span>
-                      </div>
-                </div>
-                <div class="p-fluid p-formgrid grid">
-    
-                    <div class="calendar">
-                        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                            <span class="p-float-label">
-                                <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                <label for="ftxt-fechaBancos">* Fecha Desde </label>
-                            </span>
-                        </div>
-                        <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
-                            <span class="p-float-label">
-                                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
-                                <label for="ftxt-fechaBancos">* Fecha Hasta </label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="central">
-                    <p-toolbar>
-                        <div class="p-toolbar-group-center">
-                            <button
-                                pButton
-                                label="Buscar"
-                                class="p-button p-button-lg m-1 p-button-info guardar-button"
-                                icon="pi pi-search"
-                                type="submit"
-                                pTooltip="Buscar"
-                                tooltipPosition="right"
-                            ></button>
-                        </div>
-                    </p-toolbar>
-                </div>
-            </div>
-        </form>
-      
-    </p-card>  
-    </div>
-    <app-factura-laboratorio-table >
-    </app-factura-laboratorio-table>
-</p-dialog>
 
-
+<!-- buscar por factura laboratorio -->
 
 <p-card>
     <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
@@ -193,7 +80,8 @@
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
-                      <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="11" />
+                      <input  pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)" keyfilter="int" maxlength="11" />
+                      
                       <label for="ftxt-cedula">* Cédula</label>
                     </span>
                   </div>
@@ -238,3 +126,103 @@
     <app-factura-laboratorio-table >
     </app-factura-laboratorio-table>
 </p-card>
+
+<!-- modal de listado de proformas aceptadas -->
+
+<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
+ [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+    <p-header>
+        <h4 class="">Listado  Proformas Aceptadas</h4>
+    </p-header>
+    <div class="p-d-flex mt-3">
+      <p-fieldset legend="Buscar Proformas">
+     
+      
+        <form>
+            
+            <div class="">
+          
+              
+    
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <span class="p-float-label">
+                            <input
+                                pInputText
+                                id="ftxt-nombreFp"
+                                type="text"
+                                required="true"
+                            />
+                            <label for="ftxt-nombreFp">* Proforma No.</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <span class="p-float-label">
+                            <input
+                                pInputText
+                                id="ftxt-nombreFp"
+                                type="text"
+                                required="true"
+                            />
+                            <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                        </span>
+                    </div>
+                </div>
+    
+         
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
+                        <span class="p-float-label">
+                            <input
+                                pInputText
+                                id="ftxt-nombreFp"
+                                type="text"
+                                required="true"
+                                (input)="onInput($event)"  
+                                maxlength="13"
+                                keyfilter="int"
+                            />
+                            <label for="ftxt-nombreFp">* Ruc</label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+                        <span class="p-float-label">
+                          <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"  keyfilter="int" maxlength="11" />
+                          <label for="ftxt-cedula">* Cédula</label>
+                        </span>
+                      </div>
+                </div>
+                <div class="p-fluid p-formgrid grid">
+    
+                    <div class="calendar">
+                        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
+                                <label for="ftxt-fechaBancos">* Fecha</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="central">
+                    <p-toolbar>
+                        <div class="p-toolbar-group-center">
+                            <button
+                                pButton
+                                label="Buscar"
+                                class="p-button p-button-lg m-1 p-button-info guardar-button"
+                                icon="pi pi-search"
+                                type="submit"
+                                pTooltip="Buscar"
+                                tooltipPosition="right"
+                            ></button>
+                        </div>
+                    </p-toolbar>
+                </div>
+            </div>
+        </form>
+      
+    </p-fieldset>  
+    </div>
+    <app-proformas-table></app-proformas-table>
+</p-dialog>

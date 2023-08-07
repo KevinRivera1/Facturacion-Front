@@ -1,4 +1,4 @@
-<!-- tabla de factura laboratorio-->
+<!-- Tabla de Proformas -->
 <section class="content">
   <div class="container-fluid">
       <div class="card">
@@ -29,7 +29,7 @@
                                
                                   
                       </div> -->
-                      <button pButton label="ver detalles" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
+                      <button pButton label="facturar" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
                       (click)="abrirmodal()" ></button>
                       <!-- 
 
@@ -38,7 +38,7 @@
             <input pInputText type="text" class="p-inputtext-sm"
                    (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
           </span>  -->
-          <label class="text-center" >FACTURACION</label>
+          <label class="text-center" >PROFORMAS</label>
                   </div>
               
               </ng-template>
@@ -54,7 +54,7 @@
                           </div>
                       </th> -->
                       <th pSortableColumn="nombreFp">
-                          <div class="flex justify-content-between align-items-center">Factura No.
+                          <div class="flex justify-content-between align-items-center">Proforma No.
                               <p-sortIcon field="nombreFp"></p-sortIcon>
                               <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
                           </div>
@@ -66,16 +66,22 @@
                               <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
                           </div>
                        </th>
+                       <th pSortableColumn="descripcionFp">
+                        <div class="flex justify-content-between align-items-center">Tipo Cliente
+                            <p-sortIcon field="descripcionFp"></p-sortIcon>
+                            <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
+                        </div>
+                     </th>
+                     <th pSortableColumn="activo">
+                      <div class="flex justify-content-between align-items-center">Cedula
+                          <p-sortIcon field="activo"></p-sortIcon>
+                          <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                      </div>
+                  </th>
                        <th pSortableColumn="activo">
-                        <div class="flex justify-content-between align-items-center">RUC/CI
+                        <div class="flex justify-content-between align-items-center">RUC
                             <p-sortIcon field="activo"></p-sortIcon>
                             <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                      <th pSortableColumn="codigoSri">
-                        <div class="flex justify-content-between align-items-center">Proforma
-                            <p-sortIcon field="codigoSri"></p-sortIcon>
-                            <p-columnFilter type="text" field="codigoSri" display="menu"></p-columnFilter>
                         </div>
                     </th>
                     <th pSortableColumn="codigoSae">
@@ -85,23 +91,11 @@
                         </div>
                     </th>  
                     <th pSortableColumn="fechaFp">
-                        <div class="flex justify-content-between align-items-center">Subtotal
+                        <div class="flex justify-content-between align-items-center">Total
                             <p-sortIcon field="fechaFp"></p-sortIcon>
                             <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
                         </div>
-                    </th>
-                    <th pSortableColumn="fechaFp">
-                      <div class="flex justify-content-between align-items-center">IVA
-                          <p-sortIcon field="fechaFp"></p-sortIcon>
-                          <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
-                      </div>
-                  </th>
-                  <th pSortableColumn="fechaFp">
-                    <div class="flex justify-content-between align-items-center">Total
-                        <p-sortIcon field="fechaFp"></p-sortIcon>
-                        <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
-                    </div>
-                </th>
+                    </th>    
                 <th pSortableColumn="activo">
                   <div class="flex justify-content-between align-items-center">Estado
                       <p-sortIcon field="activo"></p-sortIcon>
@@ -147,11 +141,12 @@
   </div>
 </section>
 
-<!-- modal de ver detalles -->
+<!-- Modal de Facturar -->
+
 <p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
- [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+ [draggable]="true" autoZIndex="" [style]="{ width: '80vw' }" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
-        <h4 class="">FACTURA</h4>
+        <h4 class="">Ingresar Factura</h4>
     </p-header>
     <div class="header-card">
         <div class="header-img">
@@ -166,12 +161,11 @@
                 P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
             </p>
         </div>
-        <div class="header-laboratorio">
-            <div class="recibo-laboratorio">
-                <h1 class="titulo">FACTURA</h1>
+        <div class="header-proforma">
+            <div class="recibo-proforma">
+                <h1 class="titulo">FACTURA 001-003</h1>
                 <h3>Nro. 132-123-12345</h3>
-                <h4>Fecha de Autorizacion 20/septiempre/2012</h4>
-                <h4>Aut.SRI 1213123123</h4>
+
             </div>
         </div>
     </div>
@@ -203,16 +197,16 @@
                     <label for="ftxt-">Telefono:</label>
                     <b>  <i class="text-1xl mr-2 mb-3"></i></b>
                 </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                  <label for="ftxt-">Email:</label>
+                  <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+              </div>
             </div>
             <div class="col-6" >
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Facultad/Instituto:</label>
                     <b>  <i class="text-1xl mr-2 mb-3"></i></b>
                </div>
-                <div class="p-field col-12 md:col-6  mb-0 px-3">
-                    <label for="ftxt-">Laboratorio:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
-                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Forma de Pago:</label>
                     <b>  <i class="text-1xl mr-2 mb-3"></i></b>
@@ -239,57 +233,74 @@
 >
     <ng-template pTemplate="header">
         <tr>
-            <th style="background-color: rgb(206, 244, 244);">Codigo</th>
+            <th style="background-color: rgb(206, 244, 244);">Codigo LAB</th>
             <th style="background-color: rgb(206, 244, 244);">Descripcion</th>
             <th style="background-color: rgb(206, 244, 244);">Cantidad</th>
             <th style="background-color: rgb(206, 244, 244);">Precio Unit.</th>
-            <th style="background-color: rgb(206, 244, 244);">Total</th>
+            <th style="background-color: rgb(206, 244, 244);">Valor Total</th>
         </tr>
         <tr>
-            <th>Prueba</th>
-            <th>Prueba Electrica</th>
+            <th>3</th>
+            <th>servicio:asistencia</th>
             <th>1</th>
             <th>200.0</th>
             <th>200.0</th>
         </tr>
         <tr>
-            <th colspan="3"></th>
-            <th>SUBTOTAL:</th>
-            <th>0.0</th>
+            <th colspan="2">Observaciones</th>
+            <th colspan="2">Subtotal a tributar:</th>
+            <th>20.0</th>
         </tr>
         <tr>
-            <th colspan="3"></th>
-            <th>IVA:</th>
-            <th>0.0</th>
+            <th>____________________</th>
+            <th>____________________</th>
+            <th colspan="2">IVA</th>
+            <th>2.32</th>
 
         </tr>
         <tr>
-            <th colspan="3"></th>
-            <th>TOTAL:</th>
-            <th>0.0</th>
+            <th >Elaborado por</th>
+            <th>Recibi Conforme</th>
+            <th colspan="2">con tarifa 0%</th>
+            <th>0.00</th>
         </tr>
+        <tr>
+          <th></th>
+          <th colspan="2">C.I/RUC</th>
+          <th colspan="2"></th>
+      </tr>
     </ng-template>
 </p-table>
 <br>
 <div align="center" class="flex justify-content-center">
-    <div class="caja-boton-principal">
-        <button
-            pButton
-            label="Imprimir"
-            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-            pTooltip="Imprimir"
-            tooltipPosition="right"
-            icon="pi pi-print"
-        ></button>
+  <div class="caja-boton-principal">
+    <button
+        pButton
+        label="Guardar"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Guardar"
+        tooltipPosition="right"
+        icon="pi pi-save"
+    ></button>
 
-        <button
-            pButton
-            label="Cancelar"
-            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-            pTooltip="Cancelar"
-            tooltipPosition="right"
-            (click)="cerrar()"
-        ></button>
-    </div>
+    <button
+        pButton
+        label="Pagos(s)"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Pagos(s)"
+        tooltipPosition="right"
+        icon="pi pi-money-bill"
+    ></button>
+
+    <button
+        pButton
+        label="Regresar"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Regresar"
+        tooltipPosition="right"
+        icon=" pi pi-arrow-left"
+        (click)="cerrar()"
+    ></button>
+</div>
 </div>
 </p-dialog>
