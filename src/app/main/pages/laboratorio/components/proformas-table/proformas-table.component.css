@@ -1,13 +1,3 @@
-.text-center {
-    display: flex;
-    justify-content: center;
-}
-
-.text-center {
-    display: flex;
-    align-items: center;
-}
-
 .header-card{
     display: flex;
     padding-top: 5px;
@@ -36,17 +26,17 @@ img{
 .header-container {
     width: 50%;
 }
-.header-laboratorio h1, h3 {
+.header-proforma h1, h3 {
     font-size: 14px;
     margin: 0;
 }
 
-.header-laboratorio h4 {
+.header-proforma h4 {
     font-size: 12px;
     padding: 5px;
     margin: 0;
 }
-.recibo-laboratorio{
+.recibo-proforma{
     padding: 5px;
     outline: 1px solid rgba(128, 128, 128, 0.642);
     
