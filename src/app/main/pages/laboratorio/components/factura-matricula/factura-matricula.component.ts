@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
   selector: 'app-factura-matricula',
@@ -8,13 +10,54 @@ import { Component, OnInit } from '@angular/core';
 export class FacturaMatriculaComponent implements OnInit {
   modal: boolean;
   cedula: string;
+modal2: boolean;
+  modal3: boolean;
+  modal1: boolean; //Visibilidad de un modal
+  busquedaForm: FormGroup;
+  modallista: boolean;
+
+  maxLengthR: number = 13;
+  maxLengthC: number = 10;
 
 
-  constructor() { }
 
-  ngOnInit() {
+  constructor(private breadcrumbService: BreadcrumbService) {
+    {
+        this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
+    }
+}
+
+  ngOnInit():void {
+    //this.iniciarForms();
   }
 
+  /*   iniciarForms() {
+    this.formFacturaLaboratorio = this.formBuilder.group({
+        factura_no: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        nombrecl: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        estado: new FormControl(
+            true,
+            Validators.compose([Validators.requiredTrue])
+        ),
+        ruc: new FormControl(
+          '',
+          Validators.compose([Validators.required])
+      ),
+      cedula: new FormControl(
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(10)])
+      ),
+    });
+
+    this.token = JSON.parse(this.tokenService.getResponseAuth());
+    //  this.f.idFormaPago.setValue(this.token.id)
+} */
 
 
 
@@ -26,15 +69,32 @@ export class FacturaMatriculaComponent implements OnInit {
     const numericValue = value.replace(/[^\d-]/g, '');
     input.value = numericValue;
   }
-  cerrar() {
-
-    this.modal = false;
-    
-
-}
-
+//Abrir el modal
 abrirmodal() {
-    this.modal = true;
+  this.modal = true;
+}
+abrirmodal1() {
+  this.modal1 = true;
+}
+abrirmodal2() {
+  this.modal2 = true;
+}
+abrirmodal3() {
+  this.modal3 = true;
+}
+abrirmodalista() {
+  this.modallista = true;
+}
+//Cerrar el modal y restablecer el formulario
+cerrar() {
+  // this.f.estadoCentroCosto.disable();
+  // this.setearForm();
+
+  this.modal = false;
+  this.modal1 = false;
+  this.modal2 = false;
+  this.modal3 = false;
+  this.modallista = false;
 }
 
 }

@@ -1,0 +1,117 @@
+
+
+.p-d-flex {
+    display: flex;
+    justify-content: center; 
+}
+.p-formgrid .p-field {
+    margin: 10px;
+}
+
+.mobile-card {
+    max-width: 100%;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  /* Ajustes para pantallas móviles */
+  @media (max-width: 600px) {
+    .p-field {
+      width: 100% !important;
+    }
+
+    .central {
+      text-align: center;
+    }
+    .caja-boton-principal{
+
+        text-align: center;
+    }
+    .header-card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }
+
+.central {
+    text-align: center;
+    margin: 10px;
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+}
+
+.text-center {
+    display: flex;
+    align-items: center;
+}
+
+/* estilos de modal  facturas
+ */
+.header-card{
+    display: flex;
+    padding-top: 5px;
+    place-items: center;
+    font-size: 10px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+
+}
+.header-img{
+    width: 20%;
+}
+img{
+    width: 40%;
+    object-fit: cover;
+}
+
+.header-laboratorio .titulo{
+    font-size: 17px;
+    padding: 5px;
+}
+.header-container {
+    margin: 0;
+}
+.header-container {
+    width: 50%;
+}
+.header-proforma h1, h3 {
+    font-size: 14px;
+    margin: 0;
+}
+
+.header-proforma h4 {
+    font-size: 12px;
+    padding: 5px;
+    margin: 0;
+}
+.recibo-proforma{
+    padding: 5px;
+    outline: 1px solid rgba(128, 128, 128, 0.642);
+    
+}
+/* estilos en los modales */
+
+@media only screen and (max-width: 600px) {
+    p-dialog {
+      width: 100% !important;
+    }
+  }
+   @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    p-dialog {
+      width: 70% !important;
+      
+    }
+  }
+   @media only screen and (min-width: 1025px) {
+    p-dialog {
+      width: 45% !important;
+    }
+    
+  }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
@@ -8,15 +10,35 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 })
 export class FactOtrosConceptosComponent implements OnInit {
   modal: boolean;
+  cedula: string;
+  modal2: boolean;
+  modal3: boolean;
+  modal1: boolean; //Visibilidad de un modal
+  busquedaForm: FormGroup;
+
+  maxLengthR: number = 13;
+  maxLengthC: number = 10;
+  modallista: boolean;
+
 
 
   constructor(
 
+    private router: Router,
     private breadcrumbService: BreadcrumbService
   ) {
     {
       this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
     }
+  }
+
+  onInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+
+    // Remover caracteres no numéricos excepto el símbolo "-"
+    const numericValue = value.replace(/[^\d-]/g, '');
+    input.value = numericValue;
   }
 
   ngOnInit() {
@@ -25,11 +47,37 @@ export class FactOtrosConceptosComponent implements OnInit {
   cerrar() {
 
     this.modal = false;
-}
+    this.modal2 = false;
+    this.modal3 = false;
 
-abrirmodal() {
+    this.modallista = false;
+  }
+
+  cerrar1() {
+    this.modal1 = false;
+    this.modal2 = false;
+    this.modal3 = false;
+
+    this.modallista = false;
+  }
+
+  abrirmodal() {
     this.modal = true;
-}
+  }
+  abrirmodal1() {
+    this.modal1 = true;
+  }
+  abrirmodal2() {
+    this.modal2 = true;
+  }
+  abrirmodal3() {
+    this.modal3 = true;
+  }
+  //Cerrar el modal y restablecer el formulario
+
+  abrirmodalista() {
+    this.modallista = true;
+  }
 
 
 

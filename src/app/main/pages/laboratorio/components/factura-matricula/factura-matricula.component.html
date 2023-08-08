@@ -1,6 +1,6 @@
 <p-card>
   <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
-      <h4>Factura Laboratorio</h4>
+      <h4>Factura Matricula</h4>
   </p-header>
   <div class="caja-boton-principal central" style="align-items: center">
       <button
@@ -14,9 +14,311 @@
           (click)="abrirmodal()"
       ></button>
   </div>
+  <p-dialog
+  header="Agregar Matricula"
+  [(visible)]="modal"
+  [style]="{ width: '80vw'}"
+ 
+>
+  <!--ANDRES MONTOYA-->
 
+  <!-- HEADER -->
+  <div class="header-card">
+      <div class="header-img">
+          <img alt="Card" src="../../../../../../assets/img/epn.png" />
+      </div>
+      <div class="header-container">
+          <h4>ESCUELA POLITECNICA NACIONAL</h4>
+          <p>
+              Campus Politecnico "J. Ruben Orellana R."<br />
+              Ladron de Guevara E11-253 y Andalucia<br />
+              Telf.: 2507-144 / Fax: 2567-848<br />
+              P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
+          </p>
+      </div>
+      <div class="header-recibo">
+          <div class="recibo-caja">
+              <h1>FACTURA MATRICULA</h1>
+              <h3>Nro. 132-123-12345</h3>
+          </div>
+      </div>
+  </div>
+  <p-divider></p-divider>
 
-  <p-dialog  [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
+  <p-fieldset
+      align="center"
+      class="flex justify-content-center"
+      legend="Buscar"
+  >
+      <div class="flex flex-wrap gap-3">
+          
+          <!-- <div class="flex align-items-center">
+              <p-radioButton
+                  name="cliente"
+                  value="2"
+                  inputId="2"
+              ></p-radioButton>
+              <label class="ml-2">Cliente</label>
+          </div> -->
+          <!-- <div class="flex align-items-center">
+              <p-radioButton
+                  name="cliente"
+                  value="2"
+                  inputId="2"
+              ></p-radioButton>
+              <label class="ml-2">Empleado EPN</label>
+          </div> -->
+          <div class="caja-boton-principal">
+              <button
+                  pButton
+                  label="Buscar"
+                  class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                  pTooltip="Buscar"
+                  (click)="abrirmodal2()"
+                  tooltipPosition="right"
+              ></button>
+          </div>
+      </div>
+  </p-fieldset>
+  <br />
+
+  <p-fieldset>
+    <div style="border: solid 1px rgb(132, 132, 132); display: flex;">
+      <div class="p-fluid p-formgrid grid col-6"   style="border-right: solid 1px rgb(132, 132, 132);">
+        <div class="p-field col-12 md:col-6 mb-0 px-3"> 
+          <label for="ftxt-fecha-emision">Fecha de emision:</label>
+        </div>
+        <div class="p-field col-12 md:col-6 mb-0 px-3"> 
+          <label for="ftxt-empresa">Empresa:</label>
+       
+        </div>
+        <div class="p-field col-12 md:col-6  mb-0 px-3">
+          <label for="ftxt-senor">Señor(s):</label>
+
+        </div>
+        <div class="p-field col-12 md:col-6  mb-0 px-3">
+          <label for="ftxt-ruc-ci">Ruc/CI:</label>
+        </div>
+        <div class="p-field col-12 md:col-6 mb-0 px-3">
+          <label for="ftxt-direccion">Direccion:</label>
+        </div>
+        <div class="p-field col-12 md:col-6 mb-0 px-3">
+          <label for="ftxt-telefono">Telefono:</label>
+        </div>
+        <div class="p-field col-12 md:col-6 mb-0 px-3">
+          <label for="ftxt-email-1">Email 1:</label>
+        </div>
+        <!-- Agrega los demás elementos del lado izquierdo -->
+      </div>
+      <div class="p-fluid p-formgrid grid col-6">
+        <div class="p-field col-12 md:col-6 mb-0 px-3"> 
+          <label for="ftxt-facultad-instituto">Facultad/Instituto:</label>
+        </div>
+        <div class="p-field col-12 md:col-6 mb-0 px-3">
+          <label for="ftxt-estado">Estado:</label>
+          <select name="estado" id="ftxt-estado">
+            <option value="pagado">Pagado</option>
+            <option value="anulado">Anulado</option>
+            <option value="pendiente">Pendiente</option>
+          </select>
+        </div>
+        <div class="p-field col-12 md:col-6  mb-0 px-3">
+          <label for="ftxt-forma-pago">Forma de Pago:</label>
+        </div>
+        <div class="p-field col-12 md:col-6  mb-0 px-3">
+          <label for="ftxt-cheque-no">Cheque.No:</label>
+        </div>
+        <div class="p-field col-12 md:col-6 mb-0 px-3">
+          <label for="ftxt-valor-total">Valor Total:</label>
+        </div>
+        <div class="p-field col-12 md:col-6 mb-0 px-3">
+          <label for="ftxt-email-2">Email 2:</label>
+        </div>
+        <!-- Agrega los elementos del lado derecho -->
+      </div>
+    </div>
+  </p-fieldset>
+  
+
+  
+  
+
+  
+  <!-- <p-toolbar class="center-button">
+      <button
+          pButton
+          label="Agregar"
+          class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+          icon="pi pi-plus"
+          type="submit"
+          pTooltip="Agregar"
+          tooltipPosition="right"
+          (click)="abrirmodal1()"
+      ></button>
+  </p-toolbar> -->
+
+  <!-- TABLA DIALOG -->
+
+  <p-table
+    styleClass="p-datatable-gridlines" 
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="background-color: rgb(206, 244, 244);">Codigo LAB</th>
+            <th style="background-color: rgb(206, 244, 244);">Descripcion</th>
+            <th style="background-color: rgb(206, 244, 244);">Cantidad</th>
+            <th style="background-color: rgb(206, 244, 244);">Precio Unit.</th>
+            <th style="background-color: rgb(206, 244, 244);">Valor Total</th>
+        </tr>
+        <tr>
+            <th>3</th>
+            <th>servicio:asistencia</th>
+            <th>1</th>
+            <th>200.0</th>
+            <th>200.0</th>
+        </tr>
+        <tr>
+            <th colspan="2">Observaciones</th>
+            <th colspan="2">Subtotal a tributar:</th>
+            <th>20.0</th>
+        </tr>
+        <tr>
+            <th>____________________</th>
+            <th>____________________</th>
+            <th colspan="2">IVA</th>
+            <th>2.32</th>
+
+        </tr>
+        <tr>
+            <th >Elaborado por</th>
+            <th>Recibi Conforme</th>
+            <th colspan="2">con tarifa 0%</th>
+            <th>0.00</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="2">C.I/RUC</th>
+          <th colspan="2"></th>
+      </tr>
+    </ng-template>
+</p-table>
+<br>
+<div align="center" class="flex justify-content-center">
+  <div class="caja-boton-principal">
+    <button
+        pButton
+        label="Guardar"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Guardar"
+        tooltipPosition="right"
+        icon="pi pi-save"
+    ></button>
+
+    <button
+        pButton
+        label="Pagos(s)"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Pagos(s)"
+        tooltipPosition="right"
+        icon="pi pi-money-bill"
+    ></button>
+
+    <button
+        pButton
+        label="Regresar"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Regresar"
+        tooltipPosition="right"
+        icon=" pi pi-arrow-left"
+        (click)="cerrar()"
+    ></button>
+</div>
+</div>
+</p-dialog>
+<!--   <p-dialog [contentStyle]="{'max-width': '600px'}" header="" [(visible)]="modal" [modal]="true" [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+
+    <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
+    <div class="p-d-flex">
+      <p-card>
+        <form>
+          <div class="">
+            <br />
+  
+            <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 150px;">
+                <span class="p-float-label">
+                  <input pInputText id="ftxt-nombreFp" type="text" required="true" />
+                  <label for="ftxt-nombreFp">* Factura no.</label>
+                </span>
+              </div>
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)">* Estado</label>
+                <span class="p-float-label">
+                  <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
+                </span>
+              </div>
+            </div>
+  
+            <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 250px;">
+                <span class="p-float-label">
+                  <input pInputText id="ftxt-nombreCliente" type="text" required="true" />
+                  <label for="ftxt-nombreCliente">* Nombre Cliente</label>
+                </span>
+              </div>
+            </div>
+  
+            <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 250px;">
+                <span class="p-float-label">
+                  <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"  keyfilter="int" maxlength="11" />
+                  <label for="ftxt-cedula">* Cedula - Ruc</label>
+                </span>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 150px;">
+                <label for="ftxt-fechaDesde">* Fecha Desde</label>
+                <span class="p-float-label">
+                  <input pInputText id="ftxt-fechaDesde" type="date" required="true" />
+                </span>
+              </div>
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 150px;">
+                <label for="ftxt-fechaHasta">* Fecha Hasta</label>
+                <span class="p-float-label">
+                  <input pInputText id="ftxt-fechaHasta" type="date" required="true" />
+                </span>
+              </div>
+           
+            </div>
+            <div class="central">
+                <p-toolbar>
+                    <div class="p-toolbar-group-center">
+                        <button
+                            pButton
+                            label="Buscar"
+                            class="p-button p-button-lg m-1 p-button-info guardar-button"
+                            icon="pi pi-search"
+                            type="submit"
+                            pTooltip="Buscar"
+                            tooltipPosition="right"
+                        ></button>
+                    </div>
+                </p-toolbar>
+            </div>
+          </div>
+        </form>
+      </p-card>
+    </div>
+  
+    <app-factura-matricula-table>
+    </app-factura-matricula-table>
+  
+  </p-dialog> -->
+  
+
+ <!--  <p-dialog  [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
   [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
 
   <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
@@ -107,7 +409,7 @@
   <app-factura-matricula-table >
   </app-factura-matricula-table>
     
-  </p-dialog>
+  </p-dialog> -->
 
   <p-divider></p-divider>
   <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
@@ -157,7 +459,7 @@
               
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                   <span class="p-float-label">
-                      <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="11" 
+                      <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)" keyfilter="int" maxlength="13" 
                          
                       />
                       <label for="ftxt-nombreFp">* Cedula - Ruc</label>
@@ -212,3 +514,125 @@
   <app-factura-matricula-table >
   </app-factura-matricula-table>
 </p-card>
+ <!-- Buscar 2 Nombre ,CI -->
+
+ <p-dialog header="Buscar" [contentStyle]="{'overflow': 'visible'}" [(visible)]="modal2" [style]="{ width: '37vw', 'max-height': '35vh' }">
+  <p-fieldset class="form"  [style]="{ width: '35vw', 'max-height': '25vh' }">
+    <div class="p-fluid p-formgrid grid input button" style="display: flex; flex-direction: column; height: 100%;">
+      <div class="p-grid" style="flex-grow: 1;">
+        <div class="p-col-6">
+          <div class="p-field col-12 md:col-12  mb-0 px-3">
+            <span class="p-float-label">
+              <input pInputText id="ftxt-apellidos" required="true" />
+              <label for="ftxt-apellidos">* Apellidos:</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="p-col-6">
+          <div class="p-field col-12 md:col-12  mb-0 px-3">
+            <span class="p-float-label">
+              <input pInputText id="ftxt-cl" required="true" type="number" />
+              <label for="ftxt-cl">* C.L:</label>
+            </span>
+          </div>
+        </div>
+        <div class="p-field col-12 md:col-12 mb-0 px-3 text-center">
+          <button
+            style="width: 110px;"
+            pButton
+            label="Buscar"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            pTooltip="Buscar"
+            tooltipPosition="right"
+            (click)="abrirmodalista()"
+          ></button>
+        </div>
+      </div>
+     
+    </div>
+  </p-fieldset>
+</p-dialog>
+
+
+  <!-- Tabla lista Estudiante  -->
+  <p-dialog header="Buscar" [(visible)]="modallista" [style]="{ width: '60vw' }">
+
+       
+  <h2>Lista de Estudiantes</h2>
+
+<p-table >
+  <ng-template pTemplate="header">
+    <tr>
+        <th colspan="5">Estudiantesth>
+      </tr>
+    <tr>
+      <th>N° Único</th>
+      <th>Estudiante</th>
+      <th>Cédula</th>
+      <th>Dirección</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-estudiante>
+    <tr>
+      <td>{{ estudiante.nUnico }}</td>
+      <td>{{ estudiante.nombre }}</td>
+      <td>{{ estudiante.cedula }}</td>
+      <td>{{ estudiante.direccion }}</td>
+      
+        <td>
+            <button pButton label="Seleccionar" class="p-button p-button-info" (click)="seleccionarEstudiante(estudiante)"></button>
+          </td>
+        <!-- Agrega aquí los botones de acciones para cada estudiante -->
+        <!-- <button pButton label="Seleccionar" class="p-button p-button-info" (click)="seleccionarEstudiante(estudiante)"></button> -->
+      
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="5">No hay datos para mostrar.</td>
+    </tr>
+  </ng-template>
+</p-table>
+<br>
+<br>
+
+<h2>Gestiones</h2>
+
+<p-table >
+  <ng-template pTemplate="header">
+    <tr>
+        <th colspan="5">Gestiones
+      </tr>
+    <tr>
+      <th>N° Único</th>
+      <th>Estudiante</th>
+      <th>Cédula</th>
+      <th>Dirección</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-estudiante>
+    <tr>
+      <td>{{ estudiante.nUnico }}</td>
+      <td>{{ estudiante.nombre }}</td>
+      <td>{{ estudiante.cedula }}</td>
+      <td>{{ estudiante.direccion }}</td>
+      <td
+      colspan="5">No hay datos para mostrar.>
+        <!-- Agrega aquí los botones de acciones para cada estudiante -->
+        <button pButton label="Seleccionar" class="p-button p-button-info" (click)="seleccionarEstudiante(estudiante)"></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="5">No hay datos para mostrar.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+</p-dialog>
+
+  

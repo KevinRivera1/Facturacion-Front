@@ -62,6 +62,9 @@ import { FacturaMatriculaTableComponent } from '../components/factura-matricula-
 import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
 import { NotaCreditoTableComponent } from '../components/nota-credito-table/nota-credito-table.component';
 import { BuscarRecibosComponent } from '../components/buscar-recibos/buscar-recibos.component';
+import { ListaFactTableComponent } from '../components/lista-fact-table/lista-fact-table.component';
+import { ProformasTableComponent } from '../components/proformas-table/proformas-table.component';
+import { ListFormaPagoComponent } from '../components/list-forma-pago/list-forma-pago.component';
 
 @NgModule({
     declarations: [
@@ -92,6 +95,9 @@ import { BuscarRecibosComponent } from '../components/buscar-recibos/buscar-reci
         FacturaMatriculaTableComponent,
         NotaCreditoComponent,
         NotaCreditoTableComponent,
+        ListaFactTableComponent,
+        ProformasTableComponent,
+        ListFormaPagoComponent
     ],
 
     imports: [
