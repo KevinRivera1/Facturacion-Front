@@ -17,6 +17,7 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   maxLengthR: number = 13;
   maxLengthC: number = 10;
+  modallista: boolean;
 
 
 
@@ -47,6 +48,8 @@ export class FactOtrosConceptosComponent implements OnInit {
     this.modal1 = false;
   this.modal2 = false;
   this.modal3 = false;
+
+  this.modallista = false;
 }
 
 abrirmodal() {
@@ -63,6 +66,9 @@ abrirmodal3() {
 }
 //Cerrar el modal y restablecer el formulario
 
+abrirmodalista() {
+  this.modallista = true;
+}
 
 
 

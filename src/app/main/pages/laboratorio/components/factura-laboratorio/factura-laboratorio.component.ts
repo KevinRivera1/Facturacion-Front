@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { TokenDto } from 'src/app/_dto/token-dto';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { ProformasTableComponent } from '../proformas-table/proformas-table.component';
 
 @Component({
   selector: 'app-factura-laboratorio',
@@ -14,6 +15,7 @@ export class FacturaLaboratorioComponent implements OnInit {
 
 
   modal: boolean;
+  modal2: boolean;
   formFacturaLaboratorio: FormGroup;
   token: TokenDto;
   cedula: string;
@@ -75,13 +77,20 @@ onInput(event: any) {
   cerrar() {
 
     this.modal = false;
-    
+
+}
+
+cerrarmodal2() {
+
+  this.modal2 = false;
 
 }
 
 abrirmodal() {
     this.modal = true;
 }
+
+
 estados: SelectItem[] = [
   { label: 'Anulada', value: 'anulada' },
   { label: 'Anulada NC', value: 'anulada_nc' },
