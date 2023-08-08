@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FacturaLaboratorioComponent } from '../factura-laboratorio/factura-laboratorio.component';
 
 @Component({
   selector: 'app-proformas-table',
@@ -6,19 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./proformas-table.component.css']
 })
 export class ProformasTableComponent implements OnInit {
-  modal: boolean;
+  modal2: boolean;
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
 
   abrirmodal() {
-    this.modal = true;
+    this.modal2 = true;
 }
 cerrar() {
 
-  this.modal = false;
+  this.modal2 = false;
+
   
 
 }
