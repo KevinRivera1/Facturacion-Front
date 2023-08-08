@@ -157,9 +157,8 @@
                     (click)="cerrar()"></button>
             </div>
         </div>
-
-        <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
     </p-dialog>
+    <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
     <!-- Dialog Agregar Destalle Recibo-->
     <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="modal1" [style]="{ width: '67vw' }">
