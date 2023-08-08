@@ -24,14 +24,6 @@ export class ListFormaPagoComponent implements OnInit {
 
     ngOnInit() {}
 
-<<<<<<< HEAD
-  ngOnInit() {
-  }
- 
-  cancelar() {  
-    this.CloseModal()
-}
-=======
     onDisplayForm() {
         this.display = true;
         console.log('abriendo modal');
@@ -41,6 +33,5 @@ export class ListFormaPagoComponent implements OnInit {
         this.closeModal.emit();
         console.log('cerrando modal de modal emit');
     }
->>>>>>> 0b192376da08b1e8bcd679f35567718713a3f172
 
 }
