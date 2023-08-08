@@ -11,6 +11,7 @@ export class ReciboCajaComponent implements OnInit {
     modal: boolean;
     modal2: boolean;
     modal3: boolean;
+    modal4: boolean;
     modal1: boolean; //Visibilidad de un modal
     busquedaForm: FormGroup;
 
@@ -48,6 +49,11 @@ export class ReciboCajaComponent implements OnInit {
         }
     }
 
+
+
+
+
+
     //Abrir el modal
     abrirmodal() {
         this.modal = true;
@@ -61,14 +67,19 @@ export class ReciboCajaComponent implements OnInit {
     abrirmodal3() {
         this.modal3 = true;
     }
+    abrirmodal4() {
+        this.modal4 = true;
+    }
     //Cerrar el modal y restablecer el formulario
     cerrar() {
-        // this.f.estadoCentroCosto.disable();
-        // this.setearForm();
-
         this.modal = false;
+    }
+    cerrarmodal1(){
         this.modal1 = false;
-        this.modal2 = false;
-        this.modal3 = false;
     }
 }
+
+
+
+
+// CONCEPTO
