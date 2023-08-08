@@ -1,34 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { AppService } from 'src/app/_service/app.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
-  selector: 'app-list-forma-pago',
-  templateUrl: './list-forma-pago.component.html',
-  styleUrls: ['./list-forma-pago.component.css']
+    selector: 'app-list-forma-pago',
+    templateUrl: './list-forma-pago.component.html',
+    styleUrls: ['./list-forma-pago.component.css'],
 })
 export class ListFormaPagoComponent implements OnInit {
-  pago: boolean;
+    formListPago: FormGroup;
+    @Input() pago: boolean = false;
+    @Output() cerrarpago = new EventEmitter();
 
-  constructor(
-
-    private breadcrumbService: BreadcrumbService
-  ) {
-    {
-      this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
+    constructor(
+        private appService: AppService,
+        private breadcrumbService: BreadcrumbService
+    ) {
+        {
+            this.breadcrumbService.setItems([
+                { label: 'Factura Otros Conceptos ' },
+            ]);
+        }
     }
-  }
 
+    ngOnInit() {}
 
-  ngOnInit() {
-  }
+    get f() {
+        return this.formListPago.controls;
+    }
 
-  cerrar() {
+    cancelar() {
+        this.cerrarPago();
+    }
 
-    this.pago = false;
-  }
+    abrirPago() {
+        this.pago = true;
+    }
 
-  abrirmodal() {
-    this.pago = true;
-  }
-
+    cerrarPago() {
+        this.cerrarpago.emit();
+    }
 }
