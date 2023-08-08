@@ -15,6 +15,7 @@ export class FacturaLaboratorioComponent implements OnInit {
 
 
   modal: boolean;
+  modal2: boolean;
   formFacturaLaboratorio: FormGroup;
   token: TokenDto;
   cedula: string;
@@ -77,13 +78,19 @@ onInput(event: any) {
 
     this.modal = false;
 
-    
+}
+
+cerrarmodal2() {
+
+  this.modal2 = false;
 
 }
 
 abrirmodal() {
     this.modal = true;
 }
+
+
 estados: SelectItem[] = [
   { label: 'Anulada', value: 'anulada' },
   { label: 'Anulada NC', value: 'anulada_nc' },
