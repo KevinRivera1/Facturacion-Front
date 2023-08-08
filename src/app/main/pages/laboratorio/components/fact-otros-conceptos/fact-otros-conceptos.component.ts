@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { FormaPagoComponent } from '../forma-pago/forma-pago.component';
+import { ListFormaPagoComponent } from '../list-forma-pago/list-forma-pago.component';
+
+
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -19,19 +22,19 @@ export class FactOtrosConceptosComponent implements OnInit {
   maxLengthR: number = 13;
   maxLengthC: number = 10;
   modallista: boolean;
+ 
 
 
 
   constructor(
+    private breadcrumbService: BreadcrumbService,
 
-    private router: Router,
-    private breadcrumbService: BreadcrumbService
   ) {
     {
       this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
     }
   }
-
+   
   onInput(event: any) {
     const input = event.target;
     const value = input.value;
@@ -78,8 +81,5 @@ export class FactOtrosConceptosComponent implements OnInit {
   abrirmodalista() {
     this.modallista = true;
   }
-
-
-
 
 }
