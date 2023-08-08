@@ -1,6 +1,4 @@
-import { outputAst } from '@angular/compiler';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppService } from 'src/app/_service/app.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
@@ -10,9 +8,8 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
     styleUrls: ['./list-forma-pago.component.css'],
 })
 export class ListFormaPagoComponent implements OnInit {
-    formListPago: FormGroup;
-    @Input() pago: boolean = false;
-    @Output() cerrarpago = new EventEmitter();
+    @Input() display: boolean = false;
+    @Output() closeModal = new EventEmitter();
 
     constructor(
         private appService: AppService,
@@ -27,19 +24,13 @@ export class ListFormaPagoComponent implements OnInit {
 
     ngOnInit() {}
 
-    get f() {
-        return this.formListPago.controls;
+    onDisplayForm() {
+        this.display = true;
+        console.log('abriendo modal');
     }
 
-    cancelar() {
-        this.cerrarPago();
-    }
-
-    abrirPago() {
-        this.pago = true;
-    }
-
-    cerrarPago() {
-        this.cerrarpago.emit();
+    CloseModal() {
+        this.closeModal.emit();
+        console.log('cerrando modal de modal emit');
     }
 }

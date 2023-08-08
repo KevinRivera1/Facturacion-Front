@@ -118,6 +118,30 @@ img{
     
 }
 
+@media only screen and (max-width: 600px) {
+    p-dialog,
+    p-fieldset {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    p-dialog,
+    p-fieldset {
+        width: 70% !important;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    p-dialog,
+    p-fieldset {
+        width: 45% !important;
+    }
+}
+
+
+
+
 
 
 input[type=number] {
@@ -127,7 +151,3 @@ input[type=number] {
         margin: 0;
     }
 }
-
-
-
-

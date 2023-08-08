@@ -231,7 +231,11 @@
                   class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                   pTooltip="Pagos(s)"
                   tooltipPosition="right"
+                  (click)="modalOpen()"
+
+                 
               ></button>
+              <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
               <button
               pButton
               label="Regresar"
