@@ -27,7 +27,7 @@ import { AppService } from 'src/app/_service/app.service';
 })
 export class AnularReciboCajaComponent implements OnInit {
     formAnulaRecib: FormGroup;
-    @Input() display: boolean = false; 
+    @Input() display: boolean = false;
     @Output() closeModal = new EventEmitter();
     //? Aqui se define la lista de estados del modal de anular
     estados: any[] = [{ name: 'Anulada', value: 'Anulada' }];
@@ -41,15 +41,27 @@ export class AnularReciboCajaComponent implements OnInit {
         this.breadcrumbService.setItems([{ label: 'Anulacion Recibo' }]);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.iniciarForms();
+    }
 
     get f() {
         return this.formAnulaRecib.controls;
     }
 
+    iniciarForms() {
+        this.formAnulaRecib = this.formBuilder.group({
+            RecibCajaNo: new FormControl('',Validators.compose([Validators.required])),
+            fecha: new FormControl(''),
+            cliente: new FormControl(''),
+            detalleAnulacion: new FormControl('',Validators.compose([Validators.required])),
+        });
+    }
+    
     guardarMotivoAnulacion() {}
-    cancelar() {  
-        this.CloseModal()
+    
+    cancelar() {
+        this.CloseModal();
         /* this.f.estadoCompr.disable();
         this.setearForm();
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
@@ -69,7 +81,6 @@ export class AnularReciboCajaComponent implements OnInit {
 
     CloseModal() {
         this.closeModal.emit();
-        console.log('cerrando modal de modal emit')
+        console.log('cerrando modal de modal emit');
     }
-    
 }
