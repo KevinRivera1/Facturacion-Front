@@ -120,6 +120,7 @@ img{
 
 
 
+
 input[type=number] {
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
@@ -127,7 +128,3 @@ input[type=number] {
         margin: 0;
     }
 }
-
-
-
-

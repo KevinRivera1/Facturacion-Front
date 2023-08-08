@@ -18,6 +18,7 @@ modal2: boolean;
   modallista: boolean;
   
 
+  
   maxLengthR: number = 13;
   maxLengthC: number = 10;
 
