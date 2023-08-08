@@ -1,43 +1,109 @@
 <section class="content">
+    <p-dialog header="Lista" [(visible)]="modal" [style]="{ width: '55vw' }">
+        <div class="fieldset-data">
+            <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
+                <div class="data">
+                    <div class="p-formgrid grid">
+                        <div class="col-12 md:col-6 mb-0">
+                            <h4>* Recibo Caja Nº:</h4>
+                        </div>
+                        <div class="col-12 md:col-6 mb-0">
+                            <h4>* Ruc/Cedula:</h4>
+                        </div>
+                        <div class="col-12 md:col-6 mb-0">
+                            <h4>* Cliente:</h4>
+                        </div>
+                        <div class="col-12 md:col-6 mb-0">
+                            <h4>* Fecha:</h4>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div>
+            <p-table class="search-saew" [lazy]="true" dataKey="id" styleClass="p-datatable-gridlines"
+                [tableStyle]="{ 'min-width': '50rem' }" [rows]="10">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Cantidad</th>
+                        <th>V/Unidad</th>
+                        <th>Ini cio</th>
+                        <th>Fin</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <th>SANCIONES NO SUFREAGIO</th>
+                        <th>1</th>
+                        <th>29</th>
+                        <th>0</th>
+                        <th>0</th>
+                        <th>29</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3"></th>
+                        <th colspan="2">Total:</th>
+                        <th>29</th>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div align="center" class="flex justify-content-center">
+            <div class="caja-boton-principal">
+                <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
+                    (click)="cerrar()"></button>
+
+                <button pButton label="Imprimir" class="m-1 bg-blue-900" pTooltip="Imprimir"
+                    tooltipPosition="right"></button>
+            </div>
+        </div>
+    </p-dialog>
+
     <div class="container-fluid">
         <div class="card">
-            <p-table #dt [value]="" [rows]="10" [paginator]="true" [loading]=""
-                     [globalFilterFields]="[
-                        
-                     'idCentroCosto',
-                     'nombreCentroCosto',
-                     'descCentroCosto',
-                     'codCentroCosto'
-                     ]"
-                     responsiveLayout="scroll" 
-                    dataKey="idCentroCosto"
-                     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
-                     <!-- 'codCentroCosto', -->
+            <p-table #dt [value]="" [rows]="10" [paginator]="true" [loading]="" [globalFilterFields]="[
+                    'idCentroCosto',
+                    'nombreCentroCosto',
+                    'descCentroCosto',
+                    'codCentroCosto'
+                ]" responsiveLayout="scroll" dataKey="idCentroCosto"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                [showCurrentPageReport]="true">
+                <!-- 'codCentroCosto', -->
 
-
-                 <!--Caprion - PDF XLS LISTO -->
+                <!--Caprion - PDF XLS LISTO -->
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-wrap">
                         <div>
                             <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
-                                    class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
-                                    tooltipPosition="bottom"></button>
+                                class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                tooltipPosition="bottom"></button>
                             <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
-                                    class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
-                                    tooltipPosition="bottom"></button>
-                            <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
-                                    (click)="deleteSelectedCentroCosto()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
-                                    [disabled]="!selectedCentroCostos || !selectedCentroCostos.length"></button>
-                            <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
-                                    (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+                                class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                tooltipPosition="bottom"></button>
+                            <button pButton pRipple label="Eliminar" icon="pi pi-trash"
+                                class="p-button-danger p-button-sm m-1" (click)="deleteSelectedCentroCosto()"
+                                pTooltip="Eliminar Seleccionados" tooltipPosition="right" [disabled]="
+                                    !selectedCentroCostos ||
+                                    !selectedCentroCostos.length
+                                "></button>
+                            <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1"
+                                icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros"
+                                tooltipPosition="right"></button>
                         </div>
 
                         <label class="text-center">CENTRO COSTOS</label>
-                        <span class="p-input-icon-left ">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" class="p-inputtext-sm"
-                     (input)="dt.filterGlobal($event.target.valueOf(), 'contains')" placeholder="Busqueda General" />
-            </span>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" class="p-inputtext-sm" (input)="
+                                    dt.filterGlobal(
+                                        $event.target.valueOf(),
+                                        'contains'
+                                    )
+                                " placeholder="Busqueda General" />
+                        </span>
                     </div>
                 </ng-template>
 
@@ -47,39 +113,48 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        
+
                         <th pSortableColumn="nombreCentroCosto">
-                            <div class="flex justify-content-between align-items-center">Nº Recibo Caja
+                            <div class="flex justify-content-between align-items-center">
+                                Nº Recibo Caja
                                 <p-sortIcon field="nombreCentroCosto"></p-sortIcon>
                                 <p-columnFilter type="text" field="nombreCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                         <th pSortableColumn="codCentroCosto">
-                            <div class="flex justify-content-between align-items-center">Cliente
+                        <th pSortableColumn="codCentroCosto">
+                            <div class="flex justify-content-between align-items-center">
+                                Cliente
                                 <p-sortIcon field="codCentroCosto"></p-sortIcon>
                                 <p-columnFilter type="text" field="codCentroCosto" display="menu"></p-columnFilter>
                             </div>
-                        </th> 
+                        </th>
                         <th pSortableColumn="descCentroCosto">
-                            <div class="flex justify-content-between align-items-center">Ruc/Cl
+                            <div class="flex justify-content-between align-items-center">
+                                Ruc/Cl
                                 <p-sortIcon field="descCentroCosto"></p-sortIcon>
-                                <p-columnFilter style="white-space: normal; word-wrap: break-word;" type="text" field="descCentroCosto" display="menu"></p-columnFilter>
+                                <p-columnFilter style="
+                                        white-space: normal;
+                                        word-wrap: break-word;
+                                    " type="text" field="descCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="estadoCentroCosto">
-                            <div class="flex justify-content-between align-items-center">Fecha
+                            <div class="flex justify-content-between align-items-center">
+                                Fecha
                                 <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
                                 <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="estadoCentroCosto">
-                            <div class="flex justify-content-between align-items-center">Total
+                            <div class="flex justify-content-between align-items-center">
+                                Total
                                 <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
                                 <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="estadoCentroCosto">
-                            <div class="flex justify-content-between align-items-center">Observaciones
+                            <div class="flex justify-content-between align-items-center">
+                                Observaciones
                                 <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
                                 <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
                             </div>
@@ -88,45 +163,31 @@
                         <th>Acciones</th>
                     </tr>
 
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                                (click)="abrirmodal()" pTooltip="Editar" tooltipPosition="left"></button>
+                        </th>
+                    </tr>
                 </ng-template>
 
                 <!-- Boody - se ve los datos de la tabla -->
-                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td>{{item.nombreCentroCosto}}</td>
-                        <!-- <td>{{item.codCentroCosto}}{{rowIndex+1}}</td> -->
-                        <td>{{item.codCentroCosto}}</td>
-                        <td>{{item.descCentroCosto}}</td>
-                        <td>  <mark [ngClass]="item.estadoCentroCosto == 'ACTIVO'
-                            ? 'border-green-500' : 'border-red-500' ">{{item.estadoCentroCosto}}</mark></td>
-
-                        <td>
-                            <button pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="llamarModal()"  (click)="editCentroCosto(item)"
-                                    pTooltip="Editar" tooltipPosition="left"   ></button>
-            
-                                    <button pButton pRipple icon="pi pi-trash"
-                                    class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteCentroCosto(item)"
-                                    pTooltip="Eliminar" tooltipPosition="left" *ngIf="item.estadoCentroCosto=='ACTIVO'" ></button>
-                        </td>
-                    </tr>
-                </ng-template>
-                
                 <!-- Footer de la tabla -->
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Registros Totales: {{listCentroC ? listCentroC.length : 0 }}.
+                        Registros Totales:
+                        <!-- {{listCentroC ? listCentroC.length : 0 }}. -->
                     </div>
                 </ng-template>
             </p-table>
         </div>
     </div>
 </section>
-
-
-

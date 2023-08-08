@@ -10,7 +10,6 @@
     background-color: white !important;
     color: blue !important;
     border: solid blue 1px !important;
-
 }
 
 .cancelar-button {
@@ -48,23 +47,21 @@ textarea {
     align-items: center;
     margin: 0 auto; /* Para centrar el formulario horizontalmente */
     padding: 0px; /* Añade un espacio interno opcional para que el contenido no esté pegado al borde */
-  }
+}
 
-.calendar{
+.calendar {
     width: 100%;
     display: flex;
 }
 
-
-.center-button{
+.center-button {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-
-
-.header-card{
+// HEADER
+.header-card {
     display: flex;
     padding-top: 5px;
     place-items: center;
@@ -72,12 +69,11 @@ textarea {
     text-align: center;
     justify-content: space-around;
     align-content: center;
-
 }
-.header-img{
+.header-img {
     width: 20%;
 }
-img{
+img {
     width: 30%;
     object-fit: cover;
 }
@@ -87,22 +83,178 @@ img{
 .header-container {
     width: 50%;
 }
-.header-recibo h1, h3 {
+.header-recibo h1,
+h3 {
     font-size: 14px;
     margin: 0;
 }
-.recibo-caja{
+.recibo-caja {
     padding: 5px;
     outline: 1px solid rgba(128, 128, 128, 0.642);
-    
 }
-
-
-
-input[type=number] {
+input[type="number"] {
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
 }
+
+// BUSQUEDA
+
+.fieldset-search {
+    display: flex;
+    place-items: center;
+    font-size: 12px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    padding-top: 2%;
+}
+.search-border {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    padding: 0px 50px 0px 50px;
+}
+.search-border legend {
+    font-weight: bold;
+}
+.search {
+    margin-top: 0px;
+}
+.search button {
+    padding: 8px;
+    font-size: 12px;
+}
+
+.search input{
+    height: 2%;
+    padding: 10px;
+    font-size: 12px;
+}
+.fieldset-search2 {
+    display: flex;
+    place-items: center;
+    font-size: 12px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    padding: 4%;
+}
+
+.search-border2 {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    padding: 15px 50px 15px 50px;
+}
+
+//DATA
+.fieldset-data {
+    display: flex;
+    // place-items: center;
+    font-size: 12px;
+    // text-align: center;
+    justify-content: center;
+    align-content: center;
+    padding: 0px 2px;
+    margin-top: 2%;
+    width: 100%;
+}
+.data {
+    width: 50em;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+.data h4 {
+    padding: 1%;
+    margin: 0;
+    font-size: 12px;
+}
+
+//TABLE
+.table-dialog tr th {
+    width: 3%;
+}
+.table-dialog input {
+    width: 50%;
+}
+
+//OBSERVACIONES
+.fieldset-obser {
+    display: flex;
+    font-size: 12px;
+    justify-content: center;
+    padding: 2%;
+}
+.obser {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    display: flex;
+    width: 50em;
+    padding-top: 5px;
+    place-items: center;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    padding: 1%;
+}
+
+// CONCPETOS
+.fieldset-conceptos {
+    display: flex;
+    padding-top: 5%;
+    place-items: center;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    width: 25em;
+}
+
+.search-conceptos {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 35em;
+    padding: 5px;
+    padding: 1%;
+    
+}
+
+.search-conceptos input {
+    height: 2%;
+    padding: 5px;
+    font-size: 12px;
+}
+
+
+// INFORMACION DE CONCEPTROS
+.fielset-infConceptos {
+    display: flex;
+    place-items: center;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    padding-top: 5%;
+    width: 40em;
+}
+.search-infConceptos {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 75em;
+    padding: 5px;
+}
+.search-infConceptos input {
+    height: 2%;
+    padding: 5px;
+    font-size: 12px;
+}
+
+
+// SAEW
+.search-saew{
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 15em;
+    padding: 5px;
+}
+
+.search-saew th{
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 5em;
+    padding: 5px;
+}
+
