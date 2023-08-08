@@ -1,4 +1,11 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnInit,
+    Output,
+} from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -11,6 +18,7 @@ import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ReciboCaja } from '../../model/reciboCaja';
 import { FormUtil } from '../../formUtil/FormUtil';
+import { AppService } from 'src/app/_service/app.service';
 
 @Component({
     selector: 'app-anular-recibo-caja',
@@ -18,68 +26,50 @@ import { FormUtil } from '../../formUtil/FormUtil';
     styleUrls: ['./anular-recibo-caja.component.scss'],
 })
 export class AnularReciboCajaComponent implements OnInit {
-    @Input() reciboCaja: ReciboCaja; //Va reciboDTo
-    reciboCajaFiltrados: ReciboCaja; //va ReciboDto
-
-    proceso: string = 'anular recibos caja';
-    response: ResponseGenerico;
-    token: TokenDto;
-    anularRecibCajaForm: FormGroup;
-    formUtil: FormUtil;
+    formAnulaRecib: FormGroup;
+    @Input() display: boolean = false; 
+    @Output() closeModal = new EventEmitter();
+    //? Aqui se define la lista de estados del modal de anular
+    estados: any[] = [{ name: 'Anulada', value: 'Anulada' }];
 
     constructor(
-        private breadcrumbService: BreadcrumbService,
+        public appService: AppService,
         private formBuilder: FormBuilder,
-        private tokenService: TokenService
+        private tokenService: TokenService,
+        private breadcrumbService: BreadcrumbService
     ) {
-        {
-            this.breadcrumbService.setItems([{ label: 'Anular Recibo Caja' }]);
-        }
+        this.breadcrumbService.setItems([{ label: 'Anulacion Recibo' }]);
     }
 
-    ngOnInit() {
-        this.iniciarForms();
-        this.formUtil = new FormUtil(this.anularRecibCajaForm);
-    }
+    ngOnInit(): void {}
 
     get f() {
-        return this.anularRecibCajaForm.controls;
+        return this.formAnulaRecib.controls;
     }
 
-    iniciarForms() {
-        this.anularRecibCajaForm = this.formBuilder.group({
-            //idEstadoComprobante: [null],
-            NroReciboCaja: ['', Validators.required],
-            NombreCliente: ['', Validators.required],
-            Ruc: ['',[Validators.required, Validators.pattern('^[0-9]{1,13}$')],],
-            Cedula: ['',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
-            fechaDesde: [new Date(), Validators.required],
-            fechaHasta: [new Date(), Validators.required],
-            //estadoCompr: [true, Validators.requiredTrue],
-        });
-        this.token = JSON.parse(this.tokenService.getResponseAuth());
-        //this.f.idUsuarioEstComprob.setValue(this.token.id)
+    guardarMotivoAnulacion() {}
+    cancelar() {  
+        this.CloseModal()
+        /* this.f.estadoCompr.disable();
+        this.setearForm();
+        this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
+        this.display = false; */
     }
 
-    obtenerdaData() {}
-
-    Buscar() {
-        const fechaDesde = this.anularRecibCajaForm.value.fechaDesde;
-        const fechaHasta = this.anularRecibCajaForm.value.fechaDesde;
-        console.log('filtrando info: ' + fechaDesde);
-        console.log('filtrando info  hasta: ' + fechaHasta);
-
-        /*  this.reciboCaja = this.reciboCaja.filter((recibo) => {
-            const fechaRecibo = new Date(recibo.fecha);
-            return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
-        }); */
+    cerrar() {
+        /*  this.f.estadoCompr.disable();
+        this.formEstadoFact.reset();
+        this.iniciarForms();
+        this.display = false; */
+    }
+    onDisplayForm() {
+        this.display = true;
+        console.log('abriendo modal');
     }
 
-    maxLengthCedula(event: Event) {
-        this.formUtil.limitInputLength(event, 10, 'Cedula');
+    CloseModal() {
+        this.closeModal.emit();
+        console.log('cerrando modal de modal emit')
     }
-
-    maxiLengthRuc(event: Event) {
-        this.formUtil.limitInputLength(event, 13, 'Ruc');
-    }
+    
 }

@@ -1,3 +1,4 @@
+<!-- tabla de factura laboratorio-->
 <section class="content">
   <div class="container-fluid">
       <div class="card">
@@ -28,8 +29,10 @@
                                
                                   
                       </div> -->
-
+                      <button pButton label="ver detalles" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
+                      (click)="abrirmodal()" ></button>
                       <!-- 
+
                       <span class="p-input-icon-left ">
             <i class="pi pi-search"></i>
             <input pInputText type="text" class="p-inputtext-sm"
@@ -119,11 +122,7 @@
                       <td>{{item.descripcionFp}}</td>
                       <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
                         ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
-<!--                       <td>{{item.codigoSri}}</td>
-                      <td>{{item.codigoSae}}</td> -->
-                      <!-- <td>{{item.fechaFp}}</td> -->
-                      
-
+<!-- 
                       <td>
                           <button pButton pRipple icon="pi pi-pencil"
                                   class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item);llamarFuncion()"
@@ -131,7 +130,7 @@
                           <button pButton pRipple icon="pi pi-trash"
                                   class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago(item)"
                                   pTooltip="Eliminar" tooltipPosition="left"  ></button>
-                      </td>
+                      </td> -->
                   </tr>
               </ng-template>
               <ng-template pTemplate="summary">
@@ -144,3 +143,149 @@
   </div>
 </section>
 
+<!-- modal de ver detalles -->
+<p-dialog class="mobile-dialog" [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
+ [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+    <p-header>
+        <h4 class="">FACTURA</h4>
+    </p-header>
+    <div class="header-card p-5">
+        <div class="header-img">
+        <img alt="Card" src="../../../../../../assets/img/epn.png" />
+        </div>
+        <div class="header-container">
+            <h4>ESCUELA POLITECNICA NACIONAL</h4>
+            <p>
+                Campus Politecnico "J. Ruben Orellana R."<br />
+                Ladron de Guevara E11-253 y Andalucia<br />
+                Telf.: 2507-144 / Fax: 2567-848<br />
+                P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
+            </p>
+        </div>
+        <div class="header-laboratorio">
+            <div class="recibo-laboratorio">
+                <h1 class="titulo">FACTURA</h1>
+                <h3>Nro. 132-123-12345</h3>
+                <h4>Fecha de Autorizacion 20/septiempre/2012</h4>
+                <h4>Aut.SRI 1213123123</h4>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div >
+        <div class="p-fluid p-formgrid grid col-12" style="border: solid 1px rgb(132, 132, 132); padding: 0px;">
+            <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
+                <div class="p-field col-12 md:col-6 mb-0  px-3"> 
+                    <label for="ftxt-">Fecha de emision:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+               </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Empresa:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Señor(s):</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Ruc/CI:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Direccion:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Telefono:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+            </div>
+            <div class="col-6" >
+                <div class="p-field col-12 md:col-6 mb-0  px-3"> 
+                    <label for="ftxt-">Facultad/Instituto:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+               </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Laboratorio:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Forma de Pago:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Cheque.No:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Banco:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Valor Total:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <p-table
+    styleClass="p-datatable-gridlines" 
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="background-color: rgb(206, 244, 244);">Codigo</th>
+            <th style="background-color: rgb(206, 244, 244);">Descripcion</th>
+            <th style="background-color: rgb(206, 244, 244);">Cantidad</th>
+            <th style="background-color: rgb(206, 244, 244);">Precio Unit.</th>
+            <th style="background-color: rgb(206, 244, 244);">Total</th>
+        </tr>
+        <tr>
+            <th>Prueba</th>
+            <th>Prueba Electrica</th>
+            <th>1</th>
+            <th>200.0</th>
+            <th>200.0</th>
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>SUBTOTAL:</th>
+            <th>0.0</th>
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>IVA:</th>
+            <th>0.0</th>
+
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>TOTAL:</th>
+            <th>0.0</th>
+        </tr>
+    </ng-template>
+</p-table>
+<br>
+<div align="center" class="flex justify-content-center">
+    <div class="caja-boton-principal">
+        <button
+            pButton
+            label="Imprimir"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            pTooltip="Imprimir"
+            tooltipPosition="right"
+            icon="pi pi-print"
+        ></button>
+
+        <button
+            pButton
+            label="Cancelar"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            pTooltip="Cancelar"
+            tooltipPosition="right"
+            (click)="cerrar()"
+        ></button>
+    </div>
+</div>
+</p-dialog>

@@ -1,11 +1,11 @@
 <p-card>
     <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
-    <!-- Dialog Agregar Recibo Caja -->
+    <!-- Dialog 0 -->
     <p-dialog
         header="Agregar Recibo de Caja"
         [(visible)]="modal"
-        [style]="{ width: '65vw' }"
+        [style]="{ width: '60vw' }"
     >
         <!--ANDRES MONTOYA-->
 
@@ -37,72 +37,88 @@
             <fieldset class="search-border">
                 <legend>Buscar Cliente/Estudiante/Empleado EPN</legend>
 
-                <div class="search">
-                    <div class="flex flex-wrap gap-3">
-                        <div class="flex align-items-center">
-                            <p-radioButton
-                                name="cliente"
-                                value="1"
-                                inputId="1"
-                            ></p-radioButton>
-                            <label class="ml-2">Estudiante</label>
-                        </div>
-                        <div class="flex align-items-center">
-                            <p-radioButton
-                                name="cliente"
-                                value="2"
-                                inputId="2"
-                            ></p-radioButton>
-                            <label class="ml-2">Cliente</label>
-                        </div>
-                        <div class="flex align-items-center">
-                            <p-radioButton
-                                name="cliente"
-                                value="2"
-                                inputId="2"
-                            ></p-radioButton>
-                            <label class="ml-2">Empleado EPN</label>
-                        </div>
-                        <div class="caja-boton-principal">
-                            <button
-                                pButton
-                                label="Buscar"
-                                class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                                pTooltip="Buscar"
-                                (click)="abrirmodal2()"
-                                tooltipPosition="right"
-                            ></button>
-                        </div>
-                    </div>
+        <p-fieldset
+            align="center"
+            class="flex justify-content-center"
+            legend="Buscar Cliente/Estudiante/Empleado EPN"
+        >
+            <div class="flex flex-wrap gap-3">
+                <div class="flex align-items-center">
+                    <p-radioButton
+                        name="cliente"
+                        value="1"
+                        inputId="1"
+                    ></p-radioButton>
+                    <label class="ml-2">Estudiante</label>
                 </div>
-            </fieldset>
-        </div>
+                <div class="flex align-items-center">
+                    <p-radioButton
+                        name="cliente"
+                        value="2"
+                        inputId="2"
+                    ></p-radioButton>
+                    <label class="ml-2">Cliente</label>
+                </div>
+                <div class="flex align-items-center">
+                    <p-radioButton
+                        name="cliente"
+                        value="2"
+                        inputId="2"
+                    ></p-radioButton>
+                    <label class="ml-2">Empleado EPN</label>
+                </div>
+                <div class="caja-boton-principal">
+                    <button
+                        pButton
+                        label="Buscar"
+                        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                        pTooltip="Buscar"
+                        (click)="abrirmodal2()"
+                        tooltipPosition="right"
+                    ></button>
+                </div>
+            </div>
+        </p-fieldset>
+        <br />
 
-        <!-- TABLA DATOS -->
-        <div class="fieldset-data">
-            <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
-                <div class="data">
-                    <div class="p-formgrid grid">
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Recibe de:</h4>
-                        </div>
+        <p-fieldset>
+            <div class="p-fluid p-formgrid grid input">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto"
+                            >* Recibe de:
+                        </label>
+                    </span>
+                </div>
 
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Ruc/Cedula:</h4>
-                        </div>
-                    </div>
-                    <div class="p-formgrid grid">
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Direccion:</h4>
-                        </div>
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Forma Pago:</h4>
-                        </div>
-                    </div>
-                    <div class="p-formgrid grid">
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* F/Emision:</h4>
-                        </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto"
+                            >* Ruc/Cedula:</label
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto">* Direccion:</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto"
+                            >* Forma Pago:</label
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="calendar">
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                            <label for="ftxt-fechaBancos">* F/Emision:</label>
+                        </span>
                     </div>
                 </div>
             </fieldset>
@@ -112,7 +128,8 @@
             <button
                 pButton
                 label="Agregar"
-                class="bg-blue-900"
+                class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                icon="pi pi-plus"
                 type="submit"
                 pTooltip="Agregar"
                 tooltipPosition="right"
@@ -121,8 +138,8 @@
         </p-toolbar>
 
         <!-- TABLA DIALOG -->
+
         <p-table
-            class="table-dialog"
             styleClass="p-datatable-gridlines"
             [tableStyle]="{ 'min-width': '50rem' }"
         >
@@ -146,10 +163,20 @@
                 <tr>
                     <th colspan="4"></th>
                     <th>
-                        IVA <input type="text" name="IVA" placeholder="0.0" /> %
+                        IVA<input
+                            size="20"
+                            type="text"
+                            name="IVA"
+                            placeholder="0.0"
+                        />%
                     </th>
                     <th>
-                        <input type="text" name="IVA" placeholder="0.0" />
+                        <input
+                            size="20"
+                            type="text"
+                            name="IVA"
+                            placeholder="0.0"
+                        />
                     </th>
                     <th></th>
                 </tr>
@@ -162,23 +189,26 @@
             </ng-template>
         </p-table>
 
-        <div class="fieldset-obser">
-            <fieldset class="obser">
-                <label> Observaciones: </label>
-                <div class="p-formgrid grid">
-                    <div class="col-12">
-                        <span class="p-float-label">
-                            <textarea
-                                pInputTextarea
-                                rows="1"
-                                id="ftxt-descCentroCosto"
-                                required="true"
-                            ></textarea>
-                        </span>
-                    </div>
+        <p-fieldset class="flex justify-content-center">
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <label
+                        style="color: rgba(0, 0, 0, 0.6)"
+                        for="ftxt-descCentroCosto"
+                        >* Observaciones</label
+                    >
+                    <span class="p-float-label">
+                        <textarea
+                            pInputTextarea
+                            rows="1"
+                            id="ftxt-descCentroCosto"
+                            required="true"
+                            formControlName="descCentroCosto"
+                        ></textarea>
+                    </span>
                 </div>
-            </fieldset>
-        </div>
+            </div>
+        </p-fieldset>
 
         <!-- BOTONES -->
         <div align="center" class="flex justify-content-center">
@@ -186,7 +216,7 @@
                 <button
                     pButton
                     label="Guardar"
-                    class="m-1 bg-blue-900"
+                    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                     pTooltip="Guardar"
                     tooltipPosition="right"
                 ></button>
@@ -194,7 +224,7 @@
                 <button
                     pButton
                     label="Pagos(s)"
-                    class="m-1 bg-blue-900"
+                    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                     pTooltip="Pagos(s)"
                     tooltipPosition="right"
                 ></button>
@@ -202,144 +232,143 @@
                 <button
                     pButton
                     label="Cancelar"
-                    class="m-1 bg-blue-900"
+                    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                     pTooltip="Cancelar"
                     tooltipPosition="right"
-                    (click)="cerrar()"
                 ></button>
             </div>
         </div>
     </p-dialog>
 
-    <!-- Dialog Agregar Destalle Recibo-->
+    <!-- Dialog 1 Agregar -->
     <p-dialog
         header="Agregar Detalle Recibo caja"
         [(visible)]="modal1"
-        [style]="{ width: '67vw' }"
+        [style]="{ width: '60vw' }"
     >
-        <div class="p-fluid p-formgrid grid input">
-            <div class="md:col-5">
-                <span class="p-float-label">
-                    <div class="fieldset-conceptos">
-                        <fieldset class="search-conceptos">
-                            <legend>Conceptos</legend>
-                            <p-table
-                                #dt1
-                                selectionMode="single"
-                                dataKey="id"
-                                [tableStyle]="{ 'min-width': '20rem' }"
-                                [rows]="4"
-                                [paginator]="true"
-                                stateStorage="session"
-                                stateKey="statedemo-session"
+        <p-fieldset class="form" legend="Conceptos">
+            <p-table
+                #dt1
+                selectionMode="single"
+                dataKey="id"
+                [tableStyle]="{ 'min-width': '20rem' }"
+                [rows]="4"
+                [paginator]="true"
+                stateStorage="session"
+                stateKey="statedemo-session"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div
+                                class="flex justify-content-between align-items-center"
                             >
-                                <ng-template pTemplate="header">
-                                    <tr>
-                                        <th>
-                                            <bold style="font-weight: bold"
-                                                >&#8470;</bold
-                                            >
-                                        </th>
-                                        <th>
-                                            <input
-                                                pInputText
-                                                type="text"
-                                                placeholder="Concepto"
-                                            />
-                                        </th>
-                                    </tr>
-                                </ng-template>
-                            </p-table>
-                        </fieldset>
-                    </div>
-                </span>
+                                <bold style="font-weight: bold">&#8470;</bold>
+                            </div>
+                        </th>
+                        <th>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'name',
+                                        'contains'
+                                    )
+                                "
+                                [value]="dt1.filters['name']?.value"
+                                placeholder="Concepto"
+                                class="w-full"
+                            />
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr [pSelectableRow]="customer">
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td>
+                            <span class="p-column-title">Country</span>
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                [class]="'flag flag-' + customer.country.code"
+                                style="width: 20px"
+                            />
+                            <span class="ml-1 vertical-align-middle">{{
+                                customer.country.name
+                            }}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-fieldset>
+
+        <p-fieldset class="form" legend="Informacion  Concepto">
+            <div class="p-fluid p-formgrid grid input">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* Nombre: </label>
+                    </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto"
+                            >* Precio Unitario:</label
+                        >
+                    </span>
+                </div>
             </div>
-
-            <div class="md:col-6">
-                <span class="p-float-label">
-                    <div class="fielset-infConceptos">
-                        <fieldset class="search-infConceptos">
-                            <legend>Informacion de Conceptos</legend>
-                            <div class="p-fluid p-formgrid grid input">
-                                <div
-                                    class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                                >
-                                    <span class="p-float-label">
-                                        <input
-                                            pInputText
-                                            id="ftxt-nombreCentroCosto"
-                                            required="true"
-                                        />
-                                        <label>* Nombre: </label>
-                                    </span>
-                                </div>
-
-                                <div
-                                    class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                                >
-                                    <span class="p-float-label">
-                                        <input
-                                            pInputText
-                                            id="ftxt-nombreCentroCosto"
-                                            required="true"
-                                            type="number"
-                                        />
-                                        <label>* Precio Unitario:</label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="p-fluid p-formgrid grid">
-                                <div
-                                    class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                                >
-                                    <span class="p-float-label">
-                                        <label>* Stock:</label>
-                                    </span>
-                                </div>
-                                <div
-                                    class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                                >
-                                    <span class="p-float-label">
-                                        <input
-                                            pInputText
-                                            id="ftxt-nombreCentroCosto"
-                                            required="true"
-                                            type="number"
-                                        />
-                                        <label>* Cantidad:</label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="p-fluid p-formgrid grid">
-                                <div
-                                    class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                                >
-                                    <span class="p-float-label">
-                                        <label>* Inicio:</label>
-                                    </span>
-                                </div>
-                                <div
-                                    class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                                >
-                                    <span class="p-float-label">
-                                        <input
-                                            pInputText
-                                            id="ftxt-nombreCentroCosto"
-                                            required="true"
-                                            type="number"
-                                        />
-                                        <label>* Fin:</label>
-                                    </span>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                </span>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto">* Stock:</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* Cantidad:</label>
+                    </span>
+                </div>
             </div>
-        </div>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <label for="ftxt-nombreCentroCosto">* Inicio:</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* Fin:</label>
+                    </span>
+                </div>
+            </div>
+        </p-fieldset>
 
-        <fieldset class="search-saew">
-            <legend>Sanciones Saew</legend>
+        <p-fieldset class="form" legend="Sanciones Saew">
             <p-table
                 styleClass="p-datatable-gridlines"
                 [tableStyle]="{ 'min-width': '50rem' }"
@@ -361,17 +390,16 @@
                 <button
                     pButton
                     label="Guardar"
-                    class="m-1 bg-blue-900"
+                    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                     pTooltip="Guardar"
                     tooltipPosition="right"
                 ></button>
                 <button
                     pButton
                     label="Cancelar"
-                    class="m-1 bg-blue-900"
+                    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                     pTooltip="Cancelar"
                     tooltipPosition="right"
-                    (click)="cerrarmodal1()"
                 ></button>
             </div>
         </div>
@@ -379,117 +407,56 @@
 
     <!-- Dialog Buscar -->
 
-    <p-dialog header="Buscar" [(visible)]="modal2" [style]="{ width: '65vw' }">
-        <div class="fieldset-search2">
-            <fieldset class="search-border2">
-                <legend>Buscar</legend>
-                <div class="search">
-                    <div class="flex flex-wrap gap-3">
-                        <div class="flex align-items-center">
-                            <label class="ml-2">Apellidos: </label>
-                            <input
-                                pInputText
-                                id="ftxt-nombreCentroCosto"
-                                required="true"
-                                type="number"
-                            />
-                        </div>
-                        <div class="flex align-items-center">
-                            <label class="ml-2">C.l: </label>
-                            <input
-                                pInputText
-                                id="ftxt-nombreCentroCosto"
-                                required="true"
-                                type="number"
-                            />
-                        </div>
-                        <div class="caja-boton-principal">
-                            <button
-                                pButton
-                                label="Buscar"
-                                class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                                pTooltip="Buscar"
-                                (click)="abrirmodal4()"
-                                tooltipPosition="right"
-                            ></button>
-                        </div>
-                    </div>
+    <p-dialog header="Buscar" [(visible)]="modal2" [style]="{ width: '60vw' }">
+        <p-fieldset class="form" legend="Buscar">
+            <div class="p-fluid p-formgrid grid input button">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                        />
+                        <label for="ftxt-nombreCentroCosto"
+                            >* Apellidos:
+                        </label>
+                    </span>
                 </div>
-            </fieldset>
-        </div>
-    </p-dialog>
 
-    <!-- Dialog Tabla Buscar -->
-
-    <p-dialog header="Lista" [(visible)]="modal4" [style]="{ width: '65vw' }">
-        <div >
-        <p-table class="search-saew"
-            [lazy]="true"
-            dataKey="id"
-            styleClass="p-datatable-gridlines"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            [paginator]="true"
-            [rows]="10"
-        >
-            <ng-template pTemplate="caption"> Empleados</ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Empleados</th>
-                    <th>CL</th>
-                    <th>Direccion</th>
-                    <th>Fono</th>
-                    <th>Acciones</th>
-                </tr>
-                <tr>
-                    <th>
-                        <p-columnFilter
-                            type="text"
-                            field="name"
-                        ></p-columnFilter>
-                    </th>
-                    <th>
-                        <p-columnFilter
-                            type="text"
-                            field="name"
-                        ></p-columnFilter>
-                    </th>
-                    <th>
-                        <p-columnFilter
-                            type="text"
-                            field="name"
-                        ></p-columnFilter>
-                    </th>
-                    <th>
-                        <p-columnFilter
-                            type="text"
-                            field="name"
-                        ></p-columnFilter>
-                    </th>
-                    <th></th>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                        <input
+                            pInputText
+                            id="ftxt-nombreCentroCosto"
+                            required="true"
+                            type="number"
+                        />
+                        <label for="ftxt-nombreCentroCosto">* C.L:</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <button
+                        pButton
+                        label="Buscar"
+                        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                        pTooltip="Cancelar"
+                        tooltipPosition="right"
+                    ></button>
+                </div>
+            </div>
+        </p-fieldset>
     </p-dialog>
 
     <!-- TABLA y FORMULARIO-->
     <div>
-        <p-header
-            class="flex align-items-center bg-blue-900 p-3 pb-1 text-white"
-        >
+        <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
             <h4>RECIBO DE CAJA</h4>
         </p-header>
 
         <div class="caja-boton-principal center-button">
-            <button
-                pButton
-                label="Agregar Recibo de Caja"
-                (click)="abrirmodal()"
-                class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                icon="pi pi-plus"
-                pTooltip="Agregar"
-                tooltipPosition="right"
-            ></button>
+            <button pButton label="Agregar Recibo de Caja" (click)="abrirmodal()"
+                class="p-button p-button-lg m-1 p-button-info bg-blue-900" icon="pi pi-plus" pTooltip="Agregar"
+                tooltipPosition="right"></button>
         </div>
 
         <p-divider></p-divider>
@@ -507,7 +474,9 @@
                                     id="ftxt-nombreCentroCosto"
                                     required="true"
                                 />
-                                <label>* Nº Recibo de Caja</label>
+                                <label for="ftxt-nombreCentroCosto"
+                                    >* Nº Recibo de Caja</label
+                                >
                             </span>
                         </div>
 
@@ -518,7 +487,9 @@
                                     id="ftxt-nombreCentroCosto"
                                     required="true"
                                 />
-                                <label>* Nombre Cliente</label>
+                                <label for="ftxt-nombreCentroCosto"
+                                    >* Nombre Cliente</label
+                                >
                             </span>
                         </div>
                     </div>
@@ -533,7 +504,9 @@
                                     maxlength="10"
                                     (input)="onInputR($event)"
                                 />
-                                <label>* RUC</label>
+                                <label for="ftxt-nombreCentroCosto"
+                                    >* RUC</label
+                                >
                             </span>
                         </div>
                         <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
@@ -546,71 +519,50 @@
                                     (input)="onInputC($event)"
                                     required="true"
                                 />
-                                <label>* Cedula</label>
+                                <label for="ftxt-nombreCentroCosto"
+                                    >* Cedula</label
+                                >
                             </span>
                         </div>
                     </div>
 
                     <div class="p-fluid p-formgrid grid">
                         <div class="calendar">
-                            <div
-                                class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                            >
+                            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                                 <span class="p-float-label">
-                                    <p-calendar
-                                        [showIcon]="true"
-                                        inputId="icon"
-                                    ></p-calendar>
-                                    <label for="ftxt-fechaBancos"
-                                        >* Fecha Desde
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                    <label for="ftxt-fechaBancos">* Fecha Desde
                                     </label>
                                 </span>
                             </div>
-                            <div
-                                class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                            >
+                            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                                 <span class="p-float-label">
-                                    <p-calendar
-                                        [showIcon]="true"
-                                        inputId="icon"
-                                    ></p-calendar>
-                                    <label for="ftxt-fechaBancos"
-                                        >* Fecha Hasta
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                    <label for="ftxt-fechaBancos">* Fecha Hasta
                                     </label>
                                 </span>
                             </div>
                         </div>
 
                         <div class="p-fluid p-formgrid grid">
-                            <div
-                                class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3"
-                            >
-                                <label
-                                    style="color: rgba(0, 0, 0, 0.6)"
-                                    for="ftxt-descCentroCosto"
-                                    >* Observaciones</label
-                                >
+                            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                                <label style="color: rgba(0, 0, 0, 0.6)" for="ftxt-descCentroCosto">*
+                                    Observaciones</label>
                                 <span class="p-float-label">
                                     <textarea
                                         pInputTextarea
                                         rows="1"
                                         id="ftxt-descCentroCosto"
                                         required="true"
+                                        formControlName="descCentroCosto"
                                     ></textarea>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <p-toolbar class="center-button">
-                        <button
-                            pButton
-                            label="Consultar"
-                            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                            icon="pi pi-search"
-                            type="submit"
-                            pTooltip="Guardar"
-                            tooltipPosition="right"
-                        ></button>
+                        <button pButton label="Consultar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                            icon="pi pi-search" type="submit" pTooltip="Guardar" tooltipPosition="right"></button>
                     </p-toolbar>
                 </div>
             </form>

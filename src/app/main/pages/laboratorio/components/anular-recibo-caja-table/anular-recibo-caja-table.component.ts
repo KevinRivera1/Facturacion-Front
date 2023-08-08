@@ -4,6 +4,7 @@ import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
 import { Table } from 'primeng/table';
 import { ReciboCaja } from '../../model/reciboCaja';
+//import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
 
 @Component({
     selector: 'app-anular-recibo-caja-table',
@@ -12,17 +13,19 @@ import { ReciboCaja } from '../../model/reciboCaja';
 })
 export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
-    @Input() listReciboCaja: ReciboCaja[]; // va el ReciboCajaDto
+    displayModal: boolean = false;
+    @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
     @Output() RecibCajaSelect = new EventEmitter();
-
     //recibosCaja: ReciboCajaDto;
     //selectedRecibosCaja: ReciboCajaDto[];
+
     submitted: boolean;
     loading: boolean;
     exportColumns: any[];
     cols: any[];
 
     constructor(
+        //private displayAnulacioModal: AnularReciboCajaComponent,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService
@@ -49,6 +52,8 @@ export class AnularReciboCajaTableComponent implements OnInit {
         table.clear();
     }
 
+    guardarMotivoAnulacion() {}
+    
     exportPdf() {
         /* let indexLista: number = 0;
     this.listFormaPago.forEach((element) => {
@@ -88,5 +93,17 @@ export class AnularReciboCajaTableComponent implements OnInit {
             'Error al descargar el archivo'
         );
     } */
+    }
+
+
+    modalOpen() {
+        //this.displayAnulacioModal.onDisplayForm()
+        this.displayModal = true;
+        console.log('abrir modal desde tabla');
+    }
+
+    closeModal() {
+        this.displayModal = false;
+        console.log('cerrando modal');
     }
 }
