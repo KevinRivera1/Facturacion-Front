@@ -22,14 +22,8 @@
         </div>
 
         <div>
-            <p-table
-                class="search-saew"
-                [lazy]="true"
-                dataKey="id"
-                styleClass="p-datatable-gridlines"
-                [tableStyle]="{ 'min-width': '50rem' }"
-                [rows]="10"
-            >
+            <p-table class="search-saew" [lazy]="true" dataKey="id" styleClass="p-datatable-gridlines"
+                [tableStyle]="{ 'min-width': '50rem' }" [rows]="10">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Concepto</th>
@@ -58,111 +52,57 @@
 
         <div align="center" class="flex justify-content-center">
             <div class="caja-boton-principal">
-                <button
-                    pButton
-                    label="Cancelar"
-                    class="m-1 bg-blue-900"
-                    pTooltip="Cancelar"
-                    tooltipPosition="right"
-                    (click)="cerrar()"
-                ></button>
+                <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
+                    (click)="cerrar()"></button>
 
-                <button
-                    pButton
-                    label="Imprimir"
-                    class="m-1 bg-blue-900"
-                    pTooltip="Imprimir"
-                    tooltipPosition="right"
-                ></button>
+                <button pButton label="Imprimir" class="m-1 bg-blue-900" pTooltip="Imprimir"
+                    tooltipPosition="right"></button>
             </div>
         </div>
     </p-dialog>
 
     <div class="container-fluid">
         <div class="card">
-            <p-table
-                #dt
-                [value]=""
-                [rows]="10"
-                [paginator]="true"
-                [loading]=""
-                [globalFilterFields]="[
+            <p-table #dt [value]="" [rows]="10" [paginator]="true" [loading]="" [globalFilterFields]="[
                     'idCentroCosto',
                     'nombreCentroCosto',
                     'descCentroCosto',
                     'codCentroCosto'
-                ]"
-                responsiveLayout="scroll"
-                dataKey="idCentroCosto"
+                ]" responsiveLayout="scroll" dataKey="idCentroCosto"
                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-                [showCurrentPageReport]="true"
-            >
+                [showCurrentPageReport]="true">
                 <!-- 'codCentroCosto', -->
 
                 <!--Caprion - PDF XLS LISTO -->
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-wrap">
                         <div>
-                            <button
-                                type="button"
-                                pButton
-                                pRipple
-                                icon="pi pi-file-excel"
-                                (click)="exportExcel()"
-                                class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1"
-                                pTooltip="XLS"
-                                tooltipPosition="bottom"
-                            ></button>
-                            <button
-                                type="button"
-                                pButton
-                                pRipple
-                                icon="pi pi-file-pdf"
-                                (click)="exportPdf()"
-                                class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1"
-                                pTooltip="PDF"
-                                tooltipPosition="bottom"
-                            ></button>
-                            <button
-                                pButton
-                                pRipple
-                                label="Eliminar"
-                                icon="pi pi-trash"
-                                class="p-button-danger p-button-sm m-1"
-                                (click)="deleteSelectedCentroCosto()"
-                                pTooltip="Eliminar Seleccionados"
-                                tooltipPosition="right"
-                                [disabled]="
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                tooltipPosition="bottom"></button>
+                            <button pButton pRipple label="Eliminar" icon="pi pi-trash"
+                                class="p-button-danger p-button-sm m-1" (click)="deleteSelectedCentroCosto()"
+                                pTooltip="Eliminar Seleccionados" tooltipPosition="right" [disabled]="
                                     !selectedCentroCostos ||
                                     !selectedCentroCostos.length
-                                "
-                            ></button>
-                            <button
-                                pButton
-                                label="Limpiar"
-                                class="p-button-outlined p-button-sm m-1"
-                                icon="pi pi-filter-slash"
-                                (click)="clear(dt)"
-                                pTooltip="Quitar Filtros"
-                                tooltipPosition="right"
-                            ></button>
+                                "></button>
+                            <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1"
+                                icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros"
+                                tooltipPosition="right"></button>
                         </div>
 
                         <label class="text-center">CENTRO COSTOS</label>
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input
-                                pInputText
-                                type="text"
-                                class="p-inputtext-sm"
-                                (input)="
+                            <input pInputText type="text" class="p-inputtext-sm" (input)="
                                     dt.filterGlobal(
                                         $event.target.valueOf(),
                                         'contains'
                                     )
-                                "
-                                placeholder="Busqueda General"
-                            />
+                                " placeholder="Busqueda General" />
                         </span>
                     </div>
                 </ng-template>
@@ -175,95 +115,48 @@
                         </th>
 
                         <th pSortableColumn="nombreCentroCosto">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
+                            <div class="flex justify-content-between align-items-center">
                                 Nº Recibo Caja
-                                <p-sortIcon
-                                    field="nombreCentroCosto"
-                                ></p-sortIcon>
-                                <p-columnFilter
-                                    type="text"
-                                    field="nombreCentroCosto"
-                                    display="menu"
-                                ></p-columnFilter>
+                                <p-sortIcon field="nombreCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="codCentroCosto">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
+                            <div class="flex justify-content-between align-items-center">
                                 Cliente
                                 <p-sortIcon field="codCentroCosto"></p-sortIcon>
-                                <p-columnFilter
-                                    type="text"
-                                    field="codCentroCosto"
-                                    display="menu"
-                                ></p-columnFilter>
+                                <p-columnFilter type="text" field="codCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="descCentroCosto">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
+                            <div class="flex justify-content-between align-items-center">
                                 Ruc/Cl
-                                <p-sortIcon
-                                    field="descCentroCosto"
-                                ></p-sortIcon>
-                                <p-columnFilter
-                                    style="
+                                <p-sortIcon field="descCentroCosto"></p-sortIcon>
+                                <p-columnFilter style="
                                         white-space: normal;
                                         word-wrap: break-word;
-                                    "
-                                    type="text"
-                                    field="descCentroCosto"
-                                    display="menu"
-                                ></p-columnFilter>
+                                    " type="text" field="descCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="estadoCentroCosto">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
+                            <div class="flex justify-content-between align-items-center">
                                 Fecha
-                                <p-sortIcon
-                                    field="estadoCentroCosto"
-                                ></p-sortIcon>
-                                <p-columnFilter
-                                    type="text"
-                                    field="estadoCentroCosto"
-                                    display="menu"
-                                ></p-columnFilter>
+                                <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="estadoCentroCosto">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
+                            <div class="flex justify-content-between align-items-center">
                                 Total
-                                <p-sortIcon
-                                    field="estadoCentroCosto"
-                                ></p-sortIcon>
-                                <p-columnFilter
-                                    type="text"
-                                    field="estadoCentroCosto"
-                                    display="menu"
-                                ></p-columnFilter>
+                                <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="estadoCentroCosto">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
+                            <div class="flex justify-content-between align-items-center">
                                 Observaciones
-                                <p-sortIcon
-                                    field="estadoCentroCosto"
-                                ></p-sortIcon>
-                                <p-columnFilter
-                                    type="text"
-                                    field="estadoCentroCosto"
-                                    display="menu"
-                                ></p-columnFilter>
+                                <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
                             </div>
                         </th>
 
@@ -279,15 +172,9 @@
                         <th></th>
                         <th></th>
                         <th>
-                            <button
-                                pButton
-                                pRipple
-                                icon="pi pi-pencil"
+                            <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
-                                (click)="abrirmodal()"
-                                pTooltip="Editar"
-                                tooltipPosition="left"
-                            ></button>
+                                (click)="abrirmodal()" pTooltip="Editar" tooltipPosition="left"></button>
                         </th>
                     </tr>
                 </ng-template>
