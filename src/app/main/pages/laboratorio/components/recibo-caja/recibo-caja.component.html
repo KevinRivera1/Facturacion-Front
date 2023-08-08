@@ -1,5 +1,4 @@
 <p-card>
-    
     <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
     <!-- Dialog 0 -->
@@ -88,8 +87,8 @@
         </div>
 
         <p-toolbar class="center-button">
-            <button pButton label="Agregar" class="p-button p-button-lg m-1 p-button-info bg-blue-900" icon="pi pi-plus"
-                type="submit" pTooltip="Agregar" tooltipPosition="right" (click)="abrirmodal1()"></button>
+            <button pButton label="Agregar" class="m-1 bg-blue-900" type="submit" pTooltip="Agregar"
+                tooltipPosition="right" (click)="abrirmodal1()"></button>
         </p-toolbar>
 
         <!-- TABLA DIALOG -->
@@ -115,10 +114,12 @@
                 <tr>
                     <th colspan="4"></th>
                     <th>
-                        IVA <input style="width: 5em;" type="text" name="IVA" placeholder="0.0" /> %
+                        IVA
+                        <input style="width: 5em" type="text" name="IVA" placeholder="0.0" />
+                        %
                     </th>
                     <th>
-                        <input type="text" style="width: 5em;" name="IVA" placeholder="0.0" />
+                        <input type="text" style="width: 5em" name="IVA" placeholder="0.0" />
                     </th>
                     <th></th>
                 </tr>
@@ -147,17 +148,17 @@
         <!-- BOTONES -->
         <div align="center" class="flex justify-content-center">
             <div class="caja-boton-principal">
-                <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar"
-                    tooltipPosition="right"></button>
+                <button pButton label="Guardar" class="m-1 bg-blue-900"  pTooltip="Guardar" icon="pi pi-save" tooltipPosition="right"></button>
 
-                <button pButton label="Pagos(s)" class="m-1 bg-blue-900" pTooltip="Pagos(s)"
-                    tooltipPosition="right"></button>
+                <button pButton label="Pagos(s)" class="m-1 bg-blue-900" pTooltip="Pagos(s)" icon="pi pi-money-bill"
+                    tooltipPosition="right" (click)="modalOpen()"></button>
 
                 <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
                     (click)="cerrar()"></button>
             </div>
         </div>
     </p-dialog>
+    <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
     <!-- Dialog Agregar Destalle Recibo-->
     <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="modal1" [style]="{ width: '67vw' }">
@@ -254,7 +255,7 @@
         <br />
         <div align="center" class="flex justify-content-center">
             <div class="caja-boton-principal">
-                <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar"
+                <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar" icon="pi pi-save"
                     tooltipPosition="right"></button>
                 <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
                     (click)="cerrarmodal1()"></button>
@@ -325,19 +326,18 @@
 
     <!-- TABLA y FORMULARIO-->
     <div>
-
         <app-buscar-recibos></app-buscar-recibos>
 
         <p-divider></p-divider>
 
         <div class="caja-boton-principal center-button">
-            <button pButton label="Agregar Recibo de Caja" (click)="abrirmodal()"
-                class="p-button p-button-lg m-1 p-button-info bg-blue-900" icon="pi pi-plus" pTooltip="Agregar"
-                tooltipPosition="right"></button>
+            <button pButton label="Agregar Recibo de Caja" (click)="abrirmodal()" class="m-1 bg-blue-900"
+                icon="pi pi-plus" pTooltip="Agregar" tooltipPosition="right"></button>
         </div>
 
         <p-divider></p-divider>
-        
+
         <app-recibo-caja-table> </app-recibo-caja-table>
     </div>
+
 </p-card>

@@ -17,7 +17,7 @@ modal2: boolean;
   busquedaForm: FormGroup;
   modallista: boolean;
   
-
+  displayModal: boolean = false;
   
   maxLengthR: number = 13;
   maxLengthC: number = 10;
@@ -99,5 +99,17 @@ cerrar() {
   this.modal3 = false;
   this.modallista = false;
 }
+
+modalOpen() {
+  //this.displayAnulacioModal.onDisplayForm()
+  this.displayModal = true;
+  console.log('abrir modal desde tabla');
+}
+
+closeModal() {
+  this.displayModal = false;
+  console.log('cerrando modal');
+}
+
 
 }

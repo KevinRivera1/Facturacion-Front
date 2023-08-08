@@ -33,4 +33,5 @@ export class ListFormaPagoComponent implements OnInit {
         this.closeModal.emit();
         console.log('cerrando modal de modal emit');
     }
+
 }
