@@ -7,20 +7,21 @@ import { FacturaLaboratorioComponent } from '../factura-laboratorio/factura-labo
   styleUrls: ['./proformas-table.component.css']
 })
 export class ProformasTableComponent implements OnInit {
-  modal2: boolean;
+
 
   constructor(
+    private facturaLaboratorioComponent: FacturaLaboratorioComponent
   ) { }
 
   ngOnInit() {
   }
 
   abrirmodal() {
-    this.modal2 = true;
+    this.facturaLaboratorioComponent.modal2 = true;
 }
 cerrar() {
 
-  this.modal2 = false;
+  this.facturaLaboratorioComponent.modal2 = false;
 
   
 
