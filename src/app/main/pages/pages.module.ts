@@ -28,8 +28,7 @@ import { FactOtrosConceptosTableComponent } from './laboratorio/components/fact-
         CretencionTableComponent,
         FormaPagoComponent,
         FormaPagoTableComponent,
-        FactOtrosConceptosComponent,
-        FactOtrosConceptosTableComponent,
+       
     ],
     imports: [
         CommonModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
@@ -7,7 +7,10 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
   styleUrls: ['./list-forma-pago.component.css']
 })
 export class ListFormaPagoComponent implements OnInit {
-  pago: boolean;
+
+  @Input() display: boolean = false; 
+  @Output() closeModal = new EventEmitter();
+
 
   constructor(
 
@@ -21,14 +24,17 @@ export class ListFormaPagoComponent implements OnInit {
 
   ngOnInit() {
   }
+ 
 
-  cerrar() {
+  onDisplayForm() {
+    this.display = true;
+    console.log('abriendo modal');
+}
 
-    this.pago = false;
-  }
+CloseModal() {
+    this.closeModal.emit();
+    console.log('cerrando modal de modal emit')
+}
 
-  abrirmodal() {
-    this.pago = true;
-  }
-
+ 
 }

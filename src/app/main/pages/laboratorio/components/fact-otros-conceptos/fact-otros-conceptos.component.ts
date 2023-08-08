@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
-import { FormaPagoComponent } from '../forma-pago/forma-pago.component';
-import { ListFormaPagoComponent } from '../list-forma-pago/list-forma-pago.component';
+import { FormaPagoService } from '../../services/formaPago.service';
+
+
 
 
 
@@ -22,20 +23,23 @@ export class FactOtrosConceptosComponent implements OnInit {
   maxLengthR: number = 13;
   maxLengthC: number = 10;
   modallista: boolean;
- 
 
-
-
+  displayModal: boolean = false;
+  
   constructor(
     private breadcrumbService: BreadcrumbService,
+   
 
   ) {
+    
     {
       this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
+      
     }
   }
    
   onInput(event: any) {
+    
     const input = event.target;
     const value = input.value;
 
@@ -43,6 +47,8 @@ export class FactOtrosConceptosComponent implements OnInit {
     const numericValue = value.replace(/[^\d-]/g, '');
     input.value = numericValue;
   }
+
+  
 
   ngOnInit() {
   }
@@ -82,4 +88,16 @@ export class FactOtrosConceptosComponent implements OnInit {
     this.modallista = true;
   }
 
+  modalOpen() {
+    //this.displayAnulacioModal.onDisplayForm()
+    this.displayModal = true;
+    console.log('abrir modal desde tabla');
+}
+
+closeModal() {
+    this.displayModal = false;
+    console.log('cerrando modal');
+}
+
+  
 }
