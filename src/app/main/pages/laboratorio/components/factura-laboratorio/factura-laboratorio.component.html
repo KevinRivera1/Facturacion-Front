@@ -8,11 +8,11 @@
     <div class="caja-boton-principal central" style="align-items: center">
         <button
             pButton
-            label="Agregar Forma de Pago"
+            label="Proforma Aceptadas"
             class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-            icon="pi pi-plus"
-            pTooltip="Agregar Forma de Pago"
-            label="Agregar"
+            icon="pi pi-eye"
+            pTooltip="Proformas Aceptadas"
+            label="Proformas Aceptadas"
             tooltipPosition="right"
 
             (click)="abrirmodal()"
@@ -92,13 +92,13 @@
                     <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
                             <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                            <label for="ftxt-fechaBancos">* Fecha Desde </label>
+                            <label for="ftxt-fechalaboratorio">* Fecha Desde </label>
                         </span>
                     </div>
                     <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
                         <span class="p-float-label">
                             <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
-                            <label for="ftxt-fechaBancos">* Fecha Hasta </label>
+                            <label for="ftxt-fechalaboratorio">* Fecha Hasta </label>
                         </span>
                     </div>
                 </div>
@@ -225,4 +225,168 @@
     </p-fieldset>  
     </div>
     <app-proformas-table></app-proformas-table>
+</p-dialog>
+
+<!-- Modal de Facturar -->
+
+<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal2" [modal]="true"
+ [draggable]="true"  [style]="{ width: '80vw','z-index': '3' }" [resizable]="true" (onHide)="cerrarmodal2()" xmlns:p="http://www.w3.org/1999/html">
+    <p-header>
+        <h4 class="">Ingresar Factura</h4>
+    </p-header>
+    <div class="header-card p-5">
+        <div class="header-img">
+        <img alt="Card" src="../../../../../../assets/img/epn.png" />
+        </div>
+        <div class="header-container">
+            <h4>ESCUELA POLITECNICA NACIONAL</h4>
+            <p>
+                Campus Politecnico "J. Ruben Orellana R."<br />
+                Ladron de Guevara E11-253 y Andalucia<br />
+                Telf.: 2507-144 / Fax: 2567-848<br />
+                P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
+            </p>
+        </div>
+        <div class="header-proforma">
+            <div class="recibo-proforma">
+                <h1 class="titulo">FACTURA 001-003</h1>
+                <h3>Nro. 132-123-12345</h3>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div >
+        <div class="p-fluid p-formgrid grid col-12" style="border: solid 1px rgb(132, 132, 132); padding: 0px;">
+            <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
+                <div class="p-field col-12 md:col-6 mb-0  px-3"> 
+                    <label for="ftxt-">Fecha de emision:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+               </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Empresa:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Señor(s):</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Ruc/CI:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Direccion:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Telefono:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                  <label for="ftxt-">Email:</label>
+                  <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+              </div>
+            </div>
+            <div class="col-6" >
+                <div class="p-field col-12 md:col-6 mb-0  px-3"> 
+                    <label for="ftxt-">Facultad/Instituto:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+               </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Forma de Pago:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Cheque.No:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Banco:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Valor Total:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <p-table
+    styleClass="p-datatable-gridlines" 
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="background-color: rgb(206, 244, 244);">Codigo LAB</th>
+            <th style="background-color: rgb(206, 244, 244);">Descripcion</th>
+            <th style="background-color: rgb(206, 244, 244);">Cantidad</th>
+            <th style="background-color: rgb(206, 244, 244);">Precio Unit.</th>
+            <th style="background-color: rgb(206, 244, 244);">Valor Total</th>
+        </tr>
+        <tr>
+            <th>3</th>
+            <th>servicio:asistencia</th>
+            <th>1</th>
+            <th>200.0</th>
+            <th>200.0</th>
+        </tr>
+        <tr>
+            <th colspan="2">Observaciones</th>
+            <th colspan="2">Subtotal a tributar:</th>
+            <th>20.0</th>
+        </tr>
+        <tr>
+            <th>____________________</th>
+            <th>____________________</th>
+            <th colspan="2">IVA</th>
+            <th>2.32</th>
+
+        </tr>
+        <tr>
+            <th >Elaborado por</th>
+            <th>Recibi Conforme</th>
+            <th colspan="2">con tarifa 0%</th>
+            <th>0.00</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="2">C.I/RUC</th>
+          <th colspan="2"></th>
+      </tr>
+    </ng-template>
+</p-table>
+<br>
+<div align="center" class="flex justify-content-center">
+  <div class="caja-boton-principal">
+    <button
+        pButton
+        label="Guardar"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Guardar"
+        tooltipPosition="right"
+        icon="pi pi-save"
+    ></button>
+
+    <button
+        pButton
+        label="Pagos(s)"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Pagos(s)"
+        tooltipPosition="right"
+        icon="pi pi-money-bill"
+    ></button>
+
+    <button
+        pButton
+        label="Regresar"
+        class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+        pTooltip="Regresar"
+        tooltipPosition="right"
+        icon=" pi pi-arrow-left"
+        (click)="cerrarmodal2()"
+    ></button>
+</div>
+</div>
 </p-dialog>
