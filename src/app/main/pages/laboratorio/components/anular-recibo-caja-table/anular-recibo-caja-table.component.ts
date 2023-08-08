@@ -4,7 +4,7 @@ import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
 import { Table } from 'primeng/table';
 import { ReciboCaja } from '../../model/reciboCaja';
-import { FormGroup } from '@angular/forms';
+//import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
 
 @Component({
     selector: 'app-anular-recibo-caja-table',
@@ -13,22 +13,19 @@ import { FormGroup } from '@angular/forms';
 })
 export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
-    @Input() listReciboCaja: ReciboCaja[]; // va el ReciboCajaDto
+    displayModal: boolean = false;
+    @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
     @Output() RecibCajaSelect = new EventEmitter();
-    @Input() display: boolean;
     //recibosCaja: ReciboCajaDto;
     //selectedRecibosCaja: ReciboCajaDto[];
 
-    formAnulaRecib: FormGroup;
     submitted: boolean;
     loading: boolean;
     exportColumns: any[];
     cols: any[];
 
-    //? Aqui se define la lista de estados del modal de anular
-    estados: any[] = [{ name: 'Anulada', value: 'Anulada' }];
-
     constructor(
+        //private displayAnulacioModal: AnularReciboCajaComponent,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService
@@ -56,6 +53,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     }
 
     guardarMotivoAnulacion() {}
+    
     exportPdf() {
         /* let indexLista: number = 0;
     this.listFormaPago.forEach((element) => {
@@ -97,22 +95,15 @@ export class AnularReciboCajaTableComponent implements OnInit {
     } */
     }
 
-    cancelar() {
-        /* this.f.estadoCompr.disable();
-        this.setearForm();
-        this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
-        this.display = false; */
+
+    modalOpen() {
+        //this.displayAnulacioModal.onDisplayForm()
+        this.displayModal = true;
+        console.log('abrir modal desde tabla');
     }
 
-    cerrar() {
-        /*  this.f.estadoCompr.disable();
-        this.formEstadoFact.reset();
-        this.iniciarForms();
-        this.display = false; */
-    }
-
-    onDisplayForm() {
-        this.display = true;
-        console.log('abriendo modal');
+    closeModal() {
+        this.displayModal = false;
+        console.log('cerrando modal');
     }
 }

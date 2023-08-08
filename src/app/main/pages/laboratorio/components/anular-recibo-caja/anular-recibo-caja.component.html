@@ -62,8 +62,78 @@
 </p-card>
  -->
 
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '45vw'}" [draggable]="true" [resizable]="true"
+    [contentStyle]="{'overflow': 'visible'}" [closable]="true" [responsive]="true" (onHide)="  cancelar()"
+    [dismissableMask]="false">
 
-<p-divider></p-divider>
+    <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center" style="width: 100%;">
+            <div class="text-2xl text-center">Motivo de Anulación</div>
+        </div>
+    </ng-template>
 
+    <form [formGroup]="formAnulaRecib" class="mt-6">
+        <div class="p-grid p-fluid">
+            <div class="p-field col-12 md:col-6 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;" readonly="true"
+                        value="001-003-58509" class="outline-none">
+                    <label for="ftxt-nombreEstadoComp">Recibo Caja No:</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6  px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;" readonly="true"
+                        value="31/15/2023">
+                    <label for="ftxt-nombreEstadoComp">Fecha</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6  px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreEstadoComp" type="text" required="true"
+                        formControlName="nombreEstadoComp" style="text-transform: uppercase;" readonly="true"
+                        value="BONILLA ZALAZAR CARLOS MARCELO">
+                    <label for="ftxt-nombreEstadoComp">Cliente</label>
+                </span>
+            </div>
+            <!-- <div class="p-field p-col-12 p-md-3 px-3">
+             <label for="ftxt-estadoCompr">* Estado</label>
+             <span class="p-float-label">
+                 <p-inputSwitch [disabled]="true" id="ftxt-estadoCompr" formControlName="estadoCompr">
+                 </p-inputSwitch>
+             </span>
+         </div> -->
+            <div class="p-field col-12 md:col-6  px-3 flex">
+                <span class="p-float-label" [style]="{width: '100%'}">
+                    <p-dropdown [options]="estados" placeholder="Selecciona" optionLabel="name" inputId="float-label">
+                    </p-dropdown>
+                    <label for="float-label">* Estado</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 px-3">
+                <span class="p-float-label">
+                    <textarea pInputText id="ftxt-detalleEstadoComp" rows="4" required="true"
+                        formControlName="detalleEstadoComp" style="resize: none;"></textarea>
+                    <label for="ftxt-detalleEstadoComp">* Escriba el Motivo de Anulación</label>
+                </span>
+            </div>
+        </div>
+        <div class="central">
+            <p-toolbar>
+                <div class="p-toolbar-group-center">
+                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-outlined p-button-primary"
+                        icon="pi pi-send" type="submit" (click)="guardarMotivoAnulacion()" pTooltip="Guardar"
+                        tooltipPosition="right"></button>
 
-<!-- <app-anular-recibo-caja-table [listReciboCaja]="reciboCajaFiltrados"></app-anular-recibo-caja-table> -->
+                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-outlined p-button-danger"
+                        icon="pi pi-times" (click)="CloseModal()" pTooltip="Cancelar" tooltipPosition="right"></button>
+                </div>
+            </p-toolbar>
+        </div>
+    </form>
+
+</p-dialog>

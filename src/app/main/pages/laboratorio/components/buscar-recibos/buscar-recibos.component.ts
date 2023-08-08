@@ -8,13 +8,12 @@ import { FormUtil } from '../../formUtil/FormUtil';
 import { ReciboCaja } from '../../model/reciboCaja';
 
 @Component({
-  selector: 'app-buscar-recibos',
-  templateUrl: './buscar-recibos.component.html',
-  styleUrls: ['./buscar-recibos.component.scss']
+    selector: 'app-buscar-recibos',
+    templateUrl: './buscar-recibos.component.html',
+    styleUrls: ['./buscar-recibos.component.scss'],
 })
 export class BuscarRecibosComponent implements OnInit {
-
-   @Input() reciboCaja: ReciboCaja; //Va reciboDTo
+    @Input() reciboCaja: ReciboCaja; //Va reciboDTo
     reciboCajaFiltrados: ReciboCaja; //va ReciboDto
 
     proceso: string = 'anular recibos caja';
@@ -47,8 +46,14 @@ export class BuscarRecibosComponent implements OnInit {
             //idEstadoComprobante: [null],
             NroReciboCaja: ['', Validators.required],
             NombreCliente: ['', Validators.required],
-            Ruc: ['',[Validators.required, Validators.pattern('^[0-9]{1,13}$')],],
-            Cedula: [ '',[Validators.required, Validators.pattern('^[0-9]{1,10}$')],],
+            Ruc: [
+                '',
+                [Validators.required, Validators.pattern('^[0-9]{1,13}$')],
+            ],
+            Cedula: [
+                '',
+                [Validators.required, Validators.pattern('^[0-9]{1,10}$')],
+            ],
             fechaDesde: [new Date(), Validators.required],
             fechaHasta: [new Date(), Validators.required],
             //estadoCompr: [true, Validators.requiredTrue],
