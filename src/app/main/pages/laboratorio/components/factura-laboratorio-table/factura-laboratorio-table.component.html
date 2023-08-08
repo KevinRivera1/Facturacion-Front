@@ -144,7 +144,7 @@
 </section>
 
 <!-- modal de ver detalles -->
-<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
+<p-dialog class="mobile-dialog" [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
  [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">FACTURA</h4>

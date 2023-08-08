@@ -1,3 +1,5 @@
+
+
 .p-d-flex {
     display: flex;
     justify-content: center; 
@@ -5,6 +7,35 @@
 .p-formgrid .p-field {
     margin: 10px;
 }
+
+.mobile-card {
+    max-width: 100%;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  /* Ajustes para pantallas móviles */
+  @media (max-width: 600px) {
+    .p-field {
+      width: 100% !important;
+    }
+
+    .central {
+      text-align: center;
+    }
+    .caja-boton-principal{
+
+        text-align: center;
+    }
+    .header-card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }
+
 .central {
     text-align: center;
     margin: 10px;
@@ -19,11 +50,7 @@
     display: flex;
     align-items: center;
 }
-.calendar{
-    width: 96%;
-    display: flex;
-    
-}
+
 /* estilos de modal  facturas
  */
 .header-card{
@@ -69,3 +96,22 @@ img{
     outline: 1px solid rgba(128, 128, 128, 0.642);
     
 }
+/* estilos en los modales */
+
+@media only screen and (max-width: 600px) {
+    p-dialog {
+      width: 100% !important;
+    }
+  }
+   @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    p-dialog {
+      width: 70% !important;
+      
+    }
+  }
+   @media only screen and (min-width: 1025px) {
+    p-dialog {
+      width: 45% !important;
+    }
+    
+  }
