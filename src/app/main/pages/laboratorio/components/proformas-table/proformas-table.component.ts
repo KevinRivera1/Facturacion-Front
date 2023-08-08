@@ -8,7 +8,6 @@ import { FacturaLaboratorioComponent } from '../factura-laboratorio/factura-labo
 })
 export class ProformasTableComponent implements OnInit {
 
-
   constructor(
     private facturaLaboratorioComponent: FacturaLaboratorioComponent
   ) { }
@@ -22,8 +21,6 @@ export class ProformasTableComponent implements OnInit {
 cerrar() {
 
   this.facturaLaboratorioComponent.modal2 = false;
-
-  
 
 }
 }
