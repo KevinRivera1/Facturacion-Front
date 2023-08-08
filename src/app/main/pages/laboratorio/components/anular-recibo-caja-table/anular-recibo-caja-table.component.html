@@ -1,7 +1,11 @@
+<app-buscar-recibos></app-buscar-recibos>
+
+<br>
+
 <section class="content">
     <div class="container-fluid">
         <div class="card">
-            <p-table #ef [value]="" [rows]="10" [paginator]="true" [loading]="loading"[globalFilterFields]="[
+            <p-table #ef [value]="" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
                       'idEstadoComprobante',
                       'nombreEstadoComp',
                       'detalleEstadoComp'
@@ -66,6 +70,18 @@
                                 <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
                             </div>
                         </th>
+                        <th pSortableColumn="detalleEstadoComp">
+                            <div class="flex justify-content-between align-items-center">Fecha
+                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
+                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="detalleEstadoComp">
+                            <div class="flex justify-content-between align-items-center">Total
+                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
+                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
                         <th pSortableColumn="estadoCompr">
                             <div class="flex justify-content-between align-items-center">Estado
                                 <p-sortIcon field="estadoCompr"></p-sortIcon>
@@ -125,5 +141,10 @@
         </div>
     </div>
 
+    <div class="button__from text-right">
+        <a pButton label="anular" icon="pi pi-plus" (click)="modalOpen()">Anular modal</a>
+    </div>
 
 </section>
+
+<app-anular-recibo-caja [display]="displayModal" (closeModal)="closeModal()"></app-anular-recibo-caja>

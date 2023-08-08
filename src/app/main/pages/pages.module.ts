@@ -19,8 +19,6 @@ import { EntidadModule } from './laboratorio/module/entidad.module';
 import { FactOtrosConceptosComponent } from './laboratorio/components/fact-otros-conceptos/fact-otros-conceptos.component';
 import { FactOtrosConceptosTableComponent } from './laboratorio/components/fact-otros-conceptos-table/fact-otros-conceptos-table.component';
 
-import { ReciboCajaTableComponent } from './laboratorio/components/recibo-caja-table/recibo-caja-table.component';
-
 
 @NgModule({
     declarations: [
@@ -32,7 +30,6 @@ import { ReciboCajaTableComponent } from './laboratorio/components/recibo-caja-t
         FormaPagoTableComponent,
         FactOtrosConceptosComponent,
         FactOtrosConceptosTableComponent,
-
     ],
     imports: [
         CommonModule,
