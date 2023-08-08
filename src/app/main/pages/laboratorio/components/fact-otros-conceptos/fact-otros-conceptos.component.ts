@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   constructor(
 
+    private router: Router,
     private breadcrumbService: BreadcrumbService
   ) {
     {
@@ -53,6 +55,10 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   cerrar1() {
     this.modal1 = false;
+    this.modal2 = false;
+    this.modal3 = false;
+
+    this.modallista = false;
   }
 
   abrirmodal() {

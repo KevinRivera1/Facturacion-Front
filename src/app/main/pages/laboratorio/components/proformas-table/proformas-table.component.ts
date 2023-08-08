@@ -4,7 +4,7 @@ import { FacturaLaboratorioComponent } from '../factura-laboratorio/factura-labo
 @Component({
   selector: 'app-proformas-table',
   templateUrl: './proformas-table.component.html',
-  styleUrls: ['./proformas-table.component.css']
+  styleUrls: ['./proformas-table.component.scss']
 })
 export class ProformasTableComponent implements OnInit {
 
