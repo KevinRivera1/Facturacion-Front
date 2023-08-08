@@ -33,7 +33,7 @@ export class FactOtrosConceptosComponent implements OnInit {
   onInput(event: any) {
     const input = event.target;
     const value = input.value;
-  
+
     // Remover caracteres no numéricos excepto el símbolo "-"
     const numericValue = value.replace(/[^\d-]/g, '');
     input.value = numericValue;
@@ -45,30 +45,33 @@ export class FactOtrosConceptosComponent implements OnInit {
   cerrar() {
 
     this.modal = false;
+    this.modal2 = false;
+    this.modal3 = false;
+
+    this.modallista = false;
+  }
+
+  cerrar1() {
     this.modal1 = false;
-  this.modal2 = false;
-  this.modal3 = false;
+  }
 
-  this.modallista = false;
-}
-
-abrirmodal() {
+  abrirmodal() {
     this.modal = true;
-}
-abrirmodal1() {
-  this.modal1 = true;
-}
-abrirmodal2() {
-  this.modal2 = true;
-}
-abrirmodal3() {
-  this.modal3 = true;
-}
-//Cerrar el modal y restablecer el formulario
+  }
+  abrirmodal1() {
+    this.modal1 = true;
+  }
+  abrirmodal2() {
+    this.modal2 = true;
+  }
+  abrirmodal3() {
+    this.modal3 = true;
+  }
+  //Cerrar el modal y restablecer el formulario
 
-abrirmodalista() {
-  this.modallista = true;
-}
+  abrirmodalista() {
+    this.modallista = true;
+  }
 
 
 
