@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <p-dialog header="Forma de Pago" [(visible)]="display" [style]="{ width: '85vw' }" [modal]="true" (onHide)="cancelar()">
+=======
+<p-dialog header="Forma de Pago" [(visible)]="display" [style]="{ width: '65vw' }" [modal]="true" (onHide)="CloseModal()">
+>>>>>>> 0b192376da08b1e8bcd679f35567718713a3f172
   <br /><br />
   <div class="p-dialog-content">
     <div class="p-grid">
@@ -98,9 +102,9 @@
 
     <div class="mt-4 text-center">
       <div class="p-buttonset">
-        <button pButton label="Guardar" class="p-button p-button-lg m-1" pTooltip="Guardar"
+        <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar"
           tooltipPosition="right"></button>
-        <button pButton label="Cancelar" class="p-button p-button-lg m-1" pTooltip="Cancelar"
+        <button pButton label="Cancelar" (click)="CloseModal()" class="m-1 bg-blue-900" pTooltip="Cancelar"
           tooltipPosition="right"></button>
       </div>
     </div>

@@ -53,7 +53,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     }
 
     guardarMotivoAnulacion() {}
-    
+
     exportPdf() {
         /* let indexLista: number = 0;
     this.listFormaPago.forEach((element) => {
@@ -94,7 +94,6 @@ export class AnularReciboCajaTableComponent implements OnInit {
         );
     } */
     }
-
 
     modalOpen() {
         //this.displayAnulacioModal.onDisplayForm()

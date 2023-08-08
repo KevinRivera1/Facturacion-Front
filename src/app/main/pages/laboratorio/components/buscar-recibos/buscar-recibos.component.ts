@@ -19,7 +19,7 @@ export class BuscarRecibosComponent implements OnInit {
     proceso: string = 'anular recibos caja';
     response: ResponseGenerico;
     token: TokenDto;
-    anularRecibCajaForm: FormGroup;
+    buscarForm: FormGroup;
     formUtil: FormUtil;
 
     constructor(
@@ -34,15 +34,15 @@ export class BuscarRecibosComponent implements OnInit {
 
     ngOnInit() {
         this.iniciarForms();
-        this.formUtil = new FormUtil(this.anularRecibCajaForm);
+        this.formUtil = new FormUtil(this.buscarForm);
     }
 
     get f() {
-        return this.anularRecibCajaForm.controls;
+        return this.buscarForm.controls;
     }
 
     iniciarForms() {
-        this.anularRecibCajaForm = this.formBuilder.group({
+        this.buscarForm = this.formBuilder.group({
             //idEstadoComprobante: [null],
             NroReciboCaja: ['', Validators.required],
             NombreCliente: ['', Validators.required],
@@ -65,8 +65,8 @@ export class BuscarRecibosComponent implements OnInit {
     obtenerdaData() {}
 
     Buscar() {
-        const fechaDesde = this.anularRecibCajaForm.value.fechaDesde;
-        const fechaHasta = this.anularRecibCajaForm.value.fechaDesde;
+        const fechaDesde = this.buscarForm.value.fechaDesde;
+        const fechaHasta = this.buscarForm.value.fechaDesde;
         console.log('filtrando info: ' + fechaDesde);
         console.log('filtrando info  hasta: ' + fechaHasta);
 
