@@ -8,6 +8,7 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
     styleUrls: ['./recibo-caja.component.scss'],
 })
 export class ReciboCajaComponent implements OnInit {
+
     modal: boolean;
     modal2: boolean;
     modal3: boolean;

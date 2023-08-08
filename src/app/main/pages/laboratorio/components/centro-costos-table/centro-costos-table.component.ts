@@ -141,10 +141,18 @@ export class CentroCostosTableComponent implements OnInit {
         this.centroCSelect.emit(doc);
     }
 
+
+
+
+    
     //Llamar al metodo abrirmodal() del componente CentroCostosComponent
     llamarModal (){
         this.centroCostosComponent.abrirmodal();
     }
+
+
+
+
 
     //Eliminar un centro de costo despues de confirmar
     deleteCentroCosto(doc: CentroCostoDto) {

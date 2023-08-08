@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { ListFormaPagoComponent } from '../list-forma-pago/list-forma-pago.component';
 
 @Component({
   selector: 'app-factura-matricula',
@@ -15,7 +16,9 @@ modal2: boolean;
   modal1: boolean; //Visibilidad de un modal
   busquedaForm: FormGroup;
   modallista: boolean;
-
+  
+  displayModal: boolean = false;
+  
   maxLengthR: number = 13;
   maxLengthC: number = 10;
 
@@ -96,5 +99,17 @@ cerrar() {
   this.modal3 = false;
   this.modallista = false;
 }
+
+modalOpen() {
+  //this.displayAnulacioModal.onDisplayForm()
+  this.displayModal = true;
+  console.log('abrir modal desde tabla');
+}
+
+closeModal() {
+  this.displayModal = false;
+  console.log('cerrando modal');
+}
+
 
 }

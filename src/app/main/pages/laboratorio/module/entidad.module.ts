@@ -65,6 +65,8 @@ import { BuscarRecibosComponent } from '../components/buscar-recibos/buscar-reci
 import { ListaFactTableComponent } from '../components/lista-fact-table/lista-fact-table.component';
 import { ProformasTableComponent } from '../components/proformas-table/proformas-table.component';
 import { ListFormaPagoComponent } from '../components/list-forma-pago/list-forma-pago.component';
+import { FactOtrosConceptosComponent } from '../components/fact-otros-conceptos/fact-otros-conceptos.component';
+import { FactOtrosConceptosTableComponent } from '../components/fact-otros-conceptos-table/fact-otros-conceptos-table.component';
 
 @NgModule({
     declarations: [
@@ -97,7 +99,10 @@ import { ListFormaPagoComponent } from '../components/list-forma-pago/list-forma
         NotaCreditoTableComponent,
         ListaFactTableComponent,
         ProformasTableComponent,
-        ListFormaPagoComponent
+        FactOtrosConceptosComponent,
+        FactOtrosConceptosTableComponent,
+        ListFormaPagoComponent,
+      
     ],
 
     imports: [

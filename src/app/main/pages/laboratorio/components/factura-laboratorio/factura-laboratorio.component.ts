@@ -19,6 +19,7 @@ export class FacturaLaboratorioComponent implements OnInit {
   formFacturaLaboratorio: FormGroup;
   token: TokenDto;
   cedula: string;
+  displayModal: boolean;
  
   
   constructor(
@@ -88,6 +89,16 @@ cerrarmodal2() {
 
 abrirmodal() {
     this.modal = true;
+}
+modalOpen() {
+  //this.displayAnulacioModal.onDisplayForm()
+  this.displayModal = true;
+  console.log('abrir modal desde tabla');
+}
+
+closeModal() {
+  this.displayModal = false;
+  console.log('cerrando modal');
 }
 
 

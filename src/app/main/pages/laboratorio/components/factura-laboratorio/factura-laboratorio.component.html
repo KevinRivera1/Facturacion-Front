@@ -376,8 +376,10 @@
         pTooltip="Pagos(s)"
         tooltipPosition="right"
         icon="pi pi-money-bill"
-    ></button>
+        (click)="modalOpen()"
 
+    ></button>
+    <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
     <button
         pButton
         label="Regresar"
@@ -387,6 +389,7 @@
         icon=" pi pi-arrow-left"
         (click)="cerrarmodal2()"
     ></button>
+
 </div>
 </div>
 </p-dialog>

@@ -1,34 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AppService } from 'src/app/_service/app.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
-  selector: 'app-list-forma-pago',
-  templateUrl: './list-forma-pago.component.html',
-  styleUrls: ['./list-forma-pago.component.css']
+    selector: 'app-list-forma-pago',
+    templateUrl: './list-forma-pago.component.html',
+    styleUrls: ['./list-forma-pago.component.css'],
 })
 export class ListFormaPagoComponent implements OnInit {
-  pago: boolean;
+    @Input() display: boolean = false;
+    @Output() closeModal = new EventEmitter();
 
-  constructor(
-
-    private breadcrumbService: BreadcrumbService
-  ) {
-    {
-      this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
+    constructor(
+        private appService: AppService,
+        private breadcrumbService: BreadcrumbService
+    ) {
+        {
+            this.breadcrumbService.setItems([
+                { label: 'Factura Otros Conceptos ' },
+            ]);
+        }
     }
-  }
 
+    ngOnInit() {}
 
-  ngOnInit() {
-  }
+    onDisplayForm() {
+        this.display = true;
+        console.log('abriendo modal');
+    }
 
-  cerrar() {
-
-    this.pago = false;
-  }
-
-  abrirmodal() {
-    this.pago = true;
-  }
-
+    CloseModal() {
+        this.closeModal.emit();
+        console.log('cerrando modal de modal emit');
+    }
 }

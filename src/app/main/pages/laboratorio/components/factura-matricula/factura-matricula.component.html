@@ -157,51 +157,65 @@
       ></button>
   </p-toolbar> -->
 
-  <!-- TABLA DIALOG -->
+ <!-- TABLA DIALOG -->
 
-  <p-table
-    styleClass="p-datatable-gridlines" 
-    [tableStyle]="{ 'min-width': '50rem' }"
+ <p-table
+ styleClass="p-datatable-gridlines" 
+ [tableStyle]="{ 'min-width': '50rem' }"
 >
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="background-color: rgb(206, 244, 244);">Codigo LAB</th>
-            <th style="background-color: rgb(206, 244, 244);">Descripcion</th>
-            <th style="background-color: rgb(206, 244, 244);">Cantidad</th>
-            <th style="background-color: rgb(206, 244, 244);">Precio Unit.</th>
-            <th style="background-color: rgb(206, 244, 244);">Valor Total</th>
-        </tr>
-        <tr>
-            <th>3</th>
-            <th>servicio:asistencia</th>
-            <th>1</th>
-            <th>200.0</th>
-            <th>200.0</th>
-        </tr>
-        <tr>
-            <th colspan="2">Observaciones</th>
-            <th colspan="2">Subtotal a tributar:</th>
-            <th>20.0</th>
-        </tr>
-        <tr>
-            <th>____________________</th>
-            <th>____________________</th>
-            <th colspan="2">IVA</th>
-            <th>2.32</th>
+ <ng-template pTemplate="header">
+     <tr>
+         <th style="background-color: rgb(206, 244, 244);">CODIGO </th>
+         <th style="background-color: rgb(206, 244, 244);">DESCRIPCION</th>
+         <th style="background-color: rgb(206, 244, 244);">CANTIDAD</th>
+         <th style="background-color: rgb(206, 244, 244);">PRECIO UNIT.</th>
+         <th style="background-color: rgb(206, 244, 244);">VAL TOTAL</th>
+         <th style="background-color: rgb(206, 244, 244);">VAL IVA</th>
+         <th style="background-color: rgb(206, 244, 244);">ACCIONES</th>
+     </tr>
+   
+     <tr>
+         <th colspan="2">Observaciones:</th>
+         <th colspan="3">Subtotal a tributar:</th>
+         <th>00.0</th>
+         <th></th>
+     </tr>
+     <tr>
+         <th>____________________</th>
+         <th>____________________</th>
+         <th colspan="3">I.V.A 12%</th>
+         <th>00.00</th>
+         <th></th>PAGO
 
-        </tr>
-        <tr>
-            <th >Elaborado por</th>
-            <th>Recibi Conforme</th>
-            <th colspan="2">con tarifa 0%</th>
-            <th>0.00</th>
-        </tr>
-        <tr>
-          <th></th>
-          <th colspan="2">C.I/RUC</th>
-          <th colspan="2"></th>
-      </tr>
-    </ng-template>
+     </tr>
+     <tr>
+         <th >Elaborado por</th>
+         <th>Recibi Conforme</th>
+         <th colspan="3">con tarifa 0%</th>
+         <th>0.0</th>
+         <th></th>
+     </tr>
+     <tr>
+       <th >Nombre:</th>
+       <th>Nombre:</th>
+       <th colspan="3">Total Fctura</th>
+       <th >0.0</th>
+       <th></th>
+   </tr>
+     <tr>
+       <th></th>
+       <th colspan="3">C.I/RUC</th>
+       <th colspan="3"></th>
+   </tr>
+   <tr>
+     <th colspan="5"></th>
+     <th>PAGO: <input type="number" style="width: 40%;"></th>
+   </tr>
+   <tr>  
+     <th colspan="5"></th>
+     <th>CAMBIO: 00</th>
+   </tr>
+ </ng-template>
 </p-table>
 <br>
 <div align="center" class="flex justify-content-center">
@@ -222,8 +236,9 @@
         pTooltip="Pagos(s)"
         tooltipPosition="right"
         icon="pi pi-money-bill"
+        (click)="modalOpen()"
     ></button>
-
+    <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
     <button
         pButton
         label="Regresar"
@@ -236,180 +251,6 @@
 </div>
 </div>
 </p-dialog>
-<!--   <p-dialog [contentStyle]="{'max-width': '600px'}" header="" [(visible)]="modal" [modal]="true" [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
-
-    <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
-    <div class="p-d-flex">
-      <p-card>
-        <form>
-          <div class="">
-            <br />
-  
-            <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 150px;">
-                <span class="p-float-label">
-                  <input pInputText id="ftxt-nombreFp" type="text" required="true" />
-                  <label for="ftxt-nombreFp">* Factura no.</label>
-                </span>
-              </div>
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)">* Estado</label>
-                <span class="p-float-label">
-                  <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
-                </span>
-              </div>
-            </div>
-  
-            <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 250px;">
-                <span class="p-float-label">
-                  <input pInputText id="ftxt-nombreCliente" type="text" required="true" />
-                  <label for="ftxt-nombreCliente">* Nombre Cliente</label>
-                </span>
-              </div>
-            </div>
-  
-            <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 250px;">
-                <span class="p-float-label">
-                  <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"  keyfilter="int" maxlength="11" />
-                  <label for="ftxt-cedula">* Cedula - Ruc</label>
-                </span>
-              </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 150px;">
-                <label for="ftxt-fechaDesde">* Fecha Desde</label>
-                <span class="p-float-label">
-                  <input pInputText id="ftxt-fechaDesde" type="date" required="true" />
-                </span>
-              </div>
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 150px;">
-                <label for="ftxt-fechaHasta">* Fecha Hasta</label>
-                <span class="p-float-label">
-                  <input pInputText id="ftxt-fechaHasta" type="date" required="true" />
-                </span>
-              </div>
-           
-            </div>
-            <div class="central">
-                <p-toolbar>
-                    <div class="p-toolbar-group-center">
-                        <button
-                            pButton
-                            label="Buscar"
-                            class="p-button p-button-lg m-1 p-button-info guardar-button"
-                            icon="pi pi-search"
-                            type="submit"
-                            pTooltip="Buscar"
-                            tooltipPosition="right"
-                        ></button>
-                    </div>
-                </p-toolbar>
-            </div>
-          </div>
-        </form>
-      </p-card>
-    </div>
-  
-    <app-factura-matricula-table>
-    </app-factura-matricula-table>
-  
-  </p-dialog> -->
-  
-
- <!--  <p-dialog  [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
-  [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
-
-  <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
-  <div class="p-d-flex">
- <p-card>
-  <form>
-      <div class="">
-          <br />
-
-          <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                  <span class="p-float-label">
-                      <input
-                          pInputText
-                          id="ftxt-nombreFp"
-                          type="text"
-                          required="true"
-                      />
-                      <label for="ftxt-nombreFp">* Factura no.</label>
-                  </span>
-              </div>
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                  <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
-                      >* Estado</label
-                  >
-                  <span class="p-float-label">
-                      <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
-                  </span>
-              </div>
-          </div>
-
-          <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                  <span class="p-float-label">
-                      <input
-                          pInputText
-                          id="ftxt-nombreFp"
-                          type="text"
-                          required="true"
-                      />
-                      <label for="ftxt-nombreFp">* Nombre Cliente</label>
-                  </span>
-              </div>
-          </div>
-
-          <div class="p-fluid p-formgrid grid">
-              
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                  <span class="p-float-label">
-                      <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="11" 
-                      />
-                      <label for="ftxt-nombreFp">* Cedula - Ruc</label>
-                  </span>
-              </div>
-          </div>
-          <div class="p-fluid p-formgrid grid">
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                <label for="ftxt-nombreFp">* Fecha Desde</label>
-                <span class="p-float-label">
-                    <input
-                        pInputText
-                        id="ftxt-nombreFp"
-                        type="date"
-                        required="true"
-                    />
-                </span>
-            </div>
-            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                <label for="ftxt-nombreFp">* Fecha Hasta</label>
-                <span class="p-float-label">
-                    <input
-                        pInputText
-                        id="ftxt-nombreFp"
-                        type="date"
-                        required="true"
-                    />
-                </span>
-            </div>
-        </div>
-
-
-         
-      </div>
-  </form>
-</p-card>
-</div>
-
-  <app-factura-matricula-table >
-  </app-factura-matricula-table>
-    
-  </p-dialog> -->
 
   <p-divider></p-divider>
   <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
@@ -564,7 +405,7 @@
 <p-table >
   <ng-template pTemplate="header">
     <tr>
-        <th colspan="5">Estudiantesth>
+        <th colspan="5">Estudiantes
       </tr>
     <tr>
       <th>N° Único</th>

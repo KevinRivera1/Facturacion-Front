@@ -1,4 +1,4 @@
-<p-dialog header="Forma de Pago" [(visible)]="pago" [style]="{ width: '85vw' }" [modal]="true">
+<p-dialog header="Forma de Pago" [(visible)]="display" [style]="{ width: '85vw' }" [modal]="true" (onHide)="CloseModal()">
   <br /><br />
   <div class="p-dialog-content">
     <div class="p-grid">
@@ -100,7 +100,7 @@
       <div class="p-buttonset">
         <button pButton label="Guardar" class="p-button p-button-lg m-1" pTooltip="Guardar"
           tooltipPosition="right"></button>
-        <button pButton label="Cancelar" class="p-button p-button-lg m-1" pTooltip="Cancelar"
+        <button pButton label="Cancelar" class="p-button p-button-lg m-1" pTooltip="Cancelar" (click)="CloseModal()"
           tooltipPosition="right"></button>
       </div>
     </div>
