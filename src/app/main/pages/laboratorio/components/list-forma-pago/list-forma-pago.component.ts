@@ -7,8 +7,7 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
   styleUrls: ['./list-forma-pago.component.css']
 })
 export class ListFormaPagoComponent implements OnInit {
-  modal: boolean;
-
+  pago: boolean;
 
   constructor(
 
@@ -25,11 +24,11 @@ export class ListFormaPagoComponent implements OnInit {
 
   cerrar() {
 
-    this.modal = false;
+    this.pago = false;
   }
 
   abrirmodal() {
-    this.modal = true;
+    this.pago = true;
   }
 
 }
