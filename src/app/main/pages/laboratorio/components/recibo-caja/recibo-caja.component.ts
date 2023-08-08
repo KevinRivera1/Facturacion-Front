@@ -8,6 +8,7 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
     styleUrls: ['./recibo-caja.component.scss'],
 })
 export class ReciboCajaComponent implements OnInit {
+    displayModal: boolean = false;
 
     modal: boolean;
     modal2: boolean;
@@ -50,11 +51,6 @@ export class ReciboCajaComponent implements OnInit {
         }
     }
 
-
-
-
-
-
     //Abrir el modal
     abrirmodal() {
         this.modal = true;
@@ -75,12 +71,18 @@ export class ReciboCajaComponent implements OnInit {
     cerrar() {
         this.modal = false;
     }
-    cerrarmodal1(){
+    cerrarmodal1() {
         this.modal1 = false;
     }
+
+    modalOpen() {
+        //this.displayAnulacioModal.onDisplayForm()
+        this.displayModal = true;
+        console.log('abrir modal desde tabla');
+    }
+
+    closeModal() {
+        this.displayModal = false;
+        console.log('cerrando modal');
+    }
 }
-
-
-
-
-// CONCEPTO
