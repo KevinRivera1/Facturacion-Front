@@ -34,6 +34,41 @@
       <p-divider></p-divider>
 
       <p-fieldset 
+      align="center"
+      class="flex justify-content-center"
+      legend="Buscar Cliente/Estudiante/Empleado EPN"
+      [style]="{ 'max-height': '13vh' }"
+  >
+      <div class="flex flex-wrap gap-3"  [style]="{ 'margin-top': '-22px' }">
+        <div>
+         
+          <input type="radio" id="contactChoice1" name="contact" value="email" />
+          <label for="contactChoice1">Estudiante</label>
+    
+          <input type="radio" id="contactChoice2" name="contact" value="phone" />
+          <label for="contactChoice2">Cliente</label>
+    
+          <input type="radio" id="contactChoice3" name="contact" value="mail" />
+          <label for="contactChoice3">Empleado EPN</label>
+
+       
+        
+            <button 
+                pButton
+                label="Buscar"
+                class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                pTooltip="Buscar"
+                (click)="abrirmodal2()"
+                tooltipPosition="right"
+                style="left: 15px;"
+               
+            ></button>
+        
+        </div>
+      </div>
+  </p-fieldset>
+
+      <!-- <p-fieldset 
           align="center"
           class="flex justify-content-center"
           legend="Buscar Cliente/Estudiante/Empleado EPN"
@@ -75,7 +110,7 @@
                   ></button>
               </div>
           </div>
-      </p-fieldset>
+      </p-fieldset> -->
       <br />
 
       <p-fieldset legend="Encabezado Factura">
@@ -235,7 +270,7 @@
 
                  
               ></button>
-              <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
+              
               <button
               pButton
               label="Regresar"
@@ -248,6 +283,7 @@
           </div>
       </div>
   </p-dialog>
+  <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
 
   <p-dialog
