@@ -25,6 +25,9 @@ export class ListFormaPagoComponent implements OnInit {
   ngOnInit() {
   }
  
+  cancelar() {  
+    this.CloseModal()
+}
 
   onDisplayForm() {
     this.display = true;
