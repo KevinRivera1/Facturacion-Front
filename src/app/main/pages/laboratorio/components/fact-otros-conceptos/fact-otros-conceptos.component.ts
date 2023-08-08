@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   constructor(
 
+    private router: Router,
     private breadcrumbService: BreadcrumbService
   ) {
     {
@@ -33,7 +35,7 @@ export class FactOtrosConceptosComponent implements OnInit {
   onInput(event: any) {
     const input = event.target;
     const value = input.value;
-  
+
     // Remover caracteres no numéricos excepto el símbolo "-"
     const numericValue = value.replace(/[^\d-]/g, '');
     input.value = numericValue;
@@ -46,29 +48,29 @@ export class FactOtrosConceptosComponent implements OnInit {
 
     this.modal = false;
     this.modal1 = false;
-  this.modal2 = false;
-  this.modal3 = false;
+    this.modal2 = false;
+    this.modal3 = false;
 
-  this.modallista = false;
-}
+    this.modallista = false;
+  }
 
-abrirmodal() {
+  abrirmodal() {
     this.modal = true;
-}
-abrirmodal1() {
-  this.modal1 = true;
-}
-abrirmodal2() {
-  this.modal2 = true;
-}
-abrirmodal3() {
-  this.modal3 = true;
-}
-//Cerrar el modal y restablecer el formulario
+  }
+  abrirmodal1() {
+    this.modal1 = true;
+  }
+  abrirmodal2() {
+    this.modal2 = true;
+  }
+  abrirmodal3() {
+    this.modal3 = true;
+  }
+  //Cerrar el modal y restablecer el formulario
 
-abrirmodalista() {
-  this.modallista = true;
-}
+  abrirmodalista() {
+    this.modallista = true;
+  }
 
 
 
