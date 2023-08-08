@@ -33,12 +33,13 @@
       </div>
       <p-divider></p-divider>
 
-      <p-fieldset
+      <p-fieldset 
           align="center"
           class="flex justify-content-center"
           legend="Buscar Cliente/Estudiante/Empleado EPN"
+          [style]="{ 'max-height': '13vh' }"
       >
-          <div class="flex flex-wrap gap-3">
+          <div class="flex flex-wrap gap-3"  [style]="{ 'margin-top': '-22px' }">
               <div class="flex align-items-center">
                   <p-radioButton
                       name="cliente"
@@ -77,7 +78,7 @@
       </p-fieldset>
       <br />
 
-      <p-fieldset class="field">
+      <p-fieldset class="field" legend="Encabezado Factura" [style]="{ width: '600px', 'margin-left':'100px'  }" >
           <div class="p-fluid p-formgrid grid input">
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                   <span class="p-float-label">
@@ -85,6 +86,7 @@
                           >* Recibe de:
                       </label>
                   </span>
+               
               </div>
 
               <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
@@ -118,6 +120,18 @@
                   </div>
               </div>
           </div>
+          <div class="p-fluid p-formgrid grid">
+            <div class="calendar">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                  <span class="p-float-label" >
+                    <label for="ftxt-nombreCentroCosto"
+                        >* Forma Pago:</label
+                    >
+                </span>
+                </div>
+            </div>
+        </div>
+         
       </p-fieldset>
 
 
@@ -585,6 +599,7 @@
     <tr>
       <th>Empleado</th>
       <th>CI</th>
+      <th>Direccion</th>
       <th>Fono</th>
       <th>Acciones</th>
     </tr>
@@ -593,6 +608,7 @@
     <tr>
       <td>{{ empleado.empleado }}</td>
       <td>{{ empleado.ci }}</td>
+      <th>{{ empleado.direccion}}</th>
       <td>{{ empleado.fono }}</td>
       <td>
             <button pButton label="Seleccionar" class="p-button p-button-info" (click)="seleccionarEstudiante(estudiante)"></button>
