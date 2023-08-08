@@ -1,7 +1,7 @@
 
 <!-- buscar por factura laboratorio -->
 
-<p-card>
+<p-card class="mobile-card">
     <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
         <h4>Factura Laboratorio</h4>
     </p-header>
@@ -86,22 +86,22 @@
                     </span>
                   </div>
             </div>
-            <div class="p-fluid p-formgrid grid">
+            <div class="p-fluid p-formgrid grid" >
     
-                <div class="calendar">
-                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+             
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3" style="width: 450px;" >
                         <span class="p-float-label">
                             <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
                             <label for="ftxt-fechalaboratorio">* Fecha Desde </label>
                         </span>
                     </div>
-                    <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
                             <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
                             <label for="ftxt-fechalaboratorio">* Fecha Hasta </label>
                         </span>
                     </div>
-                </div>
+              
             </div>
 
             <div class="central">
@@ -129,7 +129,7 @@
 
 <!-- modal de listado de proformas aceptadas -->
 
-<p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal" [modal]="true"
+<p-dialog [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
  [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Listado  Proformas Aceptadas</h4>
@@ -194,14 +194,14 @@
                 </div>
                 <div class="p-fluid p-formgrid grid">
     
-                    <div class="calendar">
-                        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                  
+                        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3" style="width: 450px;">
                             <span class="p-float-label">
                                 <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
                                 <label for="ftxt-fechaBancos">* Fecha</label>
                             </span>
                         </div>
-                    </div>
+                 
                 </div>
     
                 <div class="central">
@@ -230,7 +230,7 @@
 <!-- Modal de Facturar -->
 
 <p-dialog [contentStyle]="{'': 'visible'}"   header="" [(visible)]="modal2" [modal]="true"
- [draggable]="true"  [style]="{ width: '80vw','z-index': '3' }" [resizable]="true" (onHide)="cerrarmodal2()" xmlns:p="http://www.w3.org/1999/html">
+ [draggable]="true"  [style]="{ width: '80vw'}" [resizable]="true" (onHide)="cerrarmodal2()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Ingresar Factura</h4>
     </p-header>
