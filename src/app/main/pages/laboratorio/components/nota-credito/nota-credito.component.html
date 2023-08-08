@@ -1,184 +1,172 @@
-<p-dialog [(visible)]="modal" [style]="{ width: '90vw' }">
-
-    <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
-
-    <!-- Dialog 0 -->
-    <p-dialog header="Agregar Recibo de Caja" [(visible)]="modal1" [style]="{ width: '60vw' }">
-        <div class="header-card">
-            <div class="header-img">
-                <img alt="Card" src="../../../../../../assets/img/epn.png" />
-            </div>
-            <div class="header-container">
-                <h4>ESCUELA POLITECNICA NACIONAL</h4>
-                <p>
-                    Campus Politecnico "J. Ruben Orellana R."<br />
-                    Ladron de Guevara E11-253 y Andalucia<br />
-                    Telf.: 2507-144 / Fax: 2567-848<br />
-                    P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
-                </p>
-            </div>
-            <div class="header-nota">
-                <div class="nota-credito">
-                    <h1>NOTA DE CREDITO</h1>
-                    <h3>Nro. 001-001-0000004190</h3>
-                </div>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+<p-dialog header="Agregar Nota de Credito" [(visible)]="modal1" [style]="{ width: '60vw' }">
+    <div class="header-card">
+        <div class="header-img">
+            <img alt="Card" src="../../../../../../assets/img/epn.png" />
+        </div>
+        <div class="header-container">
+            <h4>ESCUELA POLITECNICA NACIONAL</h4>
+            <p>
+                Campus Politecnico "J. Ruben Orellana R."<br />
+                Ladron de Guevara E11-253 y Andalucia<br />
+                Telf.: 2507-144 / Fax: 2567-848<br />
+                P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
+            </p>
+        </div>
+        <div class="header-nota">
+            <div class="nota-credito">
+                <h1>NOTA DE CREDITO</h1>
+                <h3>Nro. 001-001-0000004190</h3>
             </div>
         </div>
-        <p-divider></p-divider>
+    </div>
+    <p-divider></p-divider>
 
-        <p-fieldset>
-            <div class="p-fluid p-formgrid grid input">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">F./ Emision:
-                        </label>
-                    </span>
-                </div>
-
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Facultad/Instituto:</label>
-                    </span>
-                </div>
+    <p-fieldset>
+        <div class="p-fluid p-formgrid grid input">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">F./ Emision:
+                    </label>
+                </span>
             </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Empresa:</label>
-                    </span>
-                </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Señor(s):</label>
-                    </span>
-                </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">RUC/CI:</label>
-                    </span>
-                </div>
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Forma Pago:</label>
-                    </span>
-                </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Direccion:</label>
-                    </span>
-                </div>
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Cheque No.:</label>
-                    </span>
-                </div>
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Valor Total:</label>
-                    </span>
-                </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Telf:</label>
-                    </span>
-                </div>
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-nombreCentroCosto">Factura No.:</label>
-                    </span>
-                </div>
-            </div>
-            <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <label for="ftxt-fechaBancos">Email:</label>
-                    </span>
-                </div>
-
-            </div>
-
-            <div class="p-fluid p-formgrid grid" style="margin-left: 5px;">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
-                        <textarea pInputText rows="1" id="ftxt-descCentroCosto" required="true"
-                            formControlName="descCentroCosto"></textarea>
-                        <label style="color: rgba(0, 0, 0, 0.6)" for="ftxt-descCentroCosto">Motivo:</label>
-                    </span>
-                </div>
-            </div>
-        </p-fieldset>
-
-        <p-table styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Codigo</th>
-                    <th>Descripcion</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unit.</th>
-                    <th>Valor Total</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th colspan="3"></th>
-                    <th>SUBTOTAL:</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th colspan="3"></th>
-                    <th>IVA 0%</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th colspan="3"></th>
-                    <th>DESCUENTO:</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th colspan="3"></th>
-                    <th>TOTAL:</th>
-                    <th></th>
-                </tr>
-            </ng-template>
-        </p-table>
-        <br>
-        <div align="center" class="flex justify-content-center">
-            <div class="caja-boton-principal">
-                <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                    pTooltip="Guardar" tooltipPosition="right"></button>
-
-                <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                    pTooltip="Cancelar" tooltipPosition="right"></button>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Facultad/Instituto:</label>
+                </span>
             </div>
         </div>
-    </p-dialog>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Empresa:</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Señor(s):</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">RUC/CI:</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Forma Pago:</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Direccion:</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Cheque No.:</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Valor Total:</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Telf:</label>
+                </span>
+            </div>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-nombreCentroCosto">Factura No.:</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <label for="ftxt-fechaBancos">Email:</label>
+                </span>
+            </div>
+
+        </div>
+        <div class="p-fluid p-formgrid grid" style="margin-left: 5px;">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <textarea pInputText rows="1" id="ftxt-descCentroCosto" required="true"
+                        formControlName="descCentroCosto"></textarea>
+                    <label style="color: rgba(0, 0, 0, 0.6)" for="ftxt-descCentroCosto">Motivo:</label>
+                </span>
+            </div>
+        </div>
+    </p-fieldset>
+    <p-table styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Precio Unit.</th>
+                <th>Valor Total</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="3"></th>
+                <th>SUBTOTAL:</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="3"></th>
+                <th>IVA 0%</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="3"></th>
+                <th>DESCUENTO:</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="3"></th>
+                <th>TOTAL:</th>
+                <th></th>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br>
+    <div align="center" class="flex justify-content-center">
+        <div class="caja-boton-principal">
+            <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                pTooltip="Guardar" tooltipPosition="right"></button>
+
+            <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                pTooltip="Cancelar" tooltipPosition="right"></button>
+        </div>
+    </div>
+</p-dialog>
 
 
-    <p-header>
-        <h4 class="">Lista de Facturas</h4>
-    </p-header>
+<p-dialog header="Lista de Facturas" [(visible)]="modal" [style]="{ width: '80vw' }">
     <div class="p-d-flex">
         <p-card>
-
             <form>
                 <div class="">
-
                     <header class="text-center">Buscar Facturas (Pagadas y Pendientes)</header>
                     <br />
-
                     <div class="p-fluid p-formgrid grid">
                         <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                             <span class="p-float-label">
@@ -219,7 +207,6 @@
                     </div>
                 </div>
             </form>
-
         </p-card>
     </div>
     <p-divider></p-divider>
@@ -228,11 +215,7 @@
 </p-dialog>
 
 
-
-
-
 <p-card>
-
     <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
         <h4>Nota Credito</h4>
     </p-header>
@@ -240,7 +223,6 @@
         <button pButton label="Agregar" class="p-button p-button-lg m-1 p-button-info bg-blue-900 " icon="pi pi-plus"
             pTooltip="Agregar Nota de Credito" tooltipPosition="right" (click)="abrirmodal()"></button>
     </div>
-
     <p-divider></p-divider>
     <header class="text-center">BUSCAR NOTAS DE CREDITO</header>
     <div class="p-d-flex">
@@ -259,7 +241,6 @@
                     </span>
                 </div>
             </div>
-
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
@@ -268,7 +249,6 @@
                     </span>
                 </div>
             </div>
-
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                     <span class="p-float-label">
@@ -299,15 +279,12 @@
                     </span>
                 </div>
             </div>
-
             <div class="central">
                 <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info guardar-button"
                     icon="pi pi-search" type="submit" pTooltip="Buscar" tooltipPosition="right"></button>
             </div>
         </form>
     </div>
-
     <app-nota-credito-table>
     </app-nota-credito-table>
-
 </p-card>
