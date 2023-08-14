@@ -51,15 +51,21 @@ export class AnularReciboCajaComponent implements OnInit {
 
     iniciarForms() {
         this.formAnulaRecib = this.formBuilder.group({
-            RecibCajaNo: new FormControl('',Validators.compose([Validators.required])),
+            RecibCajaNo: new FormControl(
+                '',
+                Validators.compose([Validators.required])
+            ),
             fecha: new FormControl(''),
             cliente: new FormControl(''),
-            detalleAnulacion: new FormControl('',Validators.compose([Validators.required])),
+            detalleAnulacion: new FormControl(
+                '',
+                Validators.compose([Validators.required])
+            ),
         });
     }
-    
+
     guardarMotivoAnulacion() {}
-    
+
     cancelar() {
         this.CloseModal();
         /* this.f.estadoCompr.disable();
