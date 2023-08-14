@@ -41,30 +41,26 @@
   >
       <div class="flex flex-wrap gap-3"  [style]="{ 'margin-top': '-22px' }">
         <div>
-         
-          <input type="radio" id="contactChoice1" name="contact" value="email" />
-          <label for="contactChoice1">Estudiante</label>
-    
-          <input type="radio" id="contactChoice2" name="contact" value="phone" />
-          <label for="contactChoice2">Cliente</label>
-    
-          <input type="radio" id="contactChoice3" name="contact" value="mail" />
-          <label for="contactChoice3">Empleado EPN</label>
+  <input type="radio" id="contactChoice1" name="contact" [(ngModel)]="selectedOption" value="Estudiante" />
+  <label for="contactChoice1">Estudiante</label>
 
-       
-        
-            <button 
-                pButton
-                label="Buscar"
-                class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                pTooltip="Buscar"
-                (click)="abrirmodal2()"
-                tooltipPosition="right"
-                style="left: 15px;"
-               
-            ></button>
-        
-        </div>
+  <input type="radio" id="contactChoice2" name="contact" [(ngModel)]="selectedOption" value="Cliente" />
+  <label for="contactChoice2">Cliente</label>
+
+  <input type="radio" id="contactChoice3" name="contact" [(ngModel)]="selectedOption" value="Empleado EPN" />
+  <label for="contactChoice3">Empleado EPN</label>
+
+  <button 
+    pButton
+    label="Buscar"
+    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+    pTooltip="Buscar"
+    (click)="buscarU()"
+    tooltipPosition="right"
+    style="left: 15px;"
+  ></button>
+</div>
+
       </div>
   </p-fieldset>
 
@@ -638,17 +634,17 @@
 
 
 <!-- Tabla lista Estudiante  -->
-<p-dialog header="Lista de Emplados" [(visible)]="modallista" [style]="{ width: '50vw' }">
+<p-dialog [header]=" 'Lista de ' + data "  [(visible)]="modallista" [style]="{ width: '50vw' }">
 
        <br>
 
 <p-table >
   <ng-template pTemplate="header">
     <tr>
-        <th colspan="5">Empleados
+        <th colspan="5">{{data}}
       </tr>
     <tr>
-      <th>Empleado</th>
+      <th>{{data}}</th>
       <th>CI</th>
       <th>Direccion</th>
       <th>Fono</th>
