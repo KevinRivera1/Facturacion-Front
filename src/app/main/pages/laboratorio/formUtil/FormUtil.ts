@@ -39,4 +39,10 @@ export class FormUtil {
         }
     }
 
+    preventNumbers(event:KeyboardEvent){
+        if(/[0-9]/.test(event.key)){
+            event.preventDefault();
+        }
+    }
+
 }
