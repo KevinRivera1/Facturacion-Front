@@ -17,13 +17,3 @@ export interface ConceptoModel {
     idTipoConceptoDto: TipoConceptoDto | null;
 }
 
-// export interface IDTipoConceptoDto {
-//     idTipoConcepto: number;
-//     nombreTipoConcepto: string;
-//     // descTipoConcepto:   string;
-//     // idUnidadTc:         number;
-//     // partida:            number;
-//     // fechaTc:            number;
-//     // idUsuarioTc:        number;
-//     // estadoTC:           string;
-// }
