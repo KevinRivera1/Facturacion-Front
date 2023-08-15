@@ -103,11 +103,9 @@ closeModal() {
 
 
 estados: SelectItem[] = [
-  { label: 'Anulada', value: 'anulada' },
+
   { label: 'Anulada NC', value: 'anulada_nc' },
-  { label: 'Generada', value: 'generada' },
   { label: 'Pagada', value: 'pagada' },
-  { label: 'Pendiente', value: 'pendiente' }
 ];
 
 }
