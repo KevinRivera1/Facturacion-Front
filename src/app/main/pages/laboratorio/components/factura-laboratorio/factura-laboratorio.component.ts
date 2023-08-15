@@ -5,6 +5,12 @@ import { TokenDto } from 'src/app/_dto/token-dto';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ProformasTableComponent } from '../proformas-table/proformas-table.component';
+import { FacturaService } from '../../services/factura.service';
+import { severities } from 'src/app/_enums/constDomain';
+import { FacturaDto } from '../../model/Factura.dto';
+import { AppService } from 'src/app/_service/app.service';
+
+
 
 @Component({
   selector: 'app-factura-laboratorio',
@@ -20,13 +26,17 @@ export class FacturaLaboratorioComponent implements OnInit {
   token: TokenDto;
   cedula: string;
   displayModal: boolean;
- 
+  listfacturalaboratorio: FacturaDto[] = [];
+
+
   
   constructor(
 
     private breadcrumbService: BreadcrumbService,
     private tokenService: TokenService,
     private formBuilder: FormBuilder,
+    private facturaService: FacturaService,
+    public appService: AppService,
   ) {
     {
       this.breadcrumbService.setItems([{ label: 'Factura Laboratorio ' }]);
@@ -35,6 +45,7 @@ export class FacturaLaboratorioComponent implements OnInit {
 
   ngOnInit():void {
     //this.iniciarForms();
+    this.llenarFacturalaboratorio();
   }
 
 /*   iniciarForms() {
@@ -64,6 +75,32 @@ export class FacturaLaboratorioComponent implements OnInit {
     this.token = JSON.parse(this.tokenService.getResponseAuth());
     //  this.f.idFormaPago.setValue(this.token.id)
 } */
+
+
+async llenarFacturalaboratorio() {
+  await this.facturaService.getAll().subscribe({
+      next: (data) => {
+          this.listfacturalaboratorio = data.listado;
+          console.log('CORRECTO');
+          console.log(this.listfacturalaboratorio);
+      },
+      complete: () => {
+          this.appService.msgInfoDetail(
+              severities.INFO,
+              'INFO',
+              'Datos Cargados exitosamente' ,
+              500
+          );
+      },
+      error: (error) => {
+          this.appService.msgInfoDetail(
+              severities.ERROR,
+              'ERROR',
+              error.error
+          );
+      },
+  });
+}
 
 onInput(event: any) {
   const input = event.target;

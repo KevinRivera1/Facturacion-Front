@@ -18,7 +18,7 @@
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NombreCliente" type="text" required="true"
                         formControlName="NombreCliente" style="text-transform: uppercase;"
-                        (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)">
+                        (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)" [maxLength]="30">
                     <label for="ftxt-NombreCliente">Nombre Cliente</label>
                 </span>
             </div>

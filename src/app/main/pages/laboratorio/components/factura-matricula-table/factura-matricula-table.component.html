@@ -1,7 +1,7 @@
 <section class="content">
   <div class="container-fluid">
       <div class="card">
-          <p-table #dt [rows]="10" [paginator]="true" 
+          <p-table #dt [rows]="10" [value]="listFactura"  [paginator]="true" 
                    [globalFilterFields]="[
                       'idFormaPago',
                       'nombreFp',
@@ -13,7 +13,8 @@
                    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
               <ng-template pTemplate="caption">
                   <div class="tex-center">
-
+                    <button pButton label="ver detalles" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
+                    (click)="abrirmodal()" ></button>
                       <label class="text-center" >FACTURAS</label>
 
                  
@@ -21,6 +22,7 @@
                   </div>
               </ng-template>
               <ng-template pTemplate="header">
+                
                   <tr>
                       <th style="width: 3rem">
                           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
@@ -31,44 +33,44 @@
                               <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
                           </div>
                       </th> -->
-                      <th pSortableColumn="nombreFp">
+                      <th pSortableColumn="idFactura">
                           <div class="flex justify-content-between align-items-center">Factura No.
-                              <p-sortIcon field="nombreFp"></p-sortIcon>
-                              <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
+                              <p-sortIcon field="idFactura"></p-sortIcon>
+                              <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
                           </div>
                       </th>
                      
-                      <th pSortableColumn="descripcionFp">
+                      <th pSortableColumn="nombreConsumidor">
                           <div class="flex justify-content-between align-items-center">Cliente
-                              <p-sortIcon field="descripcionFp"></p-sortIcon>
-                              <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
+                              <p-sortIcon field="nombreConsumidor"></p-sortIcon>
+                              <p-columnFilter type="text" field="nombreConsumidor" display="menu"></p-columnFilter>
                           </div>
                        </th>
-                       <th pSortableColumn="activo">
+                       <th pSortableColumn="rucConsumidor">
                         <div class="flex justify-content-between align-items-center">RUC/CI
-                            <p-sortIcon field="activo"></p-sortIcon>
-                            <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                            <p-sortIcon field="rucConsumidor"></p-sortIcon>
+                            <p-columnFilter type="text" field="rucConsumidor" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="activo">
+                    <th pSortableColumn="idEstadoFact">
                       <div class="flex justify-content-between align-items-center">Estado
-                          <p-sortIcon field="activo"></p-sortIcon>
-                          <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                          <p-sortIcon field="idEstadoFact"></p-sortIcon>
+                          <p-columnFilter type="text" field="idEstadoFact" display="menu"></p-columnFilter>
                       </div>
                   </th>
                   
-                    <th pSortableColumn="codigoSae">
+                    <th pSortableColumn="fechaFact">
                         <div class="flex justify-content-between align-items-center">Fecha
-                            <p-sortIcon field="codigoSae"></p-sortIcon>
-                            <p-columnFilter type="text" field="codigoSae" display="menu"></p-columnFilter>
+                            <p-sortIcon field="fechaFact"></p-sortIcon>
+                            <p-columnFilter type="text" field="fechaFact" display="menu"></p-columnFilter>
                         </div>
                     </th>  
                     
                    
-                  <th pSortableColumn="fechaFp">
+                  <th pSortableColumn="totalFact">
                     <div class="flex justify-content-between align-items-center">Total
-                        <p-sortIcon field="fechaFp"></p-sortIcon>
-                        <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                        <p-sortIcon field="totalFact"></p-sortIcon>
+                        <p-columnFilter type="text" field="totalFact" display="menu"></p-columnFilter>
                     </div>
                 </th>
                 
@@ -82,28 +84,19 @@
                           <p-tableCheckbox [value]="item"></p-tableCheckbox>
                       </td>
                       <td>{{rowIndex+1}}</td>
-                      <td>{{item.nombreFp}}</td>
-                      <td>{{item.descripcionFp}}</td>
-                      <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
-                        ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
-<!--                       <td>{{item.codigoSri}}</td>
-                      <td>{{item.codigoSae}}</td> -->
-                      <!-- <td>{{item.fechaFp}}</td> -->
-                      
-
-                      <td>
-                          <button pButton pRipple icon="pi pi-pencil"
-                                  class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item);llamarFuncion()"
-                                  pTooltip="Editar" tooltipPosition="left"   ></button>
-                          <button pButton pRipple icon="pi pi-trash"
-                                  class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago(item)"
-                                  pTooltip="Eliminar" tooltipPosition="left"  ></button>
-                      </td>
+                      <td>{{item.idFactura}}</td>
+                      <td>{{item.nombreConsumidor}}</td>
+                      <td>{{item.rucConsumidor}}</td>
+                      <td>{{item.fechaFact}}</td>
+                      <td>{{item.totalFact}}</td>
+                      <td>{{item.idEstadoFact}}</td>
+                      <td> <button pButton label="ver detalles" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
+                        (click)="abrirmodal()" ></button></td>
                   </tr>
               </ng-template>
               <ng-template pTemplate="summary">
                   <div class="p-d-flex p-ai-center p-jc-between">
-                      Registros Totales: {{listFormaPago ? listFormaPago.length : 0 }}.
+                      Registros Totales: {{listfacturalaboratorio ? listfacturalaboratorio.length : 0 }}.
                   </div>
               </ng-template>
           </p-table>
@@ -111,3 +104,157 @@
   </div>
 </section>
 
+<!-- modal de ver detalles -->
+<p-dialog class="mobile-dialog" [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
+ [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+    <p-header>
+        <h4 class="">FACTURA</h4>
+    </p-header>
+    <div class="header-card p-5">
+        <div class="header-img">
+        <img alt="Card" src="../../../../../../assets/img/epn.png" />
+        </div>
+        <div class="header-container">
+            <h4>ESCUELA POLITECNICA NACIONAL</h4>
+            <p>
+                Campus Politecnico "J. Ruben Orellana R."<br />
+                Ladron de Guevara E11-253 y Andalucia<br />
+                Telf.: 2507-144 / Fax: 2567-848<br />
+                P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
+            </p>
+        </div>
+        <div class="header-laboratorio">
+            <div class="recibo-laboratorio">
+                <h1 class="titulo">FACTURA</h1>
+                <h3>Nro. 132-123-12345</h3>
+                <h4>Fecha de Autorizacion 20/septiempre/2012</h4>
+                <h4>Aut.SRI 1213123123</h4>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div >
+        <div class="p-fluid p-formgrid grid col-12" style="border: solid 1px rgb(132, 132, 132); padding: 0px;">
+            <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
+                <div class="p-field col-12 md:col-6 mb-0  px-3"> 
+                    <label for="ftxt-">Fecha de emision:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+               </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Empresa:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Señor(s):</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Ruc/CI:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Direccion:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Telefono:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-email-1">Email 1:</label>
+                  </div>
+            </div>
+            <div class="col-6" >
+                <div class="p-field col-12 md:col-6 mb-0  px-3"> 
+                    <label for="ftxt-">Facultad/Instituto:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+               </div>
+               <div class="p-field col-12 md:col-6 mb-0 px-3">
+                <label for="ftxt-estado">Estado:</label>
+                <select name="estado" id="ftxt-estado">
+                  <option value="pagado">Pagado</option>
+                  <option value="anulado">Anulado</option>
+                  <option value="pendiente">Pendiente</option>
+                </select>
+              </div>
+            
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Forma de Pago:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                    <label for="ftxt-">Cheque.No:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+              
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-">Valor Total:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                </div>
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                    <label for="ftxt-email-2">Email 2:</label>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <p-table
+    styleClass="p-datatable-gridlines" 
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Codigo</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Descripcion</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Cantidad</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Precio Unit.</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Total</th>
+        </tr>
+        <tr>
+            <th>Prueba</th>
+            <th>Prueba Electrica</th>
+            <th>1</th>
+            <th>200.0</th>
+            <th>200.0</th>
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>SUBTOTAL:</th>
+            <th>0.0</th>
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>IVA:</th>
+            <th>0.0</th>
+
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>TOTAL:</th>
+            <th>0.0</th>
+        </tr>
+    </ng-template>
+</p-table>
+<br>
+<div align="center" class="flex justify-content-center">
+    <div class="caja-boton-principal">
+        <button
+            pButton
+            label="Imprimir"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            pTooltip="Imprimir"
+            tooltipPosition="right"
+            icon="pi pi-print"
+        ></button>
+
+        <button
+            pButton
+            label="Cancelar"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            pTooltip="Cancelar"
+            tooltipPosition="right"
+            (click)="cerrar()"
+        ></button>
+    </div>
+</div>
+</p-dialog>
