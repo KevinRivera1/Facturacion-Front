@@ -59,6 +59,7 @@ export class BuscarRecibosComponent implements OnInit {
 
     obtenerdaData() {}
 
+    //! Necesito poner Dto = doc:ReciboCajaDto
     Buscar(doc) {
         const fechaDesde = this.buscarForm.value.fechaDesde;
         const fechaHasta = this.buscarForm.value.fechaDesde;

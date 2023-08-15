@@ -16,6 +16,8 @@ export class AnularReciboCajaTableComponent implements OnInit {
     displayModal: boolean = false;
     @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
     @Output() RecibCajaSelect = new EventEmitter();
+    //reciboCajaFiltrados: ReciboCajaDto[];
+    
     //recibosCaja: ReciboCajaDto;
     //selectedRecibosCaja: ReciboCajaDto[];
 

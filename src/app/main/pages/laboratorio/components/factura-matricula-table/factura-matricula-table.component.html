@@ -91,12 +91,12 @@
                       <td>{{item.totalFact}}</td>
                       <td>{{item.idEstadoFact}}</td>
                       <td> <button pButton label="ver detalles" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
-                        (click)="abrirmodal()" ></button></td>
+                        (click)="cargarfactura(item)" ></button></td>
                   </tr>
               </ng-template>
               <ng-template pTemplate="summary">
                   <div class="p-d-flex p-ai-center p-jc-between">
-                      Registros Totales: {{listfacturalaboratorio ? listfacturalaboratorio.length : 0 }}.
+                      Registros Totales: {{listFactura ? listFactura.length : 0 }}.
                   </div>
               </ng-template>
           </p-table>
@@ -138,7 +138,7 @@
             <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Fecha de emision:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.fechaFact}}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Empresa:</label>
@@ -146,11 +146,11 @@
                 </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Señor(s):</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.nombreConsumidor}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Ruc/CI:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.rucConsumidor}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Direccion:</label>
@@ -162,6 +162,7 @@
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-email-1">Email 1:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.estadoEmail}}</i></b>
                   </div>
             </div>
             <div class="col-6" >
@@ -169,14 +170,13 @@
                     <label for="ftxt-">Facultad/Instituto:</label>
                     <b>  <i class="text-1xl mr-2 mb-3"></i></b>
                </div>
-               <div class="p-field col-12 md:col-6 mb-0 px-3">
-                <label for="ftxt-estado">Estado:</label>
-                <select name="estado" id="ftxt-estado">
-                  <option value="pagado">Pagado</option>
-                  <option value="anulado">Anulado</option>
-                  <option value="pendiente">Pendiente</option>
-                </select>
-              </div>
+             
+                <div class="p-field col-12 md:col-6 mb-0  px-3"> 
+                    <label for="ftxt-">Estado:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idEstadoFact}}</i></b>
+               </div>
+               
+             
             
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Forma de Pago:</label>
@@ -189,10 +189,13 @@
               
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Valor Total:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                    
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.totalFact}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-email-2">Email 2:</label>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.estadoEmail}}</i></b>
+
                   </div>
             </div>
         </div>
