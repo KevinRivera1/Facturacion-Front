@@ -29,26 +29,29 @@
 
         <br />
         <!-- BUSQUEDA -->
-        
+
         <div class="fieldset-search">
             <fieldset class="search-border">
                 <legend>Buscar Cliente/Estudiante/Empleado EPN</legend>
 
                 <div class="search">
-                    <div class="flex flex-wrap gap-3">
-                            <input type="radio" id="contactChoice1" name="contact" value="Estudiante" />
-                            <label for="contactChoice1">Estudiante</label>
-                        
-                            <input type="radio" id="contactChoice2" name="contact" value="Cliente" />
-                            <label for="contactChoice2">Cliente</label>
-                          
-                            <input type="radio" id="contactChoice3" name="contact" value="Empleado EPN" />
-                            <label for="contactChoice3">Empleado EPN</label>
+                    <div class=" flex justify-content-center gap-3">
+                            
+                            <div class="flex align-items-center">
+                                <p-radioButton name="cliente" value="1" [(ngModel)]="tipoCliente" inputId="1"></p-radioButton>
+                                <label class="ml-2">Cliente</label>
+                            </div>
+                            <div class="flex align-items-center">
+                                <p-radioButton name="cliente" value="2" [(ngModel)]="tipoCliente" inputId="2"></p-radioButton>
+                                <label class="ml-2">Empleado Epn</label>
+                            </div>
     
-                        <div class="caja-boton-principal">
-                            <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                                pTooltip="Buscar" (click)="abrirmodal2()" tooltipPosition="right"></button>
-                        </div>
+                            <div class="caja-boton-principal  py-3">
+                                <button pButton label="Buscar" class=" bg-blue-900 "
+                                 (click)="busquedaCliente()"   pTooltip="Buscar"
+                                    tooltipPosition="right"></button>
+                            </div>
+
                     </div>
                 </div>
             </fieldset>
@@ -57,27 +60,29 @@
         <!-- TABLA DATOS -->
         <div class="fieldset-data">
             <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
+                
                 <div class="data">
                     <div class="p-formgrid grid">
                         <div class="col-12 md:col-6 mb-0">
-                            <h4>* Recibe de:</h4>
+                            
+                            <!-- <h4>* Recibe de: {{clienteSelect.nombre}}</h4> -->
                         </div>
 
                         <div class="col-12 md:col-6 mb-0">
-                            <h4>* Ruc/Cedula:</h4>
+                            <!-- <h4>* Ruc/Cedula: {{clienteSelect.cedula}}</h4> -->
                         </div>
                     </div>
                     <div class="p-formgrid grid">
                         <div class="col-12 md:col-6 mb-0">
-                            <h4>* Direccion:</h4>
+                            <!-- <h4>* Direccion: {{clienteSelect.direccion}}</h4> -->
                         </div>
                         <div class="col-12 md:col-6 mb-0">
-                            <h4>* Forma Pago:</h4>
+                            <!-- <h4>* Forma Pago:</h4> -->
                         </div>
                     </div>
                     <div class="p-formgrid grid">
                         <div class="col-12 md:col-6 mb-0">
-                            <h4>* F/Emision:</h4>
+                            <!-- <h4>* F/Emision:</h4> -->
                         </div>
                     </div>
                 </div>
@@ -146,7 +151,8 @@
         <!-- BOTONES -->
         <div align="center" class="flex justify-content-center">
             <div class="caja-boton-principal">
-                <button pButton label="Guardar" class="m-1 bg-blue-900"  pTooltip="Guardar" icon="pi pi-save" tooltipPosition="right"></button>
+                <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar" icon="pi pi-save"
+                    tooltipPosition="right"></button>
 
                 <button pButton label="Pagos(s)" class="m-1 bg-blue-900" pTooltip="Pagos(s)" icon="pi pi-money-bill"
                     tooltipPosition="right" (click)="modalOpen()"></button>
@@ -192,14 +198,14 @@
                             <div class="p-fluid p-formgrid grid input">
                                 <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                                     <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto"  disabled="true" />
+                                        <input pInputText id="ftxt-nombreCentroCosto" disabled="true" />
                                         <label>* Nombre: </label>
                                     </span>
                                 </div>
 
                                 <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                                     <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto" disabled="true"  type="number" />
+                                        <input pInputText id="ftxt-nombreCentroCosto" disabled="true" type="number" />
                                         <label>* Precio Unitario:</label>
                                     </span>
                                 </div>
@@ -263,7 +269,7 @@
 
     <!-- Dialog Buscar -->
 
-    <p-dialog header="Buscar" [(visible)]="modal2" [style]="{ width: '65vw' }">
+    <p-dialog [header]=" 'Buscar por ' + data "  [(visible)]="modalBuscar" [style]="{ width: '65vw' }">
         <div class="fieldset-search2">
             <fieldset class="search-border2">
                 <legend>Buscar</legend>
@@ -271,51 +277,44 @@
                     <div class="flex flex-wrap gap-3">
                         <div class="flex align-items-center">
                             <label class="ml-2">Apellidos: </label>
-                            <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
+                            <input type="text" id="txtnombreB" pInputText [(ngModel)]="nombreBusqueda" />
                         </div>
                         <div class="flex align-items-center">
                             <label class="ml-2">C.l: </label>
-                            <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
+                            <input type="text" id="txtCedulaB" pInputText [(ngModel)]="cedulaBusqueda" />
                         </div>
                         <div class="caja-boton-principal">
                             <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                                pTooltip="Buscar" (click)="abrirmodal4()" tooltipPosition="right"></button>
+                                pTooltip="Buscar"   (click)="llenarListCliente()"            tooltipPosition="right"></button>
                         </div>
                     </div>
                 </div>
+
             </fieldset>
         </div>
     </p-dialog>
 
     <!-- Dialog Tabla Buscar -->
 
-    <p-dialog header="Lista" [(visible)]="modal4" [style]="{ width: '65vw' }">
+    <p-dialog [header]=" 'Lista de ' + data "  [(visible)]="modalBusTabl" [style]="{ width: '65vw' }">
         <div>
-            <p-table class="search-saew" [lazy]="true" dataKey="id" styleClass="p-datatable-gridlines"
-                [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="10">
-                <ng-template pTemplate="caption"> Empleados</ng-template>
+            <p-table [value]="listCliente" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Empleados</th>
-                        <th>CL</th>
-                        <th>Direccion</th>
-                        <th>Fono</th>
+                        <th>Cédula</th>
+                        <th>Nombre</th>
                         <th>Acciones</th>
                     </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cliente>
                     <tr>
-                        <th>
-                            <p-columnFilter type="text" field="name"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="name"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="name"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="name"></p-columnFilter>
-                        </th>
-                        <th></th>
+                        <td>{{ cliente. cedula}}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <div class="field col-12 md:col-12" align="center">
+                            <button pButton label="Seleccionar" class="bg-blue-900 " 
+                                    (click)="cargarCliente(cliente)"      pTooltip="Buscar"  tooltipPosition="right"></button>
+                        </div>
+    
                     </tr>
                 </ng-template>
             </p-table>
@@ -329,7 +328,7 @@
         <p-divider></p-divider>
 
         <div class="caja-boton-principal center-button">
-            <button pButton label="Agregar Recibo de Caja" (click)="abrirmodal()" class="m-1 bg-blue-900"
+            <button pButton label="Agregar Recibo de Caja" (click)="registrarNuevo()" class="m-1 bg-blue-900"
                 icon="pi pi-plus" pTooltip="Agregar" tooltipPosition="right"></button>
         </div>
 
