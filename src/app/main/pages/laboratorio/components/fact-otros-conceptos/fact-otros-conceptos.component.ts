@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormaPagoService } from '../../services/formaPago.service';
+import { ConceptoService } from '../../services/concepto.service';
+import { ConceptoDto } from '../../model/ConceptoDto';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -25,12 +28,20 @@ export class FactOtrosConceptosComponent implements OnInit {
   selectedOption: string = '';
 
   data: string = '';
+
+  /*variables para listar conceptos*/
+  loading: boolean;
+  @Input() listConceptos: ConceptoDto[];
+  conceptos: ConceptoDto;
+  /*variable para llamar conceptos*/
+  selectedRecord: any;
   
-  
+
+
   constructor(
     private breadcrumbService: BreadcrumbService,
-   
-
+    private conceptosService: ConceptoService,
+  
   ) {
     
     {
@@ -51,7 +62,8 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.llenarListConceptos();
   }
 
   cerrar() {
@@ -119,5 +131,34 @@ buscarU(): void {
   console.log(this.data);
 }
 
+clear(table: Table) {
+  table.clear();
+}
+
+loadData(event) {
+  this.loading = true;
+  setTimeout(() => {
+      this.conceptosService.getAll().subscribe((res) => {
+          this.listConceptos = res;
+          console.log('LLAMADA');
+          console.log(this.listConceptos);
+          this.loading = false;
+      });
+  }, 1000);
+}
+
+async llenarListConceptos() {
+  await this.conceptosService.getAll().subscribe({
+      next: (data) => {
+          this.listConceptos = data.listado;
+          console.log('CORRECTO');
+          console.log(this.listConceptos);
+      },
+  });
+}
+
+showAttributes(record: any) {
+  this.selectedRecord = record;
+}
 
 }
