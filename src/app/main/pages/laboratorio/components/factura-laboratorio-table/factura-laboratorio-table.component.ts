@@ -22,7 +22,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.clienteSelect= new FacturaDto();
     
   }
 
@@ -33,7 +33,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   cargarfactura(clienteSelectDto: FacturaDto ){
     this.clienteSelect= clienteSelectDto;
-    
+    this.abrirmodal();
 
   }
 
