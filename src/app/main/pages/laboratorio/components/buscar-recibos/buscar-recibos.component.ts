@@ -48,8 +48,8 @@ export class BuscarRecibosComponent implements OnInit {
             NombreCliente: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
             Ruc: ['', [Validators.pattern('^[0-9]{1,13}$')]],
             Cedula: ['', [Validators.pattern('^[0-9]{1,10}$')]],
-            fechaDesde: [new Date()],
-            fechaHasta: [new Date()],
+            fechaDesde: [''],
+            fechaHasta: [''],
             //estadoCompr: [true, Validators.requiredTrue],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
