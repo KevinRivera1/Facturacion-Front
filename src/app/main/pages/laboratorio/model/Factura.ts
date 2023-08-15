@@ -32,5 +32,7 @@ export interface Factura {
     tipoFactura: string;
     totalFact: number;
     xmlFact: string;
+
+    
   }
   
