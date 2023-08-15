@@ -1,10 +1,12 @@
 .p-d-flex {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
+
 .p-formgrid .p-field {
     margin: 10px;
 }
+
 .central {
     text-align: center;
     margin: 10px;
@@ -19,6 +21,7 @@
     display: flex;
     align-items: center;
 }
+
 .form--center {
     display: flex;
     flex-direction: column;
@@ -67,25 +70,32 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto; /* Para centrar el formulario horizontalmente */
-    padding: 0px; /* Añade un espacio interno opcional para que el contenido no esté pegado al borde */
-  }
+    margin: 0 auto;
+    /* Para centrar el formulario horizontalmente */
+    padding: 0px;
+    /* Añade un espacio interno opcional para que el contenido no esté pegado al borde */
+}
 
-.calendar{
+.calendar {
     width: 100%;
     display: flex;
 }
 
 
-.center-button{
+.center-button {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.central {
+    text-align: center;
+    margin: 10px;
+}
 
 
-.header-card{
+
+.header-card {
     display: flex;
     padding-top: 5px;
     place-items: center;
@@ -95,56 +105,90 @@ textarea {
     align-content: center;
 
 }
-.header-img{
+
+.header-img {
     width: 20%;
 }
-img{
+
+img {
     width: 30%;
     object-fit: cover;
 }
+
 .header-container h4 {
     margin: 0;
 }
+
 .header-container {
     width: 50%;
 }
-.header-recibo h1, h3 {
+
+.header-recibo h1,
+h3 {
     font-size: 14px;
     margin: 0;
 }
-.recibo-caja{
+
+.recibo-caja {
     padding: 5px;
     outline: 1px solid rgba(128, 128, 128, 0.642);
-    
+
 }
 
 @media only screen and (max-width: 600px) {
-    p-dialog,
-    p-fieldset {
+
+    p-dialog{
         width: 100% !important;
     }
 }
 
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
-    p-dialog,
-    p-fieldset {
+
+    p-dialog {
         width: 70% !important;
     }
 }
 
 @media only screen and (min-width: 1025px) {
-    p-dialog,
-    p-fieldset {
+
+    p-dialog{
         width: 45% !important;
     }
 }
 
+.mobile-card {
+    max-width: 100%;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 
+  /* Ajustes para pantallas móviles */
+  @media (max-width: 600px) {
+    .p-field {
+      width: 100% !important;
+    }
+
+    .central {
+      text-align: center;
+    }
+    .caja-boton-principal{
+
+        text-align: center;
+    }
+    .header-card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }
 
 
 
 
 input[type=number] {
+
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
         -webkit-appearance: none;

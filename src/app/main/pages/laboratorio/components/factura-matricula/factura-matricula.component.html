@@ -1,4 +1,4 @@
-<p-card>
+<p-card class="mobile-card">
   <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
       <h4>Factura Matricula</h4>
   </p-header>
@@ -47,28 +47,11 @@
 
   <p-fieldset
       align="center"
-      class="flex justify-content-center"
+      class="flex justify-content-center central"
       legend="Buscar"
   >
       <div class="flex flex-wrap gap-3">
-          
-          <!-- <div class="flex align-items-center">
-              <p-radioButton
-                  name="cliente"
-                  value="2"
-                  inputId="2"
-              ></p-radioButton>
-              <label class="ml-2">Cliente</label>
-          </div> -->
-          <!-- <div class="flex align-items-center">
-              <p-radioButton
-                  name="cliente"
-                  value="2"
-                  inputId="2"
-              ></p-radioButton>
-              <label class="ml-2">Empleado EPN</label>
-          </div> -->
-          <div class="caja-boton-principal">
+         <div class="caja-boton-principal">
               <button
                   pButton
                   label="Buscar"
@@ -238,7 +221,7 @@
         icon="pi pi-money-bill"
         (click)="modalOpen()"
     ></button>
-    <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
+   
     <button
         pButton
         label="Regresar"
@@ -251,6 +234,7 @@
 </div>
 </div>
 </p-dialog>
+<app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
   <p-divider></p-divider>
   <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
