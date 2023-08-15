@@ -319,11 +319,11 @@
 >
     <ng-template pTemplate="header">
         <tr>
-            <th style="background-color: rgb(206, 244, 244);">Codigo LAB</th>
-            <th style="background-color: rgb(206, 244, 244);">Descripcion</th>
-            <th style="background-color: rgb(206, 244, 244);">Cantidad</th>
-            <th style="background-color: rgb(206, 244, 244);">Precio Unit.</th>
-            <th style="background-color: rgb(206, 244, 244);">Valor Total</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Codigo LAB</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Descripcion</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Cantidad</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Precio Unit.</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Valor Total</th>
         </tr>
         <tr>
             <th>3</th>
@@ -340,8 +340,14 @@
         <tr>
             <th>____________________</th>
             <th>____________________</th>
-            <th colspan="2">IVA</th>
-            <th>2.32</th>
+            <th colspan="2">
+                I.V.A.
+                <input style="width: 5em" type="number" name="IVA" placeholder="0.0" />
+                %
+            </th>
+            <th>
+                <input type="number" style="width: 5em" name="IVA" placeholder="0.0" />
+            </th>
 
         </tr>
         <tr>
@@ -349,6 +355,14 @@
             <th>Recibi Conforme</th>
             <th colspan="2">con tarifa 0%</th>
             <th>0.00</th>
+        </tr>
+        <tr>
+            <th >Nombre:</th>
+            <th>Nombre:</th>
+            <th colspan="2">Total Factura</th>
+            <th>
+                <input type="number" style="width: 5em" name="IVA" placeholder="0.0" />
+            </th>
         </tr>
         <tr>
           <th></th>
@@ -393,4 +407,6 @@
 </div>
 </div>
 </p-dialog>
+
+
 <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>

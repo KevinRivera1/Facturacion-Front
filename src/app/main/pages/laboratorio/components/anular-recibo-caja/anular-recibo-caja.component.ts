@@ -51,15 +51,29 @@ export class AnularReciboCajaComponent implements OnInit {
 
     iniciarForms() {
         this.formAnulaRecib = this.formBuilder.group({
-            RecibCajaNo: new FormControl('',Validators.compose([Validators.required])),
-            fecha: new FormControl(''),
-            cliente: new FormControl(''),
-            detalleAnulacion: new FormControl('',Validators.compose([Validators.required])),
+            RecibCajaNo: ['001-003-58509'],
+            fecha: ['31/15/2023'], //! Dato Quemado
+            cliente: ['BONILLA ZALAZAR CARLOS MARCELO'], //! Dato Quemado
+            //estadoRecib: [true, Validators.requiredTrue],
+            detalleAnulacion: ['', Validators.required],
+        });
+        this.deshabilitarCampos();
+        //! deshabilitar inputs de entrada
+        //this.formAnulaRecib.get('RecibCajaNo').disable();
+        //this.formAnulaRecib.get('fecha').disable();
+        //this.formAnulaRecib.get('cliente').disable();
+    }
+
+    //* Funcion para dehabilitar campos del form
+    deshabilitarCampos() {
+        const camposDeshabilitar = ['RecibCajaNo', 'fecha', 'cliente'];
+        camposDeshabilitar.forEach(campos => {
+            this.formAnulaRecib.get(campos).disable();
         });
     }
-    
+
     guardarMotivoAnulacion() {}
-    
+
     cancelar() {
         this.CloseModal();
         /* this.f.estadoCompr.disable();
@@ -81,6 +95,6 @@ export class AnularReciboCajaComponent implements OnInit {
 
     CloseModal() {
         this.closeModal.emit();
-        console.log('cerrando modal de modal emit');
+        console.log('cerrando modal');
     }
 }

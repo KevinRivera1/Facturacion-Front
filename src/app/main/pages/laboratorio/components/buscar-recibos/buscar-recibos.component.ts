@@ -44,18 +44,12 @@ export class BuscarRecibosComponent implements OnInit {
     iniciarForms() {
         this.buscarForm = this.formBuilder.group({
             //idEstadoComprobante: [null],
-            NroReciboCaja: ['', Validators.required],
+            NroReciboCaja: ['',[Validators.pattern(/^\d{3}-\d{3}-\d{5}$/),],],
             NombreCliente: ['', Validators.required],
-            Ruc: [
-                '',
-                [Validators.required, Validators.pattern('^[0-9]{1,13}$')],
-            ],
-            Cedula: [
-                '',
-                [Validators.required, Validators.pattern('^[0-9]{1,10}$')],
-            ],
-            fechaDesde: [new Date(), Validators.required],
-            fechaHasta: [new Date(), Validators.required],
+            Ruc: ['',[Validators.pattern('^[0-9]{1,13}$')],],
+            Cedula: ['',[Validators.pattern('^[0-9]{1,10}$')],],
+            fechaDesde: [new Date()],
+            fechaHasta: [new Date()],
             //estadoCompr: [true, Validators.requiredTrue],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
