@@ -85,4 +85,6 @@ export class ReciboCajaComponent implements OnInit {
         this.displayModal = false;
         console.log('cerrando modal');
     }
+
+    
 }
