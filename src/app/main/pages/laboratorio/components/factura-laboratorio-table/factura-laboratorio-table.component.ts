@@ -13,7 +13,8 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   @Input() listfacturalaboratorio: FacturaDto[];
   modal: boolean;
   loading: boolean;
-  appService: any;
+  clienteSelect:FacturaDto;
+
 
   constructor(
     private facturaService: FacturaService,
@@ -21,6 +22,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     
   }
 
@@ -29,6 +31,13 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
 
 
+  cargarfactura(clienteSelectDto: FacturaDto ){
+    this.clienteSelect= clienteSelectDto;
+    
+
+  }
+
+  
   loadData() {
     this.loading = true;
     setTimeout(() => {
