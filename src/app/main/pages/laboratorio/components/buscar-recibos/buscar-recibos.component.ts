@@ -7,7 +7,6 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 import { FormUtil } from '../../formUtil/FormUtil';
 import { ReciboCaja } from '../../model/reciboCaja';
 
-
 @Component({
     selector: 'app-buscar-recibos',
     templateUrl: './buscar-recibos.component.html',
@@ -70,7 +69,7 @@ export class BuscarRecibosComponent implements OnInit {
             const fechaRecibo = new Date(recibo.fecha);
             return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
         }); */
-        this.reciboCajaFiltrados.emit(doc)
+        this.reciboCajaFiltrados.emit(doc);
     }
 
     onInputNroRecibo(event: any) {
