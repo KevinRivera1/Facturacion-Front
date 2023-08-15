@@ -28,15 +28,13 @@
               </ng-template>
               <ng-template pTemplate="header">
                   <tr>
-                      <th style="width: 3rem">
-                          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                      </th>
-                        <th pSortableColumn="idFormaPago">
+                      
+                      <th pSortableColumn="idFormaPago">
                           <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
                               <p-sortIcon field="idFormaPago"></p-sortIcon>
                               <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
                           </div>
-                      </th>
+                      </th> 
                       <th pSortableColumn="idFactura">
                           <div class="flex justify-content-between align-items-center">Factura No.
                               <p-sortIcon field="idFactura"></p-sortIcon>
@@ -98,13 +96,11 @@
               </ng-template>
               <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
                   <tr>
-                      <td>
-                          <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                      </td>
                       <td>{{rowIndex+1}}</td>
                       <td>{{item.idFactura}}</td>
                       <td>{{item.nombreConsumidor}}</td>
                       <td>{{item.rucConsumidor}}</td>
+                      <td>{{item.idProforma}}</td>
                       <td>{{item.fechaFact}}</td>
                       <td>{{item.subtotalFact}}</td>
                       <td>{{item.ivaFact}}</td>
