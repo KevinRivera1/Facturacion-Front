@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/app/_service/app.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { NotaCreditoDto } from '../../model/NotaCreditoDto';
+import { NotaCreditoService } from '../../services/nota-credito.service';
+import { severities } from 'src/app/_enums/constDomain';
 
 @Component({
   selector: 'app-nota-credito',
@@ -10,11 +14,16 @@ export class NotaCreditoComponent implements OnInit {
 
   modal: boolean;
   modal1: boolean;
-l
+  proceso: string = 'conceptos';
+  listNotas: NotaCreditoDto[] = [];
+
 
   constructor(
 
-    private breadcrumbService: BreadcrumbService
+    private breadcrumbService: BreadcrumbService,
+    public appService: AppService,
+    private notasService: NotaCreditoService
+    
   ) {
     {
       this.breadcrumbService.setItems([{ label: 'Nota de Credito ' }]);
@@ -22,6 +31,8 @@ l
   }
 
   ngOnInit() {
+    this.llenarListNotas();
+
   }
 
   onInput(event: any) {
@@ -32,6 +43,31 @@ l
     const numericValue = value.replace(/[^\d-]/g, '');
     input.value = numericValue;
   }
+
+  async llenarListNotas() {
+    await this.notasService.getAll().subscribe({
+        next: (data) => {
+            this.listNotas = data.listado;
+            console.log('CORRECTO');
+            console.log(this.listNotas);
+        },
+        complete: () => {
+            this.appService.msgInfoDetail(
+                severities.INFO,
+                'INFO',
+                'Datos Cargados exitosamente' ,
+                500
+            );
+        },
+        error: (error) => {
+            this.appService.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                error.error
+            );
+        },
+    });
+}
 
 
   //Abrir el modal
@@ -51,39 +87,4 @@ l
 
 
 
-// busquedaForm: FormGroup;
-
-// maxLengthR: number = 13;
-// maxLengthC: number = 10;
-
-// constructor(private breadcrumbService: BreadcrumbService) {
-//     {
-//         this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
-//     }
-// }
-
-// ngOnInit() {}
-
-// cancelar() {
-//     // this.setearForm();
-//     this.modal = false;
-// }
-
-// onInputR(event: Event) {
-//     const inputElement = event.target as HTMLInputElement;
-//     const value = inputElement.value;
-//     if (value.length > this.maxLengthR) {
-//         inputElement.value = value.slice(0, this.maxLengthR); // Truncar el valor a la longitud máxima
-//         this.busquedaForm.controls['Cantidad'].setValue(inputElement.value); // Actualizar el valor del formulario
-//     }
-// }
-
-// onInputC(event: Event) {
-//     const inputElement = event.target as HTMLInputElement;
-//     const value = inputElement.value;
-//     if (value.length > this.maxLengthC) {
-//         inputElement.value = value.slice(0, this.maxLengthC); // Truncar el valor a la longitud máxima
-//         this.busquedaForm.controls['Cantidad'].setValue(inputElement.value); // Actualizar el valor del formulario
-//     }
-// }
 

@@ -44,10 +44,10 @@
   <input type="radio" id="contactChoice1" name="contact" [(ngModel)]="selectedOption" value="Estudiante" />
   <label for="contactChoice1">Estudiante</label>
 
-  <input type="radio" id="contactChoice2" name="contact" [(ngModel)]="selectedOption" value="Cliente" />
+  <input type="radio" id="contactChoice2" name="contact" [(ngModel)]="selectedOption" value="0" />
   <label for="contactChoice2">Cliente</label>
 
-  <input type="radio" id="contactChoice3" name="contact" [(ngModel)]="selectedOption" value="Empleado EPN" />
+  <input type="radio" id="contactChoice3" name="contact" [(ngModel)]="selectedOption" value="1" />
   <label for="contactChoice3">Empleado EPN</label>
 
   <button 
@@ -293,7 +293,9 @@
     <div class="p-grid">
       <div class="p-col-6">
         <h3 class="mb-3">Conceptos</h3>
-        <p-table
+        <!-- <p-table
+          [value]="listConceptos"
+          [loading]="loading"
           #dt1
           selectionMode="single"
           dataKey="id"
@@ -324,7 +326,7 @@
           </ng-template>
           <ng-template pTemplate="body" let-customer>
             <tr [pSelectableRow]="customer">
-              <td>{{ rowIndex + 1 }}</td>
+              <td>{{customer.nombreConcepto}}</td>
               <td>
                 <span class="p-column-title">Country</span>
                 <img
@@ -336,42 +338,95 @@
               </td>
             </tr>
           </ng-template>
-        </p-table>
+        </p-table> -->
+
+        <p-table   #dt [value]="listConceptos " [rows]="3" [paginator]="true" [loading]="loading"
+        [globalFilterFields]="[
+                'nombreConcepto',
+                'codigoConcepto',
+             ]" responsiveLayout="scroll"  [rowHover]="true"
+        dataKey="idConcepto" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between flex-wrap">
+             
+
+             
+                <span class="p-input-icon-left ">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar Concepto" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr> 
+                <th pSortableColumn="codigoConcepto">
+                    <div class="flex justify-content-between align-items-center">ID
+                        <p-sortIcon field="codigoConcepto"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="nombreConcepto">
+                  <div class="flex justify-content-between align-items-center">Nombre
+                      <p-sortIcon field="nombreConcepto"></p-sortIcon>
+                  </div>
+              </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+            <tr>      
+               
+                <td>{{item.codigoConcepto}}</td>
+                <td>{{item.nombreConcepto}}</td>
+                <td> <a pButton class="botonmas" icon="pi pi-plus" (click)="showAttributes(item)" ></a></td>
+               
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Registros Totales: {{listConceptos ? listConceptos.length : 0 }}.
+            </div>
+        </ng-template>
+        
+    </p-table>
+    
+
       </div>
+
       <div class="p-col-6">
         <h3 class="mb-3">Información Concepto</h3>
         <div class="p-fluid p-formgrid grid input">
                
-    <div class="ui-fluid formgrid grid"  >
-      <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
-        <span class="p-float-label">
-          <label >ID: </label>
-          <b>  <i class="text-1xl mr-2 mb-3"></i></b>
-        </span>
+       <div class="ui-fluid formgrid grid"  >
+          <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
+          <span class="p-float-label">
+          <label><b>ID:</b> {{ idConcepto }}</label>
+          <b><i class="text-1xl mr-2 mb-3"></i></b>
+     </span>
       </div>
       <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
         <span class="p-float-label">
-          <label >Nombre: </label>
-          <b>  <i class="text-1xl mr-2 mb-3"></i></b>
-        </span>
+          <label style="width: 250px;"><b>Nombre:</b> {{ nombreConcepto }}</label>
+          <b><i class="text-1xl mr-2 mb-3"></i></b>
+      </span>
       </div>
      
-    
       <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
         <span class="p-float-label">
-          <label >Precio Unitario: </label>
-          <b>  <i class="text-1xl mr-2 mb-3"></i></b>
-        </span>
+          <label><b>Precio Unitario:</b> {{ valorConcepto }}</label>
+          <b><i class="text-1xl mr-2 mb-3"></i></b>
+       </span>
+       </div>
+
+
       </div>
-
-
-  </div>
-
           <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
-            <span class="p-float-label">
+             <span class="p-float-label">
               <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
               <label for="ftxt-nombreCentroCosto">* Cantidad:</label>
-            </span>
+             </span>
           </div>
 
           <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
@@ -381,8 +436,10 @@
             </span>
           </div>
         </div>
-      </div>
+      </div> <!-- cierre -->
+      
     </div>
+
     <div align="center" class="flex justify-content-center">
       <div class="caja-boton-principal">
           <button

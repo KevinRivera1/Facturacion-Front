@@ -18,7 +18,7 @@
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NombreCliente" type="text" required="true"
                         formControlName="NombreCliente" style="text-transform: uppercase;"
-                        (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)">
+                        (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)" [maxLength]="30">
                     <label for="ftxt-NombreCliente">Nombre Cliente</label>
                 </span>
             </div>
@@ -54,7 +54,7 @@
             <p-toolbar>
                 <div class="p-toolbar-group-center">
                     <button pButton label="Consultar" class="p-button p-button-lg m-1 bg-blue-900 " icon="pi pi-search"
-                        type="submit" (click)="Buscar()" pTooltip="Consultar" tooltipPosition="right"></button>
+                        type="submit" (click)="Buscar($event)" pTooltip="Consultar" tooltipPosition="right"></button>
                 </div>
             </p-toolbar>
         </div>
