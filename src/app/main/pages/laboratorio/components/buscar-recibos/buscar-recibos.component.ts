@@ -44,18 +44,12 @@ export class BuscarRecibosComponent implements OnInit {
     iniciarForms() {
         this.buscarForm = this.formBuilder.group({
             //idEstadoComprobante: [null],
-            NroReciboCaja: ['', Validators.required],
-            NombreCliente: ['', Validators.required],
-            Ruc: [
-                '',
-                [Validators.required, Validators.pattern('^[0-9]{1,13}$')],
-            ],
-            Cedula: [
-                '',
-                [Validators.required, Validators.pattern('^[0-9]{1,10}$')],
-            ],
-            fechaDesde: [new Date(), Validators.required],
-            fechaHasta: [new Date(), Validators.required],
+            NroReciboCaja: ['', [Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]],
+            NombreCliente: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
+            Ruc: ['', [Validators.pattern('^[0-9]{1,13}$')]],
+            Cedula: ['', [Validators.pattern('^[0-9]{1,10}$')]],
+            fechaDesde: [''],
+            fechaHasta: [''],
             //estadoCompr: [true, Validators.requiredTrue],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
@@ -76,6 +70,31 @@ export class BuscarRecibosComponent implements OnInit {
         }); */
     }
 
+    onInputNroRecibo(event: any) {
+        const input = event.target;
+        const value = input.value.replace(/[^0-9]/g, '');
+
+        const groups = [
+            value.slice(0, 3),
+            value.slice(3, 6),
+            value.slice(6, 11),
+        ].filter(Boolean);
+        const formattedValue = groups.join('-');
+
+        input.value = formattedValue;
+        this.f.NroReciboCaja.setValue(formattedValue);
+
+        const cursorPosition = input.selectionStart;
+        input.setSelectionRange(cursorPosition, cursorPosition);
+    }
+
+    preventNumbers(event: KeyboardEvent) {
+        this.formUtil.preventNumbers(event);
+    }
+
+    maxLengthNombre(event: Event) {
+        this.formUtil.limitInputLength(event, 30, 'NombreCliente');
+    }
     maxLengthCedula(event: Event) {
         this.formUtil.limitInputLength(event, 10, 'Cedula');
     }

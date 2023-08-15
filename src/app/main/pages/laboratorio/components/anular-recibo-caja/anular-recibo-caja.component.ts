@@ -27,6 +27,7 @@ import { AppService } from 'src/app/_service/app.service';
 })
 export class AnularReciboCajaComponent implements OnInit {
     formAnulaRecib: FormGroup;
+    token: TokenDto;
     @Input() display: boolean = false;
     @Output() closeModal = new EventEmitter();
     //? Aqui se define la lista de estados del modal de anular
@@ -51,15 +52,30 @@ export class AnularReciboCajaComponent implements OnInit {
 
     iniciarForms() {
         this.formAnulaRecib = this.formBuilder.group({
-            RecibCajaNo: new FormControl('',Validators.compose([Validators.required])),
-            fecha: new FormControl(''),
-            cliente: new FormControl(''),
-            detalleAnulacion: new FormControl('',Validators.compose([Validators.required])),
+            RecibCajaNo: [{ value: '001-003-58509', disabled: true }],
+            fecha: [{ value: '31/15/2023', disabled: true }], //! Dato Quemado
+            cliente: [{ value: 'BONILLA ZALAZAR CARLOS MARCELO', disabled: true },], //! Dato Quemado
+            estadoRecib: ['', Validators.required],
+            detalleAnulacion: ['', Validators.required],
+        });
+        this.token = JSON.parse(this.tokenService.getResponseAuth());
+        this.deshabilitarCampos();
+        //! deshabilitar inputs de entrada
+        //this.formAnulaRecib.get('RecibCajaNo').disable();
+        //this.formAnulaRecib.get('fecha').disable();
+        //this.formAnulaRecib.get('cliente').disable();
+    }
+
+    //* Funcion para dehabilitar campos del form
+    deshabilitarCampos() {
+        const camposDeshabilitar = ['RecibCajaNo', 'fecha', 'cliente'];
+        camposDeshabilitar.some((campos) => {
+            this.formAnulaRecib.get(campos).disable();
         });
     }
-    
+
     guardarMotivoAnulacion() {}
-    
+
     cancelar() {
         this.CloseModal();
         /* this.f.estadoCompr.disable();
@@ -81,6 +97,7 @@ export class AnularReciboCajaComponent implements OnInit {
 
     CloseModal() {
         this.closeModal.emit();
-        console.log('cerrando modal de modal emit');
+        console.log('cerrando modal');
+        //this.formAnulaRecib.reset(); //!Activar déspues
     }
 }

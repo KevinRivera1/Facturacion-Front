@@ -41,30 +41,26 @@
   >
       <div class="flex flex-wrap gap-3"  [style]="{ 'margin-top': '-22px' }">
         <div>
-         
-          <input type="radio" id="contactChoice1" name="contact" value="email" />
-          <label for="contactChoice1">Estudiante</label>
-    
-          <input type="radio" id="contactChoice2" name="contact" value="phone" />
-          <label for="contactChoice2">Cliente</label>
-    
-          <input type="radio" id="contactChoice3" name="contact" value="mail" />
-          <label for="contactChoice3">Empleado EPN</label>
+  <input type="radio" id="contactChoice1" name="contact" [(ngModel)]="selectedOption" value="Estudiante" />
+  <label for="contactChoice1">Estudiante</label>
 
-       
-        
-            <button 
-                pButton
-                label="Buscar"
-                class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                pTooltip="Buscar"
-                (click)="abrirmodal2()"
-                tooltipPosition="right"
-                style="left: 15px;"
-               
-            ></button>
-        
-        </div>
+  <input type="radio" id="contactChoice2" name="contact" [(ngModel)]="selectedOption" value="Cliente" />
+  <label for="contactChoice2">Cliente</label>
+
+  <input type="radio" id="contactChoice3" name="contact" [(ngModel)]="selectedOption" value="Empleado EPN" />
+  <label for="contactChoice3">Empleado EPN</label>
+
+  <button 
+    pButton
+    label="Buscar"
+    class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+    pTooltip="Buscar"
+    (click)="buscarU()"
+    tooltipPosition="right"
+    style="left: 15px;"
+  ></button>
+</div>
+
       </div>
   </p-fieldset>
 
@@ -297,7 +293,9 @@
     <div class="p-grid">
       <div class="p-col-6">
         <h3 class="mb-3">Conceptos</h3>
-        <p-table
+        <!-- <p-table
+          [value]="listConceptos"
+          [loading]="loading"
           #dt1
           selectionMode="single"
           dataKey="id"
@@ -328,7 +326,7 @@
           </ng-template>
           <ng-template pTemplate="body" let-customer>
             <tr [pSelectableRow]="customer">
-              <td>{{ rowIndex + 1 }}</td>
+              <td>{{customer.nombreConcepto}}</td>
               <td>
                 <span class="p-column-title">Country</span>
                 <img
@@ -340,22 +338,75 @@
               </td>
             </tr>
           </ng-template>
-        </p-table>
+        </p-table> -->
+
+        <p-table   #dt [value]="listConceptos " [rows]="2" [paginator]="true" [loading]="loading"
+        [globalFilterFields]="[
+                'nombreConcepto',
+                'codigoConcepto',
+             ]" responsiveLayout="scroll"  [rowHover]="true"
+        dataKey="idConcepto" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between flex-wrap">
+             
+
+             
+                <span class="p-input-icon-left ">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar Concepto" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr> 
+                <th pSortableColumn="codigoConcepto">
+                    <div class="flex justify-content-between align-items-center">ID
+                        <p-sortIcon field="codigoConcepto"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="nombreConcepto">
+                  <div class="flex justify-content-between align-items-center">Nombre
+                      <p-sortIcon field="nombreConcepto"></p-sortIcon>
+                  </div>
+              </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+            <tr>      
+               
+                <td>{{item.codigoConcepto}}</td>
+                <td>{{item.nombreConcepto}}</td>
+                <td><button (click)="showAttributes(item)">Ver detalles</button></td>
+              
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Registros Totales: {{listConceptos ? listConceptos.length : 0 }}.
+            </div>
+        </ng-template>
+    </p-table>
+
       </div>
-      <div class="p-col-6">
+
+      <div class="p-col-6" *ngIf="selectedRecord">
         <h3 class="mb-3">Información Concepto</h3>
         <div class="p-fluid p-formgrid grid input">
                
     <div class="ui-fluid formgrid grid"  >
       <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
         <span class="p-float-label">
-          <label >ID: </label>
+          <label >ID: {{ selectedRecord.codigoConcepto }} </label>
           <b>  <i class="text-1xl mr-2 mb-3"></i></b>
         </span>
       </div>
       <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
         <span class="p-float-label">
-          <label >Nombre: </label>
+          <label >Nombre: {{ selectedRecord.nombreConcepto }}</label>
           <b>  <i class="text-1xl mr-2 mb-3"></i></b>
         </span>
       </div>
@@ -363,7 +414,7 @@
     
       <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
         <span class="p-float-label">
-          <label >Precio Unitario: </label>
+          <label >Precio Unitario: {{ selectedRecord.valorConcepto }}</label>
           <b>  <i class="text-1xl mr-2 mb-3"></i></b>
         </span>
       </div>
@@ -385,8 +436,10 @@
             </span>
           </div>
         </div>
-      </div>
+      </div> <!-- cierre -->
+      
     </div>
+
     <div align="center" class="flex justify-content-center">
       <div class="caja-boton-principal">
           <button
@@ -638,17 +691,17 @@
 
 
 <!-- Tabla lista Estudiante  -->
-<p-dialog header="Lista de Emplados" [(visible)]="modallista" [style]="{ width: '50vw' }">
+<p-dialog [header]=" 'Lista de ' + data "  [(visible)]="modallista" [style]="{ width: '50vw' }">
 
        <br>
 
 <p-table >
   <ng-template pTemplate="header">
     <tr>
-        <th colspan="5">Empleados
+        <th colspan="5">{{data}}
       </tr>
     <tr>
-      <th>Empleado</th>
+      <th>{{data}}</th>
       <th>CI</th>
       <th>Direccion</th>
       <th>Fono</th>

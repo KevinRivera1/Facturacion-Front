@@ -29,24 +29,22 @@
 
         <br />
         <!-- BUSQUEDA -->
+        
         <div class="fieldset-search">
             <fieldset class="search-border">
                 <legend>Buscar Cliente/Estudiante/Empleado EPN</legend>
 
                 <div class="search">
                     <div class="flex flex-wrap gap-3">
-                        <div class="flex align-items-center">
-                            <p-radioButton name="cliente" value="1" inputId="1"></p-radioButton>
-                            <label class="ml-2">Estudiante</label>
-                        </div>
-                        <div class="flex align-items-center">
-                            <p-radioButton name="cliente" value="2" inputId="2"></p-radioButton>
-                            <label class="ml-2">Cliente</label>
-                        </div>
-                        <div class="flex align-items-center">
-                            <p-radioButton name="cliente" value="2" inputId="2"></p-radioButton>
-                            <label class="ml-2">Empleado EPN</label>
-                        </div>
+                            <input type="radio" id="contactChoice1" name="contact" value="Estudiante" />
+                            <label for="contactChoice1">Estudiante</label>
+                        
+                            <input type="radio" id="contactChoice2" name="contact" value="Cliente" />
+                            <label for="contactChoice2">Cliente</label>
+                          
+                            <input type="radio" id="contactChoice3" name="contact" value="Empleado EPN" />
+                            <label for="contactChoice3">Empleado EPN</label>
+    
                         <div class="caja-boton-principal">
                             <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                                 pTooltip="Buscar" (click)="abrirmodal2()" tooltipPosition="right"></button>
@@ -194,14 +192,14 @@
                             <div class="p-fluid p-formgrid grid input">
                                 <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                                     <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto" required="true" />
+                                        <input pInputText id="ftxt-nombreCentroCosto"  disabled="true" />
                                         <label>* Nombre: </label>
                                     </span>
                                 </div>
 
                                 <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
                                     <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
+                                        <input pInputText id="ftxt-nombreCentroCosto" disabled="true"  type="number" />
                                         <label>* Precio Unitario:</label>
                                     </span>
                                 </div>

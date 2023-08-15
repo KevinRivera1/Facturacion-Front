@@ -2,10 +2,10 @@
 <section class="content">
   <div class="container-fluid">
       <div class="card">
-          <p-table #dt [rows]="10" [paginator]="true" 
+          <p-table #dt [rows]="10" [value]="listfacturalaboratorio" [paginator]="true" 
                    [globalFilterFields]="[
                       'idFormaPago',
-                      'nombreFp',
+                      'nombreConsumidor',
                       'descripcionFp',
                       'activo'
                    ]"
@@ -14,21 +14,7 @@
                    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
               <ng-template pTemplate="caption">
                   <div class="text-center">
-                <!--       <div>
-                          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
-                                  class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
-                                  tooltipPosition="bottom"></button>
-                          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
-                                  class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
-                                  tooltipPosition="bottom"></button>
-                          <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
-                                  (click)="deleteSelectedFormaPago()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
-                                  [disabled]="!selectedFormaPago || !selectedFormaPago.length"></button>
-                          <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
-                                  (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
-                               
-                                  
-                      </div> -->
+ 
                       <button pButton label="ver detalles" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
                       (click)="abrirmodal()" ></button>
                       <!-- 
@@ -53,59 +39,59 @@
                               <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
                           </div>
                       </th> -->
-                      <th pSortableColumn="nombreFp">
+                      <th pSortableColumn="idFactura">
                           <div class="flex justify-content-between align-items-center">Factura No.
-                              <p-sortIcon field="nombreFp"></p-sortIcon>
-                              <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
+                              <p-sortIcon field="idFactura"></p-sortIcon>
+                              <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
                           </div>
                       </th>
                      
-                      <th pSortableColumn="descripcionFp">
+                      <th pSortableColumn="nombreConsumidor">
                           <div class="flex justify-content-between align-items-center">Cliente
-                              <p-sortIcon field="descripcionFp"></p-sortIcon>
-                              <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
+                              <p-sortIcon field="nombreConsumidor"></p-sortIcon>
+                              <p-columnFilter type="text" field="nombreConsumidor" display="menu"></p-columnFilter>
                           </div>
                        </th>
-                       <th pSortableColumn="activo">
+                       <th pSortableColumn="rucConsumidor">
                         <div class="flex justify-content-between align-items-center">RUC/CI
-                            <p-sortIcon field="activo"></p-sortIcon>
-                            <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                            <p-sortIcon field="rucConsumidor"></p-sortIcon>
+                            <p-columnFilter type="text" field="rucConsumidor" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                      <th pSortableColumn="codigoSri">
+                      <th pSortableColumn="idProforma">
                         <div class="flex justify-content-between align-items-center">Proforma
-                            <p-sortIcon field="codigoSri"></p-sortIcon>
-                            <p-columnFilter type="text" field="codigoSri" display="menu"></p-columnFilter>
+                            <p-sortIcon field="idProforma"></p-sortIcon>
+                            <p-columnFilter type="text" field="idProforma" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="codigoSae">
+                    <th pSortableColumn="fechaFact">
                         <div class="flex justify-content-between align-items-center">Fecha
-                            <p-sortIcon field="codigoSae"></p-sortIcon>
-                            <p-columnFilter type="text" field="codigoSae" display="menu"></p-columnFilter>
+                            <p-sortIcon field="fechaFact"></p-sortIcon>
+                            <p-columnFilter type="text" field="fechaFact" display="menu"></p-columnFilter>
                         </div>
                     </th>  
-                    <th pSortableColumn="fechaFp">
+                    <th pSortableColumn="subtotalFact">
                         <div class="flex justify-content-between align-items-center">Subtotal
-                            <p-sortIcon field="fechaFp"></p-sortIcon>
-                            <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                            <p-sortIcon field="subtotalFact"></p-sortIcon>
+                            <p-columnFilter type="text" field="subtotalFact" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th pSortableColumn="fechaFp">
+                    <th pSortableColumn="ivaFact">
                       <div class="flex justify-content-between align-items-center">IVA
-                          <p-sortIcon field="fechaFp"></p-sortIcon>
-                          <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                          <p-sortIcon field="ivaFact"></p-sortIcon>
+                          <p-columnFilter type="text" field="ivaFact" display="menu"></p-columnFilter>
                       </div>
                   </th>
-                  <th pSortableColumn="fechaFp">
+                  <th pSortableColumn="totalFact">
                     <div class="flex justify-content-between align-items-center">Total
-                        <p-sortIcon field="fechaFp"></p-sortIcon>
-                        <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                        <p-sortIcon field="totalFact"></p-sortIcon>
+                        <p-columnFilter type="text" field="totalFact" display="menu"></p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="activo">
+                <th pSortableColumn="idEstadoFact">
                   <div class="flex justify-content-between align-items-center">Estado
-                      <p-sortIcon field="activo"></p-sortIcon>
-                      <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                      <p-sortIcon field="idEstadoFact"></p-sortIcon>
+                      <p-columnFilter type="text" field="idEstadoFact" display="menu"></p-columnFilter>
                   </div>
               </th>
                       <th>ACCIONES</th>
@@ -118,24 +104,19 @@
                           <p-tableCheckbox [value]="item"></p-tableCheckbox>
                       </td>
                       <td>{{rowIndex+1}}</td>
-                      <td>{{item.nombreFp}}</td>
-                      <td>{{item.descripcionFp}}</td>
-                      <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
-                        ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
-<!-- 
-                      <td>
-                          <button pButton pRipple icon="pi pi-pencil"
-                                  class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item);llamarFuncion()"
-                                  pTooltip="Editar" tooltipPosition="left"   ></button>
-                          <button pButton pRipple icon="pi pi-trash"
-                                  class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago(item)"
-                                  pTooltip="Eliminar" tooltipPosition="left"  ></button>
-                      </td> -->
+                      <td>{{item.idFactura}}</td>
+                      <td>{{item.nombreConsumidor}}</td>
+                      <td>{{item.rucConsumidor}}</td>
+                      <td>{{item.fechaFact}}</td>
+                      <td>{{item.subtotalFact}}</td>
+                      <td>{{item.ivaFact}}</td>
+                      <td>{{item.totalFact}}</td>
+                      <td>{{item.idEstadoFact}}</td>
                   </tr>
               </ng-template>
               <ng-template pTemplate="summary">
                   <div class="p-d-flex p-ai-center p-jc-between">
-                      Registros Totales: {{listFormaPago ? listFormaPago.length : 0 }}.
+                      Registros Totales: {{listfacturalaboratorio ? listfacturalaboratorio.length : 0 }}.
                   </div>
               </ng-template>
           </p-table>
@@ -235,11 +216,11 @@
 >
     <ng-template pTemplate="header">
         <tr>
-            <th style="background-color: rgb(206, 244, 244);">Codigo</th>
-            <th style="background-color: rgb(206, 244, 244);">Descripcion</th>
-            <th style="background-color: rgb(206, 244, 244);">Cantidad</th>
-            <th style="background-color: rgb(206, 244, 244);">Precio Unit.</th>
-            <th style="background-color: rgb(206, 244, 244);">Total</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Codigo</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Descripcion</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Cantidad</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Precio Unit.</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Total</th>
         </tr>
         <tr>
             <th>Prueba</th>

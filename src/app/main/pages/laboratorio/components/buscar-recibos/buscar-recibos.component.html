@@ -9,14 +9,16 @@
             <div class="col-12 md:col-6 ">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NroReciboCaja" type="text" required="true"
-                        formControlName="NroReciboCaja" style="text-transform: uppercase;">
+                        formControlName="NroReciboCaja" style="text-transform: uppercase;" [maxlength]="13"
+                        pTooltip="Ejm:123-123-12345" tooltipPosition="top" (input)="onInputNroRecibo($event)">
                     <label for="ftxt-NroReciboCaja">Nro.Recibo Caja</label>
                 </span>
             </div>
             <div class="col-12 md:col-6">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-NombreCliente" type="text" required="true"
-                        formControlName="NombreCliente" style="text-transform: uppercase;">
+                        formControlName="NombreCliente" style="text-transform: uppercase;"
+                        (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)" [maxLength]="30">
                     <label for="ftxt-NombreCliente">Nombre Cliente</label>
                 </span>
             </div>
@@ -51,8 +53,7 @@
         <div class="central">
             <p-toolbar>
                 <div class="p-toolbar-group-center">
-                    <button pButton label="Consultar"
-                        class="p-button p-button-lg m-1 bg-blue-900 " icon="pi pi-search"
+                    <button pButton label="Consultar" class="p-button p-button-lg m-1 bg-blue-900 " icon="pi pi-search"
                         type="submit" (click)="Buscar()" pTooltip="Consultar" tooltipPosition="right"></button>
                 </div>
             </p-toolbar>
