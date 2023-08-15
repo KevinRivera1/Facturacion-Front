@@ -44,10 +44,10 @@
   <input type="radio" id="contactChoice1" name="contact" [(ngModel)]="selectedOption" value="Estudiante" />
   <label for="contactChoice1">Estudiante</label>
 
-  <input type="radio" id="contactChoice2" name="contact" [(ngModel)]="selectedOption" value="Cliente" />
+  <input type="radio" id="contactChoice2" name="contact" [(ngModel)]="selectedOption" value="0" />
   <label for="contactChoice2">Cliente</label>
 
-  <input type="radio" id="contactChoice3" name="contact" [(ngModel)]="selectedOption" value="Empleado EPN" />
+  <input type="radio" id="contactChoice3" name="contact" [(ngModel)]="selectedOption" value="1" />
   <label for="contactChoice3">Empleado EPN</label>
 
   <button 
@@ -340,7 +340,7 @@
           </ng-template>
         </p-table> -->
 
-        <p-table   #dt [value]="listConceptos " [rows]="2" [paginator]="true" [loading]="loading"
+        <p-table   #dt [value]="listConceptos " [rows]="3" [paginator]="true" [loading]="loading"
         [globalFilterFields]="[
                 'nombreConcepto',
                 'codigoConcepto',
@@ -380,8 +380,8 @@
                
                 <td>{{item.codigoConcepto}}</td>
                 <td>{{item.nombreConcepto}}</td>
-                <td><button (click)="showAttributes(item)">Ver detalles</button></td>
-              
+                <td> <a pButton class="botonmas" icon="pi pi-plus" (click)="showAttributes(item)" ></a></td>
+               
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -389,44 +389,44 @@
                 Registros Totales: {{listConceptos ? listConceptos.length : 0 }}.
             </div>
         </ng-template>
+        
     </p-table>
+    
 
       </div>
 
-      <div class="p-col-6" *ngIf="selectedRecord">
+      <div class="p-col-6">
         <h3 class="mb-3">Información Concepto</h3>
         <div class="p-fluid p-formgrid grid input">
                
-    <div class="ui-fluid formgrid grid"  >
-      <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
-        <span class="p-float-label">
-          <label >ID: {{ selectedRecord.codigoConcepto }} </label>
-          <b>  <i class="text-1xl mr-2 mb-3"></i></b>
-        </span>
+       <div class="ui-fluid formgrid grid"  >
+          <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
+          <span class="p-float-label">
+          <label><b>ID:</b> {{ idConcepto }}</label>
+          <b><i class="text-1xl mr-2 mb-3"></i></b>
+     </span>
       </div>
       <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
         <span class="p-float-label">
-          <label >Nombre: {{ selectedRecord.nombreConcepto }}</label>
-          <b>  <i class="text-1xl mr-2 mb-3"></i></b>
-        </span>
+          <label style="width: 250px;"><b>Nombre:</b> {{ nombreConcepto }}</label>
+          <b><i class="text-1xl mr-2 mb-3"></i></b>
+      </span>
       </div>
      
-    
       <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
         <span class="p-float-label">
-          <label >Precio Unitario: {{ selectedRecord.valorConcepto }}</label>
-          <b>  <i class="text-1xl mr-2 mb-3"></i></b>
-        </span>
+          <label><b>Precio Unitario:</b> {{ valorConcepto }}</label>
+          <b><i class="text-1xl mr-2 mb-3"></i></b>
+       </span>
+       </div>
+
+
       </div>
-
-
-  </div>
-
           <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
-            <span class="p-float-label">
+             <span class="p-float-label">
               <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
               <label for="ftxt-nombreCentroCosto">* Cantidad:</label>
-            </span>
+             </span>
           </div>
 
           <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
