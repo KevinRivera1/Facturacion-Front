@@ -5,6 +5,7 @@ import { FormaPagoService } from '../../services/formaPago.service';
 import { ConceptoService } from '../../services/concepto.service';
 import { ConceptoDto } from '../../model/ConceptoDto';
 import { Table } from 'primeng/table';
+import { PrimeIcons, MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -35,6 +36,9 @@ export class FactOtrosConceptosComponent implements OnInit {
   conceptos: ConceptoDto;
   /*variable para llamar conceptos*/
   selectedRecord: any;
+  idConcepto: string = '';
+  nombreConcepto: string = '';
+  valorConcepto: number = 0;
   
 
 
@@ -117,11 +121,11 @@ buscarU(): void {
     case "Estudiante":
       this.data = "Estudiante";
       break;
-    case "Cliente":
+    case "0":
       this.data = "Cliente";
       break;
-    case "Empleado EPN":
-      this.data = "Empleado EPN";
+    case "1":
+      this.data = "Empleado";
       break;
     default:
       this.data = ""; // Valor por defecto si ninguna opción está seleccionada
@@ -159,6 +163,11 @@ async llenarListConceptos() {
 
 showAttributes(record: any) {
   this.selectedRecord = record;
+
+  // Actualiza las variables con los valores del registro seleccionado
+  this.idConcepto = this.selectedRecord.codigoConcepto;
+  this.nombreConcepto = this.selectedRecord.nombreConcepto;
+  this.valorConcepto = this.selectedRecord.valorConcepto;
 }
 
 }
