@@ -16,8 +16,8 @@ export class AnularReciboCajaTableComponent implements OnInit {
     displayModal: boolean = false;
     @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
     @Output() RecibCajaSelect = new EventEmitter();
-    reciboCajaFiltrados: any []= []; //* guarda los datos filtrados del componete hijo
-    
+    reciboCajaFiltrados: any[] = []; //* guarda los datos filtrados del componete hijo
+
     //recibosCaja: ReciboCajaDto;
     //selectedRecibosCaja: ReciboCajaDto[];
 
@@ -37,10 +37,14 @@ export class AnularReciboCajaTableComponent implements OnInit {
     //TODO: MODIFICAR LOS CAMPOS PARA EL RECIBO CAJA ANULAR
     construirTabla() {
         this.cols = [
-            { field: 'idRecibCaja', header: 'Nro.' },
-            { field: 'nombreBancos', header: 'NOMBRE.' },
-            { field: 'descBancos', header: 'DETALLE.' },
-            { field: 'estadoBancos', header: 'ESTADO.' },
+            //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
+            { field: 'NroReciboCaja', header: 'Nro.RECIBO' },
+            { field: 'nombreCliente', header: 'NOMBRE.' },
+            { field: 'Ruc', header: 'Ruc.' },
+            { field: 'fechaRecibo', header: 'FECHA.' },
+            { field: 'totalRecibo', header: 'TOTAL' },
+            { field: 'estadoRecibo', header: 'ESTADO' },
+            { field: 'motivoRecibo', header: 'MOTIVO' },
         ];
         this.exportColumns = this.cols.map((col) => ({
             title: col.header,
@@ -54,14 +58,9 @@ export class AnularReciboCajaTableComponent implements OnInit {
     }
 
     //* funcion para dovolver los datos filtrados
-    FilterData(data:any){
-        
-    }
+    FilterData(data: any) {}
 
-    
     guardarMotivoAnulacion() {}
-
-
 
     exportPdf() {
         /* let indexLista: number = 0;

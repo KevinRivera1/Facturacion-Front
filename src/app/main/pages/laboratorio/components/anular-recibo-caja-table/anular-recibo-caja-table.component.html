@@ -7,8 +7,9 @@
         <div class="card">
             <p-table #ef [value]="" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
                       'idEstadoComprobante',
-                      'nombreEstadoComp',
-                      'detalleEstadoComp'
+                      'NroReciboCaja',
+                      'NombreCliente',
+                      'Ruc'
                    ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idEstadoComprobante"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [showCurrentPageReport]="true">
@@ -52,46 +53,46 @@
                                 <p-columnFilter type="text" field="idEstadoComprobante" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="nombreEstadoComp">
-                            <div class="flex justify-content-between align-items-center">Nro.Recibo C
+                        <th pSortableColumn="NroReciboCaja">
+                            <div class="flex justify-content-between align-items-center">No.Recibo Caja
                                 <p-sortIcon field="NroReciboCaja"></p-sortIcon>
-                                <p-columnFilter type="text" field="nombreEstadoComp" display="menu"></p-columnFilter>
+                                <p-columnFilter type="text" field="NroReciboCaja" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
+                        <th pSortableColumn="nombreCliente">
                             <div class="flex justify-content-between align-items-center">Cliente
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                                <p-sortIcon field="nombreCliente"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreCliente" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
+                        <th pSortableColumn="Ruc">
                             <div class="flex justify-content-between align-items-center">RUC/CI
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                                <p-sortIcon field="Ruc"></p-sortIcon>
+                                <p-columnFilter type="text" field="Ruc" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
+                        <th pSortableColumn="fechaRecibo">
                             <div class="flex justify-content-between align-items-center">Fecha
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                                <p-sortIcon field="fechaRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="fechaRecibo" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
+                        <th pSortableColumn="totalRecibo">
                             <div class="flex justify-content-between align-items-center">Total
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                                <p-sortIcon field="totalRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="totalRecibo" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="estadoCompr">
+                        <th pSortableColumn="estadoRecibo">
                             <div class="flex justify-content-between align-items-center">Estado
-                                <p-sortIcon field="estadoCompr"></p-sortIcon>
-                                <p-columnFilter type="text" field="estadoCompr" display="menu"></p-columnFilter>
+                                <p-sortIcon field="estadoRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoRecibo" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="estadoCompr">
+                        <th pSortableColumn="motivoRecibo">
                             <div class="flex justify-content-between align-items-center">Motivo
-                                <p-sortIcon field="estadoCompr"></p-sortIcon>
-                                <p-columnFilter type="text" field="estadoCompr" display="menu"></p-columnFilter>
+                                <p-sortIcon field="motivoRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="motivoRecibo" display="menu"></p-columnFilter>
                             </div>
                         </th>
 
