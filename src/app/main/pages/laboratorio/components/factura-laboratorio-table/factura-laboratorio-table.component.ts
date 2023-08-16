@@ -17,7 +17,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
 
   constructor(
-    private facturaService: FacturaService,
+   
 
   ) { }
 
@@ -27,10 +27,6 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   }
 
 
-
-
-
-
   cargarfactura(clienteSelectDto: FacturaDto){
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
@@ -38,18 +34,6 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   }
 
-  
-  loadData() {
-    this.loading = true;
-    setTimeout(() => {
-        this.facturaService.getAll().subscribe((res) => {
-            this.listfacturalaboratorio = res;
-            console.log('LLAMADA');
-            console.log(this.listfacturalaboratorio);
-            this.loading = false;
-        });
-    }, 1000);
-}
 
   abrirmodal() {
     this.modal = true;
