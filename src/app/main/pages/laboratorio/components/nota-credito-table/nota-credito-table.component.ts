@@ -5,6 +5,8 @@ import { Table } from 'primeng/table';
 import { NotaCreditoDto } from '../../model/NotaCreditoDto';
 import { NotaCreditoService } from '../../services/nota-credito.service';
 import { NotaCreditoComponent } from '../nota-credito/nota-credito.component';
+import { FacturaDto } from '../../model/Factura.dto';
+import { FacturaService } from '../../services/factura.service';
 
 @Component({
   selector: 'app-nota-credito-table',
@@ -14,13 +16,20 @@ import { NotaCreditoComponent } from '../nota-credito/nota-credito.component';
 export class NotaCreditoTableComponent implements OnInit {
 
   proceso: string = 'notacredito';
+
   @Input() listNotaCreditos: NotaCreditoDto[];
   @Output() notacreditosSelect = new EventEmitter();
-
   notacreditos: NotaCreditoDto;
   selectedNotaCreditos: NotaCreditoDto[];
+
+  @Input() listFactura: FacturaDto[];
+  @Output() facturasSelect = new EventEmitter();
+  facturas: FacturaDto;
+  selectedFacturas: FacturaDto[];
+
   submitted: boolean;
   loading: boolean;
+  combinedData: any[];
 
   exportColumns: any[];
 
@@ -29,22 +38,29 @@ export class NotaCreditoTableComponent implements OnInit {
   constructor(
     private notacreditoComponent: NotaCreditoComponent,
     private notacreditoService: NotaCreditoService,
+    private facturaService: FacturaService,
     private appservie: AppService,
     private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
     this.construirTabla();
+    this.actualizarCombinedData();
+    
+  }
+
+  ngOnChanges(): void {
+    this.actualizarCombinedData();
   }
 
   construirTabla() {
     this.cols = [
       { field: 'codNc', header: 'Nota C No.' },
-      { field: '', header: 'Factura N.' },
-      { field: '', header: 'Cliente' },
-      { field: '', header: 'RUC/CI' },
-      { field: '', header: 'Fecha' },
-      { field: '', header: 'Valor' },
+      { field: 'codFactura', header: 'Factura N.' },
+      { field: 'nombreConsumidor', header: 'Cliente' },
+      { field: 'rucConsumidor', header: 'RUC/CI' },
+      { field: 'fechaFact', header: 'Fecha' },
+      { field: 'totalFact', header: 'Valor' },
       { field: 'idEstadoNc', header: 'Estado' }
     ];
     this.exportColumns = this.cols.map((col) => ({
@@ -68,6 +84,22 @@ export class NotaCreditoTableComponent implements OnInit {
         this.loading = false;
       });
     }, 1000);
+  }
+
+  loadData1(event) {
+    this.loading = true;
+    setTimeout(() => {
+      this.facturaService.getAll().subscribe((res) => {
+        this.listFactura = res;
+        console.log('LLAMADA');
+        console.log(this.listFactura);
+        this.loading = false;
+      });
+    }, 1000);
+  }
+
+  actualizarCombinedData() {
+    this.combinedData = [...this.listNotaCreditos, ...this.listFactura];
   }
 
   registrarNuevo() {
