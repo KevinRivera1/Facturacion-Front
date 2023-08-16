@@ -4,6 +4,8 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 import { NotaCreditoDto } from '../../model/NotaCreditoDto';
 import { NotaCreditoService } from '../../services/nota-credito.service';
 import { severities } from 'src/app/_enums/constDomain';
+import { FacturaDto } from '../../model/Factura.dto';
+import { FacturaService } from '../../services/factura.service';
 
 @Component({
   selector: 'app-nota-credito',
@@ -16,13 +18,16 @@ export class NotaCreditoComponent implements OnInit {
   modal1: boolean;
   proceso: string = 'conceptos';
   listNotas: NotaCreditoDto[] = [];
+  listFacturas: FacturaDto[] = [];
+  
 
 
   constructor(
 
     private breadcrumbService: BreadcrumbService,
     public appService: AppService,
-    private notasService: NotaCreditoService
+    private notasService: NotaCreditoService,
+    private facturasService: FacturaService
     
   ) {
     {
@@ -31,7 +36,10 @@ export class NotaCreditoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.llenarListFacturas();
     this.llenarListNotas();
+    
+
 
   }
 
@@ -68,6 +76,33 @@ export class NotaCreditoComponent implements OnInit {
         },
     });
 }
+
+async llenarListFacturas() {
+  await this.facturasService.getAll().subscribe({
+      next: (data) => {
+          this.listFacturas = data.listado;
+          console.log('CORRECTO');
+          console.log(this.listFacturas);
+      },
+      complete: () => {
+          this.appService.msgInfoDetail(
+              severities.INFO,
+              'INFO',
+              'Datos Cargados exitosamente' ,
+              500
+          );
+      },
+      error: (error) => {
+          this.appService.msgInfoDetail(
+              severities.ERROR,
+              'ERROR',
+              error.error
+          );
+      },
+  });
+}
+
+
 
 
   //Abrir el modal

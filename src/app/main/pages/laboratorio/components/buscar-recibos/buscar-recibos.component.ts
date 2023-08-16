@@ -57,10 +57,9 @@ export class BuscarRecibosComponent implements OnInit {
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-    obtenerdaData() {}
 
     //! Necesito poner Dto = doc:ReciboCajaDto
-    Buscar() {
+    BuscarData() {
         const fechaDesde = this.buscarForm.value.fechaDesde;
         const fechaHasta = this.buscarForm.value.fechaDesde;
         console.log('filtrando info: ' + fechaDesde);
