@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ConsultasService } from '../../services/consultas.service';
@@ -7,6 +7,8 @@ import { AppService } from 'src/app/_service/app.service';
 import { severities } from 'src/app/_enums/constDomain';
 import { CretencionService } from '../../services/cretencion.service';
 import { CretencionDto } from '../../model/CretencionDto';
+import { ConceptoDto } from '../../model/ConceptoDto';
+import { ConceptoService } from '../../services/concepto.service';
 
 @Component({
     selector: 'app-recibo-caja',
@@ -32,13 +34,17 @@ export class ReciboCajaComponent implements OnInit {
         //Busqueda
         private consultaService: ConsultasService,
         private cretencionService: CretencionService,
+        //Conceptos
+        private conceptosService: ConceptoService,
         ) {
         {
             this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
         }
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.llenarListConceptos();
+    }
 
     cancelar() {
         // this.setearForm();
@@ -101,10 +107,10 @@ export class ReciboCajaComponent implements OnInit {
 
     buscarU(): void {
         switch (this.selectedOption) {
-          case "Cliente":
+          case "2":
             this.data = "Cliente";
             break;
-          case "Empleado EPN":
+          case "1":
             this.data = "Empleado";
             break;
           default:
@@ -158,16 +164,12 @@ export class ReciboCajaComponent implements OnInit {
         this.modalBusTabl=true;
     }
 
-
-
-
-
     registrarNuevo() {
         // this.cretencion = new CretencionDto();
         // this.iniciarForm();
         this.modal=true
         this.clienteSelect= new ClienteDto();
-        this.tipoCliente= 0;
+        this.tipoCliente= 2;
         this.listCliente= [];
     }
 
@@ -191,5 +193,54 @@ export class ReciboCajaComponent implements OnInit {
       this.modalBuscar=false;
 
     }
+
+    
+
+
+
+
+
+
+
+
+    @Input() listConceptos: ConceptoDto[];
+    conceptos: ConceptoDto;
+
+    selectedRecord: any;
+    idConcepto: string = '';
+    nombreConcepto: string = '';
+    valorConcepto: number = 0;
+
+
+    loadData(event) {
+        this.loading = true;
+        setTimeout(() => {
+            this.conceptosService.getAll().subscribe((res) => {
+                this.listConceptos = res;
+                console.log('LLAMADA');
+                console.log(this.listConceptos);
+                this.loading = false;
+            });
+        }, 1000);
+      }
       
+      async llenarListConceptos() {
+        await this.conceptosService.getAll().subscribe({
+            next: (data) => {
+                this.listConceptos = data.listado;
+                console.log('CORRECTO');
+                console.log(this.listConceptos);
+            },
+        });
+      }
+
+      showAttributes(record: any) {
+        this.selectedRecord = record;
+      
+        // Actualiza las variables con los valores del registro seleccionado
+        this.idConcepto = this.selectedRecord.codigoConcepto;
+        this.nombreConcepto = this.selectedRecord.nombreConcepto;
+        this.valorConcepto = this.selectedRecord.valorConcepto;
+      }
 }
+

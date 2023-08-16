@@ -200,27 +200,22 @@ input[type="number"] {
 // CONCPETOS
 .fieldset-conceptos {
     display: flex;
-    padding-top: 5%;
+    // padding-top: 5%;
     place-items: center;
     text-align: center;
     justify-content: space-around;
     align-content: center;
-    width: 25em;
+    width: 35em;
 }
 
 .search-conceptos {
     border: 1px solid rgba(128, 128, 128, 0.642);
     width: 35em;
-    padding: 5px;
-    padding: 1%;
+    // padding: 5px;
+    // padding: 1%;
     
 }
 
-.search-conceptos input {
-    height: 2%;
-    padding: 5px;
-    font-size: 12px;
-}
 
 
 // INFORMACION DE CONCEPTROS
@@ -230,20 +225,24 @@ input[type="number"] {
     text-align: center;
     justify-content: space-around;
     align-content: center;
-    padding-top: 5%;
-    width: 40em;
+    // padding-top: 15%;
 }
 .search-infConceptos {
     border: 1px solid rgba(128, 128, 128, 0.642);
-    width: 75em;
-    padding: 5px;
+    width: 30em;
+    // padding: 5px;
 }
 .search-infConceptos input {
-    height: 2%;
-    padding: 5px;
+    // padding: 10px;
     font-size: 12px;
+    width: 100%;
 }
 
+.p-fluid.p-formgrid.grid.input{
+    display: flex;
+    gap: 5em;
+    padding: 30px;
+}
 
 // SAEW
 .search-saew{
@@ -257,4 +256,3 @@ input[type="number"] {
     width: 5em;
     padding: 5px;
 }
-
