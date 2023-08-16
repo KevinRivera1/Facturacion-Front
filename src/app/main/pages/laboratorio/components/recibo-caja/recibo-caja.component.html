@@ -226,31 +226,29 @@
                             <legend>Informacion de Conceptos</legend>
                             <div class="p-field col-12 md:mb-2 mb-0 px-3">
                                 <span class="p-float-label">
-                                    <input pInputText id="ftxt-nombreCentroCosto" disabled="true" />
-                                    <label>Nombre: {{ nombreConcepto }}</label>
+                                    <input pInputText disabled="true" type="number" />
+                                    <label>Nombre: <b> <i class="text-1xl mr-2 mb-3">{{ nombreConcepto }}</i></b>
+                                    </label>
                                 </span>
                             </div>
-
                             <div class="p-field col-12 md:mb-2 mb-0 px-3">
                                 <span class="p-float-label">
-                                    <input pInputText id="ftxt-nombreCentroCosto" disabled="true" type="number" />
-                                    <label>Precio Unitario: {{ valorConcepto }}</label>
+                                    <input pInputText disabled="true" type="number" />
+                                    <label>Precio Unitario: <b> <i
+                                                class="text-1xl mr-2 mb-3">{{ valorConcepto }}</i></b></label>
                                 </span>
                             </div>
-
                             <div class="p-field col-12 md:mb-2 mb-0 px-3">
                                 <span class="p-float-label">
                                     <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
                                     <label>* Cantidad:</label>
                                 </span>
                             </div>
-
                         </fieldset>
                     </div>
                 </span>
             </div>
         </div>
-
         <fieldset class="search-saew">
             <legend>Sanciones Saew</legend>
             <p-table styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
@@ -323,10 +321,6 @@
                         </span>
                     </div>
                 </ng-template>
-
-
-
-
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Cédula</th>
