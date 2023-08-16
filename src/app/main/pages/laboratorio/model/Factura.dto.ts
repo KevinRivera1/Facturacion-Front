@@ -29,7 +29,7 @@ export class FacturaDto {
     totalFact: number;
     xmlFact: string;
 
-    constructor(data: FacturaDto) {
+  /*   constructor(data: FacturaDto) {
         this.ambiente = data.ambiente;
         this.carreraConsumidor = data.carreraConsumidor;
         this.claveAcceso = data.claveAcceso;
@@ -60,6 +60,6 @@ export class FacturaDto {
         this.totalFact = data.totalFact
         this.xmlFact = data.xmlFact
 
-    }
+    } */
     
 }

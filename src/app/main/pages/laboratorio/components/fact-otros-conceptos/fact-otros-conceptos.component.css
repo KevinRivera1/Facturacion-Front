@@ -137,4 +137,11 @@ input[type=number] {
     }
 }
 
+.botonmas{
+    background-color: rgb(226, 226, 226);
+    color: rgb(0, 8, 151);
+    border: none;
+    border-radius: 6px;
+    font-family:monospace;
+}
 
