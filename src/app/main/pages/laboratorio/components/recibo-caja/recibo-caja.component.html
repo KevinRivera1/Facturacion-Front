@@ -61,25 +61,29 @@
         <div class="fieldset-data">
             <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
 
-                <div class="data">
-                    <!-- <div class="ui-fluid formgrid grid">
+                <div class="data" *ngIf="clienteSelect">
+                    <div class="ui-fluid formgrid grid">
                         <div class="field col-12 md:col-6">
                             <label>Cédula / RUC: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.cedula}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.cedula}}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Nombre: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.nombre}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.nombre}}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Correo: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.correo}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.correo}}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Dirección: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.direccion}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.direccion}}</i></b>
                         </div>
-                    </div> -->
+                        <div class="field col-12 md:col-6">
+                            <label>Telefono: </label>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -159,9 +163,11 @@
     </p-dialog>
     <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
-    <!-- Dialog Agregar Destalle Recibo-->
+    <!-- Dialog Agregar Destalle Recibo CONCEPTOS-->
     <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="modal1" [style]="{ width: '70vw' }">
         <div class="p-fluid p-formgrid grid input">
+
+            <!-- Conceptos -->
             <div class="md:col-5">
                 <span class="p-float-label">
                     <div class="fieldset-conceptos">
@@ -194,7 +200,7 @@
                                             </div>
                                         </th>
                                         <th></th>
-        
+
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-item>
@@ -203,7 +209,7 @@
                                         <td>{{item.nombreConcepto}}</td>
                                         <td> <a pButton class="bg-blue-900 py-3" icon="pi pi-plus"
                                                 (click)="showAttributes(item)"></a></td>
-                                       
+
                                     </tr>
                                     <tr></tr>
                                 </ng-template>
@@ -212,7 +218,7 @@
                     </div>
                 </span>
             </div>
-
+            <!-- Informacion de Conceptos -->
             <div class="md:col-6">
                 <span class="p-float-label">
                     <div class="fielset-infConceptos">

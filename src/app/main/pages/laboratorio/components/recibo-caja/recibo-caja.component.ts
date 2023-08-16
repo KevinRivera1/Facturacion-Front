@@ -44,6 +44,7 @@ export class ReciboCajaComponent implements OnInit {
 
     ngOnInit() {
         this.llenarListConceptos();
+        this.clienteSelect= new ClienteDto();
     }
 
     cancelar() {
