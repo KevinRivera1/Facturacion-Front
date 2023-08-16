@@ -225,8 +225,7 @@ input[type="number"] {
     text-align: center;
     justify-content: space-around;
     align-content: center;
-    padding-top: 1%;
-    width: 45em;
+    padding-top: 15%;
 }
 .search-infConceptos {
     border: 1px solid rgba(128, 128, 128, 0.642);
@@ -253,3 +252,7 @@ input[type="number"] {
     padding: 5px;
 }
 
+.p-fluid.p-formgrid.grid.input{
+    display: flex;
+    gap: 6em;
+}
