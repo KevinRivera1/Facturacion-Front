@@ -5,6 +5,4 @@ export class ClienteDto{
     direccion:string;
     telefono:string;
     correo:string;
-
-
 }

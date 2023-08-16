@@ -195,3 +195,249 @@ input[type=number] {
         margin: 0;
     }
 }
+
+/* Formulario */
+.form--center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+}
+
+.guardar-button {
+    background-color: white !important;
+    color: blue !important;
+    border: solid blue 1px !important;
+}
+
+.cancelar-button {
+    background-color: white !important;
+    color: red !important;
+    border: solid red 1px !important;
+}
+
+textarea {
+    min-width: 38vw;
+    resize: none;
+}
+
+.text {
+    min-width: 38vw;
+    resize: none;
+}
+
+@media (max-width: 576px) {
+    textarea .text {
+        min-width: 40vw;
+    }
+}
+
+@media (max-width: 640px) {
+    textarea .text {
+        min-width: 42vw;
+    }
+}
+
+.form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+/* Calendario */
+.calendar {
+    width: 100%;
+    display: flex;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Encabezado */
+.header-card {
+    display: flex;
+    padding-top: 5px;
+    place-items: center;
+    font-size: 10px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+}
+.header-img {
+    width: 20%;
+}
+img {
+    width: 30%;
+    object-fit: cover;
+}
+.header-container h4 {
+    margin: 0;
+}
+.header-container {
+    width: 50%;
+}
+.header-recibo h1,
+h3 {
+    font-size: 14px;
+    margin: 0;
+}
+.recibo-caja {
+    padding: 5px;
+    outline: 1px solid rgba(128, 128, 128, 0.642);
+}
+input[type="number"] {
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+/* Búsqueda */
+.fieldset-search {
+    display: flex;
+    place-items: center;
+    font-size: 12px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    padding-top: 2%;
+}
+.search-border {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    padding: 0px 50px 0px 50px;
+}
+.search-border legend {
+    font-weight: bold;
+}
+.search {
+    margin-top: 2%;
+}
+.search button {
+    padding: 8px;
+    font-size: 12px;
+}
+
+.search input {
+    height: 2%;
+    padding: 10px;
+    font-size: 12px;
+}
+.fieldset-search2 {
+    display: flex;
+    place-items: center;
+    font-size: 12px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    padding: 4%;
+}
+
+.search-border2 {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    padding: 15px 50px 15px 50px;
+}
+
+/* Datos */
+.fieldset-data {
+    display: flex;
+    font-size: 12px;
+    justify-content: center;
+    align-content: center;
+    padding: 0px 2px;
+    margin-top: 2%;
+    width: 100%;
+}
+.data {
+    width: 50em;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+.data h4 {
+    padding: 1%;
+    margin: 0;
+    font-size: 12px;
+}
+
+/* Tabla */
+.table-dialog tr th {
+    width: 3%;
+}
+.table-dialog input {
+    width: 50%;
+}
+
+/* Observaciones */
+.fieldset-obser {
+    display: flex;
+    font-size: 12px;
+    justify-content: center;
+    padding: 2%;
+}
+.obser {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    display: flex;
+    width: 50em;
+    padding-top: 5px;
+    place-items: center;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    padding: 1%;
+}
+
+/* Conceptos */
+.fieldset-conceptos {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    width: 35em;
+}
+.search-conceptos {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 35em;
+}
+
+/* Información de Conceptos */
+.fielset-infConceptos {
+    display: flex;
+    place-items: center;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+}
+.search-infConceptos {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 30em;
+}
+.search-infConceptos input {
+    font-size: 12px;
+    width: 100%;
+}
+
+.p-fluid.p-formgrid.grid.input {
+    display: flex;
+    gap: 5em;
+    padding: 30px;
+}
+
+/* SAWE */
+.search-saew {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 15em;
+    padding: 5px;
+}
+
+.search-saew th {
+    border: 1px solid rgba(128, 128, 128, 0.642);
+    width: 5em;
+    padding: 5px;
+}
