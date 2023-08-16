@@ -65,9 +65,16 @@
                         </th>
                         <th pSortableColumn="Ruc">
                             <div class="flex justify-content-between align-items-center">
-                                RUC/CI
+                                RUC
                                 <p-sortIcon field="Ruc"></p-sortIcon>
                                 <p-columnFilter type="text" field="Ruc" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="CI">
+                            <div class="flex justify-content-between align-items-center">
+                                CI
+                                <p-sortIcon field="CI"></p-sortIcon>
+                                <p-columnFilter type="text" field="CI" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="fechaRecibo">
@@ -105,6 +112,11 @@
                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
                     <tr class="font-medium">
                         <td>{{ rowIndex + 1 }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td>{{ item.detalleEstadoComp }}</td>
                         <td>

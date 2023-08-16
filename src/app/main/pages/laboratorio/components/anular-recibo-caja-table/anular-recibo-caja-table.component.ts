@@ -16,7 +16,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     displayModal: boolean = false;
     @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
     @Output() RecibCajaSelect = new EventEmitter();
-    reciboCajaFiltrados: any[] = []; //* guarda los datos filtrados del componete hijo
+    reciboCajaFiltrados: any[] = []; //* resive y guarda los datos filtrados del componete hijo buscarcomponent
 
     //recibosCaja: ReciboCajaDto;
     //selectedRecibosCaja: ReciboCajaDto[];
@@ -32,7 +32,9 @@ export class AnularReciboCajaTableComponent implements OnInit {
         private confirmationService: ConfirmationService
     ) {}
 
-    ngOnInit() {}
+    ngOnInit(): void {
+        this.construirTabla();
+    }
 
     //TODO: MODIFICAR LOS CAMPOS PARA EL RECIBO CAJA ANULAR
     construirTabla() {
