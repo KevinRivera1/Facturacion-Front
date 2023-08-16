@@ -1,71 +1,94 @@
-<p-card class="mobile-card">
-  <p-header class="flex align-items-center bg-blue-900 p-3 pb-1 text-white">
-      <h4>Factura Matricula</h4>
-  </p-header>
-  <div class="caja-boton-principal central" style="align-items: center">
-      <button
-          pButton
-          label="Agregar Forma de Pago"
-          class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-          icon="pi pi-plus"
-          pTooltip="Agregar Forma de Pago"
-          label="Agregar"
-          tooltipPosition="right"
-          (click)="abrirmodal()"
-      ></button>
-  </div>
-  <p-dialog
-  header="Agregar Matricula"
-  [(visible)]="modal"
-  [style]="{ width: '80vw'}"
- 
->
-  <!--ANDRES MONTOYA-->
+<p-card>
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
-  <!-- HEADER -->
-  <div class="header-card">
-      <div class="header-img">
-          <img alt="Card" src="../../../../../../assets/img/epn.png" />
-      </div>
-      <div class="header-container">
-          <h4>ESCUELA POLITECNICA NACIONAL</h4>
-          <p>
-              Campus Politecnico "J. Ruben Orellana R."<br />
-              Ladron de Guevara E11-253 y Andalucia<br />
-              Telf.: 2507-144 / Fax: 2567-848<br />
-              P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
-          </p>
-      </div>
-      <div class="header-recibo">
-          <div class="recibo-caja">
-              <h1>FACTURA MATRICULA</h1>
-              <h3>Nro. 132-123-12345</h3>
+  <!-- Dialog 0 -->
+  <p-dialog header="Agregar Factura Matricula" [(visible)]="modal" [style]="{ width: '60vw' }">
+      <!--ANDRES MONTOYA-->
+
+      <!-- HEADER -->
+      <div class="header-card">
+          <div class="header-img">
+              <img alt="Card" src="../../../../../../assets/img/epn.png" />
+          </div>
+          <div class="header-container">
+              <h4>ESCUELA POLITECNICA NACIONAL</h4>
+              <p>
+                  Campus Politecnico "J. Ruben Orellana R."<br />
+                  Ladron de Guevara E11-253 y Andalucia<br />
+                  Telf.: 2507-144 / Fax: 2567-848<br />
+                  P.O. Box: 17-01-2759 / QUITO-ECUADOR<br />
+              </p>
+          </div>
+          <div class="header-recibo">
+              <div class="recibo-caja">
+                  <h1>FACTURA MATRICULAS</h1>
+                  <h3>Nro. 132-123-12345</h3>
+              </div>
           </div>
       </div>
-  </div>
-  <p-divider></p-divider>
 
-  <p-fieldset
-      align="center"
-      class="flex justify-content-center central"
-      legend="Buscar"
-  >
-      <div class="flex flex-wrap gap-3">
-         <div class="caja-boton-principal">
-              <button
-                  pButton
-                  label="Buscar"
-                  class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                  pTooltip="Buscar"
-                  (click)="abrirmodal2()"
-                  tooltipPosition="right"
-              ></button>
-          </div>
+      <br />
+      <!-- BUSQUEDA -->
+
+      <div class="fieldset-search">
+          <fieldset class="search-border">
+              <legend>Buscar Cliente</legend>
+
+              <div class="search">
+                  <div class=" flex justify-content-center gap-3">
+                          
+                          <div class="flex align-items-center">
+                              <p-radioButton name="cliente" value="1" [(ngModel)]="tipoCliente" inputId="1"></p-radioButton>
+                              <label class="ml-2">Cliente</label>
+                          </div>
+                         
+  
+                          <div class="caja-boton-principal  py-3">
+                              <button pButton label="Buscar" class=" bg-blue-900 "
+                               (click)="busquedaCliente()"   pTooltip="Buscar"
+                                  tooltipPosition="right"></button>
+                          </div>
+
+                  </div>
+              </div>
+          </fieldset>
       </div>
-  </p-fieldset>
+
+      <!-- TABLA DATOS -->
+      <div class="fieldset-data">
+          <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
+              
+            <div class="data" *ngIf="clienteSelect">
+              <div class="p-formgrid grid">
+                  <div class="col-12 md:col-6 mb-0">
+                      <h4>* Recibe de: {{clienteSelect.nombre}}</h4>
+                  </div>
+                  <div class="col-12 md:col-6 mb-0">
+                      <h4>* Ruc/Cedula: {{clienteSelect.cedula}}</h4>
+                  </div>
+              </div>
+              <div class="p-formgrid grid">
+                  <div class="col-12 md:col-6 mb-0">
+                      <h4>* Direccion: {{clienteSelect.direccion}}</h4>
+                  </div>
+                  <div class="col-12 md:col-6 mb-0">
+                      <h4>* Forma Pago:</h4>
+                  </div>
+              </div>
+              <div class="p-formgrid grid">
+                  <div class="col-12 md:col-6 mb-0">
+                      <h4>* F/Emision:</h4>
+                  </div>
+              </div>
+          </div>
+          
+          </fieldset>
+      </div>
+
+   
   <br />
 
-  <p-fieldset>
+  <!-- <p-fieldset>
     <div style="border: solid 1px rgb(132, 132, 132); display: flex;">
       <div class="p-fluid p-formgrid grid col-6"   style="border-right: solid 1px rgb(132, 132, 132);">
         <div class="p-field col-12 md:col-6 mb-0 px-3"> 
@@ -92,7 +115,7 @@
           <label for="ftxt-email-1">Email 1:</label>
         </div>
         <!-- Agrega los demás elementos del lado izquierdo -->
-      </div>
+      <!-- </div>
       <div class="p-fluid p-formgrid grid col-6">
         <div class="p-field col-12 md:col-6 mb-0 px-3"> 
           <label for="ftxt-facultad-instituto">Facultad/Instituto:</label>
@@ -118,10 +141,10 @@
           <label for="ftxt-email-2">Email 2:</label>
         </div>
         <!-- Agrega los elementos del lado derecho -->
-      </div>
+      <!-- </div>
     </div>
-  </p-fieldset>
-  
+  </p-fieldset> --> 
+   
 
   
   
@@ -236,6 +259,10 @@
 </p-dialog>
 <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
+<div class="caja-boton-principal center-button">
+  <button pButton label="Agregar Factura Matricula" (click)="registrarNuevo()" class="m-1 bg-blue-900"
+      icon="pi pi-plus" pTooltip="Agregar" tooltipPosition="right"></button>
+</div>
   <p-divider></p-divider>
   <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
   <div class="p-d-flex">
@@ -341,43 +368,6 @@
 </p-card>
  <!-- Buscar 2 Nombre ,CI -->
 
- <p-dialog header="Buscar" [contentStyle]="{'overflow': 'visible'}" [(visible)]="modal2" [style]="{ width: '37vw', 'max-height': '35vh' }">
-  <p-fieldset class="form"  [style]="{ width: '35vw', 'max-height': '25vh' }">
-    <div class="p-fluid p-formgrid grid input button" style="display: flex; flex-direction: column; height: 100%;">
-      <div class="p-grid" style="flex-grow: 1;">
-        <div class="p-col-6">
-          <div class="p-field col-12 md:col-12  mb-0 px-3">
-            <span class="p-float-label">
-              <input pInputText id="ftxt-apellidos" required="true" />
-              <label for="ftxt-apellidos">* Apellidos:</label>
-            </span>
-          </div>
-        </div>
-
-        <div class="p-col-6">
-          <div class="p-field col-12 md:col-12  mb-0 px-3">
-            <span class="p-float-label">
-              <input pInputText id="ftxt-cl" required="true" type="number" />
-              <label for="ftxt-cl">* C.L:</label>
-            </span>
-          </div>
-        </div>
-        <div class="p-field col-12 md:col-12 mb-0 px-3 text-center">
-          <button
-            style="width: 110px;"
-            pButton
-            label="Buscar"
-            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-            pTooltip="Buscar"
-            tooltipPosition="right"
-            (click)="abrirmodalista()"
-          ></button>
-        </div>
-      </div>
-     
-    </div>
-  </p-fieldset>
-</p-dialog>
 
 
   <!-- Tabla lista Estudiante  -->
@@ -459,5 +449,60 @@
 </p-table>
 
 </p-dialog>
+
+ <!-- Dialog Buscar -->
+
+ <p-dialog [header]=" 'Buscar por ' + data "  [(visible)]="modalBuscar" [style]="{ width: '65vw' }">
+  <div class="fieldset-search2">
+      <fieldset class="search-border2">
+          <legend>Buscar</legend>
+          <div class="search">
+              <div class="flex flex-wrap gap-3">
+                  <div class="flex align-items-center">
+                      <label class="ml-2">Apellidos: </label>
+                      <input type="text" id="txtnombreB" pInputText [(ngModel)]="nombreBusqueda" />
+                  </div>
+                  <div class="flex align-items-center">
+                      <label class="ml-2">C.l: </label>
+                      <input type="text" id="txtCedulaB" pInputText [(ngModel)]="cedulaBusqueda" />
+                  </div>
+                  <div class="caja-boton-principal">
+                      <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                          pTooltip="Buscar"   (click)="llenarListCliente()"            tooltipPosition="right"></button>
+                  </div>
+              </div>
+          </div>
+
+      </fieldset>
+  </div>
+</p-dialog>
+
+<!-- Dialog Tabla Buscar -->
+
+<p-dialog [header]=" 'Lista de ' + data "  [(visible)]="modalBusTabl" [style]="{ width: '65vw' }">
+  <div>
+      <p-table [value]="listCliente" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Cédula</th>
+                  <th>Nombre</th>
+                  <th>Acciones</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-cliente>
+              <tr>
+                  <td>{{ cliente. cedula}}</td>
+                  <td>{{ cliente.nombre }}</td>
+                  <div class="field col-12 md:col-12" align="center">
+                      <button pButton label="Seleccionar" class="bg-blue-900 " 
+                              (click)="cargarCliente(cliente)"      pTooltip="Buscar"  tooltipPosition="right"></button>
+                  </div>
+
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>
+</p-dialog>
+
 
   

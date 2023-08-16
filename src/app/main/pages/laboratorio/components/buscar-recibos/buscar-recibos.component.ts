@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { TokenDto } from 'src/app/_dto/token-dto';
@@ -14,7 +14,8 @@ import { ReciboCaja } from '../../model/reciboCaja';
 })
 export class BuscarRecibosComponent implements OnInit {
     @Input() reciboCaja: ReciboCaja; //Va reciboDTo
-    reciboCajaFiltrados: ReciboCaja; //va ReciboDto
+    @Output() reciboCajaFiltrados = new EventEmitter(); //*Emite los datos filtrados
+    //reciboCajaFiltrados: ReciboCaja; //va ReciboDto
 
     proceso: string = 'anular recibos caja';
     response: ResponseGenerico;
@@ -56,9 +57,9 @@ export class BuscarRecibosComponent implements OnInit {
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-    obtenerdaData() {}
 
-    Buscar() {
+    //! Necesito poner Dto = doc:ReciboCajaDto
+    BuscarData() {
         const fechaDesde = this.buscarForm.value.fechaDesde;
         const fechaHasta = this.buscarForm.value.fechaDesde;
         console.log('filtrando info: ' + fechaDesde);
@@ -68,6 +69,10 @@ export class BuscarRecibosComponent implements OnInit {
             const fechaRecibo = new Date(recibo.fecha);
             return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
         }); */
+        
+        this.reciboCajaFiltrados.emit(this.buscarForm.value);
+        
+        //console.log("🚀 ~ file: buscar-recibos.component.ts:73 ~ BuscarRecibosComponent ~ BuscarData ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
     }
 
     onInputNroRecibo(event: any) {

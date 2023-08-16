@@ -1,150 +1,153 @@
 <app-buscar-recibos></app-buscar-recibos>
 
-<br>
+<br />
 
 <section class="content">
     <div class="container-fluid">
         <div class="card">
             <p-table #ef [value]="" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
-                      'idEstadoComprobante',
-                      'nombreEstadoComp',
-                      'detalleEstadoComp'
-                   ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idEstadoComprobante"
+                    'idEstadoComprobante',
+                    'NroReciboCaja',
+                    'NombreCliente',
+                    'Ruc'
+                ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idEstadoComprobante"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-wrap">
-                        <!--  <div class="flex flex-wrap">
-                          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
-                              class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
-                              tooltipPosition="bottom"></button>
-                          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
-                              class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
-                              tooltipPosition="bottom"></button>
-                          <button pButton pRipple label="Delete" icon="pi pi-trash"
-                              class="p-button-danger p-button-sm m-1" (click)="deleteSelectedBancos()"
-                              pTooltip="Eliminar Seleccionados" tooltipPosition="bottom"
-                              [disabled]="!selectedEstados || !selectedEstados.length"></button>
-                          <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
-                              icon="pi pi-filter-slash" (click)="Clear(ef)" pTooltip="Quitar Filtros"
-                              tooltipPosition="right"></button>
-                      </div> -->
-                        <div class="flex flex-wrap align-items-center align-items-center select-none">
-                            <label class="text-center font-semibold">Listado Estado Comprobantes</label>
+                        <div class="flex flex-wrap">
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                tooltipPosition="bottom"></button>
+                            <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
+                                icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
+                                tooltipPosition="right"></button>
                         </div>
-                        <span class="p-input-icon-left ">
+                        <div class="flex flex-wrap align-items-center align-items-center select-none">
+                            <label class="text-center font-semibold">RECIBOS CAJA</label>
+                        </div>
+                        <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <!--  <input pInputText type="text" class="p-inputtext-sm uppercase"
-                              (input)="ef.filterGlobal($event.target.value,'equals' ,'contains')"
-                              placeholder="Busqueda General" /> -->
+                            <input pInputText type="text" class="p-inputtext-sm uppercase" (input)="
+                                    ef.filterGlobal(
+                                        $event.target.value,
+                                        'contains'
+                                    )
+                                " placeholder="Busqueda General" />
                         </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
                         <th pSortableColumn="idEstadoComprobante">
                             <div class="flex justify-content-between align-items-center">
-                                <bold style="font-weight: bold;">&#8470;</bold>
+                                <bold style="font-weight: bold">&#8470;</bold>
                                 <p-sortIcon field="idEstadoComprobante"></p-sortIcon>
                                 <p-columnFilter type="text" field="idEstadoComprobante" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="nombreEstadoComp">
-                            <div class="flex justify-content-between align-items-center">Nro.Recibo C
+                        <th pSortableColumn="NroReciboCaja">
+                            <div class="flex justify-content-between align-items-center">
+                                No.Recibo Caja
                                 <p-sortIcon field="NroReciboCaja"></p-sortIcon>
-                                <p-columnFilter type="text" field="nombreEstadoComp" display="menu"></p-columnFilter>
+                                <p-columnFilter type="text" field="NroReciboCaja" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
-                            <div class="flex justify-content-between align-items-center">Cliente
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                        <th pSortableColumn="nombreCliente">
+                            <div class="flex justify-content-between align-items-center">
+                                Cliente
+                                <p-sortIcon field="nombreCliente"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreCliente" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
-                            <div class="flex justify-content-between align-items-center">RUC/CI
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                        <th pSortableColumn="Ruc">
+                            <div class="flex justify-content-between align-items-center">
+                                RUC
+                                <p-sortIcon field="Ruc"></p-sortIcon>
+                                <p-columnFilter type="text" field="Ruc" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
-                            <div class="flex justify-content-between align-items-center">Fecha
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                        <th pSortableColumn="CI">
+                            <div class="flex justify-content-between align-items-center">
+                                CI
+                                <p-sortIcon field="CI"></p-sortIcon>
+                                <p-columnFilter type="text" field="CI" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="detalleEstadoComp">
-                            <div class="flex justify-content-between align-items-center">Total
-                                <p-sortIcon field="detalleEstadoComp"></p-sortIcon>
-                                <p-columnFilter type="text" field="detalleEstadoComp" display="menu"></p-columnFilter>
+                        <th pSortableColumn="fechaRecibo">
+                            <div class="flex justify-content-between align-items-center">
+                                Fecha
+                                <p-sortIcon field="fechaRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="fechaRecibo" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="estadoCompr">
-                            <div class="flex justify-content-between align-items-center">Estado
-                                <p-sortIcon field="estadoCompr"></p-sortIcon>
-                                <p-columnFilter type="text" field="estadoCompr" display="menu"></p-columnFilter>
+                        <th pSortableColumn="totalRecibo">
+                            <div class="flex justify-content-between align-items-center">
+                                Total
+                                <p-sortIcon field="totalRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="totalRecibo" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="estadoCompr">
-                            <div class="flex justify-content-between align-items-center">Motivo
-                                <p-sortIcon field="estadoCompr"></p-sortIcon>
-                                <p-columnFilter type="text" field="estadoCompr" display="menu"></p-columnFilter>
+                        <th pSortableColumn="estadoRecibo">
+                            <div class="flex justify-content-between align-items-center">
+                                Estado
+                                <p-sortIcon field="estadoRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="estadoRecibo" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="motivoRecibo">
+                            <div class="flex justify-content-between align-items-center">
+                                Motivo
+                                <p-sortIcon field="motivoRecibo"></p-sortIcon>
+                                <p-columnFilter type="text" field="motivoRecibo" display="menu"></p-columnFilter>
                             </div>
                         </th>
 
                         <th>Acciones</th>
                     </tr>
-
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
                     <tr class="font-medium">
-                        <!-- <td>
-                          <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                      </td>
-                      <td>{{rowIndex+1}}</td>
-                      <td>
-                          <mark
-                              [ngClass]="{'border-green-500': item.nombreEstadoComp === 'PAGADA',
-                                          'bg-orange-200': item.nombreEstadoComp === 'PENDIENTE',
-                                          'border-red-500': item.nombreEstadoComp ==='CANCELADA',
-                                          'bg-gray-400': item.nombreEstadoComp !== 'PAGADA' && item.nombreEstadoComp !== 'PENDIENTE' && item.nombreEstadoComp !== 'CANCELADA'}">
-                              {{ item.nombreEstadoComp }}
-                          </mark>
-                      </td>
-                      <td>{{item.detalleEstadoComp}}</td>
-                      <td> <mark [ngClass]="item.estadoCompr== 'ACTIVO'
-                          ? 'border-green-500' : 'border-red-500' ">{{item.estadoCompr}}</mark>
-                      </td>
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ item.detalleEstadoComp }}</td>
+                        <td>
+                            <mark [ngClass]="
+                                    item.estadoCompr == 'ACTIVO'
+                                        ? 'border-green-500'
+                                        : 'border-red-500'
+                                ">{{ item.estadoCompr }}</mark>
+                        </td>
 
-                      <td>
-                          <button pButton pRipple icon="pi pi-pencil"
-                              class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
-                              (click)="editEstadoFact(item); modalOpen()" pTooltip="Editar"
-                              tooltipPosition="left"></button>
-
-                          <button pButton pRipple icon="pi pi-trash"
-                              class="p-button-rounded p-button-danger p-button-text p-button-sm"
-                              (click)="deleteEstadoFact(item)" pTooltip="Eliminar" tooltipPosition="left"
-                              ></button>
-                      </td> -->
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                                (click)="editEstadoFact(item); modalOpen()" pTooltip="Editar"
+                                tooltipPosition="left"></button>
+                        </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Registros Totales: {{listestadoFact ? listestadoFact.length : 0 }}.
+                        Registros Totales:
+                        {{ listestadoFact ? listestadoFact.length : 0 }}.
                     </div>
                 </ng-template>
             </p-table>
         </div>
     </div>
-    <br>
+    <br />
     <div class="button__from text-right">
         <a pButton label="anular" icon="pi pi-plus" (click)="modalOpen()">Anular modal</a>
     </div>
-
 </section>
 
 <app-anular-recibo-caja [display]="displayModal" (closeModal)="closeModal()"></app-anular-recibo-caja>

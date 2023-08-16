@@ -16,6 +16,8 @@ export class AnularReciboCajaTableComponent implements OnInit {
     displayModal: boolean = false;
     @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
     @Output() RecibCajaSelect = new EventEmitter();
+    reciboCajaFiltrados: any[] = []; //* resive y guarda los datos filtrados del componete hijo buscarcomponent
+
     //recibosCaja: ReciboCajaDto;
     //selectedRecibosCaja: ReciboCajaDto[];
 
@@ -25,21 +27,26 @@ export class AnularReciboCajaTableComponent implements OnInit {
     cols: any[];
 
     constructor(
-        //private displayAnulacioModal: AnularReciboCajaComponent,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService
     ) {}
 
-    ngOnInit() {}
+    ngOnInit(): void {
+        this.construirTabla();
+    }
 
     //TODO: MODIFICAR LOS CAMPOS PARA EL RECIBO CAJA ANULAR
     construirTabla() {
         this.cols = [
-            { field: 'idRecibCaja', header: 'Nro.' },
-            { field: 'nombreBancos', header: 'NOMBRE.' },
-            { field: 'descBancos', header: 'DETALLE.' },
-            { field: 'estadoBancos', header: 'ESTADO.' },
+            //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
+            { field: 'NroReciboCaja', header: 'Nro.RECIBO' },
+            { field: 'nombreCliente', header: 'NOMBRE.' },
+            { field: 'Ruc', header: 'Ruc.' },
+            { field: 'fechaRecibo', header: 'FECHA.' },
+            { field: 'totalRecibo', header: 'TOTAL' },
+            { field: 'estadoRecibo', header: 'ESTADO' },
+            { field: 'motivoRecibo', header: 'MOTIVO' },
         ];
         this.exportColumns = this.cols.map((col) => ({
             title: col.header,
@@ -52,6 +59,10 @@ export class AnularReciboCajaTableComponent implements OnInit {
         table.clear();
     }
 
+    //* funcion para dovolver los datos filtrados y mostrarlos en la tabla
+    FilterData(data: any) {}
+
+    //* Función para guardar el motivo de anulacion desde la tabla
     guardarMotivoAnulacion() {}
 
     exportPdf() {
