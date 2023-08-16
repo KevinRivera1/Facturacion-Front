@@ -3,7 +3,9 @@ import { ConfirmationService } from 'primeng/api';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
 import { Table } from 'primeng/table';
-import { ReciboCaja } from '../../model/reciboCaja';
+import { ReciboCajaDto } from '../../model/reciboCajaDto';
+import { ReciboCajaService } from '../../services/reciboCaja.service';
+
 //import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
 
 @Component({
@@ -14,12 +16,14 @@ import { ReciboCaja } from '../../model/reciboCaja';
 export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
     displayModal: boolean = false;
-    @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
+
+    @Input() listReciboCaja: ReciboCajaDto[] = []; // va el ReciboCajaDto
     @Output() RecibCajaSelect = new EventEmitter();
+
     reciboCajaFiltrados: any[] = []; //* resive y guarda los datos filtrados del componete hijo buscarcomponent
 
     //recibosCaja: ReciboCajaDto;
-    //selectedRecibosCaja: ReciboCajaDto[];
+    selectedRecibosCaja: ReciboCajaDto[];
 
     submitted: boolean;
     loading: boolean;
@@ -27,6 +31,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     cols: any[];
 
     constructor(
+        private reciboCajaService: ReciboCajaService,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService
@@ -60,7 +65,17 @@ export class AnularReciboCajaTableComponent implements OnInit {
     }
 
     //* funcion para dovolver los datos filtrados y mostrarlos en la tabla
-    FilterData(data: any) {}
+    FilterData(data:any) {
+        this.reciboCajaService.getAll(data).subscribe({
+            next: (resultadoData: any[]) => {
+                this.reciboCajaFiltrados = resultadoData;
+                console.log("🚀 ~ file: anular-recibo-caja-table.component.ts:72 ~ AnularReciboCajaTableComponent ~ this.reciboCajaService.getAll ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
+            },
+            error: (error: any) => {
+                console.log('Error al obtener los datos filtrados', error);
+            },
+        });
+    }
 
     //* Función para guardar el motivo de anulacion desde la tabla
     guardarMotivoAnulacion() {}

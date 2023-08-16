@@ -5,12 +5,12 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card">
-            <p-table #ef [value]="" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
-                    'idEstadoComprobante',
+            <p-table #ef [value]="listReciboCaja" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
+                    'idReciboCaja',
                     'NroReciboCaja',
                     'NombreCliente',
                     'Ruc'
-                ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idEstadoComprobante"
+                ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idReciboCaja"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
@@ -112,8 +112,8 @@
                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
                     <tr class="font-medium">
                         <td>{{ rowIndex + 1 }}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ item.NroReciboCaja }}</td>
+                        <td>{{item}}</td>
                         <td></td>
                         <td></td>
                         <td></td>

@@ -57,22 +57,19 @@ export class BuscarRecibosComponent implements OnInit {
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-
     //! Necesito poner Dto = doc:ReciboCajaDto
     BuscarData() {
-        const fechaDesde = this.buscarForm.value.fechaDesde;
-        const fechaHasta = this.buscarForm.value.fechaDesde;
-        console.log('filtrando info: ' + fechaDesde);
-        console.log('filtrando info  hasta: ' + fechaHasta);
+        const buscarData = this.buscarForm.value;
 
-        /*  this.reciboCaja = this.reciboCaja.filter((recibo) => {
-            const fechaRecibo = new Date(recibo.fecha);
-            return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
-        }); */
+        const datosfiltrados ={
+            ...buscarData,
+            fechaDesde: buscarData.fechaDesde ?  new Date(buscarData.fechaDesde):null,
+            fechaHasta: buscarData.fechaHasta ? new Date(buscarData.fechaHasta):null,
+        };
         
-        this.reciboCajaFiltrados.emit(this.buscarForm.value);
-        
-        //console.log("🚀 ~ file: buscar-recibos.component.ts:73 ~ BuscarRecibosComponent ~ BuscarData ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
+        this.reciboCajaFiltrados.emit();
+
+        console.log("🚀 ~ file: buscar-recibos.component.ts:73 ~ BuscarRecibosComponent ~ BuscarData ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
     }
 
     onInputNroRecibo(event: any) {
