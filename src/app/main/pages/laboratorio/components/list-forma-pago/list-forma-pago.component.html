@@ -7,7 +7,7 @@
         <p-table #dt selectionMode="single"[value]="listFormaPago"  dataKey="idFormaPago" [tableStyle]="{ 'min-width': '20rem' }" [rows]="4"
           [paginator]="true" stateStorage="session"   [globalFilterFields]="[
           'nombreFp',
-          'descripcionFp',
+          'idFormaPago',
        ]" stateKey="idFormaPago">
 
        <ng-template pTemplate="caption">
@@ -25,27 +25,26 @@
     </ng-template>
           <ng-template pTemplate="header">
             <tr>
+              <th pSortableColumn="idFormaPago">
+                <div class="flex justify-content-between align-items-center">ID
+                    <p-sortIcon field="idFormaPago"></p-sortIcon>
+                    <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
+                </div>
+            </th>
               <th pSortableColumn="nombreFp">
                 <div class="flex justify-content-between align-items-center">NOMBRE
                     <p-sortIcon field="nombreFp"></p-sortIcon>
                     <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
                 </div>
             </th>
-           
-            <th pSortableColumn="descripcionFp">
-                <div class="flex justify-content-between align-items-center">DETALLE
-                    <p-sortIcon field="descripcionFp"></p-sortIcon>
-                    <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
-                </div>
-             </th>
+        
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
             <tr>
             
-            
+              <td>{{customer.idFormaPago}}</td>
               <td>{{customer.nombreFp}}</td>
-              <td>{{customer.descripcionFp}}</td>
               <td> <a pButton class="botonmas" icon="pi pi-plus" (click)="showAttributes(customer)" ></a></td>
             </tr>
           </ng-template>
