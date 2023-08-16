@@ -64,7 +64,7 @@
             </div>
             <div class="p-field col-6 md:col-5 md:mb-1 mb-0 px-3">
               <span class="p-float-label">
-                <input pInputText id="ftxt-ch" [value]="nombreFp"   required="true" [disabled]="true" />
+                <input pInputText id="ftxt-ch"  [ngModel]="nombreFp" [value]="nombreFp"   required="true" [disabled]="true" />
                 <label for="ftxt-ch">Forma de Pago: </label>
                 <b> <i class="text-1xl mr-2 mb-3"></i></b>
               </span>
@@ -116,7 +116,7 @@
 
     <div class="mt-4 text-center">
       <div class="p-buttonset">
-        <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar"
+        <button pButton label="Guardar" (click)="guardarpago()" class="m-1 bg-blue-900" pTooltip="Guardar"
           tooltipPosition="right"></button>
         <button pButton label="Cancelar" (click)="CloseModal()" class="m-1 bg-blue-900" pTooltip="Cancelar"
           tooltipPosition="right"></button>
