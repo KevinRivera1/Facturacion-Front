@@ -57,9 +57,10 @@ export class AnularReciboCajaTableComponent implements OnInit {
         table.clear();
     }
 
-    //* funcion para dovolver los datos filtrados
+    //* funcion para dovolver los datos filtrados y mostrarlos en la tabla
     FilterData(data: any) {}
 
+    //* Función para guardar el motivo de anulacion desde la tabla
     guardarMotivoAnulacion() {}
 
     exportPdf() {
