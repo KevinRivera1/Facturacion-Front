@@ -1,12 +1,13 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card">
-            <p-table #dt [value]="listNotaCreditos" [rows]="10" [paginator]="true" [loading]="loading"
+            <p-table #dt [value]="combinedData"  [rows]="10" [paginator]="true" [loading]="loading"
                 [globalFilterFields]="[
                         'idNotaCredito',
                         'codNc'
                      ]" responsiveLayout="scroll" [(selection)]="selectedNotaCreditos" [rowHover]="true"
-                 dataKey="idNotaCredito" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                dataKey="idNotaCredito"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
                 [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
                     <div class="text-center">
@@ -15,15 +16,6 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                              <th pSortableColumn="idNotaCredito">
-                            <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
-                                <p-sortIcon field="idNotaCredito"></p-sortIcon>
-                                <p-columnFilter type="text" field="idNotaCredito" display="menu"></p-columnFilter>
-                            </div>
-                        </th> 
                         <th pSortableColumn="codNc">
                             <div class="flex justify-content-between align-items-center">Nota C No.
                                 <p-sortIcon field="codNc"></p-sortIcon>
@@ -31,34 +23,34 @@
                             </div>
                         </th>
 
-                        <th pSortableColumn="idFactura">
+                        <th pSortableColumn="codFactura">
                             <div class="flex justify-content-between align-items-center">Factura N.
-                                <p-sortIcon field="idFactura"></p-sortIcon>
-                                <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
+                                <p-sortIcon field="codFactura"></p-sortIcon>
+                                <p-columnFilter type="text" field="codFactura" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                         <th pSortableColumn="descripcionFp">
+                        <th pSortableColumn="nombreConsumidor">
                             <div class="flex justify-content-between align-items-center">Cliente
-                                <p-sortIcon field="descripcionFp"></p-sortIcon>
-                                <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
-                            </div>
-                        </th> 
-                        <th pSortableColumn="motivoNc">
-                            <div class="flex justify-content-between align-items-center">RUC/CI
-                                <p-sortIcon field="motivoNc"></p-sortIcon>
-                                <p-columnFilter type="text" field="motivoNc" display="menu"></p-columnFilter>
+                                <p-sortIcon field="nombreConsumidor"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreConsumidor" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                         <th pSortableColumn="codigoSae">
-                            <div class="flex justify-content-between align-items-center">Fecha
-                                <p-sortIcon field="codigoSae"></p-sortIcon>
-                                <p-columnFilter type="text" field="codigoSae" display="menu"></p-columnFilter>
+                        <th pSortableColumn="rucConsumidor">
+                            <div class="flex justify-content-between align-items-center">RUC/CI
+                                <p-sortIcon field="rucConsumidor"></p-sortIcon>
+                                <p-columnFilter type="text" field="rucConsumidor" display="menu"></p-columnFilter>
                             </div>
-                        </th> 
-                        <th pSortableColumn="idUsuarioNc">
+                        </th>
+                        <th pSortableColumn="fechaFact">
+                            <div class="flex justify-content-between align-items-center">Fecha
+                                <p-sortIcon field="fechaFact"></p-sortIcon>
+                                <p-columnFilter type="text" field="fechaFact" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="totalFact">
                             <div class="flex justify-content-between align-items-center">Valor
-                                <p-sortIcon field="idUsuarioNc"></p-sortIcon>
-                                <p-columnFilter type="text" field="idUsuarioNc" display="menu"></p-columnFilter>
+                                <p-sortIcon field="totalFact"></p-sortIcon>
+                                <p-columnFilter type="text" field="totalFact" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="idEstadoNc">
@@ -67,20 +59,18 @@
                                 <p-columnFilter type="text" field="idEstadoNc" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th>ACCIONES</th>
+                        <th>Acciones</th>
                     </tr>
 
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
                     <tr>
-                        <td>
-                            <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                        </td>
-                        <td>{{rowIndex+1}}</td>
                         <td>{{item.codNc}}</td>
-                        <td>{{item.idFactura}}</td>
-                        <td>{{item.motivoNc}}</td>
-                        <td>{{item.idUsuarioNc}}</td>
+                        <td>{{item.codFactura}}</td>
+                        <td>{{item.nombreConsumidor}}</td>
+                        <td>{{item.rucConsumidor}}</td>
+                        <td>{{item.fechaFact}}</td>
+                        <td>{{item.totalFact}}</td>
                         <td> <mark [ngClass]="item.idEstadoNc == 'ACTIVO'
                           ? 'border-green-500' : 'border-red-500' ">{{item.idEstadoNc}}</mark></td>
                         <td>

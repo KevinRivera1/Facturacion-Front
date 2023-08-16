@@ -14,6 +14,7 @@ export class FacturaMatriculaTableComponent implements OnInit {
   loading: boolean;
   appService: any;
   modal: boolean;
+  clienteSelect:FacturaDto;
 
   constructor(private facturaServcice: FacturaService,) { }
 
@@ -54,6 +55,12 @@ export class FacturaMatriculaTableComponent implements OnInit {
     }, 1000);
 }
 
+cargarfactura(clienteSelectDto: FacturaDto ){
+  this.clienteSelect= clienteSelectDto;
+  this.abrirmodal();
+
+}
+
 abrirmodal() {
   this.modal = true;
 }
@@ -66,6 +73,8 @@ this.modal = false;
 
   ngOnInit() {
     this.llenarFacturaMatricula();
+    this.clienteSelect= new FacturaDto();
+
   }
 
 }

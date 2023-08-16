@@ -14,7 +14,7 @@ import { ReciboCaja } from '../../model/reciboCaja';
 })
 export class BuscarRecibosComponent implements OnInit {
     @Input() reciboCaja: ReciboCaja; //Va reciboDTo
-    @Output() reciboCajaFiltrados = new EventEmitter();
+    @Output() reciboCajaFiltrados = new EventEmitter(); //*Emite los datos filtrados
     //reciboCajaFiltrados: ReciboCaja; //va ReciboDto
 
     proceso: string = 'anular recibos caja';
@@ -57,9 +57,9 @@ export class BuscarRecibosComponent implements OnInit {
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-    obtenerdaData() {}
 
-    Buscar(doc) {
+    //! Necesito poner Dto = doc:ReciboCajaDto
+    BuscarData() {
         const fechaDesde = this.buscarForm.value.fechaDesde;
         const fechaHasta = this.buscarForm.value.fechaDesde;
         console.log('filtrando info: ' + fechaDesde);
@@ -69,7 +69,7 @@ export class BuscarRecibosComponent implements OnInit {
             const fechaRecibo = new Date(recibo.fecha);
             return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
         }); */
-        this.reciboCajaFiltrados.emit(doc);
+        this.reciboCajaFiltrados.emit(this.buscarForm.value);
     }
 
     onInputNroRecibo(event: any) {

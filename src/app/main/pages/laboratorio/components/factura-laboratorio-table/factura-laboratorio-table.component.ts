@@ -31,9 +31,10 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
 
 
-  cargarfactura(clienteSelectDto: FacturaDto ){
+  cargarfactura(clienteSelectDto: FacturaDto){
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
+    
 
   }
 
@@ -58,5 +59,14 @@ cerrar() {
   this.modal = false;
   
 
+}
+
+formatearFecha(fecha: number): string {
+  const date = new Date(fecha);
+  const anio = date.getFullYear();
+  const mes = ('0' + (date.getMonth() + 1)).slice(-2);
+  const dia = ('0' + date.getDate()).slice(-2);
+
+  return `${dia}/${mes}/${anio}`;
 }
 }
