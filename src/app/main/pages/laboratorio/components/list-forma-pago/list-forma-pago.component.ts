@@ -15,6 +15,8 @@ export class ListFormaPagoComponent implements OnInit {
     @Output() closeModal = new EventEmitter();
 
     listFormaPago: FormaPago[] = [];
+    nombreFp: string = '';
+    selectedRecord: any;
 
     constructor(
         private appService: AppService,
@@ -58,6 +60,15 @@ export class ListFormaPagoComponent implements OnInit {
             },
         });
     }
+
+    showAttributes(record: any) {
+        this.selectedRecord = record;
+      
+        // Actualiza las variables con los valores del registro seleccionado
+      
+        this.nombreFp = this.selectedRecord.nombreFp;
+      }
+      
 
 
 }
