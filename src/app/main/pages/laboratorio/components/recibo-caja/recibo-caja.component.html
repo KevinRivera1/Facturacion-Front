@@ -61,25 +61,29 @@
         <div class="fieldset-data">
             <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
 
-                <div class="data">
-                    <!-- <div class="ui-fluid formgrid grid">
+                <div class="data" *ngIf="clienteSelect">
+                    <div class="ui-fluid formgrid grid">
                         <div class="field col-12 md:col-6">
                             <label>Cédula / RUC: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.cedula}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.cedula}}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Nombre: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.nombre}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.nombre}}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Correo: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.correo}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.correo}}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Dirección: </label>
-                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.direccion}}</i></b>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.direccion}}</i></b>
                         </div>
-                    </div> -->
+                        <div class="field col-12 md:col-6">
+                            <label>Telefono: </label>
+                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
         </div>
