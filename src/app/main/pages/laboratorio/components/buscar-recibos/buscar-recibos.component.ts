@@ -69,7 +69,10 @@ export class BuscarRecibosComponent implements OnInit {
             const fechaRecibo = new Date(recibo.fecha);
             return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
         }); */
+        
         this.reciboCajaFiltrados.emit(this.buscarForm.value);
+        
+        //console.log("🚀 ~ file: buscar-recibos.component.ts:73 ~ BuscarRecibosComponent ~ BuscarData ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
     }
 
     onInputNroRecibo(event: any) {
