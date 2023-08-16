@@ -32,25 +32,25 @@
 
         <div class="fieldset-search">
             <fieldset class="search-border">
-                <legend>Buscar Cliente/Estudiante/Empleado EPN</legend>
+                <legend>Buscar Cliente/Empleado EPN</legend>
 
                 <div class="search">
                     <div class=" flex justify-content-center gap-3">
-                            
-                            <div class="flex align-items-center">
-                                <p-radioButton name="cliente" value="1" [(ngModel)]="tipoCliente" inputId="1"></p-radioButton>
-                                <label class="ml-2">Cliente</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <p-radioButton name="cliente" value="2" [(ngModel)]="tipoCliente" inputId="2"></p-radioButton>
-                                <label class="ml-2">Empleado Epn</label>
-                            </div>
-    
-                            <div class="caja-boton-principal  py-3">
-                                <button pButton label="Buscar" class=" bg-blue-900 "
-                                 (click)="busquedaCliente()"   pTooltip="Buscar"
-                                    tooltipPosition="right"></button>
-                            </div>
+
+                        <div class="flex align-items-center">
+                            <p-radioButton name="Empleado" value="1" [(ngModel)]="tipoCliente" inputId="1">
+                            </p-radioButton>
+                            <label class="ml-2">Empleado Epn</label>
+                        </div>
+                        <div class="flex align-items-center">
+                            <p-radioButton name="cliente" value="2" [(ngModel)]="tipoCliente" inputId="2">
+                            </p-radioButton>
+                            <label class="ml-2">Cliente</label>
+                        </div>
+                        <div class="caja-boton-principal  py-3">
+                            <button pButton label="Buscar" class=" bg-blue-900 " (click)="busquedaCliente()"
+                                pTooltip="Buscar" tooltipPosition="right"></button>
+                        </div>
 
                     </div>
                 </div>
@@ -60,31 +60,26 @@
         <!-- TABLA DATOS -->
         <div class="fieldset-data">
             <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
-                
-                <div class="data">
-                    <div class="p-formgrid grid">
-                        <div class="col-12 md:col-6 mb-0">
-                            
-                            <!-- <h4>* Recibe de: {{clienteSelect.nombre}}</h4> -->
-                        </div>
 
-                        <div class="col-12 md:col-6 mb-0">
-                            <!-- <h4>* Ruc/Cedula: {{clienteSelect.cedula}}</h4> -->
+                <div class="data">
+                    <!-- <div class="ui-fluid formgrid grid">
+                        <div class="field col-12 md:col-6">
+                            <label>Cédula / RUC: </label>
+                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.cedula}}</i></b>
                         </div>
-                    </div>
-                    <div class="p-formgrid grid">
-                        <div class="col-12 md:col-6 mb-0">
-                            <!-- <h4>* Direccion: {{clienteSelect.direccion}}</h4> -->
+                        <div class="field col-12 md:col-6">
+                            <label>Nombre: </label>
+                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.nombre}}</i></b>
                         </div>
-                        <div class="col-12 md:col-6 mb-0">
-                            <!-- <h4>* Forma Pago:</h4> -->
+                        <div class="field col-12 md:col-6">
+                            <label>Correo: </label>
+                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.correo}}</i></b>
                         </div>
-                    </div>
-                    <div class="p-formgrid grid">
-                        <div class="col-12 md:col-6 mb-0">
-                            <!-- <h4>* F/Emision:</h4> -->
+                        <div class="field col-12 md:col-6">
+                            <label>Dirección: </label>
+                            <b> <i class="text-1xl mr-2 mb-3">{{clienteSelect.direccion}}</i></b>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </fieldset>
         </div>
@@ -171,17 +166,42 @@
                 <span class="p-float-label">
                     <div class="fieldset-conceptos">
                         <fieldset class="search-conceptos">
+
                             <legend>Conceptos</legend>
-                            <p-table #dt1 selectionMode="single" dataKey="id" [tableStyle]="{ 'min-width': '20rem' }"
-                                [rows]="4" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+                            <p-table #dt [value]="listConceptos " [rows]="3" [paginator]="true" [loading]="loading"
+                                [globalFilterFields]="[
+                'nombreConcepto',
+                'codigoConcepto',
+             ]" responsiveLayout="scroll" dataKey="idConcepto"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros">
+                                <ng-template pTemplate="caption">
+                                    <div class="flex justify-content-between flex-wrap">
+                                        <span class="p-input-icon-left ">
+                                            <i class="pi pi-search"></i>
+                                            <input pInputText type="text" class="p-inputtext-sm"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                placeholder="Buscar Concepto" />
+                                        </span>
+                                    </div>
+                                </ng-template>
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>
-                                            <bold style="font-weight: bold">&#8470;</bold>
+                                            <div class="flex justify-content-between align-items-center">ID </div>
                                         </th>
                                         <th>
-                                            <input pInputText type="text" placeholder="Concepto" />
+                                            <div class="flex justify-content-between align-items-center">Nombre
+                                            </div>
                                         </th>
+                                        <th></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-item>
+                                    <tr>
+                                        <td>{{item.codigoConcepto}}</td>
+                                        <td>{{item.nombreConcepto}}</td>
+                                        <td> <a pButton class="bg-blue-900" icon="pi pi-plus"
+                                                (click)="showAttributes(item)"></a></td>
                                     </tr>
                                 </ng-template>
                             </p-table>
@@ -195,47 +215,27 @@
                     <div class="fielset-infConceptos">
                         <fieldset class="search-infConceptos">
                             <legend>Informacion de Conceptos</legend>
-                            <div class="p-fluid p-formgrid grid input">
-                                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                                    <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto" disabled="true" />
-                                        <label>* Nombre: </label>
-                                    </span>
-                                </div>
+                            <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-nombreCentroCosto" disabled="true" />
+                                    <label>Nombre: {{ nombreConcepto }}</label>
+                                </span>
+                            </div>
 
-                                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                                    <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto" disabled="true" type="number" />
-                                        <label>* Precio Unitario:</label>
-                                    </span>
-                                </div>
+                            <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-nombreCentroCosto" disabled="true" type="number" />
+                                    <label>Precio Unitario: {{ valorConcepto }}</label>
+                                </span>
                             </div>
-                            <div class="p-fluid p-formgrid grid">
-                                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                                    <span class="p-float-label">
-                                        <label>* Stock:</label>
-                                    </span>
-                                </div>
-                                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                                    <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
-                                        <label>* Cantidad:</label>
-                                    </span>
-                                </div>
+
+                            <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
+                                    <label>* Cantidad:</label>
+                                </span>
                             </div>
-                            <div class="p-fluid p-formgrid grid">
-                                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                                    <span class="p-float-label">
-                                        <label>* Inicio:</label>
-                                    </span>
-                                </div>
-                                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                                    <span class="p-float-label">
-                                        <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
-                                        <label>* Fin:</label>
-                                    </span>
-                                </div>
-                            </div>
+
                         </fieldset>
                     </div>
                 </span>
@@ -269,7 +269,7 @@
 
     <!-- Dialog Buscar -->
 
-    <p-dialog [header]=" 'Buscar por ' + data "  [(visible)]="modalBuscar" [style]="{ width: '65vw' }">
+    <p-dialog [header]=" 'Busqueda' " [(visible)]="modalBuscar" [style]="{ width: '65vw' }">
         <div class="fieldset-search2">
             <fieldset class="search-border2">
                 <legend>Buscar</legend>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="caja-boton-principal">
                             <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                                pTooltip="Buscar"   (click)="llenarListCliente()"            tooltipPosition="right"></button>
+                                pTooltip="Buscar" (click)="llenarListCliente()" tooltipPosition="right"></button>
                         </div>
                     </div>
                 </div>
@@ -296,9 +296,28 @@
 
     <!-- Dialog Tabla Buscar -->
 
-    <p-dialog [header]=" 'Lista de ' + data "  [(visible)]="modalBusTabl" [style]="{ width: '65vw' }">
+    <p-dialog [header]="'Listado'" [(visible)]="modalBusTabl" [style]="{ width: '65vw' }">
         <div>
-            <p-table [value]="listCliente" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table #dt currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros"
+                [paginator]="true" [rows]="5" [value]="listCliente" [tableStyle]="{ 'min-width': '50rem' }"
+                [globalFilterFields]="[ 
+                'cedula',
+                'nombre',
+                ]">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-center">
+                        <span class="p-input-icon-left  ">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" class="p-inputtext-sm uppercase"
+                                (input)="dt.filterGlobal($event.target.value ,'contains')"
+                                placeholder="Busqueda General" />
+                        </span>
+                    </div>
+                </ng-template>
+
+
+
+
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Cédula</th>
@@ -308,13 +327,13 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-cliente>
                     <tr>
-                        <td>{{ cliente. cedula}}</td>
+                        <td>{{ cliente.cedula}}</td>
                         <td>{{ cliente.nombre }}</td>
                         <div class="field col-12 md:col-12" align="center">
-                            <button pButton label="Seleccionar" class="bg-blue-900 " 
-                                    (click)="cargarCliente(cliente)"      pTooltip="Buscar"  tooltipPosition="right"></button>
+                            <button pButton label="Seleccionar" class="bg-blue-900 " (click)="cargarCliente(cliente)"
+                                pTooltip="Buscar" tooltipPosition="right"></button>
                         </div>
-    
+
                     </tr>
                 </ng-template>
             </p-table>
