@@ -14,30 +14,10 @@
                    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
               <ng-template pTemplate="caption">
                   <div class="text-center">
-                <!--       <div>
-                          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
-                                  class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
-                                  tooltipPosition="bottom"></button>
-                          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
-                                  class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
-                                  tooltipPosition="bottom"></button>
-                          <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
-                                  (click)="deleteSelectedFormaPago()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
-                                  [disabled]="!selectedFormaPago || !selectedFormaPago.length"></button>
-                          <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash"
-                                  (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
-                               
-                                  
-                      </div> -->
+
                       <button pButton label="facturar" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
                       (click)="abrirmodal()" ></button>
-                      <!-- 
-
-                      <span class="p-input-icon-left ">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" class="p-inputtext-sm"
-                   (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
-          </span>  -->
+             
           <label class="text-center" >PROFORMAS</label>
                   </div>
               
@@ -116,17 +96,6 @@
                       <td>{{item.descripcionFp}}</td>
                       <td   >  <mark [ngClass]="item.activo == 'ACTIVO'
                         ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
-
-                      
-
-              <!--         <td>
-                          <button pButton pRipple icon="pi pi-pencil"
-                                  class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2" (click)="editFormaPago(item);llamarFuncion()"
-                                  pTooltip="Editar" tooltipPosition="left"   ></button>
-                          <button pButton pRipple icon="pi pi-trash"
-                                  class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteFormaPago(item)"
-                                  pTooltip="Eliminar" tooltipPosition="left"  ></button>
-                      </td> -->
                   </tr>
               </ng-template>
               <ng-template pTemplate="summary">
