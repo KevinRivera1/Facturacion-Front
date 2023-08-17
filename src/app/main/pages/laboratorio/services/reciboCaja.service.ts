@@ -13,7 +13,7 @@ export class ReciboCajaService {
 
     constructor(private http: HttpClient) {}
 
-    getAll(data:any): Observable<any> {
+    getAll(): Observable<any> {
         return this.http.get(this.api + this.endpoint + '/listarReciboCaja');
     }
 

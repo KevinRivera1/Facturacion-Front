@@ -5,7 +5,7 @@ export interface ReciboCaja{
 export interface Listado {
     idReciboCaja:          number;
     codRcaja:              string;
-    fechaRcaja:            number;
+    fechaRcaja:            string;
     idTipoConsumidorRc:    number;
     idCajaRc:              number;
     idEstadoRc:            number;

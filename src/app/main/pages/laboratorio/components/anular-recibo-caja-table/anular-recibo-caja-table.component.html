@@ -1,11 +1,12 @@
-<app-buscar-recibos></app-buscar-recibos>
+<app-buscar-recibos [reciboCaja]="reciboCajaFiltrados"></app-buscar-recibos>
 
 <br />
 
 <section class="content">
     <div class="container-fluid">
         <div class="card">
-            <p-table #ef [value]="listReciboCaja" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
+            <p-table #ef [value]="listReciboCaja" [rows]="10" [paginator]="true" [loading]="loading"
+                [globalFilterFields]="[
                     'idReciboCaja',
                     'NroReciboCaja',
                     'NombreCliente',
