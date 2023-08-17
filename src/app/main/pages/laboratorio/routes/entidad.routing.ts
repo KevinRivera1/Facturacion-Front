@@ -22,6 +22,7 @@ import { FacturaLaboratorioComponent } from '../components/factura-laboratorio/f
 import { NotaCreditoComponent } from '../components/nota-credito/nota-credito.component';
 import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja-table/anular-recibo-caja-table.component';
 import { ListFormaPagoComponent } from '../components/list-forma-pago/list-forma-pago.component';
+import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
 
 
 
@@ -101,7 +102,7 @@ export const RUTA_ENTIDAD: Routes = [
     },
     {
         path: 'factura-lab',
-        component: FacturaLaboratorioComponent,
+        component: FacturaLaboratorioTableComponent,
         canActivate: [AuthGuard],
     },
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { TokenDto } from 'src/app/_dto/token-dto';
@@ -19,6 +19,9 @@ import { AppService } from 'src/app/_service/app.service';
 })
 export class FacturaLaboratorioComponent implements OnInit {
 
+
+  @Output() facturalaboratorioEmitter = new EventEmitter();
+  laboratorio: FacturaDto[];
 
   modal: boolean;
   modal2: boolean;
@@ -44,13 +47,13 @@ export class FacturaLaboratorioComponent implements OnInit {
   }
 
   ngOnInit():void {
-    //this.iniciarForms();
+    this.iniciarForms();
    
   }
 
-/*   iniciarForms() {
+   iniciarForms() {
     this.formFacturaLaboratorio = this.formBuilder.group({
-        factura_no: new FormControl(
+      codFactura: new FormControl(
             '',
             Validators.compose([Validators.required])
         ),
@@ -74,10 +77,29 @@ export class FacturaLaboratorioComponent implements OnInit {
 
     this.token = JSON.parse(this.tokenService.getResponseAuth());
     //  this.f.idFormaPago.setValue(this.token.id)
-} */
+} 
 
 
+filtrarRecibos() {
+  const formData = this.formFacturaLaboratorio.value;
+  // Llamada al servicio para filtrar los datos
+  this.facturaService.getAll().subscribe((response) => {
+      const data = response.listado; // Accedemos a la propiedad listado
+      if (Array.isArray(data)) {
+          const recibosFiltrados = data.filter((recibo) => {
+              return (
+                  recibo.codFactura.includes(formData.codFactura)
+              );
+          });
 
+          // Emitir los recibos filtrados al componente padre
+          this.facturalaboratorioEmitter.emit(recibosFiltrados);
+          console.log('recibos filtrados', recibosFiltrados)
+      } else {
+          console.error('Los datos no son un array:', data);
+      }
+  });
+}
 
 onInput(event: any) {
   const input = event.target;

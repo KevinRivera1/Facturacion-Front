@@ -1,4 +1,3 @@
-
 <p-dialog header="Agregar Nota de Credito" [(visible)]="modal" [style]="{ width: '60vw' }">
     <div class="header-card">
         <div class="header-img">
@@ -25,108 +24,91 @@
     <p-fieldset>
         <div class="p-fluid p-formgrid grid input">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">F./ Emision:
-                    </label>
-                </span>
+                <label for="ftxt-">F./ Emision:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.fechaFact}}</i></b>
             </div>
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Facultad/Instituto:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Facultad/Instituto:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.carreraConsumidor}}</i></b>
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Empresa:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Empresa:</label>
+                <!-- <b>  <i class="text-1xl mr-2 mb-3">{{facturaSelect.fechaFact}}</i></b> -->
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Señor(s):</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Señor(s):</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.nombreConsumidor}}</i></b>
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">RUC/CI:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">RUC/CI:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.rucConsumidor}}</i></b>
             </div>
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Forma Pago:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Forma Pago:</label>
+                <!-- <b>  <i class="text-1xl mr-2 mb-3">{{facturaSelect.fechaFact}}</i></b> -->
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Direccion:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Direccion:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.direccionConsumidor}}</i></b>
             </div>
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Cheque No.:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Cheque No.:</label>
+                <!-- <b>  <i class="text-1xl mr-2 mb-3">{{facturaSelect.fechaFact}}</i></b> -->
             </div>
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Valor Total:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Valor Total:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.totalFact}}</i></b>
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Telf:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Telf:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.telfConsumidor}}</i></b>
             </div>
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-nombreCentroCosto">Factura No.:</label>
-                </span>
+                <label for="ftxt-nombreCentroCosto">Factura No.:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.codFactura}}</i></b>
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <label for="ftxt-fechaBancos">Email:</label>
-                </span>
+                <label for="ftxt-fechaBancos">Email:</label>
+                <b> <i class="text-1xl mr-2 mb-3">{{facturaSelect.correoConsumidor}}</i></b>
             </div>
-
         </div>
-        <div class="p-fluid p-formgrid grid" style="margin-left: 5px;">
+        <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                <span class="p-float-label">
-                    <textarea pInputText rows="1" id="ftxt-descCentroCosto" required="true"
-                        formControlName="descCentroCosto"></textarea>
-                    <label style="color: rgba(0, 0, 0, 0.6)" for="ftxt-descCentroCosto">Motivo:</label>
-                </span>
+                <label for="ftxt-descCentroCosto">Motivo:</label>
+                <textarea pInputText rows="1" id="ftxt-descCentroCosto" required="true"
+                    formControlName="descCentroCosto"></textarea>
             </div>
         </div>
     </p-fieldset>
 
-    <p-table styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table #dt [value]="detallesSelect" [(selection)]="selectedDetalles" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
-                <th>Codigo</th>
-                <th>Descripcion</th>
-                <th>Cantidad</th>
-                <th>Precio Unit.</th>
-                <th>Valor Total</th>
+                <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">
+                    Codigo
+                    <i class="text-1xl mr-2 mb-3">{{detalleSelect.idConcepto}}</i></th> 
+                <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">
+                    Descripcion </th> 
+                <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">
+                    Cantidad</th>
+                <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">
+                    Precio Unit.</th>
+                <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">
+                    Valor Total</th>
             </tr>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr>
+             <tr>
                 <th colspan="3"></th>
                 <th>SUBTOTAL:</th>
                 <th></th>
@@ -145,8 +127,9 @@
                 <th colspan="3"></th>
                 <th>TOTAL:</th>
                 <th></th>
-            </tr>
+            </tr> 
         </ng-template>
+ 
     </p-table>
     <br>
     <div align="center" class="flex justify-content-center">
@@ -162,8 +145,8 @@
 
 
 
-<p-table #dt [value]="listFactura" [rows]="10" [paginator]="true" [loading]="loading" 
-responsiveLayout="scroll" [(selection)]="selectedFacturas" [rowHover]="true" dataKey="idFactura"
+<p-table #dt [value]="listFactura" [rows]="10" [paginator]="true" [loading]="loading" responsiveLayout="scroll"
+    [(selection)]="selectedFacturas" [rowHover]="true" dataKey="idFactura"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
         <div class="text-center">
@@ -227,12 +210,13 @@ responsiveLayout="scroll" [(selection)]="selectedFacturas" [rowHover]="true" dat
             <td>{{item.nombreConsumidor}}</td>
             <td>{{item.fechaFact}}</td>
             <td>{{item.totalFact}}</td>
-            <td> <mark [ngClass]="item.idEstadoFact == 'ACTIVO'
-                          ? 'border-green-500' : 'border-red-500' ">{{item.idEstadoFact}}</mark></td>
+            <td>{{item.idEstadoFact}}</td>
+
+
             <td>
                 <button pButton label="Nota Credito" class="p-button-rounded  p-button-text p-button-sm p-mr-2"
                     icon="pi pi-plus" type="submit" pTooltip="Nota Credito" tooltipPosition="right"
-                    (click)="abrirmodal()"></button>
+                    (click)="cargarFactura(item)" (click)="cargarFactura(item)"></button>
             </td>
         </tr>
     </ng-template>

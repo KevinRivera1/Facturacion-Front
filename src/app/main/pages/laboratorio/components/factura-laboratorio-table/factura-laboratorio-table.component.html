@@ -1,8 +1,11 @@
 <!-- tabla de factura laboratorio-->
+
+
 <section class="content">
   <div class="container-fluid">
       <div class="card">
-        
+        <app-factura-laboratorio (facturalaboratorioEmitter)="filtrarRecibos($event)">
+        </app-factura-laboratorio>
           <p-table #dt [rows]="10" [value]="listfacturalaboratorio" [paginator]="true" 
                    [globalFilterFields]="[
                       'codFactura',
