@@ -1,4 +1,4 @@
-<p-dialog header="Forma de Pago" [(visible)]="display" [style]="{ width: '65vw' }" [modal]="true" (onHide)="CloseModal()">
+<p-dialog header="Forma de Pago" [contentStyle]="{'overflow': 'visible'}"  [draggable]="true" [resizable]="true" [(visible)]="display" [style]="{ width: '73vw' }" [modal]="true" (onHide)="CloseModal()">
   <br /><br />
   <div class="p-dialog-content">
     <div class="p-grid">
@@ -80,16 +80,16 @@
         </div>
 
         <h3 class="mb-3 mt-2">Cheque</h3>
-        <div class="p-fluid p-formgrid grid">
+        <div class="p-fluid p-formgrid grid input">
           <div class="ui-fluid formgrid grid">
-            <div class="p-field col-6 md:col-5 md:mb-1 mb-0 px-3" style="width: 180px;">
+            <div class="p-field col-6 md:col-5 md:mb-1 mb-0 px-3" style="width: 200px;">
               <span class="p-float-label">
                 <input pInputText id="ftxt-ch" required="true" />
                 <label for="ftxt-ch">No. Cheque: </label>
                 <b> <i class="text-1xl mr-2 mb-3"></i></b>
               </span>
             </div>
-            <div class="p-field col-6 md:col-5 md:mb-1 mb-0 px-3" style="width: 175px;">
+            <div class="p-field col-6 md:col-5 md:mb-1 mb-0 px-3" style="width: 195px;">
               <p-dropdown [options]="listBancos"
               formControlName="idBancos"
               [virtualScroll]="true"
@@ -97,7 +97,7 @@
               optionLabel="nombreBancos"
               optionValue="idBancos"
               id="ftxt-idBancos"
-              [virtualScrollItemSize]="38"  
+              [virtualScrollItemSize]="48"
               placeholder="Banco"
               [filter]="true"
               [filterBy]="'nombreBancos'"
@@ -111,12 +111,45 @@
 
 
         <h3 class="mb-3 mt-2">Tarjeta</h3>
-        <div class="p-fluid p-formgrid grid ">
-        <div class="ui-fluid formgrid grid">
+        <div class="p-fluid p-formgrid grid">
+          <div class="ui-fluid formgrid grid">
+            <div class="p-field col-6 md:col-5 md:mb-1 mb-0 px-3" style="width: 200px;">
+              <p-dropdown [options]="listTarjeta"
+              formControlName="idTarjeta"
+              [virtualScroll]="true"
+              [(ngModel)]="selectedTarjeta"
+              optionLabel="nombreTarjeta"
+              optionValue="idTarjeta"
+              id="ftxt-idTarjeta"
+              [virtualScrollItemSize]="55"  
+              placeholder="Tarjeta"
+              [filter]="true"
+              [filterBy]="'nombreTarjeta'"
+              >
+              
+            </p-dropdown>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
 
-          <div class="p-field col-12 md:col-5 mb-0 px-3" style="width: 180px;">
-           
-            <p-dropdown [options]="listTarjeta"
+    <div class=" text-center">
+      <div class="p-buttonset">
+  
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+        <button pButton label="Guardar" (click)="guardarpago()" class="m-1 bg-blue-900" pTooltip="Guardar"
+          tooltipPosition="right"></button>
+        <button pButton label="Cancelar" (click)="CloseModal()" class="m-1 bg-blue-900" pTooltip="Cancelar"
+          tooltipPosition="right"></button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- 
+<p-dropdown [options]="listTarjeta"
             formControlName="idTarjeta"
             [virtualScroll]="true"
             [(ngModel)]="selectedTarjeta"
@@ -129,22 +162,4 @@
             [filterBy]="'nombreTarjeta'"
             >
             
-          </p-dropdown>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-4 text-center">
-      <div class="p-buttonset">
-  
-        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-        <button pButton label="Guardar" (click)="guardarpago()" class="m-1 bg-blue-900" pTooltip="Guardar"
-          tooltipPosition="right"></button>
-        <button pButton label="Cancelar" (click)="CloseModal()" class="m-1 bg-blue-900" pTooltip="Cancelar"
-          tooltipPosition="right"></button>
-      </div>
-    </div>
-  </div>
-</p-dialog>
+          </p-dropdown> -->

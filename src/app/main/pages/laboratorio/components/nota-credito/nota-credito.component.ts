@@ -3,9 +3,10 @@ import { AppService } from 'src/app/_service/app.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { NotaCreditoDto } from '../../model/NotaCreditoDto';
 import { NotaCreditoService } from '../../services/nota-credito.service';
-import { severities } from 'src/app/_enums/constDomain';
 import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
 
 @Component({
   selector: 'app-nota-credito',
@@ -19,16 +20,16 @@ export class NotaCreditoComponent implements OnInit {
   proceso: string = 'conceptos';
   listNotas: NotaCreditoDto[] = [];
   listFacturas: FacturaDto[] = [];
-  
-
+  listDetalles: DetalleFacturaDto[] = [];
 
   constructor(
 
     private breadcrumbService: BreadcrumbService,
     public appService: AppService,
     private notasService: NotaCreditoService,
-    private facturasService: FacturaService
-    
+    private facturasService: FacturaService,
+    private detallefacturaService: DetalleFacturaService,
+
   ) {
     {
       this.breadcrumbService.setItems([{ label: 'Nota de Credito ' }]);
@@ -38,9 +39,7 @@ export class NotaCreditoComponent implements OnInit {
   ngOnInit() {
     this.llenarListFacturas();
     this.llenarListNotas();
-    
-
-
+    this.llenarListDetalle();
   }
 
   onInput(event: any) {
@@ -54,56 +53,33 @@ export class NotaCreditoComponent implements OnInit {
 
   async llenarListNotas() {
     await this.notasService.getAll().subscribe({
-        next: (data) => {
-            this.listNotas = data.listado;
-            console.log('CORRECTO');
-            console.log(this.listNotas);
-        },
-        complete: () => {
-            this.appService.msgInfoDetail(
-                severities.INFO,
-                'INFO',
-                'Datos Cargados exitosamente' ,
-                500
-            );
-        },
-        error: (error) => {
-            this.appService.msgInfoDetail(
-                severities.ERROR,
-                'ERROR',
-                error.error
-            );
-        },
-    });
-}
-
-async llenarListFacturas() {
-  await this.facturasService.getAll().subscribe({
       next: (data) => {
-          this.listFacturas = data.listado;
-          console.log('CORRECTO');
-          console.log(this.listFacturas);
+        this.listNotas = data.listado;
+        console.log('CORRECTO');
+        console.log(this.listNotas);
       },
-      complete: () => {
-          this.appService.msgInfoDetail(
-              severities.INFO,
-              'INFO',
-              'Datos Cargados exitosamente' ,
-              500
-          );
+    });
+  }
+
+  async llenarListFacturas() {
+    await this.facturasService.getAll().subscribe({
+      next: (data) => {
+        this.listFacturas = data.listado;
+        console.log('CORRECTO');
+        console.log(this.listFacturas);
       },
-      error: (error) => {
-          this.appService.msgInfoDetail(
-              severities.ERROR,
-              'ERROR',
-              error.error
-          );
+    });
+  }
+
+  async llenarListDetalle() {
+    await this.detallefacturaService.getAll().subscribe({
+      next: (data) => {
+        this.listDetalles = data.listado;
+        console.log('CORRECTO');
+        console.log(this.listDetalles);
       },
-  });
-}
-
-
-
+    });
+  }
 
   //Abrir el modal
   abrirmodal() {
