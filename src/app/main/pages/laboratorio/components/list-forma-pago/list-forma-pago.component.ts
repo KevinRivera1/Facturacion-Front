@@ -7,6 +7,8 @@ import { severities } from 'src/app/_enums/constDomain';
 import { FormaPagoDto } from '../../model/FormaPago.dto';
 import { SelectItem } from 'primeng/api/selectitem';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
+import { BancoDto } from '../../model/Bancos.dto';
+import { BancosService } from '../../services/bancos.service';
 
 @Component({
     selector: 'app-list-forma-pago',
@@ -21,13 +23,17 @@ export class ListFormaPagoComponent implements OnInit {
     nombreFp: string = '';
     selectedRecord: any;
     idFormaPago: string = '';
+    @Input() listBancos: BancoDto[];
+    selectedBanco: BancoDto[];
 
     constructor(
         private appService: AppService,
         private breadcrumbService: BreadcrumbService,
         private formapagoService: FormaPagoService,
         private confirmationService: ConfirmationService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private bancosService: BancosService
+
     ) {
         {
             this.breadcrumbService.setItems([
@@ -38,6 +44,7 @@ export class ListFormaPagoComponent implements OnInit {
 
     ngOnInit() {
         this.llenarListFormaPago();
+        this.llenarListBancos();
     }
 
     onDisplayForm() {
@@ -65,6 +72,15 @@ export class ListFormaPagoComponent implements OnInit {
                 );
             },
         });
+    }
+    async llenarListBancos(){
+        await this.bancosService.getAll().subscribe({
+            next: data => {
+                this.listBancos = data.listado
+                console.log("CORRECTO");
+                console.log(this.listBancos);
+            }
+        })
     }
 
     showAttributes(record: any) {
