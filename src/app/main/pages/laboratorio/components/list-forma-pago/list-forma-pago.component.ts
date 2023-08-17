@@ -6,6 +6,7 @@ import { FormaPago } from '../../model/FormaPago';
 import { severities } from 'src/app/_enums/constDomain';
 import { FormaPagoDto } from '../../model/FormaPago.dto';
 import { SelectItem } from 'primeng/api/selectitem';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-list-forma-pago',
@@ -19,12 +20,14 @@ export class ListFormaPagoComponent implements OnInit {
     listFormaPago: FormaPago[] = [];
     nombreFp: string = '';
     selectedRecord: any;
-
+    idFormaPago: string = '';
 
     constructor(
         private appService: AppService,
         private breadcrumbService: BreadcrumbService,
-        private formapagoService: FormaPagoService
+        private formapagoService: FormaPagoService,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
     ) {
         {
             this.breadcrumbService.setItems([
@@ -68,9 +71,12 @@ export class ListFormaPagoComponent implements OnInit {
         this.selectedRecord = record;
       
         // Actualiza las variables con los valores del registro seleccionado
-      
+      this.idFormaPago = this.selectedRecord.idFormaPago;
         this.nombreFp = this.selectedRecord.nombreFp;
+        console.log('idFormaPago: ' + this.idFormaPago);
       }
+
+
       bancos: SelectItem[] = [
 
         { label: 'Pichincha', value: 'Pichincha' },
@@ -84,12 +90,23 @@ export class ListFormaPagoComponent implements OnInit {
 
 
   guardarpago(){
-    
-
-    
-    this.closeModal.emit();
+ 
+    this.confirmationService.confirm({
+        message: 'El total de la factura no ha sido pagada completamente Esta seguro que desea cancelar el pago mixto?',
+        header: 'Mensaje...',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Usted a aceptado' });
+            this.closeModal.emit();
+        },
+        reject: (type: any) => {
+            switch (type) {
+                case ConfirmEventType.REJECT:
+                    this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'Usted a cancelado' });
+                    break;
+                    
+            }
+        }
+    });
   }
-
-
-
 }
