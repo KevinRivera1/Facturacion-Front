@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { TokenDto } from 'src/app/_dto/token-dto';
+import { severities } from 'src/app/_enums/constDomain';
+import { AppService } from 'src/app/_service/app.service';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormUtil } from '../../formUtil/FormUtil';
-import { ReciboCaja } from '../../model/reciboCaja';
-import { ReciboCajaService } from '../../services/reciboCaja.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
+import { ReciboCajaService } from '../../services/reciboCaja.service';
 
 @Component({
     selector: 'app-buscar-recibos',
@@ -15,8 +16,6 @@ import { ReciboCajaDto } from '../../model/reciboCajaDto';
     styleUrls: ['./buscar-recibos.component.scss'],
 })
 export class BuscarRecibosComponent implements OnInit {
-    //@Input() reciboCaja: ReciboCaja;
-
     @Output() reciboCajaEmitter = new EventEmitter();
     recibos: ReciboCajaDto[];
 
@@ -27,6 +26,7 @@ export class BuscarRecibosComponent implements OnInit {
     formUtil: FormUtil;
 
     constructor(
+        public appService: AppService,
         private reciboCajaService: ReciboCajaService,
         private breadcrumbService: BreadcrumbService,
         private formBuilder: FormBuilder,
@@ -59,29 +59,41 @@ export class BuscarRecibosComponent implements OnInit {
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-    filtrarRecibos() {
+    async filtrarRecibos() {
         const formData = this.buscarForm.value;
-        // Llamada al servicio para filtrar los datos
-        this.reciboCajaService.getAll().subscribe((response) => {
-            const data = response.listado; // Accedemos a la propiedad listado
-            if (Array.isArray(data)) {
-                const recibosFiltrados = data.filter((recibo) => {
-                    return (
-                        recibo.codRcaja.includes(formData.codRcaja) &&
-                        recibo.nombreConsumidorRc.includes(
-                            formData.nombreConsumidorRc
-                        ) &&
-                        recibo.rucConsumidorRc.includes(
-                            formData.rucConsumidorRc
-                        )
+        await this.reciboCajaService.getAll().subscribe({
+            next: (response) => {
+                const data = response.listado;
+                if (Array.isArray(data)) {
+                    const recibosFiltrados = data.filter((recibo) => {
+                        return (
+                            recibo.codRcaja.includes(formData.codRcaja) &&
+                            recibo.nombreConsumidorRc.includes(
+                                formData.nombreConsumidorRc
+                            ) &&
+                            recibo.rucConsumidorRc.includes(
+                                formData.rucConsumidorRc
+                            )
+                        );
+                    });
+                    this.reciboCajaEmitter.emit(recibosFiltrados);
+                } else {
+                    console.error(
+                        'Los datos no son un array verifca el tipo de dato que es DATA:',
+                        data
                     );
-                });
-
-                // Emitir los recibos filtrados al componente padre
-                this.reciboCajaEmitter.emit(recibosFiltrados);
-            } else {
-                console.error('Los datos no son un array:', data);
-            }
+                }
+            },
+            error: (error) => {
+                this.appService.msgInfoDetail(
+                    severities.ERROR,
+                    'ERROR AL CARGAR LOS DATOS',
+                    error.error
+                );
+            },
+            complete: () => {
+                console.log('Obtención de datos completada');
+            },
         });
     }
 
