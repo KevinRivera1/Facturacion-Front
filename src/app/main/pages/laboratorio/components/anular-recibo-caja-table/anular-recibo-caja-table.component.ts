@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
-import { Table } from 'primeng/table';
-import { ReciboCaja } from '../../model/reciboCaja';
+import { Listado } from '../../model/reciboCaja';
+import { ReciboCajaDto } from '../../model/reciboCajaDto';
+import { ReciboCajaService } from '../../services/reciboCaja.service';
+
 //import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
 
 @Component({
@@ -14,12 +17,17 @@ import { ReciboCaja } from '../../model/reciboCaja';
 export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
     displayModal: boolean = false;
-    @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
+
+    @Input() listReciboCaja: ReciboCajaDto[] = [];
     @Output() RecibCajaSelect = new EventEmitter();
-    reciboCajaFiltrados: any[] = []; //* resive y guarda los datos filtrados del componete hijo buscarcomponent
+
+    // sirve para recibir los datos del formulario de busqueda
+    @Input() formData: ReciboCajaDto;
+    recibos: Listado[] = [];
+    reciboCajaFiltrados: Listado[] = []; 
 
     //recibosCaja: ReciboCajaDto;
-    //selectedRecibosCaja: ReciboCajaDto[];
+    selectedRecibosCaja: ReciboCajaDto[];
 
     submitted: boolean;
     loading: boolean;
@@ -27,6 +35,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     cols: any[];
 
     constructor(
+        private reciboCajaService: ReciboCajaService,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService
@@ -59,9 +68,33 @@ export class AnularReciboCajaTableComponent implements OnInit {
         table.clear();
     }
 
-    //* funcion para dovolver los datos filtrados y mostrarlos en la tabla
-    FilterData(data: any) {}
 
+    loadData(){
+        this.reciboCajaService.getAll().subscribe((data) => {
+            this.recibos = data.listado;
+            this.FilterData();
+        });
+    }
+    //* funcion para dovolver los datos filtrados y mostrarlos en la tabla
+    FilterData() {
+        if(!this.formData){
+            this.reciboCajaFiltrados = this.recibos;
+        }else{
+            this.reciboCajaFiltrados = this.recibos.filter((recibo) => {
+                return (
+                    recibo.nombreConsumidorRc.includes(this.formData[0].nombreConsumidorRc) &&
+                    recibo.rucConsumidorRc.includes(this.formData[0].rucConsumidorRc) &&
+                    recibo.fechaRcaja.includes(this.formData[0].fechaRcaja)
+                );
+            });
+        }   
+    }
+
+    //* Función para seleccionar un registro de la tabla
+    setSeleccionado(obj) {
+        this.formData = obj;
+        console.log("EMITI",this.formData);
+    }
     //* Función para guardar el motivo de anulacion desde la tabla
     guardarMotivoAnulacion() {}
 
