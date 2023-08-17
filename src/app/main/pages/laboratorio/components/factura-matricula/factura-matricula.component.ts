@@ -8,6 +8,7 @@ import { CretencionService } from '../../services/cretencion.service';
 import { ClienteDto } from '../../model/ClienteDto';
 import { CretencionDto } from '../../model/CretencionDto';
 import { severities } from 'src/app/_enums/constDomain';
+import { FormaPagoDto } from '../../model/FormaPago.dto';
 
 @Component({
   selector: 'app-factura-matricula',
@@ -154,11 +155,14 @@ closeModal() {
 
     loading: boolean= false;
     listCliente:ClienteDto[]=[];
+    listPago:FormaPagoDto[]=[];
     listCretencion:CretencionDto[]=[];
     tipoCliente:number;
+    tipoPago:number;
     cedulaBusqueda: string;
     nombreBusqueda: string;
-    apellidoBusqueda:string
+    apellidoBusqueda:string;
+    nombreFpBusqueda:string;
     nombres:string;
     formCliente:FormGroup
 
@@ -201,6 +205,9 @@ closeModal() {
     this.clienteSelect= new ClienteDto();
     this.tipoCliente= 0;
     this.listCliente= [];
+    this.pagoSelect = new FormaPagoDto();
+    this.tipoPago= 0;
+    this.listPago= [];
 }
   clienteSelect:ClienteDto;
 
@@ -222,6 +229,28 @@ closeModal() {
       this.modalBuscar=false;
 
     }
+
+    pagoSelect:FormaPagoDto;
+
+    busquedaPago(){
+
+      if(this.tipoPago==0){
+          this.modalBuscar= false;
+      }else{
+          this.modalBuscar= true;
+      }
+        this.nombreFpBusqueda= null;
+    
+    }
+
+    cargarPago(pagoSelectDto: FormaPagoDto ){
+      this.pagoSelect= pagoSelectDto;
+      this.modalBusTabl= false;
+      this.modalBuscar=false;
+
+    }
+
+
 
 
 

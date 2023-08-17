@@ -2,7 +2,7 @@
   <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
   <!-- Dialog 0 -->
-  <p-dialog header="Agregar Factura Matricula" [(visible)]="modal" [style]="{ width: '60vw' }">
+  <p-dialog header="Consultar Factura Matricula" [(visible)]="modal" [style]="{ width: '60vw' }">
       <!--ANDRES MONTOYA-->
 
       <!-- HEADER -->
@@ -38,7 +38,7 @@
                   <div class=" flex justify-content-center gap-3">
                           
                           <div class="flex align-items-center">
-                              <p-radioButton name="cliente" value="1" [(ngModel)]="tipoCliente" inputId="1"></p-radioButton>
+                              <p-radioButton name="cliente" value="1" [(ngModel)]="tipoCliente" inputId="1"  #inputSearch (keydown.enter)="busquedaCliente()"></p-radioButton>
                               <label class="ml-2">Cliente</label>
                           </div>
                          
@@ -46,7 +46,7 @@
                           <div class="caja-boton-principal  py-3">
                               <button pButton label="Buscar" class=" bg-blue-900 "
                                (click)="busquedaCliente()"   pTooltip="Buscar"
-                                  tooltipPosition="right"></button>
+                                  tooltipPosition="right" ></button>
                           </div>
 
                   </div>
@@ -80,6 +80,10 @@
                       <label>Telefono: </label>
                       <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
                   </div>
+                  <div class="field col-12 md:col-6">
+                    <label>Forma Pago: </label>
+                    <b> <i class="text-1xl mr-2 mb-3"> {{pagoSelect.nombreFp}}</i></b>
+                </div>
               </div>
           </div>
           
@@ -166,7 +170,7 @@
 
  <!-- TABLA DIALOG -->
 
- <p-table
+ <!-- <p-table
  styleClass="p-datatable-gridlines" 
  [tableStyle]="{ 'min-width': '50rem' }"
 >
@@ -223,7 +227,7 @@
      <th>CAMBIO: 00</th>
    </tr>
  </ng-template>
-</p-table>
+</p-table> -->
 <br>
 <div align="center" class="flex justify-content-center">
   <div class="caja-boton-principal">
@@ -465,11 +469,12 @@
                   </div>
                   <div class="flex align-items-center">
                       <label class="ml-2">C.l: </label>
-                      <input type="text" id="txtCedulaB" pInputText [(ngModel)]="cedulaBusqueda" />
+                      <input type="text" id="txtCedulaB" pInputText [(ngModel)]="cedulaBusqueda"  #inputSearch (keydown.enter)="llenarListCliente()" />
                   </div>
                   <div class="caja-boton-principal">
+                
                       <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                          pTooltip="Buscar"   (click)="llenarListCliente()"            tooltipPosition="right"></button>
+                          pTooltip="Buscar"   (click)="llenarListCliente()"    pInputText (keydown.enter)="llenarListCliente()"        tooltipPosition="right"></button>
                   </div>
               </div>
           </div>
