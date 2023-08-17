@@ -45,7 +45,7 @@ export class FacturaLaboratorioComponent implements OnInit {
 
   ngOnInit():void {
     //this.iniciarForms();
-    this.llenarFacturalaboratorio();
+   
   }
 
 /*   iniciarForms() {
@@ -77,30 +77,7 @@ export class FacturaLaboratorioComponent implements OnInit {
 } */
 
 
-async llenarFacturalaboratorio() {
-  await this.facturaService.getAll().subscribe({
-      next: (data) => {
-          this.listfacturalaboratorio = data.listado;
-          console.log('CORRECTO');
-          console.log(this.listfacturalaboratorio);
-      },
-      complete: () => {
-          this.appService.msgInfoDetail(
-              severities.INFO,
-              'INFO',
-              'Datos Cargados exitosamente' ,
-              500
-          );
-      },
-      error: (error) => {
-          this.appService.msgInfoDetail(
-              severities.ERROR,
-              'ERROR',
-              error.error
-          );
-      },
-  });
-}
+
 
 onInput(event: any) {
   const input = event.target;
