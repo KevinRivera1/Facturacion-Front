@@ -151,7 +151,6 @@ closeModal() {
       console.log(this.data);
     }
 
-
     loading: boolean= false;
     listCliente:ClienteDto[]=[];
     listCretencion:CretencionDto[]=[];
@@ -195,35 +194,36 @@ closeModal() {
   }
 
   registrarNuevo() {
-    // this.cretencion = new CretencionDto();
-    // this.iniciarForm();
-    this.modal=true
-    this.clienteSelect= new ClienteDto();
-    this.tipoCliente= 0;
-    this.listCliente= [];
-}
+      // this.cretencion = new CretencionDto();
+      // this.iniciarForm();
+      this.modal=true
+      this.clienteSelect= new ClienteDto();
+      this.tipoCliente= 2;
+      this.listCliente= [];
+  }
+
   clienteSelect:ClienteDto;
 
-    busquedaCliente(){
+  busquedaCliente(){
 
-      if(this.tipoCliente==0){
-          this.modalBuscar= false;
-      }else{
-          this.modalBuscar= true;
-      }
-        this.cedulaBusqueda= null;
-        this.nombreBusqueda= null;
-        this.apellidoBusqueda= null;
+    if(this.tipoCliente==0){
+        this.modalBuscar= false;
+    }else{
+        this.modalBuscar= true;
     }
+      this.cedulaBusqueda= null;
+      this.nombreBusqueda= null;
+      this.apellidoBusqueda= null;
+  }
 
-    cargarCliente(clienteSelectDto: ClienteDto ){
-      this.clienteSelect= clienteSelectDto;
-      this.modalBusTabl= false;
-      this.modalBuscar=false;
+  cargarCliente(clienteSelectDto: ClienteDto ){
+    this.clienteSelect= clienteSelectDto;
+    this.modalBusTabl= false;
+    this.modalBuscar=false;
 
-    }
+  }
 
-
+  
 
 
 }
