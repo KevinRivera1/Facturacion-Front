@@ -7,6 +7,10 @@ import { severities } from 'src/app/_enums/constDomain';
 import { FormaPagoDto } from '../../model/FormaPago.dto';
 import { SelectItem } from 'primeng/api/selectitem';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
+import { BancoDto } from '../../model/Bancos.dto';
+import { BancosService } from '../../services/bancos.service';
+import { TarjetaDto } from '../../model/Tarjeta.dto';
+import { TarjetaService } from '../../services/tarjeta.service';
 
 @Component({
     selector: 'app-list-forma-pago',
@@ -21,13 +25,20 @@ export class ListFormaPagoComponent implements OnInit {
     nombreFp: string = '';
     selectedRecord: any;
     idFormaPago: string = '';
+    @Input() listBancos: BancoDto[];
+    selectedBanco: BancoDto[];
+    @Input() listTarjeta: TarjetaDto[];
+    selectedTarjeta: TarjetaDto[];
 
     constructor(
         private appService: AppService,
         private breadcrumbService: BreadcrumbService,
         private formapagoService: FormaPagoService,
         private confirmationService: ConfirmationService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private bancosService: BancosService,
+        private tarjetaService: TarjetaService
+
     ) {
         {
             this.breadcrumbService.setItems([
@@ -38,6 +49,8 @@ export class ListFormaPagoComponent implements OnInit {
 
     ngOnInit() {
         this.llenarListFormaPago();
+        this.llenarListBancos();
+        this.llenarListTarjeta();
     }
 
     onDisplayForm() {
@@ -65,6 +78,24 @@ export class ListFormaPagoComponent implements OnInit {
                 );
             },
         });
+    }
+    async llenarListBancos(){
+        await this.bancosService.getAll().subscribe({
+            next: data => {
+                this.listBancos = data.listado
+                console.log("CORRECTO");
+                console.log(this.listBancos);
+            }
+        })
+    }
+    async llenarListTarjeta(){
+        await this.tarjetaService.getAll().subscribe({
+            next: data => {
+                this.listTarjeta = data.listado
+                console.log("CORRECTO");
+                console.log(this.listTarjeta);
+            }
+        })
     }
 
     showAttributes(record: any) {

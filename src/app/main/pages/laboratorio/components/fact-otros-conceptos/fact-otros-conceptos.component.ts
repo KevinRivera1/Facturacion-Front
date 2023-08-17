@@ -25,7 +25,6 @@ export class FactOtrosConceptosComponent implements OnInit {
   modal3: boolean;
   modal1: boolean; //Visibilidad de un modal
   busquedaForm: FormGroup;
-
   maxLengthR: number = 13;
   maxLengthC: number = 10;
   modallista: boolean;
@@ -256,6 +255,32 @@ cargarCliente(clienteSelectDto: ClienteDto ){
   this.modalBuscar=false;
 
 }
+
+
+
+conceptosList: { idConcepto: string,   nombre: string, valor: number, cantidad: number }[] = [];
+cantidadTemporal: number = 0;
+
+
+addToConceptosList() {
+    const nuevoConcepto = {
+        idConcepto: this.idConcepto,
+        nombre: this.nombreConcepto,
+        valor: this.valorConcepto,
+        cantidad: this.cantidadTemporal
+    };
+
+    this.conceptosList.push(nuevoConcepto);
+
+    // Limpiar las variables para futuras entradas
+    this.idConcepto = ''; 
+    this.nombreConcepto = '';
+    this.valorConcepto = 0;
+    this.cantidadTemporal = 0;
+    this.modal1 = false;
+    console.log("conceptosList después de agregar:", this.conceptosList);
+}
+
 
 
 
