@@ -46,18 +46,10 @@ export class FactOtrosConceptosComponent implements OnInit {
   idConcepto: string = '';
   nombreConcepto: string = '';
   valorConcepto: number = 0;
-
-//  guardar detalle
-  idConcepto1: string; // Define los tipos adecuados según tus necesidades
-  nombreConcepto1: string;
-  valorConcepto1: number;
-  cantidad: number;
-  
-  tablaDatos: any[] = [];
   modalBusTabl: boolean;
   modalBuscar: boolean;
   
-  
+
 
   constructor(
     private breadcrumbService: BreadcrumbService,
@@ -263,25 +255,6 @@ cargarCliente(clienteSelectDto: ClienteDto ){
   this.modalBusTabl= false;
   this.modalBuscar=false;
 
-}
-
-agregarItem() {
-  if (this.cantidad && this.idConcepto1 && this.nombreConcepto1 && this.valorConcepto1) {
-    const item = {
-      idConcepto1: this.idConcepto1,
-      nombreConcepto1: this.nombreConcepto1,
-      valorConcepto1: this.valorConcepto1,
-      cantidad: this.cantidad
-    };
-
-    this.tablaDatos.push(item);
-
-    // Limpia los campos después de agregar un elemento
-    this.idConcepto1 = '';
-    this.nombreConcepto1 = '';
-    this.valorConcepto1 = 0;
-    this.cantidad = 0;
-  }
 }
 
 
