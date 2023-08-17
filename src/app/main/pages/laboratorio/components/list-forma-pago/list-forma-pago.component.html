@@ -90,8 +90,22 @@
               </span>
             </div>
             <div class="p-field col-6 md:col-5 md:mb-1 mb-0 px-3" style="width: 175px;">
-              <p-dropdown  [options]="bancos" placeholder="Banco"  ></p-dropdown>
+              <p-dropdown [options]="listBancos"
+              formControlName="idBancos"
+              [virtualScroll]="true"
+              [(ngModel)]="selectedBanco"
+              optionLabel="nombreBancos"
+              optionValue="idBancos"
+              id="ftxt-idBancos"
+              [virtualScrollItemSize]="38"  
+              placeholder="Banco"
+              [filter]="true"
+              [filterBy]="'nombreBancos'"
+              >
+              
+            </p-dropdown>
             </div>
+            
           </div>
         </div>
 
@@ -102,7 +116,20 @@
 
           <div class="p-field col-12 md:col-5 mb-0 px-3" style="width: 180px;">
            
-            <p-dropdown  [options]="tarjeta" placeholder="tarjeta"  ></p-dropdown>
+            <p-dropdown [options]="listTarjeta"
+            formControlName="idTarjeta"
+            [virtualScroll]="true"
+            [(ngModel)]="selectedTarjeta"
+            optionLabel="nombreTarjeta"
+            optionValue="idTarjeta"
+            id="ftxt-idTarjeta"
+            [virtualScrollItemSize]="38"  
+            placeholder="Tarjeta"
+            [filter]="true"
+            [filterBy]="'nombreTarjeta'"
+            >
+            
+          </p-dropdown>
           </div>
         </div>
         </div>
@@ -111,6 +138,8 @@
 
     <div class="mt-4 text-center">
       <div class="p-buttonset">
+  
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
         <button pButton label="Guardar" (click)="guardarpago()" class="m-1 bg-blue-900" pTooltip="Guardar"
           tooltipPosition="right"></button>
         <button pButton label="Cancelar" (click)="CloseModal()" class="m-1 bg-blue-900" pTooltip="Cancelar"
