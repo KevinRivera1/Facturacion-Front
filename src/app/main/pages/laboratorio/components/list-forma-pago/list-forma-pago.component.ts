@@ -5,6 +5,7 @@ import { FormaPagoService } from '../../services/formaPago.service';
 import { FormaPago } from '../../model/FormaPago';
 import { severities } from 'src/app/_enums/constDomain';
 import { FormaPagoDto } from '../../model/FormaPago.dto';
+import { SelectItem } from 'primeng/api/selectitem';
 
 @Component({
     selector: 'app-list-forma-pago',
@@ -70,7 +71,18 @@ export class ListFormaPagoComponent implements OnInit {
       
         this.nombreFp = this.selectedRecord.nombreFp;
       }
-      
+      bancos: SelectItem[] = [
+
+        { label: 'Pichincha', value: 'Pichincha' },
+        { label: 'Guayaquil', value: 'Guayaquil' },
+      ];
+      tarjeta: SelectItem[] = [
+
+        { label: 'Debito', value: 'Debito' },
+        { label: 'Credito', value: 'Credito' },
+      ];
+
+
   guardarpago(){
     
 
