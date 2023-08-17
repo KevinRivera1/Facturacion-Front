@@ -23,7 +23,7 @@
     <header class="text-center">BUSCAR FACTURAS DE LABORATORIOS</header>
 
     <div class="p-d-flex">
-    <form >
+    <form [formGroup]="formFacturaLaboratorio" (ngSubmit)="filtrarRecibos()">
         <div class="">
             <br />
 
@@ -32,12 +32,13 @@
                     <span class="p-float-label">
                         <input
                             pInputText
-                            id="ftxt-nombreFp"
+                            id="ftxt-codFactura"
                             type="text"
+                            formControlName="codFactura"
                     
                           
                         />
-                        <label for="ftxt-nombreFp">* Factura no.</label>
+                        <label for="ftxt-codFactura">* Factura no.</label>
                     </span>
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
@@ -113,6 +114,7 @@
                             class="p-button p-button-lg m-1 p-button-info guardar-button"
                             icon="pi pi-search"
                             type="submit"
+                            (click)="filtrarRecibos()"
                             pTooltip="Buscar"
                             tooltipPosition="right"
                         ></button>
@@ -123,8 +125,7 @@
     </form>
 </div>
 
-    <app-factura-laboratorio-table [listfacturalaboratorio]="listfacturalaboratorio" >
-    </app-factura-laboratorio-table>
+    
 </p-card>
 
 <!-- modal de listado de proformas aceptadas -->

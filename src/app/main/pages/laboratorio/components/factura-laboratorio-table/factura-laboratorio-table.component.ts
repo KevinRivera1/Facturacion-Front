@@ -11,7 +11,7 @@ import { AppService } from 'src/app/_service/app.service';
 })
 export class FacturaLaboratorioTableComponent implements OnInit {
   
-  @Input() listfacturalaboratorio: FacturaDto[];
+  @Input() listfacturalaboratorio:  any [] = [];
   modal: boolean;
   loading: boolean;
   clienteSelect:FacturaDto;
@@ -79,5 +79,9 @@ formatearFecha(fecha: number): string {
   const dia = ('0' + date.getDate()).slice(-2);
 
   return `${dia}/${mes}/${anio}`;
+}
+
+filtrarRecibos(listfacturalaboratorio:any[]){
+  this.listfacturalaboratorio = listfacturalaboratorio
 }
 }
