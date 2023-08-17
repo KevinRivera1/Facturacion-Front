@@ -6,6 +6,11 @@ import { FormaPago } from '../../model/FormaPago';
 import { severities } from 'src/app/_enums/constDomain';
 import { FormaPagoDto } from '../../model/FormaPago.dto';
 import { SelectItem } from 'primeng/api/selectitem';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
+import { BancoDto } from '../../model/Bancos.dto';
+import { BancosService } from '../../services/bancos.service';
+import { TarjetaDto } from '../../model/Tarjeta.dto';
+import { TarjetaService } from '../../services/tarjeta.service';
 
 @Component({
     selector: 'app-list-forma-pago',
@@ -19,12 +24,21 @@ export class ListFormaPagoComponent implements OnInit {
     listFormaPago: FormaPago[] = [];
     nombreFp: string = '';
     selectedRecord: any;
-
+    idFormaPago: string = '';
+    @Input() listBancos: BancoDto[];
+    selectedBanco: BancoDto[];
+    @Input() listTarjeta: TarjetaDto[];
+    selectedTarjeta: TarjetaDto[];
 
     constructor(
         private appService: AppService,
         private breadcrumbService: BreadcrumbService,
-        private formapagoService: FormaPagoService
+        private formapagoService: FormaPagoService,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService,
+        private bancosService: BancosService,
+        private tarjetaService: TarjetaService
+
     ) {
         {
             this.breadcrumbService.setItems([
@@ -35,6 +49,8 @@ export class ListFormaPagoComponent implements OnInit {
 
     ngOnInit() {
         this.llenarListFormaPago();
+        this.llenarListBancos();
+        this.llenarListTarjeta();
     }
 
     onDisplayForm() {
@@ -63,14 +79,35 @@ export class ListFormaPagoComponent implements OnInit {
             },
         });
     }
+    async llenarListBancos(){
+        await this.bancosService.getAll().subscribe({
+            next: data => {
+                this.listBancos = data.listado
+                console.log("CORRECTO");
+                console.log(this.listBancos);
+            }
+        })
+    }
+    async llenarListTarjeta(){
+        await this.tarjetaService.getAll().subscribe({
+            next: data => {
+                this.listTarjeta = data.listado
+                console.log("CORRECTO");
+                console.log(this.listTarjeta);
+            }
+        })
+    }
 
     showAttributes(record: any) {
         this.selectedRecord = record;
       
         // Actualiza las variables con los valores del registro seleccionado
-      
+      this.idFormaPago = this.selectedRecord.idFormaPago;
         this.nombreFp = this.selectedRecord.nombreFp;
+        console.log('idFormaPago: ' + this.idFormaPago);
       }
+
+
       bancos: SelectItem[] = [
 
         { label: 'Pichincha', value: 'Pichincha' },
@@ -84,12 +121,23 @@ export class ListFormaPagoComponent implements OnInit {
 
 
   guardarpago(){
-    
-
-    
-    this.closeModal.emit();
+ 
+    this.confirmationService.confirm({
+        message: 'El total de la factura no ha sido pagada completamente Esta seguro que desea cancelar el pago mixto?',
+        header: 'Mensaje...',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Usted a aceptado' });
+            this.closeModal.emit();
+        },
+        reject: (type: any) => {
+            switch (type) {
+                case ConfirmEventType.REJECT:
+                    this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'Usted a cancelado' });
+                    break;
+                    
+            }
+        }
+    });
   }
-
-
-
 }

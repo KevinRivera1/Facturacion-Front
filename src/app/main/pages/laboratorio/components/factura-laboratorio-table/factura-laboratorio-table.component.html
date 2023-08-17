@@ -2,12 +2,10 @@
 <section class="content">
   <div class="container-fluid">
       <div class="card">
+        
           <p-table #dt [rows]="10" [value]="listfacturalaboratorio" [paginator]="true" 
                    [globalFilterFields]="[
-                      'idFormaPago',
-                      'nombreConsumidor',
-                      'descripcionFp',
-                      'activo'
+                      'codFactura',
                    ]"
                    responsiveLayout="scroll" 
                    [rowHover]="true" dataKey="idFormaPago"
@@ -23,6 +21,10 @@
                    (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
           </span>  -->
           <label class="text-center" >FACTURACION</label>
+
+          <input pInputText   type="text" class="p-inputtext-sm"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+          placeholder="Buscar Forma pago" />
                   </div>
               
               </ng-template>
@@ -35,10 +37,10 @@
                               <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
                           </div>
                       </th> 
-                      <th pSortableColumn="idFactura">
+                      <th pSortableColumn="codFactura">
                           <div class="flex justify-content-between align-items-center">Factura No.
-                              <p-sortIcon field="idFactura"></p-sortIcon>
-                              <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
+                              <p-sortIcon field="codFactura"></p-sortIcon>
+                              <p-columnFilter type="text" field="codFactura" display="menu"></p-columnFilter>
                           </div>
                       </th>
                      
@@ -97,7 +99,7 @@
               <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
                   <tr>
                       <td>{{rowIndex+1}}</td>
-                      <td>{{item.idFactura}}</td>
+                      <td>{{item.codFactura}}</td>
                       <td>{{item.nombreConsumidor}}</td>
                       <td>{{item.rucConsumidor}}</td>
                       <td>{{item.idProforma}}</td>
