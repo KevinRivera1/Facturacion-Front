@@ -169,8 +169,8 @@
           </tr>
         
           <tr>
-              <th colspan="2">Observaciones:</th>
-              <th colspan="3">Subtotal a tributar:</th>
+              <th colspan="2"></th>
+              <th colspan="3">Subtotal:</th>
               <th>00.0</th>
               <th></th>
           </tr>
@@ -178,17 +178,11 @@
               <th>____________________</th>
               <th>____________________</th>
               <th colspan="3">I.V.A 12%</th>
-              <th>00.00</th>
+              <th>00.12</th>
               <th></th>
   
           </tr>
-          <tr>
-              <th >Elaborado por</th>
-              <th>Recibi Conforme</th>
-              <th colspan="3">con tarifa 0%</th>
-              <th>0.0</th>
-              <th></th>
-          </tr>
+        
           <tr>
             <th >Nombre:</th>
             <th>Nombre:</th>
@@ -348,7 +342,8 @@
                
                 <td>{{item.codigoConcepto}}</td>
                 <td>{{item.nombreConcepto}}</td>
-                <td> <a pButton class="botonmas" icon="pi pi-plus" (click)="showAttributes(item)" ></a></td>
+                <td> <a pButton class="bg-blue-900 py-3" icon="pi pi-plus"
+                  (click)="showAttributes(item)"></a></td>
                
             </tr>
         </ng-template>
