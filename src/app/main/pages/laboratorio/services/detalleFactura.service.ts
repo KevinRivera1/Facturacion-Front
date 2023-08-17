@@ -8,17 +8,17 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class DetalleFacturaService {
-    endpoint: string = 'detalleFactura';
-      url = `${environment.HOST}/`;
+  url = `${environment.HOST}/`;
+  endpoint: string = 'detalleFactura';
 
   constructor(private http: HttpClient) { }
 
 
   getAll(): Observable<any> {
     return this.http.get(this.url + this.endpoint + '/listarDetalleFactura');
-}
+  }
 
   saveObject(obj): Observable<any> {
     return this.http.post(this.url + this.endpoint + '/guardarDetalleFactura/', obj);
-}
+  }
 }

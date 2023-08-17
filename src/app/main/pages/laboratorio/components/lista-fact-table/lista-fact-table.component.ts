@@ -3,8 +3,11 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { Table } from 'primeng/table';
-import { ConfirmationService } from 'primeng/api';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 import { AppService } from 'src/app/_service/app.service';
+
+
 
 @Component({
   selector: 'app-lista-fact-table',
@@ -17,6 +20,14 @@ export class ListaFactTableComponent implements OnInit {
   @Output() facturasSelect = new EventEmitter();
   facturas: FacturaDto;
   selectedFacturas: FacturaDto[];
+  facturaSelect:FacturaDto;
+
+  @Input() listdetalle: DetalleFacturaDto[];
+  @Output() detallesSelect = new EventEmitter();
+  detalles: DetalleFacturaDto;
+  selectedDetalles: DetalleFacturaDto[];
+  detalleSelect: DetalleFacturaDto;
+
 
   submitted: boolean;
   loading: boolean;
@@ -28,8 +39,8 @@ export class ListaFactTableComponent implements OnInit {
 
   constructor(
     private facturaService: FacturaService,
-    private appservie: AppService,
-    private confirmationService: ConfirmationService,
+    public appService: AppService,
+    private detallefacturaService: DetalleFacturaService,
     private breadcrumbService: BreadcrumbService
   ) {
     {
@@ -39,6 +50,10 @@ export class ListaFactTableComponent implements OnInit {
 
   ngOnInit() {
     this.construirTabla();
+    this.construirTablaD();
+    this.facturaSelect= new FacturaDto();
+    this.detalleSelect= new DetalleFacturaDto();
+
   }
   
   onInput(event: any) {
@@ -52,13 +67,30 @@ export class ListaFactTableComponent implements OnInit {
 
   construirTabla() {
     this.cols = [
-      { field: '', header: 'ID Factura' },
-      { field: '', header: 'ID Proforma' },
-      { field: '', header: 'CI/RUC' },
-      { field: '', header: 'Cliente' },
-      { field: '', header: 'Fecha' },
-      { field: '', header: 'Total' },
-      { field: '', header: 'Estado' }
+      { field: 'idFactura', header: 'ID Factura' },
+      { field: 'idProforma', header: 'ID Proforma' },
+      { field: 'rucConsumidor', header: 'CI/RUC' },
+      { field: 'nombreConsumidor', header: 'Cliente' },
+      { field: 'fechaFact', header: 'Fecha' },
+      { field: 'totalFact', header: 'Total' },
+      { field: 'idEstadoFact', header: 'Estado' }
+    ];
+    this.exportColumns = this.cols.map((col) => ({
+      title: col.header,
+      dataKey: col.field,
+    }));
+    this.loading = false;
+  }
+
+  construirTablaD() {
+    this.cols = [
+      { field: 'idConcepto', header: 'Codigo' },
+      // { field: 'idProforma', header: 'ID Proforma' },
+      // { field: 'rucConsumidor', header: 'CI/RUC' },
+      // { field: 'nombreConsumidor', header: 'Cliente' },
+      // { field: 'fechaFact', header: 'Fecha' },
+      // { field: 'totalFact', header: 'Total' },
+      // { field: 'idEstadoFact', header: 'Estado' }
     ];
     this.exportColumns = this.cols.map((col) => ({
       title: col.header,
@@ -70,6 +102,16 @@ export class ListaFactTableComponent implements OnInit {
    clear(table: Table) {
       table.clear();
    }
+
+   cargarFactura(facturaSelectDto: FacturaDto) {
+    this.facturaSelect = facturaSelectDto;
+    this.abrirmodal();
+  }
+
+  cargarDetalle(detalleSelectDto: DetalleFacturaDto) {
+    this.detalleSelect = detalleSelectDto;
+    this.abrirmodal();
+  }
 
   loadData(event) {
     this.loading = true;
@@ -83,9 +125,23 @@ export class ListaFactTableComponent implements OnInit {
     }, 1000);
   }
 
+  loadData1(event) {
+    this.loading = true;
+    setTimeout(() => {
+        this.detallefacturaService.getAll().subscribe((res) => {
+            this.listdetalle = res;
+            console.log('LLAMADA');
+            console.log(this.listdetalle);
+            this.loading = false;
+        });
+    }, 1000);
+}
+
+
   registrarNuevo() {
     // @ts-ignore
     this.facturas = new FacturaDto();
+    this.detalles = new DetalleFacturaDto();
     this.submitted = false;
   }
 

@@ -34,6 +34,7 @@ export class FactOtrosConceptosComponent implements OnInit {
   selectedOption: string = '';
 
   data: string = '';
+  editar: boolean;
   
 
   /*variables para listar conceptos*/
@@ -256,31 +257,110 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
 }
 
+ // LISTAR CONCEPTOS
+
+ conceptosList: { idConcepto: string, nombre: string, valor: number, cantidad: number }[] = [];
+ cantidadTemporal: number = 1;
 
 
-conceptosList: { idConcepto: string,   nombre: string, valor: number, cantidad: number }[] = [];
-cantidadTemporal: number = 0;
+ addToConceptosList() {
+     if (this.cantidadTemporal !== 0 && this.cantidadTemporal !== null &&
+         this.nombreConcepto.trim() !== '' && this.valorConcepto !== 0) {
+
+         const totalConcepto = this.Total(this.valorConcepto, this.cantidadTemporal);
+
+         const nuevoConcepto = {
+             idConcepto: this.idConcepto,
+             nombre: this.nombreConcepto,
+             valor: this.valorConcepto,
+             cantidad: this.cantidadTemporal,
+             total: totalConcepto
+         };
+
+         this.conceptosList.push(nuevoConcepto);
+
+         // Limpiar las variables para futuras entradas
+         this.idConcepto = '';
+         this.nombreConcepto = '';
+         this.valorConcepto = 0;
+         this.cantidadTemporal = 1;
+         this.modal1 = false;
+
+         this.calcularTotalesTotales(); // Llama al método para recalcular los totales generales
+
+     }
+ }
 
 
-addToConceptosList() {
-    const nuevoConcepto = {
-        idConcepto: this.idConcepto,
-        nombre: this.nombreConcepto,
-        valor: this.valorConcepto,
-        cantidad: this.cantidadTemporal
-    };
+ Total(valor: number, cantidad: number): number {
+     if (cantidad !== 0) {
+         return valor * cantidad;
+     } else {
+         return valor;
+     }
+ }
 
-    this.conceptosList.push(nuevoConcepto);
 
-    // Limpiar las variables para futuras entradas
-    this.idConcepto = ''; 
-    this.nombreConcepto = '';
-    this.valorConcepto = 0;
-    this.cantidadTemporal = 0;
-    this.modal1 = false;
-    console.log("conceptosList después de agregar:", this.conceptosList);
-}
+ // ELIMINAR CONCEPTOS
+ limpiarLista() {
+     this.conceptosList = [];
+     this.subtotalTotal = 0;
+     this.ivaTotal = 0;
+     this.totalTotal = 0;
+ }
 
+ eliminarConcepto(concepto: any) {
+     const index = this.conceptosList.indexOf(concepto);
+     if (index !== -1) {
+         this.conceptosList.splice(index, 1);
+     }
+     this.calcularTotalesTotales(); // Recalcula los totales generales
+ }
+
+
+ // TOTAL IVA SUBTOTAL
+
+
+ subtotalTotal: number = 0;
+ ivaTotal: number = 0;
+ totalTotal: number = 0;
+
+
+ calcularTotalesTotales() {
+     this.subtotalTotal = this.conceptosList.reduce((sum, concepto) => sum + this.Total(concepto.valor, concepto.cantidad), 0);
+     this.ivaTotal = this.subtotalTotal * 0.12; // Calcula el 12% del subtotal total como IVA total
+     this.totalTotal = this.subtotalTotal + this.ivaTotal;
+ }
+
+
+
+ // EDITAR CONCEPTOS
+
+ conceptoEditando: any = null;
+ cantidadEditando: number = 0;
+
+ iniciarEdicionCantidad(concepto: any) {
+     this.editar = true;
+     this.conceptoEditando = concepto;
+     this.cantidadEditando = concepto.cantidad;
+ }
+
+ guardarEdicionCantidad() {
+     if (this.conceptoEditando) {
+         this.conceptoEditando.cantidad = this.cantidadEditando;
+         this.calcularTotalesTotales(); // Recalcula los totales generales
+         this.conceptoEditando = null; // Limpia la edición
+         this.cantidadEditando = 0;
+         this.editar = false;
+     }
+ }
+
+ editarmodal() {
+     this.editar = false;
+ }
+
+
+ // GUARDAR
 
 
 
