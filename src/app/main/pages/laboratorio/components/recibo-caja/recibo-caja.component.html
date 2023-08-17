@@ -35,8 +35,7 @@
                 <legend>Buscar Cliente/Empleado EPN</legend>
 
                 <div class="search">
-                    <div class=" flex justify-content-center gap-3">
-
+                    <div class="flex justify-content-center gap-3">
                         <div class="flex align-items-center">
                             <p-radioButton name="Empleado" value="1" [(ngModel)]="tipoCliente" inputId="1">
                             </p-radioButton>
@@ -47,11 +46,10 @@
                             </p-radioButton>
                             <label class="ml-2">Cliente</label>
                         </div>
-                        <div class="caja-boton-principal  py-3">
-                            <button pButton label="Buscar" class=" bg-blue-900 " (click)="busquedaCliente()"
+                        <div class="caja-boton-principal py-3">
+                            <button pButton label="Buscar" class="bg-blue-900" (click)="busquedaCliente()"
                                 pTooltip="Buscar" tooltipPosition="right"></button>
                         </div>
-
                     </div>
                 </div>
             </fieldset>
@@ -60,28 +58,37 @@
         <!-- TABLA DATOS -->
         <div class="fieldset-data">
             <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
-
                 <div class="data" *ngIf="clienteSelect">
                     <div class="ui-fluid formgrid grid">
                         <div class="field col-12 md:col-6">
                             <label>Cédula / RUC: </label>
-                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.cedula}}</i></b>
+                            <b>
+                                <i class="text-1xl mr-2 mb-3">
+                                    {{ clienteSelect.cedula }}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Nombre: </label>
-                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.nombre}}</i></b>
+                            <b>
+                                <i class="text-1xl mr-2 mb-3">
+                                    {{ clienteSelect.nombre }}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Correo: </label>
-                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.correo}}</i></b>
+                            <b>
+                                <i class="text-1xl mr-2 mb-3">
+                                    {{ clienteSelect.correo }}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Dirección: </label>
-                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.direccion}}</i></b>
+                            <b>
+                                <i class="text-1xl mr-2 mb-3">
+                                    {{ clienteSelect.direccion }}</i></b>
                         </div>
                         <div class="field col-12 md:col-6">
                             <label>Telefono: </label>
-                            <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
+                            <b>
+                                <i class="text-1xl mr-2 mb-3">
+                                    {{ clienteSelect.telefono }}</i></b>
                         </div>
                     </div>
                 </div>
@@ -89,47 +96,46 @@
         </div>
 
         <p-toolbar class="center-button">
-            <button pButton label="Agregar" class="m-1 bg-blue-900" type="submit" pTooltip="Agregar"
+            <button pButton label="Agregar Conceptos" class="m-1 bg-blue-900" type="submit" pTooltip="Agregar"
                 tooltipPosition="right" (click)="abrirmodal1()"></button>
         </p-toolbar>
 
         <!-- TABLA DIALOG -->
-
-        <p-table styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+        <p-table styleClass="p-datatable-gridlines" [value]="conceptosList" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Concepto</th>
                     <th>Cantidad</th>
                     <th>V/Unitario</th>
-                    <th>Inicio</th>
-                    <th>Fin</th>
-                    <th>Total</th>
+                    <th colspan="2">Total</th>
                     <th>Acciones</th>
                 </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-concepto>
                 <tr>
-                    <th colspan="4"></th>
+                    <td>{{ concepto.nombre }}</td>
+                    <td>{{ concepto.cantidad }}</td>
+                    <td>{{ concepto.valor }}</td>
+                    <td colspan="2">{{  concepto.cantidad * concepto.valor }}</td>
+                    <td>Acciones</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br>
+        <!-- IVA-TOTAL-SUBTOTAL -->
+        <p-table styleClass="p-datatable-gridlines" style="width: 20%;">
+            <ng-template pTemplate="header">
+                <tr>
                     <th>SUBTOTAL:</th>
                     <th>0.0</th>
-                    <th></th>
-                </tr>
-
-                <tr>
-                    <th colspan="4"></th>
-                    <th>
-                        IVA
-                        <input style="width: 5em" type="text" name="IVA" placeholder="0.0" />
-                        %
-                    </th>
-                    <th>
-                        <input type="text" style="width: 5em" name="IVA" placeholder="0.0" />
-                    </th>
-                    <th></th>
                 </tr>
                 <tr>
-                    <th colspan="4"></th>
+                    <th> IVA 12%</th>
+                    <th>0.0</th>
+                </tr>
+                <tr>
                     <th>TOTAL:</th>
                     <th>0.0</th>
-                    <th></th>
                 </tr>
             </ng-template>
         </p-table>
@@ -161,55 +167,60 @@
             </div>
         </div>
     </p-dialog>
+
     <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
     <!-- Dialog Agregar Destalle Recibo CONCEPTOS-->
     <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="modal1" [style]="{ width: '70vw' }">
         <div class="p-fluid p-formgrid grid input">
-
             <!-- Conceptos -->
             <div class="md:col-5">
                 <span class="p-float-label">
                     <div class="fieldset-conceptos">
                         <fieldset class="search-conceptos">
-
                             <legend>Conceptos</legend>
-                            <p-table #dt [value]="listConceptos " [rows]="3" [paginator]="true" [loading]="loading"
+                            <p-table #dt [value]="listConceptos" [rows]="3" [paginator]="true" [loading]="loading"
                                 [globalFilterFields]="[
-                'nombreConcepto',
-                'codigoConcepto',
-             ]" responsiveLayout="scroll" dataKey="idConcepto"
+                                    'nombreConcepto',
+                                    'codigoConcepto'
+                                ]" responsiveLayout="scroll" dataKey="idConcepto"
                                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros">
                                 <ng-template pTemplate="caption">
                                     <div class="flex justify-content-between flex-wrap">
-                                        <span class="p-input-icon-left ">
+                                        <span class="p-input-icon-left">
                                             <i class="pi pi-search"></i>
-                                            <input pInputText type="text" class="p-inputtext-sm"
-                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                                placeholder="Buscar Concepto" />
+                                            <input pInputText type="text" class="p-inputtext-sm" (input)="
+                                                    dt.filterGlobal(
+                                                        $event.target.value,
+                                                        'contains'
+                                                    )
+                                                " placeholder="Buscar Concepto" />
                                         </span>
                                     </div>
                                 </ng-template>
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>
-                                            <div class="flex justify-content-between align-items-center">ID </div>
+                                            <div class="flex justify-content-between align-items-center">
+                                                ID
+                                            </div>
                                         </th>
                                         <th>
-                                            <div class="flex justify-content-between align-items-center">Nombre
+                                            <div class="flex justify-content-between align-items-center">
+                                                Nombre
                                             </div>
                                         </th>
                                         <th></th>
-
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-item>
                                     <tr>
-                                        <td>{{item.codigoConcepto}}</td>
-                                        <td>{{item.nombreConcepto}}</td>
-                                        <td> <a pButton class="bg-blue-900 py-3" icon="pi pi-plus"
-                                                (click)="showAttributes(item)"></a></td>
-
+                                        <td>{{ item.codigoConcepto }}</td>
+                                        <td>{{ item.nombreConcepto }}</td>
+                                        <td>
+                                            <a pButton class="bg-blue-900 py-3" icon="pi pi-plus"
+                                                (click)="showAttributes(item)"></a>
+                                        </td>
                                     </tr>
                                     <tr></tr>
                                 </ng-template>
@@ -226,32 +237,41 @@
                             <legend>Informacion de Conceptos</legend>
                             <div class="p-field col-12 md:mb-2 mb-0 px-3">
                                 <span class="p-float-label">
-                                    <input pInputText id="ftxt-nombreCentroCosto" disabled="true" />
-                                    <label>Nombre: {{ nombreConcepto }}</label>
+                                    <input pInputText disabled="true" type="number" />
+                                    <label>Nombre:
+                                        <b>
+                                            <i class="text-1xl mr-2 mb-3">{{
+                                                nombreConcepto
+                                            }}</i></b>
+                                    </label>
                                 </span>
                             </div>
-
                             <div class="p-field col-12 md:mb-2 mb-0 px-3">
                                 <span class="p-float-label">
-                                    <input pInputText id="ftxt-nombreCentroCosto" disabled="true" type="number" />
-                                    <label>Precio Unitario: {{ valorConcepto }}</label>
+                                    <input pInputText disabled="true" type="number" />
+                                    <label>Precio Unitario:
+                                        <b>
+                                            <i class="text-1xl mr-2 mb-3">{{
+                                                valorConcepto
+                                            }}</i></b></label>
                                 </span>
                             </div>
-
                             <div class="p-field col-12 md:mb-2 mb-0 px-3">
                                 <span class="p-float-label">
-                                    <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
+                                    <input pInputText id="ftxt-cantidad" [(ngModel)]="cantidadTemporal" required="true"
+                                        type="number" />
                                     <label>* Cantidad:</label>
                                 </span>
                             </div>
-
                         </fieldset>
                     </div>
                 </span>
             </div>
         </div>
 
-        <fieldset class="search-saew">
+
+        <!-- SAEW -->
+        <!-- <fieldset class="search-saew">
             <legend>Sanciones Saew</legend>
             <p-table styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
@@ -263,13 +283,14 @@
                     </tr>
                 </ng-template>
             </p-table>
-        </fieldset>
+        </fieldset> -->
 
         <br />
         <div align="center" class="flex justify-content-center">
             <div class="caja-boton-principal">
-                <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar" icon="pi pi-save"
-                    tooltipPosition="right"></button>
+                <button pButton label="Guardar" (click)="addToConceptosList()" class="m-1 bg-blue-900"
+                    pTooltip="Guardar" icon="pi pi-save" tooltipPosition="right"></button>
+
                 <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
                     (click)="cerrarmodal1()"></button>
             </div>
@@ -278,7 +299,7 @@
 
     <!-- Dialog Buscar -->
 
-    <p-dialog [header]=" 'Busqueda' " [(visible)]="modalBuscar" [style]="{ width: '65vw' }">
+    <p-dialog [header]="'Busqueda'" [(visible)]="modalBuscar" [style]="{ width: '65vw' }">
         <div class="fieldset-search2">
             <fieldset class="search-border2">
                 <legend>Buscar</legend>
@@ -298,7 +319,6 @@
                         </div>
                     </div>
                 </div>
-
             </fieldset>
         </div>
     </p-dialog>
@@ -309,24 +329,20 @@
         <div>
             <p-table #dt currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros"
                 [paginator]="true" [rows]="5" [value]="listCliente" [tableStyle]="{ 'min-width': '50rem' }"
-                [globalFilterFields]="[ 
-                'cedula',
-                'nombre',
-                ]">
+                [globalFilterFields]="['cedula', 'nombre']">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-center">
-                        <span class="p-input-icon-left  ">
+                        <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" class="p-inputtext-sm uppercase"
-                                (input)="dt.filterGlobal($event.target.value ,'contains')"
-                                placeholder="Busqueda General" />
+                            <input pInputText type="text" class="p-inputtext-sm uppercase" (input)="
+                                    dt.filterGlobal(
+                                        $event.target.value,
+                                        'contains'
+                                    )
+                                " placeholder="Busqueda General" />
                         </span>
                     </div>
                 </ng-template>
-
-
-
-
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Cédula</th>
@@ -336,13 +352,12 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-cliente>
                     <tr>
-                        <td>{{ cliente.cedula}}</td>
+                        <td>{{ cliente.cedula }}</td>
                         <td>{{ cliente.nombre }}</td>
                         <div class="field col-12 md:col-12" align="center">
-                            <button pButton label="Seleccionar" class="bg-blue-900 " (click)="cargarCliente(cliente)"
+                            <button pButton label="Seleccionar" class="bg-blue-900" (click)="cargarCliente(cliente)"
                                 pTooltip="Buscar" tooltipPosition="right"></button>
                         </div>
-
                     </tr>
                 </ng-template>
             </p-table>
@@ -364,5 +379,4 @@
 
         <app-recibo-caja-table> </app-recibo-caja-table>
     </div>
-
 </p-card>

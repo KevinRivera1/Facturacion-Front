@@ -243,5 +243,32 @@ export class ReciboCajaComponent implements OnInit {
         this.nombreConcepto = this.selectedRecord.nombreConcepto;
         this.valorConcepto = this.selectedRecord.valorConcepto;
       }
+
+
+
+
+conceptosList: { nombre: string, valor: number, cantidad: number }[] = [];
+cantidadTemporal: number = 0;
+
+
+addToConceptosList() {
+    const nuevoConcepto = {
+        nombre: this.nombreConcepto,
+        valor: this.valorConcepto,
+        cantidad: this.cantidadTemporal
+    };
+
+    this.conceptosList.push(nuevoConcepto);
+
+    // Limpiar las variables para futuras entradas
+    this.nombreConcepto = '';
+    this.valorConcepto = 0;
+    this.cantidadTemporal = 0;
+    this.modal1 = false;
+    console.log("conceptosList después de agregar:", this.conceptosList);
+}
+
+
+
 }
 
