@@ -7,6 +7,7 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 import { FormUtil } from '../../formUtil/FormUtil';
 import { ReciboCaja } from '../../model/reciboCaja';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
+import { ReciboCajaDto } from '../../model/reciboCajaDto';
 
 @Component({
     selector: 'app-buscar-recibos',
@@ -14,9 +15,10 @@ import { ReciboCajaService } from '../../services/reciboCaja.service';
     styleUrls: ['./buscar-recibos.component.scss'],
 })
 export class BuscarRecibosComponent implements OnInit {
-    @Input() reciboCaja: ReciboCaja;
-    @Output() reciboCajaFiltrados = new EventEmitter<any>(); //*Emite los datos filtrados
-    //reciboCajaFiltrados: ReciboCaja; //va ReciboDto
+    //@Input() reciboCaja: ReciboCaja;
+
+    @Output() reciboCajaEmitter = new EventEmitter();
+    recibos: ReciboCajaDto[];
 
     proceso: string = 'anular recibos caja';
     response: ResponseGenerico;
@@ -46,32 +48,41 @@ export class BuscarRecibosComponent implements OnInit {
 
     iniciarForms() {
         this.buscarForm = this.formBuilder.group({
-            //idEstadoComprobante: [null],
-            NroReciboCaja: ['', [Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]],
-            NombreCliente: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
-            Ruc: ['', [Validators.pattern('^[0-9]{1,13}$')]],
+            idReciboCaja: [null],
+            codRcaja: ['', [Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]],
+            nombreConsumidorRc: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
+            rucConsumidorRc: ['', [Validators.pattern('^[0-9]{1,13}$')]],
             Cedula: ['', [Validators.pattern('^[0-9]{1,10}$')]],
-            fechaDesde: [''],
-            fechaHasta: [''],
-            //estadoCompr: [true, Validators.requiredTrue],
+            fechaRcaja: [''],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-    //! Necesito poner Dto = doc:ReciboCajaDto
-    BuscarRecibos() {
-        const buscarData = this.buscarForm.value;
+    filtrarRecibos() {
+        const formData = this.buscarForm.value;
+        // Llamada al servicio para filtrar los datos
+        this.reciboCajaService.getAll().subscribe((response) => {
+            const data = response.listado; // Accedemos a la propiedad listado
+            if (Array.isArray(data)) {
+                const recibosFiltrados = data.filter((recibo) => {
+                    return (
+                        recibo.codRcaja.includes(formData.codRcaja) &&
+                        recibo.nombreConsumidorRc.includes(
+                            formData.nombreConsumidorRc
+                        ) &&
+                        recibo.rucConsumidorRc.includes(
+                            formData.rucConsumidorRc
+                        )
+                    );
+                });
 
-        const datosfiltrados ={
-            ...buscarData,
-            fechaDesde: buscarData.fechaDesde ?  new Date(buscarData.fechaDesde):null,
-            fechaHasta: buscarData.fechaHasta ? new Date(buscarData.fechaHasta):null,
-        };
-        
-        this.reciboCajaFiltrados.emit(datosfiltrados);
-
-        console.log("🚀 ~ file: buscar-recibos.component.ts:73 ~ BuscarRecibosComponent ~ BuscarData ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
+                // Emitir los recibos filtrados al componente padre
+                this.reciboCajaEmitter.emit(recibosFiltrados);
+            } else {
+                console.error('Los datos no son un array:', data);
+            }
+        });
     }
 
     onInputNroRecibo(event: any) {
@@ -86,7 +97,7 @@ export class BuscarRecibosComponent implements OnInit {
         const formattedValue = groups.join('-');
 
         input.value = formattedValue;
-        this.f.NroReciboCaja.setValue(formattedValue);
+        this.f.codRcaja.setValue(formattedValue);
 
         const cursorPosition = input.selectionStart;
         input.setSelectionRange(cursorPosition, cursorPosition);
@@ -97,13 +108,13 @@ export class BuscarRecibosComponent implements OnInit {
     }
 
     maxLengthNombre(event: Event) {
-        this.formUtil.limitInputLength(event, 30, 'NombreCliente');
+        this.formUtil.limitInputLength(event, 30, 'nombreConsumidorRc');
     }
     maxLengthCedula(event: Event) {
         this.formUtil.limitInputLength(event, 10, 'Cedula');
     }
 
     maxiLengthRuc(event: Event) {
-        this.formUtil.limitInputLength(event, 13, 'Ruc');
+        this.formUtil.limitInputLength(event, 13, 'rucConsumidorRc');
     }
 }

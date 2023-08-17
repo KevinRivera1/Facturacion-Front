@@ -1,8 +1,8 @@
 export interface ReciboCaja{
-    listado:              Listado[];
+    listado:              ReciboCajaModel[];
 }
 
-export interface Listado {
+export interface ReciboCajaModel {
     idReciboCaja:          number;
     codRcaja:              string;
     fechaRcaja:            string;

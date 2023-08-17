@@ -4,29 +4,29 @@
         <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">BUSCAR RECIBOS CAJA</h4>
     </p-header>
 
-    <form [formGroup]="buscarForm" class="mt-2 px-4" [style]="{width: '100%'}">
+    <form [formGroup]="buscarForm" class="mt-2 px-4" [style]="{width: '100%'}" (ngSubmit)=" filtrarRecibos()">
         <div class="formgrid p-grid p-fluid">
             <div class="col-12 md:col-6 ">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-NroReciboCaja" type="text" required="true"
-                        formControlName="NroReciboCaja" style="text-transform: uppercase;" [maxlength]="13"
+                    <input pInputText id="ftxt-codRcaja" type="text" required="true"
+                        formControlName="codRcaja" style="text-transform: uppercase;" [maxlength]="13"
                         pTooltip="Ejm:123-123-12345" tooltipPosition="top" (input)="onInputNroRecibo($event)">
-                    <label for="ftxt-NroReciboCaja">Nro.Recibo Caja</label>
+                    <label for="ftxt-codRcaja">Nro.Recibo Caja</label>
                 </span>
             </div>
             <div class="col-12 md:col-6">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-NombreCliente" type="text" required="true"
-                        formControlName="NombreCliente" style="text-transform: uppercase;"
+                    <input pInputText id="ftxt-nombreConsumidorRc" type="text" required="true"
+                        formControlName="nombreConsumidorRc" style="text-transform: uppercase;"
                         (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)" [maxLength]="30">
-                    <label for="ftxt-NombreCliente">Nombre Cliente</label>
+                    <label for="ftxt-nombreConsumidorRc">Nombre Cliente</label>
                 </span>
             </div>
             <div class="col-12 md:col-6">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-Ruc" type="number" required="true" formControlName="Ruc"
+                    <input pInputText id="ftxt-rucConsumidorRc" type="number" required="true" formControlName="rucConsumidorRc"
                         style="text-transform: uppercase;" (input)="maxiLengthRuc($event)" [maxlength]="13">
-                    <label for="ftxt-Ruc">RUC</label>
+                    <label for="ftxt-rucConsumidorRc">RUC</label>
                 </span>
             </div>
             <div class="col-12 md:col-6 ">
@@ -37,15 +37,15 @@
                 </span>
             </div>
             <div class="col-12 md:col-6 text-left">
-                <label for="ftxt-fechaDesde" class="block mb-1">Fecha Desde: </label>
+                <label for="ftxt-fechaRcaja" class="block mb-1">Fecha Desde: </label>
                 <span class="p-float-label">
-                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaDesde" [showIcon]="true"></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaRcaja" [showIcon]="true"></p-calendar>
                 </span>
             </div>
             <div class="col-12 md:col-6 text-left">
                 <label for="ftxt-fechaHasta" class="block mb-1">Fecha Hasta: </label>
                 <span class="p-float-label">
-                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaHasta" [showIcon]="true"></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaRcaja" [showIcon]="true"></p-calendar>
                 </span>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <p-toolbar>
                 <div class="p-toolbar-group-center">
                     <button pButton label="Consultar" class="p-button p-button-lg m-1 bg-blue-900 " icon="pi pi-search"
-                        type="submit" (click)="BuscarRecibos()" pTooltip="Consultar" tooltipPosition="right"></button>
+                        type="submit" pTooltip="Consultar" tooltipPosition="right"></button>
                 </div>
             </p-toolbar>
         </div>
