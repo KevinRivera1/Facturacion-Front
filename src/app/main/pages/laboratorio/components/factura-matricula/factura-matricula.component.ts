@@ -8,6 +8,7 @@ import { CretencionService } from '../../services/cretencion.service';
 import { ClienteDto } from '../../model/ClienteDto';
 import { CretencionDto } from '../../model/CretencionDto';
 import { severities } from 'src/app/_enums/constDomain';
+import { FormaPagoDto } from '../../model/FormaPago.dto';
 
 @Component({
   selector: 'app-factura-matricula',
@@ -151,13 +152,17 @@ closeModal() {
       console.log(this.data);
     }
 
+
     loading: boolean= false;
     listCliente:ClienteDto[]=[];
+    listPago:FormaPagoDto[]=[];
     listCretencion:CretencionDto[]=[];
     tipoCliente:number;
+    tipoPago:number;
     cedulaBusqueda: string;
     nombreBusqueda: string;
-    apellidoBusqueda:string
+    apellidoBusqueda:string;
+    nombreFpBusqueda:string;
     nombres:string;
     formCliente:FormGroup
 
@@ -194,36 +199,60 @@ closeModal() {
   }
 
   registrarNuevo() {
-      // this.cretencion = new CretencionDto();
-      // this.iniciarForm();
-      this.modal=true
-      this.clienteSelect= new ClienteDto();
-      this.tipoCliente= 2;
-      this.listCliente= [];
-  }
-
+    // this.cretencion = new CretencionDto();
+    // this.iniciarForm();
+    this.modal=true
+    this.clienteSelect= new ClienteDto();
+    this.tipoCliente= 0;
+    this.listCliente= [];
+    this.pagoSelect = new FormaPagoDto();
+    this.tipoPago= 0;
+    this.listPago= [];
+}
   clienteSelect:ClienteDto;
 
-  busquedaCliente(){
+    busquedaCliente(){
 
-    if(this.tipoCliente==0){
-        this.modalBuscar= false;
-    }else{
-        this.modalBuscar= true;
+      if(this.tipoCliente==0){
+          this.modalBuscar= false;
+      }else{
+          this.modalBuscar= true;
+      }
+        this.cedulaBusqueda= null;
+        this.nombreBusqueda= null;
+        this.apellidoBusqueda= null;
     }
-      this.cedulaBusqueda= null;
-      this.nombreBusqueda= null;
-      this.apellidoBusqueda= null;
-  }
 
-  cargarCliente(clienteSelectDto: ClienteDto ){
-    this.clienteSelect= clienteSelectDto;
-    this.modalBusTabl= false;
-    this.modalBuscar=false;
+    cargarCliente(clienteSelectDto: ClienteDto ){
+      this.clienteSelect= clienteSelectDto;
+      this.modalBusTabl= false;
+      this.modalBuscar=false;
 
-  }
+    }
 
-  
+    pagoSelect:FormaPagoDto;
+
+    busquedaPago(){
+
+      if(this.tipoPago==0){
+          this.modalBuscar= false;
+      }else{
+          this.modalBuscar= true;
+      }
+        this.nombreFpBusqueda= null;
+    
+    }
+
+    cargarPago(pagoSelectDto: FormaPagoDto ){
+      this.pagoSelect= pagoSelectDto;
+      this.modalBusTabl= false;
+      this.modalBuscar=false;
+
+    }
+
+
+
+
 
 
 }
