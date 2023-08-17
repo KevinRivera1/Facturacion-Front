@@ -388,16 +388,10 @@
           <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
              <span class="p-float-label">
               <input pInputText id="ftxt-nombreCentroCosto" required="true" type="number" />
-              <label for="ftxt-nombreCentroCosto">* Cantidad:</label>
+              <label for="ftxt-nombreCentroCosto">* Cantidad: </label>
              </span>
           </div>
 
-          <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
-            <span class="p-float-label">
-              <input pInputText id="ftxt-nombreCentroCosto" required="true" />
-              <label for="ftxt-nombreCentroCosto">* Observaciones: </label>
-            </span>
-          </div>
         </div>
       </div> <!-- cierre -->
       
@@ -411,6 +405,7 @@
               class="p-button p-button-lg m-1 p-button-info bg-blue-900"
               pTooltip="Guardar"
               tooltipPosition="right"
+              (click)="agregarItem()"
           ></button>
 
           <button
