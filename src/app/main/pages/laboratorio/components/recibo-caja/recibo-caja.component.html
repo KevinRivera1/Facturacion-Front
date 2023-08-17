@@ -113,11 +113,19 @@
             </ng-template>
             <ng-template pTemplate="body" let-concepto>
                 <tr>
-                    <td>{{ concepto.nombre }}</td>
-                    <td>{{ concepto.cantidad }}</td>
-                    <td>{{ concepto.valor }}</td>
-                    <td colspan="2">{{  concepto.cantidad * concepto.valor }}</td>
-                    <td>Acciones</td>
+                    <td>{{ concepto.nombre}}</td>
+                    <td>{{ concepto.cantidad}}</td>
+                    <td>{{ concepto.valor}}</td>
+                    <td colspan="2">{{ concepto.total}} $</td>
+                    <td>
+                        <button pButton icon="pi pi-pencil"
+                            class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                            (click)="iniciarEdicionCantidad(concepto)" pTooltip="Editar"
+                            tooltipPosition="left"></button>
+                        <button pButton icon="pi pi-trash"
+                            class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                            (click)="eliminarConcepto(concepto)" tooltipPosition="left" pTooltip="Eliminar"></button>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
@@ -126,19 +134,22 @@
         <p-table styleClass="p-datatable-gridlines" style="width: 20%;">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>SUBTOTAL:</th>
-                    <th>0.0</th>
+                    <th>SUBTOTAL TOTAL:</th>
+                    <th>{{ subtotalTotal | number: '1.2-2' }}</th>
                 </tr>
                 <tr>
-                    <th> IVA 12%</th>
-                    <th>0.0</th>
+                    <th>IVA TOTAL 12%</th>
+                    <th>{{ ivaTotal | number: '1.2-2' }}</th>
                 </tr>
                 <tr>
-                    <th>TOTAL:</th>
-                    <th>0.0</th>
+                    <th>TOTAL TOTAL:</th>
+                    <th>{{ totalTotal | number: '1.2-2' }}</th>
                 </tr>
             </ng-template>
         </p-table>
+
+
+
 
         <div class="fieldset-obser">
             <fieldset class="obser">
@@ -165,6 +176,56 @@
                 <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
                     (click)="cerrar()"></button>
             </div>
+        </div>
+    </p-dialog>
+
+    <!-- EDITAR DIALOG -->
+
+    <p-dialog [header]="'Editar Concepto'" [(visible)]="editar" [style]="{ width: '31.5vw' }">
+        <div class="md:col-6">
+            <span class="p-float-label">
+                <div class="fielset-infConceptosEditar">
+                    <fieldset class="search-infConceptosEditar">
+                        <legend>Informacion de Conceptos</legend>
+                        <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText disabled="true" type="number" />
+                                <label>Nombre:
+                                    <b>
+                                        <i class="text-1xl mr-2 mb-3">{{ conceptoEditando?.nombre }}</i></b>
+                                </label>
+                            </span>
+                        </div>
+                        <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText disabled="true" type="number" />
+                                <label>Precio Unitario:
+                                    <b>
+                                        <i class="text-1xl mr-2 mb-3">{{ conceptoEditando?.valor }}</i></b></label>
+                            </span>
+                        </div>
+                        <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-cantidad" [(ngModel)]="cantidadEditando" required="true"
+                                    type="number" min="1" />
+                                <label>* Cantidad:</label>
+                            </span>
+                        </div>
+
+                        <div align="center" class="flex justify-content-center">
+                            <div class="caja-boton-principal">
+                                <button pButton label="Guardar" (click)="guardarEdicionCantidad()"
+                                    [disabled]="cantidadEditando === conceptoEditando?.cantidad" class="m-1 bg-blue-900"
+                                    pTooltip="Guardar" icon="pi pi-save" tooltipPosition="right"></button>
+
+                                <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar"
+                                    tooltipPosition="right" (click)="editarmodal()"></button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </span>
         </div>
     </p-dialog>
 
@@ -240,9 +301,7 @@
                                     <input pInputText disabled="true" type="number" />
                                     <label>Nombre:
                                         <b>
-                                            <i class="text-1xl mr-2 mb-3">{{
-                                                nombreConcepto
-                                            }}</i></b>
+                                            <i class="text-1xl mr-2 mb-3">{{nombreConcepto}}</i></b>
                                     </label>
                                 </span>
                             </div>
@@ -259,7 +318,7 @@
                             <div class="p-field col-12 md:mb-2 mb-0 px-3">
                                 <span class="p-float-label">
                                     <input pInputText id="ftxt-cantidad" [(ngModel)]="cantidadTemporal" required="true"
-                                        type="number" />
+                                        type="number" min="1" />
                                     <label>* Cantidad:</label>
                                 </span>
                             </div>
