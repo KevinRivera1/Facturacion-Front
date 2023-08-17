@@ -116,7 +116,20 @@
 
           <div class="p-field col-12 md:col-5 mb-0 px-3" style="width: 180px;">
            
-            <p-dropdown  [options]="tarjeta" placeholder="tarjeta"  ></p-dropdown>
+            <p-dropdown [options]="listTarjeta"
+            formControlName="idTarjeta"
+            [virtualScroll]="true"
+            [(ngModel)]="selectedTarjeta"
+            optionLabel="nombreTarjeta"
+            optionValue="idTarjeta"
+            id="ftxt-idTarjeta"
+            [virtualScrollItemSize]="38"  
+            placeholder="Tarjeta"
+            [filter]="true"
+            [filterBy]="'nombreTarjeta'"
+            >
+            
+          </p-dropdown>
           </div>
         </div>
         </div>
