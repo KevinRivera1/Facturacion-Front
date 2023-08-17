@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
+import { AppService } from 'src/app/_service/app.service';
 
 @Component({
   selector: 'app-factura-laboratorio-table',
@@ -18,37 +19,48 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   constructor(
     private facturaService: FacturaService,
+    public appService: AppService,
+
+
 
   ) { }
 
   ngOnInit() {
     this.clienteSelect= new FacturaDto();
-    
+    this.llenarFacturalaboratorio();
   }
 
-
-
-
-
-
-  cargarfactura(clienteSelectDto: FacturaDto ){
+  async llenarFacturalaboratorio() {
+    await this.facturaService.getAll().subscribe({
+        next: (data) => {
+            this.listfacturalaboratorio = data.listado;
+            console.log('CORRECTO');
+            console.log(this.listfacturalaboratorio);
+        },
+        complete: () => {
+            this.appService.msgInfoDetail(
+                severities.INFO,
+                'INFO',
+                'Datos Cargados exitosamente' ,
+                500
+            );
+        },
+        error: (error) => {
+            this.appService.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                error.error
+            );
+        },
+    });
+  }
+  cargarfactura(clienteSelectDto: FacturaDto){
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
+    
 
   }
 
-  
-  loadData() {
-    this.loading = true;
-    setTimeout(() => {
-        this.facturaService.getAll().subscribe((res) => {
-            this.listfacturalaboratorio = res;
-            console.log('LLAMADA');
-            console.log(this.listfacturalaboratorio);
-            this.loading = false;
-        });
-    }, 1000);
-}
 
   abrirmodal() {
     this.modal = true;
@@ -58,5 +70,14 @@ cerrar() {
   this.modal = false;
   
 
+}
+
+formatearFecha(fecha: number): string {
+  const date = new Date(fecha);
+  const anio = date.getFullYear();
+  const mes = ('0' + (date.getMonth() + 1)).slice(-2);
+  const dia = ('0' + date.getDate()).slice(-2);
+
+  return `${dia}/${mes}/${anio}`;
 }
 }

@@ -2,12 +2,10 @@
 <section class="content">
   <div class="container-fluid">
       <div class="card">
+        
           <p-table #dt [rows]="10" [value]="listfacturalaboratorio" [paginator]="true" 
                    [globalFilterFields]="[
-                      'idFormaPago',
-                      'nombreConsumidor',
-                      'descripcionFp',
-                      'activo'
+                      'codFactura',
                    ]"
                    responsiveLayout="scroll" 
                    [rowHover]="true" dataKey="idFormaPago"
@@ -23,6 +21,10 @@
                    (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
           </span>  -->
           <label class="text-center" >FACTURACION</label>
+
+          <input pInputText   type="text" class="p-inputtext-sm"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+          placeholder="Buscar Forma pago" />
                   </div>
               
               </ng-template>
@@ -35,10 +37,10 @@
                               <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
                           </div>
                       </th> 
-                      <th pSortableColumn="idFactura">
+                      <th pSortableColumn="codFactura">
                           <div class="flex justify-content-between align-items-center">Factura No.
-                              <p-sortIcon field="idFactura"></p-sortIcon>
-                              <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
+                              <p-sortIcon field="codFactura"></p-sortIcon>
+                              <p-columnFilter type="text" field="codFactura" display="menu"></p-columnFilter>
                           </div>
                       </th>
                      
@@ -97,11 +99,11 @@
               <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
                   <tr>
                       <td>{{rowIndex+1}}</td>
-                      <td>{{item.idFactura}}</td>
+                      <td>{{item.codFactura}}</td>
                       <td>{{item.nombreConsumidor}}</td>
                       <td>{{item.rucConsumidor}}</td>
                       <td>{{item.idProforma}}</td>
-                      <td>{{item.fechaFact}}</td>
+                      <td>{{formatearFecha(item.fechaFact) }}</td>
                       <td>{{item.subtotalFact}}</td>
                       <td>{{item.ivaFact}}</td>
                       <td>{{item.totalFact}}</td>
@@ -155,7 +157,7 @@
             <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Fecha de emision:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.fechaFact}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{ formatearFecha(+clienteSelect.fechaFact) }}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Empresa:</label>
@@ -171,17 +173,17 @@
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Direccion:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.direccionConsumidor}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Telefono:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.telfConsumidor}}</i></b>
                 </div>
             </div>
             <div class="col-6" >
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Facultad/Instituto:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3"></i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.carreraConsumidor}}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Laboratorio:</label>
@@ -220,7 +222,7 @@
             <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Total</th>
         </tr>
         <tr>
-            <th>Prueba</th>
+            <th>{{clienteSelect.codFactura}}</th>
             <th>Prueba Electrica</th>
             <th>1</th>
             <th>200.0</th>

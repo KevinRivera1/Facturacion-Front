@@ -1,24 +1,24 @@
-export interface ReciboCaja {
-    listado:              Listado[];
+export interface ReciboCaja{
+    listado:              ReciboCajaModel[];
 }
 
-export interface Listado {
-    idCaja:                    number;
-    descripcionCaja:           string;
-    secuenciaFactura:          number;
-    secuenciaRcvcaja:          number;
-    secuenciaNotac:            number;
-    secuencialLiquidCompras:   number;
-    secuencialComprobantesRet: number;
-    idPuntoFacturacionDto:     IDPuntoFacturacionDto;
-}
-
-export interface IDPuntoFacturacionDto {
-    idPuntoFacturacion:     number;
-    secuencialPuntoFact:    string;
-    idUsuarioRel:           number;
-    nombrePuntoFact:        string;
-    fechaCreacionPuntoFact: null;
-    idUsuarioPuntoFact:     number;
-    estadoPuntoFact:        string;
+export interface ReciboCajaModel {
+    idReciboCaja:          number;
+    codRcaja:              string;
+    fechaRcaja:            string;
+    idTipoConsumidorRc:    number;
+    idCajaRc:              number;
+    idEstadoRc:            number;
+    subtotalRc:            number;
+    ivaRc:                 number;
+    totalRc:               number;
+    nroPagosRc:            number;
+    rucConsumidorRc:       string;
+    nombreConsumidorRc:    string;
+    direccionConsumidorRc: string;
+    telfConsumidorRc:      string;
+    correoConsumidorRc:    string;
+    carreraConsumidorRc:   string;
+    observacionRc:         string;
+    idUsuarioRc:           number;
 }

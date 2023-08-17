@@ -63,7 +63,7 @@
  -->
 
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '45vw'}" [draggable]="true" [resizable]="true"
-    [contentStyle]="{'overflow': 'visible'}" [closable]="true" [responsive]="true" (onHide)="  cancelar()"
+    [contentStyle]="{'overflow': 'visible'}" [closable]="true" [responsive]="true" (onHide)="cancelar()"
     [dismissableMask]="false">
 
     <ng-template pTemplate="header">
@@ -77,21 +77,22 @@
             <div class="p-field col-12 md:col-6 px-3">
                 <span class="p-float-label">
                     <input pInputText id="ftxt-RecibCajaNo" type="text" required="true" formControlName="RecibCajaNo"
-                        style="text-transform: uppercase;" readonly="true" class="outline-none disabled" [disabled]="true">
+                        style="text-transform: uppercase;" readonly="true" class="outline-none disabled"
+                        [disabled]="true">
                     <label for="ftxt-RecibCajaNo">Recibo Caja No:</label>
                 </span>
             </div>
             <div class="p-field col-12 md:col-6  px-3">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-fecha" type="text" required="true"
-                        formControlName="fecha" style="text-transform: uppercase;" readonly="true" [disabled]="true" class="disabled">
+                    <input pInputText id="ftxt-fecha" type="text" required="true" formControlName="fecha"
+                        style="text-transform: uppercase;" readonly="true" [disabled]="true" class="disabled">
                     <label for="ftxt-fecha">Fecha</label>
                 </span>
             </div>
             <div class="p-field col-12 md:col-6  px-3">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-cliente" type="text" required="true"
-                        formControlName="cliente" style="text-transform: uppercase;" readonly="true" [disabled]="true" class="disabled">
+                    <input pInputText id="ftxt-cliente" type="text" required="true" formControlName="cliente"
+                        style="text-transform: uppercase;" readonly="true" [disabled]="true" class="disabled">
                     <label for="ftxt-cliente">Cliente</label>
                 </span>
             </div>
@@ -104,7 +105,8 @@
          </div> -->
             <div class="p-field col-12 md:col-6  px-3 flex">
                 <span class="p-float-label" [style]="{width: '100%'}">
-                    <p-dropdown formControlName="estadoRecib" [options]="estados" placeholder="Selecciona" optionLabel="name" inputId="float-label">
+                    <p-dropdown formControlName="estadoRecib" [options]="estados" placeholder="Selecciona"
+                        optionLabel="name" inputId="float-label">
                     </p-dropdown>
                     <label for="float-label">* Estado</label>
                 </span>

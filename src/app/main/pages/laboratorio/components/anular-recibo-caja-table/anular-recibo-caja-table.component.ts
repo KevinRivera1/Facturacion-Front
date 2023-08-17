@@ -1,9 +1,21 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChange,
+    SimpleChanges,
+} from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
-import { Table } from 'primeng/table';
-import { ReciboCaja } from '../../model/reciboCaja';
+import { ReciboCajaModel } from '../../model/reciboCaja';
+import { ReciboCajaDto } from '../../model/reciboCajaDto';
+import { ReciboCajaService } from '../../services/reciboCaja.service';
+
 //import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
 
 @Component({
@@ -14,12 +26,8 @@ import { ReciboCaja } from '../../model/reciboCaja';
 export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
     displayModal: boolean = false;
-    @Input() listReciboCaja: ReciboCaja[] = []; // va el ReciboCajaDto
-    @Output() RecibCajaSelect = new EventEmitter();
-    reciboCajaFiltrados: any[] = []; //* guarda los datos filtrados del componete hijo
 
-    //recibosCaja: ReciboCajaDto;
-    //selectedRecibosCaja: ReciboCajaDto[];
+    @Input() recibos: any [] = [];
 
     submitted: boolean;
     loading: boolean;
@@ -27,24 +35,28 @@ export class AnularReciboCajaTableComponent implements OnInit {
     cols: any[];
 
     constructor(
+        private reciboCajaService: ReciboCajaService,
         private fileService: FileService,
         private appservie: AppService,
         private confirmationService: ConfirmationService
     ) {}
 
-    ngOnInit() {}
+
+    ngOnInit(): void {
+        this.construirTabla();
+    }
 
     //TODO: MODIFICAR LOS CAMPOS PARA EL RECIBO CAJA ANULAR
     construirTabla() {
         this.cols = [
             //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
-            { field: 'NroReciboCaja', header: 'Nro.RECIBO' },
-            { field: 'nombreCliente', header: 'NOMBRE.' },
-            { field: 'Ruc', header: 'Ruc.' },
-            { field: 'fechaRecibo', header: 'FECHA.' },
-            { field: 'totalRecibo', header: 'TOTAL' },
-            { field: 'estadoRecibo', header: 'ESTADO' },
-            { field: 'motivoRecibo', header: 'MOTIVO' },
+            { field: 'codRcaja', header: 'Nro.RECIBO' },
+            { field: 'nombreConsumidorRc', header: 'NOMBRE.' },
+            { field: 'rucConsumidorRc', header: 'Ruc.' },
+            { field: 'fechaRcaja', header: 'FECHA.' },
+            { field: 'totalRc', header: 'TOTAL' },
+            { field: 'idEstadoRc', header: 'ESTADO' },
+            { field: 'observacionRc', header: 'MOTIVO' },
         ];
         this.exportColumns = this.cols.map((col) => ({
             title: col.header,
@@ -57,9 +69,11 @@ export class AnularReciboCajaTableComponent implements OnInit {
         table.clear();
     }
 
-    //* funcion para dovolver los datos filtrados
-    FilterData(data: any) {}
+    filtrarRecibos(recibos:any[]){
+        this.recibos = recibos
+    }
 
+    //* Función para guardar el motivo de anulacion desde la tabla
     guardarMotivoAnulacion() {}
 
     exportPdf() {

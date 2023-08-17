@@ -1,24 +1,9 @@
-import {
-    Component,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    Validators,
-} from '@angular/forms';
-import { ResponseGenerico } from 'src/app/_dto/response-generico';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TokenDto } from 'src/app/_dto/token-dto';
+import { AppService } from 'src/app/_service/app.service';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
-import { ReciboCaja } from '../../model/reciboCaja';
-import { FormUtil } from '../../formUtil/FormUtil';
-import { AppService } from 'src/app/_service/app.service';
 
 @Component({
     selector: 'app-anular-recibo-caja',
@@ -54,7 +39,9 @@ export class AnularReciboCajaComponent implements OnInit {
         this.formAnulaRecib = this.formBuilder.group({
             RecibCajaNo: [{ value: '001-003-58509', disabled: true }],
             fecha: [{ value: '31/15/2023', disabled: true }], //! Dato Quemado
-            cliente: [{ value: 'BONILLA ZALAZAR CARLOS MARCELO', disabled: true },], //! Dato Quemado
+            cliente: [
+                { value: 'BONILLA ZALAZAR CARLOS MARCELO', disabled: true },
+            ], //! Dato Quemado
             estadoRecib: ['', Validators.required],
             detalleAnulacion: ['', Validators.required],
         });
