@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { TokenDto } from 'src/app/_dto/token-dto';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormUtil } from '../../formUtil/FormUtil';
 import { ReciboCaja } from '../../model/reciboCaja';
+import { ReciboCajaService } from '../../services/reciboCaja.service';
 
 @Component({
     selector: 'app-buscar-recibos',
@@ -13,8 +14,8 @@ import { ReciboCaja } from '../../model/reciboCaja';
     styleUrls: ['./buscar-recibos.component.scss'],
 })
 export class BuscarRecibosComponent implements OnInit {
-    @Input() reciboCaja: ReciboCaja; //Va reciboDTo
-    @Output() reciboCajaFiltrados = new EventEmitter(); //*Emite los datos filtrados
+    @Input() reciboCaja: ReciboCaja;
+    @Output() reciboCajaFiltrados = new EventEmitter<any>(); //*Emite los datos filtrados
     //reciboCajaFiltrados: ReciboCaja; //va ReciboDto
 
     proceso: string = 'anular recibos caja';
@@ -24,6 +25,7 @@ export class BuscarRecibosComponent implements OnInit {
     formUtil: FormUtil;
 
     constructor(
+        private reciboCajaService: ReciboCajaService,
         private breadcrumbService: BreadcrumbService,
         private formBuilder: FormBuilder,
         private tokenService: TokenService
@@ -57,22 +59,19 @@ export class BuscarRecibosComponent implements OnInit {
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-
     //! Necesito poner Dto = doc:ReciboCajaDto
-    BuscarData() {
-        const fechaDesde = this.buscarForm.value.fechaDesde;
-        const fechaHasta = this.buscarForm.value.fechaDesde;
-        console.log('filtrando info: ' + fechaDesde);
-        console.log('filtrando info  hasta: ' + fechaHasta);
+    BuscarRecibos() {
+        const buscarData = this.buscarForm.value;
 
-        /*  this.reciboCaja = this.reciboCaja.filter((recibo) => {
-            const fechaRecibo = new Date(recibo.fecha);
-            return fechaRecibo >= fechaDesde && fechaRecibo <= fechaHasta;
-        }); */
+        const datosfiltrados ={
+            ...buscarData,
+            fechaDesde: buscarData.fechaDesde ?  new Date(buscarData.fechaDesde):null,
+            fechaHasta: buscarData.fechaHasta ? new Date(buscarData.fechaHasta):null,
+        };
         
-        this.reciboCajaFiltrados.emit(this.buscarForm.value);
-        
-        //console.log("🚀 ~ file: buscar-recibos.component.ts:73 ~ BuscarRecibosComponent ~ BuscarData ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
+        this.reciboCajaFiltrados.emit(datosfiltrados);
+
+        console.log("🚀 ~ file: buscar-recibos.component.ts:73 ~ BuscarRecibosComponent ~ BuscarData ~ reciboCajaFiltrados:", this.reciboCajaFiltrados)
     }
 
     onInputNroRecibo(event: any) {

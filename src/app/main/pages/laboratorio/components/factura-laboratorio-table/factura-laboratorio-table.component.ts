@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
+import { AppService } from 'src/app/_service/app.service';
 
 @Component({
   selector: 'app-factura-laboratorio-table',
@@ -18,19 +19,41 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   constructor(
     private facturaService: FacturaService,
+    public appService: AppService,
+
+
 
   ) { }
 
   ngOnInit() {
     this.clienteSelect= new FacturaDto();
-    
+    this.llenarFacturalaboratorio();
   }
 
-
-
-
-
-
+  async llenarFacturalaboratorio() {
+    await this.facturaService.getAll().subscribe({
+        next: (data) => {
+            this.listfacturalaboratorio = data.listado;
+            console.log('CORRECTO');
+            console.log(this.listfacturalaboratorio);
+        },
+        complete: () => {
+            this.appService.msgInfoDetail(
+                severities.INFO,
+                'INFO',
+                'Datos Cargados exitosamente' ,
+                500
+            );
+        },
+        error: (error) => {
+            this.appService.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                error.error
+            );
+        },
+    });
+  }
   cargarfactura(clienteSelectDto: FacturaDto){
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
@@ -38,18 +61,6 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   }
 
-  
-  loadData() {
-    this.loading = true;
-    setTimeout(() => {
-        this.facturaService.getAll().subscribe((res) => {
-            this.listfacturalaboratorio = res;
-            console.log('LLAMADA');
-            console.log(this.listfacturalaboratorio);
-            this.loading = false;
-        });
-    }, 1000);
-}
 
   abrirmodal() {
     this.modal = true;

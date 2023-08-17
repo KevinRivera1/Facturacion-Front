@@ -1,11 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormaPagoService } from '../../services/formaPago.service';
 import { ConceptoService } from '../../services/concepto.service';
 import { ConceptoDto } from '../../model/ConceptoDto';
 import { Table } from 'primeng/table';
 import { PrimeIcons, MenuItem } from 'primeng/api';
+import { ConsultasService } from '../../services/consultas.service';
+import { CretencionService } from '../../services/cretencion.service';
+import { ClienteDto } from '../../model/ClienteDto';
+import { CretencionDto } from '../../model/CretencionDto';
+import { severities } from 'src/app/_enums/constDomain';
+import { AppService } from 'src/app/_service/app.service';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -29,6 +35,7 @@ export class FactOtrosConceptosComponent implements OnInit {
   selectedOption: string = '';
 
   data: string = '';
+  
 
   /*variables para listar conceptos*/
   loading: boolean;
@@ -39,12 +46,18 @@ export class FactOtrosConceptosComponent implements OnInit {
   idConcepto: string = '';
   nombreConcepto: string = '';
   valorConcepto: number = 0;
+  modalBusTabl: boolean;
+  modalBuscar: boolean;
   
 
 
   constructor(
     private breadcrumbService: BreadcrumbService,
     private conceptosService: ConceptoService,
+    private formBuilder: FormBuilder,
+    //Busqueda
+    private consultaService: ConsultasService,
+    public appService: AppService,
   
   ) {
     
@@ -68,6 +81,7 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   ngOnInit(): void {
     this.llenarListConceptos();
+    this.clienteSelect= new ClienteDto();
   }
 
   cerrar() {
@@ -169,5 +183,81 @@ showAttributes(record: any) {
   this.nombreConcepto = this.selectedRecord.nombreConcepto;
   this.valorConcepto = this.selectedRecord.valorConcepto;
 }
+
+
+
+loading1: boolean= false;
+listCliente:ClienteDto[]=[];
+listCretencion:CretencionDto[]=[];
+tipoCliente:number;
+cedulaBusqueda: string;
+nombreBusqueda: string;
+apellidoBusqueda:string
+nombres:string;
+formCliente:FormGroup
+
+iniciarFormCliente(){
+  this.formCliente= this.formBuilder.group({
+      cedula: new FormControl('',),
+      nombre:new FormControl('',),
+      direccion:new FormControl('',),
+      telefono:new FormControl('',),
+      correo:new FormControl('',),
+  });
+}
+
+async llenarListCliente() {
+
+  this.nombres = this.nombreBusqueda == null ? (this.apellidoBusqueda == null ? '0' : this.apellidoBusqueda) : this.nombreBusqueda;
+
+  await this.consultaService.getByIdParametro(this.cedulaBusqueda == null ? '0' : this.cedulaBusqueda, this.nombres, this.tipoCliente).subscribe({
+          next: data => {
+              this.listCliente = data.listado
+              this.loading1 = false;
+          },
+          complete: () => {
+              this.appService.msgInfoDetail(severities.INFO, 'INFO', 'Datos Cargados exitosamente')
+              this.loading1 = false;
+          },
+          error: error => {
+              this.appService.msgInfoDetail(severities.ERROR, 'ERROR', error.error)
+              this.loading1 = false;
+          }
+      }
+  );
+  this.modalBusTabl=true;
+}
+
+registrarNuevo() {
+// this.cretencion = new CretencionDto();
+// this.iniciarForm();
+this.modal=true
+this.clienteSelect= new ClienteDto();
+this.tipoCliente= 0;
+this.listCliente= [];
+}
+clienteSelect:ClienteDto;
+
+busquedaCliente(){
+
+  if(this.tipoCliente==0){
+      this.modalBuscar= false;
+  }else{
+      this.modalBuscar= true;
+  }
+    this.cedulaBusqueda= null;
+    this.nombreBusqueda= null;
+    this.apellidoBusqueda= null;
+}
+
+cargarCliente(clienteSelectDto: ClienteDto ){
+  this.clienteSelect= clienteSelectDto;
+  this.modalBusTabl= false;
+  this.modalBuscar=false;
+
+}
+
+
+
 
 }
