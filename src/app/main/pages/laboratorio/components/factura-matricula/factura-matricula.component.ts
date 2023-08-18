@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ListFormaPagoComponent } from '../list-forma-pago/list-forma-pago.component';
@@ -19,7 +19,9 @@ import { FacturaService } from '../../services/factura.service';
 })
 export class FacturaMatriculaComponent implements OnInit {
   @Output() facturaMatriculaEmitter = new EventEmitter();
+  @Input() listEstado: FacturaDto[];
   matricula: FacturaDto[];
+  selectedestado: FacturaDto[];
   modal: boolean;
   cedula: string;
   modal2: boolean;
@@ -61,8 +63,10 @@ export class FacturaMatriculaComponent implements OnInit {
         if (Array.isArray(data)) {
             const recibosFiltrados = data.filter((recibo) => {
                 return (
-                    recibo.codFactura.includes(formData.codFactura)
-
+                    recibo.codFactura.includes(formData.codFactura)&&
+                    recibo.nombreConsumidor.includes(formData.nombreConsumidor)&&
+                    recibo.rucConsumidor.includes(formData.rucConsumidor)
+                
                     
                 );
             });
@@ -80,25 +84,29 @@ export class FacturaMatriculaComponent implements OnInit {
     iniciarForms() {
     this.formFacturaMatricula = this.formBuilder.group({
       codFactura: new FormControl(
-            '',
-            Validators.compose([Validators.required])
-        ),
-        nombrecl: new FormControl(
-            '',
-            Validators.compose([Validators.required])
-        ),
-        estado: new FormControl(
-            true,
-            Validators.compose([Validators.requiredTrue])
-        ),
-        ruc: new FormControl(
-          '',
-          Validators.compose([Validators.required])
-      ),
-      cedula: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.maxLength(10)])
-      ),
+        Validators.compose([Validators.required])
+    ),
+    nombreConsumidor: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+    ),
+    fechaFact: new FormControl(
+        true,
+        Validators.compose([Validators.required])
+    ),
+    rucConsumidor: new FormControl(
+      '',
+      Validators.compose([Validators.required])
+  ),
+  estadoSri: new FormControl(
+    '',
+    Validators.compose([Validators.required, Validators.maxLength(10)])
+  ),
+  idFactura: new FormControl(
+    '',
+    Validators.compose([Validators.required, Validators.maxLength(10)])
+  ),
     });
 
    

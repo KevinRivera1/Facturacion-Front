@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
+import { AppService } from 'src/app/_service/app.service';
 
 @Component({
   selector: 'app-factura-matricula-table',
@@ -12,14 +13,19 @@ export class FacturaMatriculaTableComponent implements OnInit {
   proceso: string = 'formapago';
   @Input() listFactura: any [] = [];
   loading: boolean;
-  appService: any;
+
   modal: boolean;
   clienteSelect:FacturaDto;
 
-  constructor(private facturaServcice: FacturaService,) { }
+  constructor(
+
+    private facturaService: FacturaService,
+    public appService: AppService,
+    
+    ) { }
 
   async llenarFacturaMatricula() {
-    await this.facturaServcice.getAll().subscribe({
+    await this.facturaService.getAll().subscribe({
         next: (data) => {
             this.listFactura = data.listado;
             console.log('CORRECTO');
@@ -46,7 +52,7 @@ export class FacturaMatriculaTableComponent implements OnInit {
   loadData(event) {
     this.loading = true;
     setTimeout(() => {
-        this.facturaServcice.getAll().subscribe((res) => {
+        this.facturaService.getAll().subscribe((res) => {
             this.listFactura = res;
             console.log('LLAMADA');
             console.log(this.listFactura);

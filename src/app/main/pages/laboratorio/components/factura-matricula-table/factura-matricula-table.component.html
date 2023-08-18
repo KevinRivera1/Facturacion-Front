@@ -8,10 +8,8 @@
         </app-factura-matricula>
           <p-table #dt [rows]="10" [value]="listFactura"  [paginator]="true" 
                    [globalFilterFields]="[
-                      'idFormaPago',
-                      'nombreFp',
-                      'descripcionFp',
-                      'activo'
+                   'codFactura',
+                     
                    ]"
                    responsiveLayout="scroll" 
                    [rowHover]="true" dataKey="idFormaPago"
