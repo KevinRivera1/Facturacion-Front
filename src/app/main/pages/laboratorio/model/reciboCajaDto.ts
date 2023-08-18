@@ -1,7 +1,7 @@
 export class ReciboCajaDto {
     idReciboCaja:           number;
     codRcaja:               string;
-    fechaRcaja:             string;
+    fechaRcaja:             Date;
     idTipoConsumidorRc:     number;
     idCajaRc:               number;
     idEstadoRc:             number;

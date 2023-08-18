@@ -63,7 +63,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
 
     clear(table: Table) {
         table.clear();
-        /* console.log("🚀 ~ file: anular-recibo-caja-table.component.ts:70 ~ AnularReciboCajaTableComponent ~ clear ~ table:", table) */
+        this.recibos =[];
     }
 
     filtrarRecibos(recibos: any[]) {
