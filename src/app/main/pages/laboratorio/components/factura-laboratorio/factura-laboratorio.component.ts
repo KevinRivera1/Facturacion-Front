@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { TokenDto } from 'src/app/_dto/token-dto';
@@ -21,8 +21,9 @@ export class FacturaLaboratorioComponent implements OnInit {
 
 
   @Output() facturalaboratorioEmitter = new EventEmitter();
-  laboratorio: FacturaDto[];
+  @Input() listEstado: FacturaDto[];
 
+  laboratorio: FacturaDto[];
   modal: boolean;
   modal2: boolean;
   formFacturaLaboratorio: FormGroup;
@@ -30,6 +31,8 @@ export class FacturaLaboratorioComponent implements OnInit {
   cedula: string;
   displayModal: boolean;
   listfacturalaboratorio: FacturaDto[] = [];
+  selectedestado: FacturaDto[];
+
 
 
   
@@ -47,7 +50,9 @@ export class FacturaLaboratorioComponent implements OnInit {
   }
 
   ngOnInit():void {
+    this.llenarFacturalaboratorio();
     this.iniciarForms();
+   
    
   }
 
@@ -57,44 +62,61 @@ export class FacturaLaboratorioComponent implements OnInit {
             '',
             Validators.compose([Validators.required])
         ),
-        nombrecl: new FormControl(
+        nombreConsumidor: new FormControl(
             '',
             Validators.compose([Validators.required])
         ),
-        estado: new FormControl(
+        fechaFact: new FormControl(
             true,
-            Validators.compose([Validators.requiredTrue])
+            Validators.compose([Validators.required])
         ),
-        ruc: new FormControl(
+        rucConsumidor: new FormControl(
           '',
           Validators.compose([Validators.required])
       ),
-      cedula: new FormControl(
+      estadoSri: new FormControl(
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(10)])
+      ),
+      idFactura: new FormControl(
         '',
         Validators.compose([Validators.required, Validators.maxLength(10)])
       ),
     });
 
-    this.token = JSON.parse(this.tokenService.getResponseAuth());
+   // this.token = JSON.parse(this.tokenService.getResponseAuth());
     //  this.f.idFormaPago.setValue(this.token.id)
 } 
+async llenarFacturalaboratorio() {
+  await this.facturaService.getAll().subscribe({
+      next: (data) => {
+          this.listEstado = data.listado;
+          console.log('CORRECTOESTADO');
+          console.log(this.listEstado);
+      }
+  });
+}
 
 
-filtrarRecibos() {
+filtrarFacturas() {
   const formData = this.formFacturaLaboratorio.value;
   // Llamada al servicio para filtrar los datos
   this.facturaService.getAll().subscribe((response) => {
       const data = response.listado; // Accedemos a la propiedad listado
       if (Array.isArray(data)) {
-          const recibosFiltrados = data.filter((recibo) => {
+          const facturasFiltradas = data.filter((factura) => {
               return (
-                  recibo.codFactura.includes(formData.codFactura)
+                  factura.codFactura.includes(formData.codFactura) &&
+                  factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
+                  factura.rucConsumidor.includes(formData.rucConsumidor) &&
+                  factura.estadoSri.includes(formData.estadoSri)
+
               );
           });
 
-          // Emitir los recibos filtrados al componente padre
-          this.facturalaboratorioEmitter.emit(recibosFiltrados);
-          console.log('recibos filtrados', recibosFiltrados)
+          // Emitir los facturas filtradas al componente padre
+          this.facturalaboratorioEmitter.emit(facturasFiltradas);
+          console.log('facturas filtradas', facturasFiltradas)
       } else {
           console.error('Los datos no son un array:', data);
       }

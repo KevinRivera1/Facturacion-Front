@@ -277,24 +277,26 @@
           <br />
 
           <div class="p-fluid p-formgrid grid">
-              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                  <span class="p-float-label">
-                      <input
-                          pInputText
-                          id="ftxt-codFactura"
-                          type="text"
-                          required="true"
-                          formControlName="codFactura"
-                      />
-                      <label for="ftxt-codFactura">* Factura no.</label>
-                  </span>
-              </div>
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+              <span class="p-float-label">
+                  <input pInputText id="ftxt-codFactura" type="text" formControlName="codFactura" />
+                  <label for="ftxt-codFactura">* Factura no.</label>
+              </span>
+          </div>
+          
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                  <label for="ftxt-activo" style="color: rgba(0, 0, 0, 0.6)"
+                  <label for="ftxt-estadoSri" style="color: rgba(0, 0, 0, 0.6)"
                       >* Estado</label
                   >
+                  <input
+                          pInputText
+                          id="ftxt-estadoSri"
+                          type="text"
+                          required="true"
+                          formControlName="estadoSri"
+                      />
                   <span class="p-float-label">
-                      <p-inputSwitch id="ftxt-activo"></p-inputSwitch>
+                      <p-inputSwitch id="ftxt-estadoSri"></p-inputSwitch>
                   </span>
               </div>
           </div>
@@ -304,11 +306,12 @@
                   <span class="p-float-label">
                       <input
                           pInputText
-                          id="ftxt-nombreFp"
+                          id="ftxt-nombreConsumidor"
                           type="text"
                           required="true"
+                          formControlName="nombreConsumidor"
                       />
-                      <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                      <label for="ftxt-nombreConsumidor">* Nombre Cliente</label>
                   </span>
               </div>
           </div>
@@ -317,33 +320,40 @@
               
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                   <span class="p-float-label">
-                      <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)" keyfilter="int" maxlength="13" 
+                      <input pInputText id="ftxt-rucConsumidor"
+                       type="text"
+                       required="true" 
+                       (input)="onInput($event)" 
+                       keyfilter="int" maxlength="13" 
+                       formControlName="rucConsumidor"
                          
                       />
-                      <label for="ftxt-nombreFp">* Cedula - Ruc</label>
+                      <label for="ftxt-rucConsumidor">* Cedula - Ruc</label>
                   </span>
               </div>
           </div>
           <div class="p-fluid p-formgrid grid">
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                <label for="ftxt-nombreFp">* Fecha Desde</label>
+                <label for="ftxt-fechaFact">* Fecha Desde</label>
                 <span class="p-float-label">
                     <input
                         pInputText
-                        id="ftxt-nombreFp"
+                        id="ftxt-fechaFact"
                         type="date"
                         required="true"
+                        formControlName="fechaFact"
                     />
                 </span>
             </div>
             <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3"  style="width: 450px;">
-                <label for="ftxt-nombreFp">* Fecha Hasta</label>
+                <label for="ftxt-fechaFact">* Fecha Hasta</label>
                 <span class="p-float-label">
                     <input
                         pInputText
-                        id="ftxt-nombreFp"
+                        id="ftxt-fechaFact"
                         type="date"
                         required="true"
+                        formControlName="fechaFact"
                     />
                 </span>
             </div>

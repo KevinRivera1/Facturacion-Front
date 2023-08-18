@@ -120,11 +120,11 @@
                         <td>{{item.fechaRcaja | date:'dd/MM/yyyy'}}</td>
                         <td>{{ item.totalRc }}</td>
                         <td>
-                            <mark [ngClass]="
-                                    item.idEstadoRc == 'ACTIVO'
-                                        ? 'border-green-500'
-                                        : 'border-red-500'
-                                ">{{ item.idEstadoRc }}</mark>
+                            <mark
+                                [ngClass]="
+                                    item.idEstadoRc === 1 ? 'border-green-400' : item.idEstadoRc === 0 ? 'bg-red-400' : 'bg-orange-400'">
+                                {{ item.idEstadoRc === 1 ? 'Pagada' : item.idEstadoRc === 0 ? 'Anulada' : 'Sin estado' }}
+                            </mark>
                         </td>
                         <td>{{ item.observacionRc}}</td>
 

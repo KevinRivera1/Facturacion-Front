@@ -615,15 +615,15 @@
     <header class="text-center">BUSCAR FACTURAS DE OTROS CONCEPTOS</header>
 
     <div class="p-d-flex">
-    <form>
+    <form [formGroup]="formotrosconceptos" (ngSubmit)="filtrarFacturas()">
         <div class="">
             <br />
 
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
                   <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreFp" type="text" required="true" />
-                    <label for="ftxt-nombreFp">* Factura No.</label>
+                    <input pInputText id="ftxt-codFactura" formControlName="codFactura" type="text" required="true" />
+                    <label for="ftxt-codFactura">* Factura No.</label>
                   </span>
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
@@ -637,14 +637,14 @@
               <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
                   <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreFp" type="text" required="true" />
-                    <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                    <input pInputText id="ftxt-nombreConsumidor" formControlName="nombreConsumidor" type="text" required="true" />
+                    <label for="ftxt-nombreConsumidor">* Nombre Cliente</label>
                   </span>
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
                   <span class="p-float-label">
-                    <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="13" />
-                    <label for="ftxt-cedula">* Ruc/Cédula</label>
+                    <input pInputText id="ftxt-rucConsumidor" type="text" formControlName="rucConsumidor" required="true" (input)="onInput($event)" keyfilter="int" maxlength="13" />
+                    <label for="ftxt-rucConsumidor">* Ruc/Cédula</label>
                   </span>
                 </div>
               </div>
@@ -674,6 +674,7 @@
                             icon="pi pi-search"
                             type="submit"
                             pTooltip="Buscar"
+                            (click)="filtrarFacturas()"
                             tooltipPosition="right"
                         ></button>
                     </div>
@@ -683,8 +684,7 @@
     </form>
 </div>
 
-<app-fact-otros-conceptos-table>
-</app-fact-otros-conceptos-table>
+
 </p-card>
 
   <!-- Dialog Tabla Buscar -->

@@ -62,6 +62,8 @@ export class FacturaMatriculaComponent implements OnInit {
             const recibosFiltrados = data.filter((recibo) => {
                 return (
                     recibo.codFactura.includes(formData.codFactura)
+
+                    
                 );
             });
   

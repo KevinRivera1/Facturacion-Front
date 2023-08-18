@@ -1,7 +1,11 @@
+<app-fact-otros-conceptos (facturaotrosconceptosEmitter)="filtrarFacturas($event)">
+
+</app-fact-otros-conceptos>
+
 <section class="content">
   <div class="container-fluid">
     <div class="card">
-      <p-table #dt [rows]="10" [paginator]="true" [globalFilterFields]="[
+      <p-table #dt [value]="listfacturaotrosconceptos" [rows]="10" [paginator]="true" [globalFilterFields]="[
                       'idFormaPago',
                       'nombreFp',
                       'descripcionFp',
@@ -17,38 +21,35 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th style="width: 3rem">
-              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <!--      <th pSortableColumn="idFormaPago">
+                <th pSortableColumn="idFormaPago">
                           <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
                               <p-sortIcon field="idFormaPago"></p-sortIcon>
                               <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
                           </div>
-                      </th> -->
-            <th pSortableColumn="nombreFp">
+                      </th> 
+            <th pSortableColumn="codFactura">
               <div class="flex justify-content-between align-items-center">Factura No.
-                <p-sortIcon field="nombreFp"></p-sortIcon>
-                <p-columnFilter type="text" field="nombreFp" display="menu"></p-columnFilter>
+                <p-sortIcon field="codFactura"></p-sortIcon>
+                <p-columnFilter type="text" field="codFactura" display="menu"></p-columnFilter>
               </div>
             </th>
 
-            <th pSortableColumn="descripcionFp">
+            <th pSortableColumn="nombreConsumidor">
               <div class="flex justify-content-between align-items-center">Cliente
-                <p-sortIcon field="descripcionFp"></p-sortIcon>
-                <p-columnFilter type="text" field="descripcionFp" display="menu"></p-columnFilter>
+                <p-sortIcon field="nombreConsumidor"></p-sortIcon>
+                <p-columnFilter type="text" field="nombreConsumidor" display="menu"></p-columnFilter>
               </div>
             </th>
-            <th pSortableColumn="activo">
+            <th pSortableColumn="rucConsumidor">
               <div class="flex justify-content-between align-items-center">RUC/CI
-                <p-sortIcon field="activo"></p-sortIcon>
-                <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                <p-sortIcon field="rucConsumidor"></p-sortIcon>
+                <p-columnFilter type="text" field="rucConsumidor" display="menu"></p-columnFilter>
               </div>
             </th>
-            <th pSortableColumn="activo">
+            <th pSortableColumn="estadoSri">
               <div class="flex justify-content-between align-items-center">Estado
-                <p-sortIcon field="activo"></p-sortIcon>
-                <p-columnFilter type="text" field="activo" display="menu"></p-columnFilter>
+                <p-sortIcon field="estadoSri"></p-sortIcon>
+                <p-columnFilter type="text" field="estadoSri" display="menu"></p-columnFilter>
               </div>
             </th>
            
@@ -78,19 +79,14 @@
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <td>
-              <p-tableCheckbox [value]="item"></p-tableCheckbox>
-            </td>
             <td>{{rowIndex+1}}</td>
-            <td>{{item.nombreFp}}</td>
-            <td>{{item.descripcionFp}}</td>
-            <td> <mark [ngClass]="item.activo == 'ACTIVO'
-                        ? 'border-green-500' : 'border-red-500' ">{{item.activo}}</mark></td>
-            <!--                       <td>{{item.codigoSri}}</td>
-                      <td>{{item.codigoSae}}</td> -->
-            <!-- <td>{{item.fechaFp}}</td> -->
-
-
+            <td>{{item.codFactura}}</td>
+            <td>{{item.nombreConsumidor}}</td>
+            <td>{{item.rucConsumidor}}</td>
+            <td>{{item.estadoSri}}</td>
+            <td></td>
+            <td>{{item.fechaFact}}</td>
+            <td>{{item.totalFact}}</td>
             <td>
               <button pButton pRipple icon="pi pi-pencil"
                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"

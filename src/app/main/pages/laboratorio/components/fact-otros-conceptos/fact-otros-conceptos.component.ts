@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormaPagoService } from '../../services/formaPago.service';
 import { ConceptoService } from '../../services/concepto.service';
@@ -12,6 +12,8 @@ import { ClienteDto } from '../../model/ClienteDto';
 import { CretencionDto } from '../../model/CretencionDto';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
+import { FacturaService } from '../../services/factura.service';
+import { FacturaDto } from '../../model/Factura.dto';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -19,12 +21,17 @@ import { AppService } from 'src/app/_service/app.service';
   styleUrls: ['./fact-otros-conceptos.component.css']
 })
 export class FactOtrosConceptosComponent implements OnInit {
+
+  @Output() facturaotrosconceptosEmitter = new EventEmitter();
+  facturaotrosconceptos: FacturaDto[];
+
+
   modal: boolean;
   cedula: string;
   modal2: boolean;
   modal3: boolean;
   modal1: boolean; //Visibilidad de un modal
-  busquedaForm: FormGroup;
+  formotrosconceptos: FormGroup;
   maxLengthR: number = 13;
   maxLengthC: number = 10;
   modallista: boolean;
@@ -58,6 +65,7 @@ export class FactOtrosConceptosComponent implements OnInit {
     //Busqueda
     private consultaService: ConsultasService,
     public appService: AppService,
+    private facturaService: FacturaService,
   
   ) {
     
@@ -66,7 +74,34 @@ export class FactOtrosConceptosComponent implements OnInit {
       
     }
   }
+
+  ngOnInit(): void {
+    this.iniciarFormsFactura(),
+    this.llenarListConceptos();
+    this.clienteSelect= new ClienteDto();
    
+  }
+  
+  iniciarFormsFactura() {
+    this.formotrosconceptos = this.formBuilder.group({
+      codFactura: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        nombreConsumidor: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        rucConsumidor: new FormControl(
+          '',
+          Validators.compose([Validators.required])
+      ),
+    
+    });
+
+   // this.token = JSON.parse(this.tokenService.getResponseAuth());
+    //  this.f.idFormaPago.setValue(this.token.id)
+} 
   onInput(event: any) {
     
     const input = event.target;
@@ -79,10 +114,7 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   
 
-  ngOnInit(): void {
-    this.llenarListConceptos();
-    this.clienteSelect= new ClienteDto();
-  }
+ 
 
   cerrar() {
 
@@ -362,7 +394,31 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
  // GUARDAR
 
+//FIltrar
 
+filtrarFacturas() {
+  const formData = this.formotrosconceptos.value;
+  // Llamada al servicio para filtrar los datos
+  this.facturaService.getAll().subscribe((response) => {
+      const data = response.listado; // Accedemos a la propiedad listado
+      if (Array.isArray(data)) {
+          const facturasFiltradas = data.filter((factura) => {
+              return (
+                  factura.codFactura.includes(formData.codFactura) &&
+                  factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
+                  factura.rucConsumidor.includes(formData.rucConsumidor) 
+
+              );
+          });
+
+          // Emitir los facturas filtradas al componente padre
+          this.facturaotrosconceptosEmitter.emit(facturasFiltradas);
+          console.log('facturas filtradas', facturasFiltradas)
+      } else {
+          console.error('Los datos no son un array:', data);
+      }
+  });
+}
 
 
 }

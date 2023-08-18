@@ -53,7 +53,8 @@ export class BuscarRecibosComponent implements OnInit {
             nombreConsumidorRc: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
             rucConsumidorRc: ['', [Validators.pattern('^[0-9]{1,13}$')]],
             Cedula: ['', [Validators.pattern('^[0-9]{1,10}$')]],
-            fechaRcaja: [''],
+            fechaDesde: [''],
+            fechaHasta: [''],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
@@ -66,6 +67,15 @@ export class BuscarRecibosComponent implements OnInit {
                 const data = response.listado;
                 if (Array.isArray(data)) {
                     const recibosFiltrados = data.filter((recibo) => {
+                        const fecharecibo = recibo.fechaRcaja;
+
+                        //169221463298
+                        console.log('Fechas del Recibo: ', fecharecibo);
+                        console.log('Fechas del Formulario: ', formData.fechaDesde, formData.fechaHasta);
+
+                        const cumplefiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
+                        console.log('cumple filtro de fechas: ', cumplefiltrosFecha);
+
                         return (
                             recibo.codRcaja.includes(formData.codRcaja) &&
                             recibo.nombreConsumidorRc.includes(
@@ -73,9 +83,10 @@ export class BuscarRecibosComponent implements OnInit {
                             ) &&
                             recibo.rucConsumidorRc.includes(
                                 formData.rucConsumidorRc
-                            )
+                            ) && this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta)
                         );
                     });
+                    console.log('Recibos filtrados', recibosFiltrados);
                     this.reciboCajaEmitter.emit(recibosFiltrados);
                 } else {
                     console.error(
@@ -93,8 +104,25 @@ export class BuscarRecibosComponent implements OnInit {
             },
             complete: () => {
                 console.log('Obtención de datos completada');
+                this.setearForm();
             },
         });
+    }
+
+    filtarRangoFechas(fechaRecibo: any, fechaDesde: string, fechaHasta: string): boolean {
+        if (!fechaDesde && !fechaHasta) {
+            return true;
+        }
+        const fechaReciboT = fechaRecibo;
+        const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
+        const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
+
+        return fechaReciboT >= fechaDesdeT && fechaReciboT <= fechaHastaT;
+    }
+
+    setearForm() {
+        this.buscarForm.reset();
+        this.iniciarForms();
     }
 
     onInputNroRecibo(event: any) {
