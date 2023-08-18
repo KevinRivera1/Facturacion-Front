@@ -10,6 +10,7 @@ import { Table } from 'primeng/table';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
+import { ReciboCajaDto } from '../../model/reciboCajaDto';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
 
 //import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
@@ -24,7 +25,11 @@ export class AnularReciboCajaTableComponent implements OnInit {
     displayModal: boolean = false;
 
     @Input() recibos: any[] = [];
+
+    //*Tabal emite dato para actualizar etado
     @Output() estadoRecibSelect = new EventEmitter();
+
+    recibosCaja: ReciboCajaDto;
 
     submitted: boolean;
     loading: boolean;
@@ -36,7 +41,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
         private fileService: FileService,
         private appService: AppService,
         private confirmationService: ConfirmationService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.construirTabla();
@@ -63,7 +68,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
 
     clear(table: Table) {
         table.clear();
-        this.recibos =[];
+        this.recibos = [];
     }
 
     filtrarRecibos(recibos: any[]) {
@@ -76,8 +81,11 @@ export class AnularReciboCajaTableComponent implements OnInit {
         );
     }
 
-    //* Función para guardar el motivo de anulacion desde la tabla
-    guardarMotivoAnulacion() {}
+    //*emite los datos de la tabla para actualizar estado
+    editRecibCaja(doc: ReciboCajaDto) {
+        this.recibosCaja = { ...doc };
+        this.estadoRecibSelect.emit(doc);
+    }
 
     exportPdf() {
         /* let indexLista: number = 0;

@@ -76,24 +76,24 @@
         <div class="p-grid p-fluid">
             <div class="p-field col-12 md:col-6 px-3">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-RecibCajaNo" type="text" required="true" formControlName="RecibCajaNo"
+                    <input pInputText id="ftxt-codRcaja" type="text" required="true" formControlName="codRcaja"
                         style="text-transform: uppercase;" readonly="true" class="outline-none disabled"
                         [disabled]="true">
-                    <label for="ftxt-RecibCajaNo">Recibo Caja No:</label>
+                    <label for="ftxt-codRcaja">Recibo Caja No:</label>
                 </span>
             </div>
             <div class="p-field col-12 md:col-6  px-3">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-fecha" type="text" required="true" formControlName="fecha"
+                    <input pInputText id="ftxt-fechaRcaja" type="text" required="true" formControlName="fechaRcaja"
                         style="text-transform: uppercase;" readonly="true" [disabled]="true" class="disabled">
-                    <label for="ftxt-fecha">Fecha</label>
+                    <label for="ftxt-fechaRcaja">Fecha</label>
                 </span>
             </div>
             <div class="p-field col-12 md:col-6  px-3">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-cliente" type="text" required="true" formControlName="cliente"
+                    <input pInputText id="ftxt-nombreConsumidorRc" type="text" required="true" formControlName="nombreConsumidorRc"
                         style="text-transform: uppercase;" readonly="true" [disabled]="true" class="disabled">
-                    <label for="ftxt-cliente">Cliente</label>
+                    <label for="ftxt-nombreConsumidorRc">Cliente</label>
                 </span>
             </div>
             <!-- <div class="p-field p-col-12 p-md-3 px-3">
@@ -105,7 +105,7 @@
          </div> -->
             <div class="p-field col-12 md:col-6  px-3 flex">
                 <span class="p-float-label" [style]="{width: '100%'}">
-                    <p-dropdown formControlName="estadoRecib" [options]="estados" placeholder="Selecciona"
+                    <p-dropdown formControlName="idEstadoRc" [options]="estados" placeholder="Selecciona"
                         optionLabel="name" inputId="float-label">
                     </p-dropdown>
                     <label for="float-label">* Estado</label>
@@ -115,9 +115,9 @@
         <div class="p-grid p-fluid">
             <div class="p-field p-col-12 px-3">
                 <span class="p-float-label">
-                    <textarea pInputText id="ftxt-detalleAnulacion" rows="4" required="true"
-                        formControlName="detalleAnulacion" style="resize: none;"></textarea>
-                    <label for="ftxt-detalleAnulacion">* Escriba el Motivo de Anulación</label>
+                    <textarea pInputText id="ftxt-observacionRc" rows="4" required="true"
+                        formControlName="observacionRc" style="resize: none;"></textarea>
+                    <label for="ftxt-observacionRc">* Escriba el Motivo de Anulación</label>
                 </span>
             </div>
         </div>
