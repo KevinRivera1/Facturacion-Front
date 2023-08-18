@@ -1,7 +1,9 @@
 import {
     Component,
+    EventEmitter,
     Input,
-    OnInit
+    OnInit,
+    Output
 } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -22,6 +24,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     displayModal: boolean = false;
 
     @Input() recibos: any[] = [];
+    @Output() estadoRecibSelect = new EventEmitter();
 
     submitted: boolean;
     loading: boolean;
@@ -60,7 +63,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
 
     clear(table: Table) {
         table.clear();
-        /* console.log("🚀 ~ file: anular-recibo-caja-table.component.ts:70 ~ AnularReciboCajaTableComponent ~ clear ~ table:", table) */
+        this.recibos =[];
     }
 
     filtrarRecibos(recibos: any[]) {
