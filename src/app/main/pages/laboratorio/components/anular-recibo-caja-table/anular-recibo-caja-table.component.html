@@ -1,7 +1,8 @@
+<!--* se emite los datos de filtracion a la tabla de recibos de caja -->
 <app-buscar-recibos (reciboCajaEmitter)=filtrarRecibos($event)></app-buscar-recibos>
 
 <br />
-
+<!--* Esta es el componente tabla donde se muestran los recibos de caja -->
 <section class="content">
     <div class="container-fluid">
         <div class="card">
@@ -131,7 +132,7 @@
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
-                                (click)="modalOpen()" pTooltip="Editar" tooltipPosition="left"></button>
+                                (click)="modalOpen(item)" pTooltip="Editar" tooltipPosition="left"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -144,10 +145,11 @@
             </p-table>
         </div>
     </div>
-    <!-- <br />
+    <br />
     <div class="button__from text-right">
         <a pButton label="anular" icon="pi pi-plus" (click)="modalOpen()">Anular modal</a>
-    </div> -->
+    </div> 
 </section>
 
+<!--* Esta llamando al comoponente de anular recibo de caja -->
 <app-anular-recibo-caja [display]="displayModal" (closeModal)="closeModal()"></app-anular-recibo-caja>
