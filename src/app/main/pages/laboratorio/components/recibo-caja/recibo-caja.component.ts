@@ -382,6 +382,7 @@ export class ReciboCajaComponent implements OnInit {
         // Prepara los datos a enviar
         const datosAGuardar = {
             carreraConsumidorRc: 'Null',
+            
             codRcaja: this.buscarForm.get('codRcaja').value, // Obtén el valor del campo codRcaja del formulario
             correoConsumidorRc: this.clienteSelect.correo,
             direccionConsumidorRc: this.clienteSelect.direccion,
@@ -395,6 +396,7 @@ export class ReciboCajaComponent implements OnInit {
             nroPagosRc: 0,
 
             observacionRc: 'PAGADA',
+
             ivaRc: this.ivaTotal,
             nombreConsumidorRc: this.clienteSelect.nombre,
             rucConsumidorRc: this.clienteSelect.cedula,

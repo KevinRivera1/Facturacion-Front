@@ -66,20 +66,14 @@
                                 <p-columnFilter type="text" field="nombreConsumidorRc" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="Ruc">
+                        <th pSortableColumn="Ruc/CL">
                             <div class="flex justify-content-between align-items-center">
-                                RUC
-                                <p-sortIcon field="Ruc"></p-sortIcon>
-                                <p-columnFilter type="text" field="Ruc" display="menu"></p-columnFilter>
+                                RUC/CI
+                                <p-sortIcon field="Ruc/CL"></p-sortIcon>
+                                <p-columnFilter type="text" field="Ruc/CL" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="CI">
-                            <div class="flex justify-content-between align-items-center">
-                                CI
-                                <p-sortIcon field="CI"></p-sortIcon>
-                                <p-columnFilter type="text" field="CI" display="menu"></p-columnFilter>
-                            </div>
-                        </th>
+                    
                         <th pSortableColumn="fechaRcaja">
                             <div class="flex justify-content-between align-items-center">
                                 Fecha
@@ -103,7 +97,6 @@
                         <td>{{ rowIndex + 1 }}</td>
                         <td>{{ item.codRcaja }}</td>
                         <td>{{item.nombreConsumidorRc}}</td>
-                        <td>{{item.rucConsumidorRc}}</td>
                         <td>{{item.rucConsumidorRc}}</td>
                         <td>{{item.fechaRcaja | date:'dd/MM/yyyy'}}</td>
                         <td>{{ item.totalRc }}</td>
