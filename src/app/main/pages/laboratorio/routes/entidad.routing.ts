@@ -24,6 +24,7 @@ import { AnularReciboCajaTableComponent } from '../components/anular-recibo-caja
 import { ListFormaPagoComponent } from '../components/list-forma-pago/list-forma-pago.component';
 import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
 import { FacturaMatriculaTableComponent } from '../components/factura-matricula-table/factura-matricula-table.component';
+import { ReciboCajaTableComponent } from '../components/recibo-caja-table/recibo-caja-table.component';
 
 
 
@@ -92,7 +93,7 @@ export const RUTA_ENTIDAD: Routes = [
     {  
 
         path: 'reciboC',
-        component: ReciboCajaComponent,
+        component: ReciboCajaTableComponent,
         canActivate: [AuthGuard],
     },
 

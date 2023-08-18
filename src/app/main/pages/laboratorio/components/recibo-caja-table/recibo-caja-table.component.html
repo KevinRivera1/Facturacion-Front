@@ -1,193 +1,127 @@
+<app-buscar-recibos (reciboCajaEmitter)=filtrarRecibos($event)></app-buscar-recibos>
+
+<app-recibo-caja> </app-recibo-caja>
+
+<br />
+
 <section class="content">
-    <p-dialog header="Lista" [(visible)]="modal" [style]="{ width: '55vw' }">
-        <div class="fieldset-data">
-            <fieldset style="border: 1px solid rgba(128, 128, 128, 0.642)">
-                <div class="data">
-                    <div class="p-formgrid grid">
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Recibo Caja Nº:</h4>
-                        </div>
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Ruc/Cedula:</h4>
-                        </div>
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Cliente:</h4>
-                        </div>
-                        <div class="col-12 md:col-6 mb-0">
-                            <h4>* Fecha:</h4>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-
-        <div>
-            <p-table class="search-saew" [lazy]="true" dataKey="id" styleClass="p-datatable-gridlines"
-                [tableStyle]="{ 'min-width': '50rem' }" [rows]="10">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Concepto</th>
-                        <th>Cantidad</th>
-                        <th>V/Unidad</th>
-                        <th>Ini cio</th>
-                        <th>Fin</th>
-                        <th>Total</th>
-                    </tr>
-                    <tr>
-                        <th>SANCIONES NO SUFREAGIO</th>
-                        <th>1</th>
-                        <th>29</th>
-                        <th>0</th>
-                        <th>0</th>
-                        <th>29</th>
-                    </tr>
-                    <tr>
-                        <th colspan="3"></th>
-                        <th colspan="2">Total:</th>
-                        <th>29</th>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-
-        <div align="center" class="flex justify-content-center">
-            <div class="caja-boton-principal">
-                <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
-                    (click)="cerrar()"></button>
-
-                <button pButton label="Imprimir" class="m-1 bg-blue-900" pTooltip="Imprimir"
-                    tooltipPosition="right"></button>
-            </div>
-        </div>
-    </p-dialog>
-
     <div class="container-fluid">
         <div class="card">
-            <p-table #dt [value]="" [rows]="10" [paginator]="true" [loading]="" [globalFilterFields]="[
-                    'idCentroCosto',
-                    'nombreCentroCosto',
-                    'descCentroCosto',
-                    'codCentroCosto'
-                ]" responsiveLayout="scroll" dataKey="idCentroCosto"
-                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+            <p-table #ef [value]="recibos" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="[
+                    'idReciboCaja',
+                    'codRcaja',
+                    'nombreConsumidorRc',
+                    'rucConsumidorRc',
+                    'fechaRcaja'
+                ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idReciboCaja"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [showCurrentPageReport]="true">
-                <!-- 'codCentroCosto', -->
-
-                <!--Caprion - PDF XLS LISTO -->
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-wrap">
-                        <div>
+                        <div class="flex flex-wrap">
                             <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
                                 class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
                                 tooltipPosition="bottom"></button>
                             <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
                                 class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
                                 tooltipPosition="bottom"></button>
-                            <button pButton pRipple label="Eliminar" icon="pi pi-trash"
-                                class="p-button-danger p-button-sm m-1" (click)="deleteSelectedCentroCosto()"
-                                pTooltip="Eliminar Seleccionados" tooltipPosition="right" [disabled]="
-                                    !selectedCentroCostos ||
-                                    !selectedCentroCostos.length
-                                "></button>
-                            <button pButton label="Limpiar" class="p-button-outlined p-button-sm m-1"
-                                icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros"
+                            <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
+                                icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
                                 tooltipPosition="right"></button>
                         </div>
-
-                        <label class="text-center">CENTRO COSTOS</label>
+                        <div class="flex flex-wrap align-items-center align-items-center select-none">
+                            <label class="text-center font-semibold">RECIBOS CAJA</label>
+                        </div>
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" class="p-inputtext-sm" (input)="
-                                    dt.filterGlobal(
-                                        $event.target.valueOf(),
+                            <input pInputText type="text" class="p-inputtext-sm uppercase" (input)="
+                                    ef.filterGlobal(
+                                        $event.target.value,
                                         'contains'
                                     )
                                 " placeholder="Busqueda General" />
                         </span>
                     </div>
                 </ng-template>
-
-                <!-- Header de la tabla - buscar por columnas LISTO-->
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-
-                        <th pSortableColumn="nombreCentroCosto">
+                        <th pSortableColumn="idReciboCaja">
                             <div class="flex justify-content-between align-items-center">
-                                Nº Recibo Caja
-                                <p-sortIcon field="nombreCentroCosto"></p-sortIcon>
-                                <p-columnFilter type="text" field="nombreCentroCosto" display="menu"></p-columnFilter>
+                                <bold style="font-weight: bold">&#8470;</bold>
+                                <p-sortIcon field="idReciboCaja"></p-sortIcon>
+                                <p-columnFilter type="text" field="idReciboCaja" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="codCentroCosto">
+                        <th pSortableColumn="codRcaja">
+                            <div class="flex justify-content-between align-items-center">
+                                No.Recibo Caja
+                                <p-sortIcon field="codRcaja"></p-sortIcon>
+                                <p-columnFilter type="text" field="codRcaja" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="nombreConsumidorRc">
                             <div class="flex justify-content-between align-items-center">
                                 Cliente
-                                <p-sortIcon field="codCentroCosto"></p-sortIcon>
-                                <p-columnFilter type="text" field="codCentroCosto" display="menu"></p-columnFilter>
+                                <p-sortIcon field="nombreConsumidorRc"></p-sortIcon>
+                                <p-columnFilter type="text" field="nombreConsumidorRc" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="descCentroCosto">
+                        <th pSortableColumn="Ruc">
                             <div class="flex justify-content-between align-items-center">
-                                Ruc/Cl
-                                <p-sortIcon field="descCentroCosto"></p-sortIcon>
-                                <p-columnFilter style="
-                                        white-space: normal;
-                                        word-wrap: break-word;
-                                    " type="text" field="descCentroCosto" display="menu"></p-columnFilter>
+                                RUC
+                                <p-sortIcon field="Ruc"></p-sortIcon>
+                                <p-columnFilter type="text" field="Ruc" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="estadoCentroCosto">
+                        <th pSortableColumn="CI">
+                            <div class="flex justify-content-between align-items-center">
+                                CI
+                                <p-sortIcon field="CI"></p-sortIcon>
+                                <p-columnFilter type="text" field="CI" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="fechaRcaja">
                             <div class="flex justify-content-between align-items-center">
                                 Fecha
-                                <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
-                                <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
+                                <p-sortIcon field="fechaRcaja"></p-sortIcon>
+                                <p-columnFilter type="text" field="fechaRcaja" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="estadoCentroCosto">
+                        <th pSortableColumn="totalRc">
                             <div class="flex justify-content-between align-items-center">
                                 Total
-                                <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
-                                <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="estadoCentroCosto">
-                            <div class="flex justify-content-between align-items-center">
-                                Observaciones
-                                <p-sortIcon field="estadoCentroCosto"></p-sortIcon>
-                                <p-columnFilter type="text" field="estadoCentroCosto" display="menu"></p-columnFilter>
+                                <p-sortIcon field="totalRc"></p-sortIcon>
+                                <p-columnFilter type="text" field="totalRc" display="menu"></p-columnFilter>
                             </div>
                         </th>
 
                         <th>Acciones</th>
                     </tr>
-
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr class="font-medium">
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td>{{ item.codRcaja }}</td>
+                        <td>{{item.nombreConsumidorRc}}</td>
+                        <td>{{item.rucConsumidorRc}}</td>
+                        <td>{{item.rucConsumidorRc}}</td>
+                        <td>{{item.fechaRcaja | date:'dd/MM/yyyy'}}</td>
+                        <td>{{ item.totalRc }}</td>
+                        <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
-                                (click)="abrirmodal()" pTooltip="Editar" tooltipPosition="left"></button>
-                        </th>
+                                (click)="modalOpen()" pTooltip="Editar" tooltipPosition="left"></button>
+                        </td>
                     </tr>
                 </ng-template>
-
-                <!-- Boody - se ve los datos de la tabla -->
-                <!-- Footer de la tabla -->
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
                         Registros Totales:
-                        <!-- {{listCentroC ? listCentroC.length : 0 }}. -->
+                        {{ recibos ? recibos.length : 0 }}.
                     </div>
                 </ng-template>
             </p-table>
         </div>
     </div>
+
 </section>
