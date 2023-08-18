@@ -59,7 +59,7 @@ export class AnularReciboCajaComponent implements OnInit {
     setSeleccionado(obj) {
         this.estadorecibos = obj;
         this.formAnulaRecib = this.formBuilder.group(this.estadorecibos);
-        this.f.estadoCompr.setValue(this.estadorecibos.idEstadoRc === 0);
+        this.f.idEstadoRc.setValue(this.estadorecibos.idEstadoRc === 0);
         console.log('EMITI', this.estadorecibos);
     }
 
