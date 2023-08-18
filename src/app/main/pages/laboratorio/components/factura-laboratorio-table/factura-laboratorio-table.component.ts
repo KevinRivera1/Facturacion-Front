@@ -27,7 +27,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   ngOnInit() {
     this.clienteSelect= new FacturaDto();
-    this.llenarFacturalaboratorio();
+    //this.llenarFacturalaboratorio();
   }
 
   async llenarFacturalaboratorio() {
@@ -54,6 +54,8 @@ export class FacturaLaboratorioTableComponent implements OnInit {
         },
     });
   }
+
+
   cargarfactura(clienteSelectDto: FacturaDto){
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
@@ -81,7 +83,8 @@ formatearFecha(fecha: number): string {
   return `${dia}/${mes}/${anio}`;
 }
 
-filtrarRecibos(listfacturalaboratorio:any[]){
+filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio
 }
+
 }
