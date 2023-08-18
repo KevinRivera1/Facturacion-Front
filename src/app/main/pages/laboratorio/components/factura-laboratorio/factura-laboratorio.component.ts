@@ -9,6 +9,7 @@ import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
 import { FacturaDto } from '../../model/Factura.dto';
 import { AppService } from 'src/app/_service/app.service';
+import { ResponseGenerico } from 'src/app/_dto/response-generico';
 
 
 
@@ -24,6 +25,7 @@ export class FacturaLaboratorioComponent implements OnInit {
   @Input() listEstado: FacturaDto[];
 
   laboratorio: FacturaDto[];
+  response: ResponseGenerico;
   modal: boolean;
   modal2: boolean;
   formFacturaLaboratorio: FormGroup;
@@ -66,10 +68,6 @@ export class FacturaLaboratorioComponent implements OnInit {
             '',
             Validators.compose([Validators.required])
         ),
-        fechaFact: new FormControl(
-            true,
-            Validators.compose([Validators.required])
-        ),
         rucConsumidor: new FormControl(
           '',
           Validators.compose([Validators.required])
@@ -78,10 +76,8 @@ export class FacturaLaboratorioComponent implements OnInit {
         '',
         Validators.compose([Validators.required, Validators.maxLength(10)])
       ),
-      idFactura: new FormControl(
-        '',
-        Validators.compose([Validators.required, Validators.maxLength(10)])
-      ),
+      fechaDesde: [''],
+      fechaHasta: [''],
     });
 
    // this.token = JSON.parse(this.tokenService.getResponseAuth());
@@ -98,18 +94,23 @@ async llenarFacturalaboratorio() {
 }
 
 
-filtrarFacturas() {
+/* async filtrarFacturas() {
   const formData = this.formFacturaLaboratorio.value;
   // Llamada al servicio para filtrar los datos
-  this.facturaService.getAll().subscribe((response) => {
+  await this.facturaService.getAll().subscribe((response) => {
       const data = response.listado; // Accedemos a la propiedad listado
       if (Array.isArray(data)) {
           const facturasFiltradas = data.filter((factura) => {
+            const fecharecibo = factura.fechafact;
+            const cumplefiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
+            console.log('cumple filtro de fechas: ', cumplefiltrosFecha);
+
               return (
                   factura.codFactura.includes(formData.codFactura) &&
                   factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
                   factura.rucConsumidor.includes(formData.rucConsumidor) &&
-                  factura.estadoSri.includes(formData.estadoSri)
+                  factura.estadoSri.includes(formData.estadoSri) &&
+                  this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta)
 
               );
           });
@@ -121,6 +122,66 @@ filtrarFacturas() {
           console.error('Los datos no son un array:', data);
       }
   });
+} */
+
+async filtrarFacturas() {
+  const formData = this.formFacturaLaboratorio.value;
+  await this.facturaService.getAll().subscribe({
+      next: (response) => {
+          const data = response.listado;
+          if (Array.isArray(data)) {
+              const recibosFiltrados = data.filter((recibo) => {
+                  const fecharecibo = recibo.fechafact;
+
+                  //169221463298
+                  console.log('Fechas del Recibo: ', fecharecibo);
+                  console.log('Fechas del Formulario: ', formData.fechaDesde, formData.fechaHasta);
+
+                  const cumplefiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
+                  console.log('cumple filtro de fechas: ', cumplefiltrosFecha);
+
+                  return (
+                    recibo.codFactura.includes(formData.codFactura) &&
+                    recibo.nombreConsumidor.includes(formData.nombreConsumidor) &&
+                    recibo.rucConsumidor.includes(formData.rucConsumidor) &&
+                    recibo.estadoSri.includes(formData.estadoSri) &&
+                     this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta)
+                  );
+              });
+              console.log('Recibos filtrados', recibosFiltrados);
+              this.facturalaboratorioEmitter.emit(recibosFiltrados);
+          } else {
+              console.error(
+                  'Los datos no son un array verifca el tipo de dato que es DATA:',
+                  data
+              );
+          }
+      },
+      error: (error) => {
+          this.appService.msgInfoDetail(
+              severities.ERROR,
+              'ERROR AL CARGAR LOS DATOS',
+              error.error
+          );
+      },
+      complete: () => {
+          console.log('Obtención de datos completada');
+         
+      },
+  });
+}
+
+
+
+filtarRangoFechas(fechaRecibo: any, fechaDesde: string, fechaHasta: string): boolean {
+  if (!fechaDesde && !fechaHasta) {
+      return true;
+  }
+  const fechaReciboT = fechaRecibo;
+  const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
+  const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
+
+  return fechaReciboT >= fechaDesdeT && fechaReciboT <= fechaHastaT;
 }
 
 onInput(event: any) {

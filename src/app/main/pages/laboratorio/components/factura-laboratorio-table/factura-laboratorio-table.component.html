@@ -94,7 +94,7 @@
                       <td>{{item.nombreConsumidor}}</td>
                       <td>{{item.rucConsumidor}}</td>
                       <td>{{item.idProforma}}</td>
-                      <td>{{formatearFecha(item.fechaFact) }}</td>
+                      <td>{{(item.fechaFact| date:'dd/MM/yyyy') }}</td>
                       <td>{{item.subtotalFact}}</td>
                       <td>{{item.ivaFact}}</td>
                       <td>{{item.totalFact}}</td>
@@ -148,7 +148,7 @@
             <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Fecha de emision:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{ formatearFecha(+clienteSelect.fechaFact) }}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{(clienteSelect.fechaFact| date:'dd/MM/yyyy') }}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Empresa:</label>

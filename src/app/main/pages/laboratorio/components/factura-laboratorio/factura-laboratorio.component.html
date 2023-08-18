@@ -70,15 +70,14 @@
 
                     <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
-                            <p-calendar [showIcon]="true" formControlName="fechaFact" id="ftxt-fechaFact"
-                                inputId="icon"></p-calendar>
-                            <label for="ftxt-fechaFact">* Fecha Desde </label>
+                            <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" formControlName="fechaDesde"></p-calendar>
+                            <label for="ftxt-fechaDesde">* Fecha Desde </label>
                         </span>
                     </div>
                     <div class="p-field  col-12 md:col-6 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
-                            <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
-                            <label for="ftxt-fechalaboratorio">* Fecha Hasta </label>
+                            <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" formControlName="fechaHasta"></p-calendar>
+                            <label for="ftxt-fechaHasta">* Fecha Hasta </label>
                         </span>
                     </div>
 
