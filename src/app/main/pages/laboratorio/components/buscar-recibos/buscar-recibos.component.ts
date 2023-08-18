@@ -104,7 +104,7 @@ export class BuscarRecibosComponent implements OnInit {
             },
             complete: () => {
                 console.log('Obtención de datos completada');
-                this.setearForm();
+                //this.setearForm();
             },
         });
     }
