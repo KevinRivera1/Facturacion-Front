@@ -25,6 +25,7 @@ import { ListFormaPagoComponent } from '../components/list-forma-pago/list-forma
 import { FacturaLaboratorioTableComponent } from '../components/factura-laboratorio-table/factura-laboratorio-table.component';
 import { FacturaMatriculaTableComponent } from '../components/factura-matricula-table/factura-matricula-table.component';
 import { FactOtrosConceptosTableComponent } from '../components/fact-otros-conceptos-table/fact-otros-conceptos-table.component';
+import { ReciboCajaTableComponent } from '../components/recibo-caja-table/recibo-caja-table.component';
 
 
 
@@ -88,11 +89,11 @@ export const RUTA_ENTIDAD: Routes = [
     },
     {
         path: 'otros_conceptos',
-        component: FactOtrosConceptosTableComponent
+        component: FactOtrosConceptosTableComponent,
     },
     {  
         path: 'reciboC',
-        component: ReciboCajaComponent,
+        component: ReciboCajaTableComponent,
         canActivate: [AuthGuard],
     },
 
