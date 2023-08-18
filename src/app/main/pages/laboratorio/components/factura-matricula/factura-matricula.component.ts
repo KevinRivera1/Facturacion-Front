@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ListFormaPagoComponent } from '../list-forma-pago/list-forma-pago.component';
 import { AppService } from 'src/app/_service/app.service';
@@ -9,6 +9,8 @@ import { ClienteDto } from '../../model/ClienteDto';
 import { CretencionDto } from '../../model/CretencionDto';
 import { severities } from 'src/app/_enums/constDomain';
 import { FormaPagoDto } from '../../model/FormaPago.dto';
+import { FacturaDto } from '../../model/Factura.dto';
+import { FacturaService } from '../../services/factura.service';
 
 @Component({
   selector: 'app-factura-matricula',
@@ -16,12 +18,15 @@ import { FormaPagoDto } from '../../model/FormaPago.dto';
   styleUrls: ['./factura-matricula.component.css']
 })
 export class FacturaMatriculaComponent implements OnInit {
+  @Output() facturaMatriculaEmitter = new EventEmitter();
+  matricula: FacturaDto[];
   modal: boolean;
   cedula: string;
   modal2: boolean;
   modal3: boolean;
   modal1: boolean; //Visibilidad de un modal
   busquedaForm: FormGroup;
+  formFacturaMatricula: FormGroup;
   modallista: boolean;
   modalBuscar: boolean;
   displayModal: boolean = false;
@@ -35,6 +40,8 @@ export class FacturaMatriculaComponent implements OnInit {
     public appService: AppService,
     private formBuilder: FormBuilder,
     //Busqueda
+    
+    private facturaService: FacturaService,
     private consultaService: ConsultasService,
     private cretencionService: CretencionService,) {
     {
@@ -43,12 +50,36 @@ export class FacturaMatriculaComponent implements OnInit {
 }
 
   ngOnInit():void {
-    //this.iniciarForms();
+    this.iniciarForms();
   }
 
-  /*   iniciarForms() {
-    this.formFacturaLaboratorio = this.formBuilder.group({
-        factura_no: new FormControl(
+  filtrarFacturas() {
+    const formData = this.formFacturaMatricula.value;
+    // Llamada al servicio para filtrar los datos
+    this.facturaService.getAll().subscribe((response) => {
+        const data = response.listado; // Accedemos a la propiedad listado
+        if (Array.isArray(data)) {
+            const recibosFiltrados = data.filter((recibo) => {
+                return (
+                    recibo.codFactura.includes(formData.codFactura)
+
+                    
+                );
+            });
+  
+            // Emitir los recibos filtrados al componente padre
+            this.facturaMatriculaEmitter.emit(recibosFiltrados);
+            console.log('recibos filtrados', recibosFiltrados)
+        } else {
+            console.error('Los datos no son un array:', data);
+        }
+    });
+  }
+  
+
+    iniciarForms() {
+    this.formFacturaMatricula = this.formBuilder.group({
+      codFactura: new FormControl(
             '',
             Validators.compose([Validators.required])
         ),
@@ -70,9 +101,8 @@ export class FacturaMatriculaComponent implements OnInit {
       ),
     });
 
-    this.token = JSON.parse(this.tokenService.getResponseAuth());
-    //  this.f.idFormaPago.setValue(this.token.id)
-} */
+   
+} 
 
 
 

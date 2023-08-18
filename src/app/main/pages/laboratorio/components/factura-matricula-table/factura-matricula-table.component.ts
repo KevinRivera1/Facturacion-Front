@@ -10,7 +10,7 @@ import { severities } from 'src/app/_enums/constDomain';
 })
 export class FacturaMatriculaTableComponent implements OnInit {
   proceso: string = 'formapago';
-  @Input() listFactura: FacturaDto[];
+  @Input() listFactura: any [] = [];
   loading: boolean;
   appService: any;
   modal: boolean;
@@ -75,6 +75,10 @@ this.modal = false;
     this.llenarFacturaMatricula();
     this.clienteSelect= new FacturaDto();
 
+  }
+
+  filtrarFactura(listFactura:any[]){
+    this.listFactura = listFactura
   }
 
 }
