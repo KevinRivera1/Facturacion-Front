@@ -1,19 +1,13 @@
 import {
     Component,
-    EventEmitter,
     Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChange,
-    SimpleChanges,
+    OnInit
 } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
-import { ReciboCajaModel } from '../../model/reciboCaja';
-import { ReciboCajaDto } from '../../model/reciboCajaDto';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
 
 //import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
@@ -27,7 +21,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
     displayModal: boolean = false;
 
-    @Input() recibos: any [] = [];
+    @Input() recibos: any[] = [];
 
     submitted: boolean;
     loading: boolean;
@@ -37,10 +31,9 @@ export class AnularReciboCajaTableComponent implements OnInit {
     constructor(
         private reciboCajaService: ReciboCajaService,
         private fileService: FileService,
-        private appservie: AppService,
+        private appService: AppService,
         private confirmationService: ConfirmationService
     ) {}
-
 
     ngOnInit(): void {
         this.construirTabla();
@@ -67,10 +60,17 @@ export class AnularReciboCajaTableComponent implements OnInit {
 
     clear(table: Table) {
         table.clear();
+        /* console.log("🚀 ~ file: anular-recibo-caja-table.component.ts:70 ~ AnularReciboCajaTableComponent ~ clear ~ table:", table) */
     }
 
-    filtrarRecibos(recibos:any[]){
-        this.recibos = recibos
+    filtrarRecibos(recibos: any[]) {
+        this.recibos = recibos;
+        this.appService.msgInfoDetail(
+            severities.INFO,
+            'INFO',
+            'Datos Cargados exitosamente',
+            550
+        );
     }
 
     //* Función para guardar el motivo de anulacion desde la tabla

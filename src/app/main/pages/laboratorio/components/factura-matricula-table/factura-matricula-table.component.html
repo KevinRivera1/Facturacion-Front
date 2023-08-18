@@ -1,6 +1,11 @@
+
+
+
 <section class="content">
   <div class="container-fluid">
       <div class="card">
+        <app-factura-matricula (facturaMatriculaEmitter)="filtrarFactura($event)" >
+        </app-factura-matricula>
           <p-table #dt [rows]="10" [value]="listFactura"  [paginator]="true" 
                    [globalFilterFields]="[
                       'idFormaPago',
@@ -32,10 +37,10 @@
                               <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
                           </div>
                       </th> -->
-                      <th pSortableColumn="idFactura">
+                      <th pSortableColumn="codFactura">
                           <div class="flex justify-content-between align-items-center">Factura No.
-                              <p-sortIcon field="idFactura"></p-sortIcon>
-                              <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
+                              <p-sortIcon field="codFactura"></p-sortIcon>
+                              <p-columnFilter type="text" field="codFactura" display="menu"></p-columnFilter>
                           </div>
                       </th>
                      
@@ -83,7 +88,7 @@
                           <p-tableCheckbox [value]="item"></p-tableCheckbox>
                       </td>
                       <td>{{rowIndex+1}}</td>
-                      <td>{{item.idFactura}}</td>
+                      <td>{{item.codFactura}}</td>
                       <td>{{item.nombreConsumidor}}</td>
                       <td>{{item.rucConsumidor}}</td>
                       <td>{{ item.fechaFact | date: 'dd/MM/yyyy' }}</td>

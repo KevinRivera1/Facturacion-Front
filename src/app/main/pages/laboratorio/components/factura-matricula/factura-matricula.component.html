@@ -272,7 +272,7 @@
   <header class="text-center">BUSCAR FACTURAS DE MATRICULAS</header>
   <div class="p-d-flex">
  
-  <form>
+  <form [formGroup]="formFacturaMatricula" (ngSubmit)="filtrarFacturas()">
       <div class="">
           <br />
 
@@ -281,11 +281,12 @@
                   <span class="p-float-label">
                       <input
                           pInputText
-                          id="ftxt-nombreFp"
+                          id="ftxt-codFactura"
                           type="text"
                           required="true"
+                          formControlName="codFactura"
                       />
-                      <label for="ftxt-nombreFp">* Factura no.</label>
+                      <label for="ftxt-codFactura">* Factura no.</label>
                   </span>
               </div>
               <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
@@ -359,6 +360,7 @@
                           icon="pi pi-search"
                           type="submit"
                           pTooltip="Buscar"
+                          (click)="filtrarFacturas()"
                           tooltipPosition="right"
                       ></button>
                   </div>
@@ -368,8 +370,6 @@
   </form>
 </div>
 
-  <app-factura-matricula-table >
-  </app-factura-matricula-table>
 </p-card>
  <!-- Buscar 2 Nombre ,CI -->
 
