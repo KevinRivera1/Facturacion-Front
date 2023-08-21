@@ -2,7 +2,7 @@ export class DetalleFacturaDto {
 costoDf: number
 costotDf: number
 estadoServ:	string
-idConcepto: {idTipoConcepto: number;};
+idConcepto: {idConcepto: number;};
 idDetalleFactura: number
 idFacturaDTO: {idFactura: number;};
 idIva: number

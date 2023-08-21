@@ -5,6 +5,7 @@ import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 
 @Component({
   selector: 'app-factura-laboratorio-table',
@@ -16,7 +17,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   @Input() listfacturalaboratorio:  any [] = [];
   modal: boolean;
   loading: boolean;
-  clienteSelect:FacturaDto;
+  clienteSelect: DetalleFacturaDto;
 
  
 
@@ -38,7 +39,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.clienteSelect= new FacturaDto();
+    this.clienteSelect= new DetalleFacturaDto();
     this.llenarFacturalaboratorio();
     this.llenardetalleFacturalaboratorio();
   }
@@ -94,7 +95,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   }
 
 
-  cargarfactura(clienteSelectDto: FacturaDto){
+  cargarfactura(clienteSelectDto: DetalleFacturaDto){
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
     
@@ -123,6 +124,15 @@ cerrar() {
 
 filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio
+}
+
+unirListas(detalle: DetalleFacturaDto, factura: FacturaDto):any {
+  const facturacion = {
+
+  detalleFactura : detalle,
+  factura : factura,
+}
+
 }
 
 }
