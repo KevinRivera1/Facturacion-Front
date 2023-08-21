@@ -40,11 +40,6 @@ export class ListFormaPagoComponent implements OnInit {
         private tarjetaService: TarjetaService
 
     ) {
-        {
-            this.breadcrumbService.setItems([
-                { label: 'Factura Otros Conceptos ' },
-            ]);
-        }
     }
 
     ngOnInit() {
