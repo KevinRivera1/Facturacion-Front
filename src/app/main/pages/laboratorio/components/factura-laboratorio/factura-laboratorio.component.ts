@@ -4,12 +4,12 @@ import { SelectItem } from 'primeng/api';
 import { TokenDto } from 'src/app/_dto/token-dto';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
-import { ProformasTableComponent } from '../proformas-table/proformas-table.component';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
 import { FacturaDto } from '../../model/Factura.dto';
 import { AppService } from 'src/app/_service/app.service';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
 
 
 
@@ -45,14 +45,15 @@ export class FacturaLaboratorioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private facturaService: FacturaService,
     public appService: AppService,
+    private detalleFacturaService: DetalleFacturaService,
   ) {
-    {
-      this.breadcrumbService.setItems([{ label: 'Factura Laboratorio ' }]);
-    }
+    
+    this.breadcrumbService.setItems([{ label: 'Factura Laboratorio' }]);
+    
   }
 
-  ngOnInit():void {
-    this.llenarFacturalaboratorio();
+  ngOnInit() {
+    this.llenarFacturaestadolaboratorio();
     this.iniciarForms();
    
    
@@ -79,11 +80,8 @@ export class FacturaLaboratorioComponent implements OnInit {
       fechaDesde: [''],
       fechaHasta: [''],
     });
-
-   // this.token = JSON.parse(this.tokenService.getResponseAuth());
-    //  this.f.idFormaPago.setValue(this.token.id)
 } 
-async llenarFacturalaboratorio() {
+async llenarFacturaestadolaboratorio() {
   await this.facturaService.getAll().subscribe({
       next: (data) => {
           this.listEstado = data.listado;

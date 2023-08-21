@@ -90,18 +90,18 @@
               <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
                   <tr>
                       <td>{{rowIndex+1}}</td>
-                      <td>{{item.codFactura}}</td>
-                      <td>{{item.nombreConsumidor}}</td>
-                      <td>{{item.rucConsumidor}}</td>
-                      <td>{{item.idProforma}}</td>
-                      <td>{{(item.fechaFact| date:'dd/MM/yyyy') }}</td>
-                      <td>{{item.subtotalFact}}</td>
-                      <td>{{item.ivaFact}}</td>
-                      <td>{{item.totalFact}}</td>
-                      <td>{{item.estadoSri}}</td>
+                      <td>{{item.idFacturaDTO.codFactura}}</td>
+                      <td>{{item.idFacturaDTO.nombreConsumidor}}</td>
+                      <td>{{item.idFacturaDTO.rucConsumidor}}</td>
+                      <td>{{item.idFacturaDTO.idProforma}}</td>
+                      <td>{{(item.idFacturaDTO.fechaFact| date:'dd/MM/yyyy') }}</td>
+                      <td>{{item.idFacturaDTO.subtotalFact}}</td>
+                      <td>{{item.idFacturaDTO.ivaFact}}</td>
+                      <td>{{item.idFacturaDTO.totalFact}}</td>
+                      <td>{{item.idFacturaDTO.estadoSri}}</td>
                       <td>
                         <button pButton label="" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
-                        (click)="cargarfactura(item)"     ></button></td>
+                        (click)="cargarfactura(item.idFacturaDTO)"     ></button></td>
                   </tr>
               </ng-template>
               <ng-template pTemplate="summary">
@@ -215,7 +215,7 @@
         <tr>
             <th>{{clienteSelect.codFactura}}</th>
             <th>Prueba Electrica</th>
-            <th>1</th>
+            <th>{{clienteSelect.codFactura}}</th>
             <th>200.0</th>
             <th>200.0</th>
         </tr>

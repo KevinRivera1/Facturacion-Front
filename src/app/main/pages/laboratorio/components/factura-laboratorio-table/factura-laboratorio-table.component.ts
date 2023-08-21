@@ -3,6 +3,8 @@ import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
 
 @Component({
   selector: 'app-factura-laboratorio-table',
@@ -16,22 +18,58 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   loading: boolean;
   clienteSelect:FacturaDto;
 
+ 
+
+  //selectedTc: TipoConceptoDto[];
 
   constructor(
+    private breadcrumbService: BreadcrumbService,
+    private detalleFacturaService: DetalleFacturaService,
     private facturaService: FacturaService,
     public appService: AppService,
+   
+   
 
 
 
-  ) { }
+  ) {
+    
+   
+   }
 
   ngOnInit() {
     this.clienteSelect= new FacturaDto();
-    //this.llenarFacturalaboratorio();
+    this.llenarFacturalaboratorio();
+    this.llenardetalleFacturalaboratorio();
   }
 
   async llenarFacturalaboratorio() {
     await this.facturaService.getAll().subscribe({
+        next: (data) => {
+            this.listfacturalaboratorio = data.listado;
+            console.log('CORRECTO');
+            console.log(this.listfacturalaboratorio);
+        },
+        complete: () => {
+            this.appService.msgInfoDetail(
+                severities.INFO,
+                'INFO',
+                'Datos Cargados exitosamente' ,
+                500
+            );
+        },
+        error: (error) => {
+            this.appService.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                error.error
+            );
+        },
+    });
+  }
+
+  async llenardetalleFacturalaboratorio() {
+    await this.detalleFacturaService.getAll().subscribe({
         next: (data) => {
             this.listfacturalaboratorio = data.listado;
             console.log('CORRECTO');
