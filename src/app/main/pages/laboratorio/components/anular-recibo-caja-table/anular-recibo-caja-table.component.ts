@@ -27,7 +27,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     @Input() recibos: any[] = [];
 
     //*Tabal emite dato para actualizar etado
-    @Output() estadoRecibSelect = new EventEmitter();
+    @Output() editReciboEvent = new EventEmitter();
 
     recibosCaja: ReciboCajaDto;
 
@@ -84,7 +84,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     //*emite los datos de la tabla para actualizar estado
     editRecibCaja(doc: ReciboCajaDto) {
         this.recibosCaja = { ...doc };
-        this.estadoRecibSelect.emit(doc);
+        this.editReciboEvent.emit(doc);
     }
 
     exportPdf() {
