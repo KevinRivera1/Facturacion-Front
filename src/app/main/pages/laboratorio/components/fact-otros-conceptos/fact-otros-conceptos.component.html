@@ -115,21 +115,26 @@
                   <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.cedula}}</i></b>
               </div>
               <div class="field col-12 md:col-6">
-                  <label>Nombre: </label>
-                  <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.nombre}}</i></b>
-              </div>
+                <label>Estado: </label> 
+                <p-dropdown style="margin-left: 3px;" [options]="estadoOptions" [(ngModel)]="estadoSeleccionado"></p-dropdown>
+            </div>
               <div class="field col-12 md:col-6">
                   <label>Correo: </label>
                   <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.correo}}</i></b>
               </div>
               <div class="field col-12 md:col-6">
-                  <label>Dirección: </label>
-                  <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.direccion}}</i></b>
-              </div>
+                <label>Nombre: </label>
+                <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.nombre}}</i></b>
+            </div>
               <div class="field col-12 md:col-6">
                   <label>Telefono: </label>
                   <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
               </div>
+              <div class="field col-12 md:col-6">
+                <label>Dirección: </label>
+                <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.direccion}}</i></b>
+            </div>
+                
           </div>
       </div>
   </fieldset>
@@ -216,6 +221,7 @@
                   class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                   pTooltip="Guardar"
                   tooltipPosition="right"
+                  (click)="guardarDatos()"
               ></button>
 
               <button
