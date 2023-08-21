@@ -144,12 +144,12 @@
         </div>
     </div>
     <br>
-    <ng-template pTemplate="center">
+    <ng-template pTemplate="" >
         <div class="p-fluid p-formgrid grid col-12" style="border: solid 1px rgb(132, 132, 132); padding: 0px;">
          <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Fecha de emision:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{(clienteSelect.idFacturaDTO.fechaFact| date:'dd/MM/yyyy') }}</i></b>
+                    <b>  <i  class="text-1xl mr-2 mb-3">{{(clienteSelect.idFacturaDTO.fechaFact| date:'dd/MM/yyyy') }}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Empresa:</label>
@@ -165,17 +165,17 @@
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Direccion:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.direccionConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.direccionConsumidor}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Telefono:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.telfConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.telfConsumidor}}</i></b>
                 </div>
             </div> 
-         <!--    <div class="col-6" >
+           <div class="col-6" >
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Facultad/Instituto:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.carreraConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.carreraConsumidor}}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Laboratorio:</label>
@@ -195,9 +195,9 @@
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Valor Total:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.totalFact}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.totalFact}}</i></b>
                 </div>
-            </div> -->
+            </div> 
         </div>
     </ng-template>
     <br>
@@ -214,7 +214,7 @@
             <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Total</th>
         </tr>
         <tr>
-            <th>{{clienteSelect.idFacturaDTO.codFactura}}</th>
+            <th>{{clienteSelect.idDetalleFactura}}</th>
             <th>{{clienteSelect.nombreServ}}</th>
             <th>{{clienteSelect.unidadesDf}}</th>
             <th>{{clienteSelect.costoDf}}</th>
