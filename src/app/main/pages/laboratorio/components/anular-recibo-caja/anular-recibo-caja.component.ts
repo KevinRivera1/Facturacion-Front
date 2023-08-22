@@ -124,18 +124,8 @@ export class AnularReciboCajaComponent implements OnInit, OnChanges {
 
     cancelar() {
         this.CloseModal();
-        /* this.f.estadoCompr.disable();
-        this.setearForm();
-        this.appService.msgInfoDetail('info', '', 'Acción Cancelada');
-        this.display = false; */
     }
 
-    cerrar() {
-        /*  this.f.estadoCompr.disable();
-        this.formEstadoFact.reset();
-        this.iniciarForms();
-        this.display = false; */
-    }
     onDisplayForm() {
         this.display = true;
         console.log('abriendo modal');
