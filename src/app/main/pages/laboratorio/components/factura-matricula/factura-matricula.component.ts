@@ -11,6 +11,9 @@ import { severities } from 'src/app/_enums/constDomain';
 import { FormaPagoDto } from '../../model/FormaPago.dto';
 import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
+import { TokenDto } from 'src/app/_dto/token-dto';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
 
 @Component({
   selector: 'app-factura-matricula',
@@ -21,7 +24,8 @@ export class FacturaMatriculaComponent implements OnInit {
   @Output() facturaMatriculaEmitter = new EventEmitter();
   @Input() listEstado: FacturaDto[];
   matricula: FacturaDto[];
-  selectedestado: FacturaDto[];
+  selectedestado: DetalleFacturaDto[];
+  token: TokenDto;
   modal: boolean;
   cedula: string;
   modal2: boolean;
@@ -42,131 +46,131 @@ export class FacturaMatriculaComponent implements OnInit {
     public appService: AppService,
     private formBuilder: FormBuilder,
     //Busqueda
-    
+    private detalleFacturaService: DetalleFacturaService,
     private facturaService: FacturaService,
     private consultaService: ConsultasService,
     private cretencionService: CretencionService,) {
     {
-        this.breadcrumbService.setItems([{ label: 'Factura Matricula ' }]);
+      this.breadcrumbService.setItems([{ label: 'Factura Matricula ' }]);
     }
-}
+  }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.iniciarForms();
   }
 
   filtrarFacturas() {
     const formData = this.formFacturaMatricula.value;
     // Llamada al servicio para filtrar los datos
-    this.facturaService.getAll().subscribe((response) => {
-        const data = response.listado; // Accedemos a la propiedad listado
-        if (Array.isArray(data)) {
-            const recibosFiltrados = data.filter((recibo) => {
-                return (
-                    recibo.codFactura.includes(formData.codFactura)&&
-                    recibo.nombreConsumidor.includes(formData.nombreConsumidor)&&
-                    recibo.rucConsumidor.includes(formData.rucConsumidor)
-                
-                    
-                );
-            });
-  
-            // Emitir los recibos filtrados al componente padre
-            this.facturaMatriculaEmitter.emit(recibosFiltrados);
-            console.log('recibos filtrados', recibosFiltrados)
-        } else {
-            console.error('Los datos no son un array:', data);
-        }
+    this.detalleFacturaService.getAll().subscribe((response) => {
+      const data = response.listado; // Accedemos a la propiedad listado
+      if (Array.isArray(data)) {
+        const recibosFiltrados = data.filter((recibo) => {
+          return (
+            recibo.idFacturaDTO.codFactura.includes(formData.codFactura) &&
+            recibo.idFacturaDTO.nombreConsumidor.includes(formData.nombreConsumidor) &&
+            recibo.idFacturaDTO.rucConsumidor.includes(formData.rucConsumidor) &&
+            recibo.idFacturaDTO.estadoSri.includes(formData.estadoSri)
+
+          );
+        });
+
+        // Emitir los recibos filtrados al componente padre
+        this.facturaMatriculaEmitter.emit(recibosFiltrados);
+        console.log('recibos filtrados', recibosFiltrados)
+      } else {
+        console.error('Los datos no son un array:', data);
+      }
     });
   }
-  
 
-    iniciarForms() {
+
+  iniciarForms() {
     this.formFacturaMatricula = this.formBuilder.group({
       codFactura: new FormControl(
         '',
         Validators.compose([Validators.required])
-    ),
-    nombreConsumidor: new FormControl(
+      ),
+      nombreConsumidor: new FormControl(
         '',
         Validators.compose([Validators.required])
-    ),
-    fechaFact: new FormControl(
+      ),
+      fechaFact: new FormControl(
         true,
         Validators.compose([Validators.required])
-    ),
-    rucConsumidor: new FormControl(
-      '',
-      Validators.compose([Validators.required])
-  ),
-  estadoSri: new FormControl(
-    '',
-    Validators.compose([Validators.required, Validators.maxLength(10)])
-  ),
-  idFactura: new FormControl(
-    '',
-    Validators.compose([Validators.required, Validators.maxLength(10)])
-  ),
+      ),
+      rucConsumidor: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      estadoSri: new FormControl(
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(10)])
+      ),
+      idFactura: new FormControl(
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(10)])
+      ),
     });
 
-   
-} 
+
+  }
 
 
 
   onInput(event: any) {
     const input = event.target;
     const value = input.value;
-  
+
     // Remover caracteres no numéricos excepto el símbolo "-"
     const numericValue = value.replace(/[^\d-]/g, '');
     input.value = numericValue;
   }
-//Abrir el modal
-abrirmodal() {
-  this.modal = true;
-}
-abrirmodal1() {
-  this.modal1 = true;
-}
-abrirmodal2() {
-  this.modal2 = true;
-}
-abrirmodal3() {
-  this.modal3 = true;
-}
-abrirmodalista() {
-  this.modallista = true;
-}
-
-    //Cerrar el modal y restablecer el formulario
-  
-  cerrarmodal1() {
-      this.modal1 = false;
+  //Abrir el modal
+  abrirmodal() {
+    this.modal = true;
+  }
+  abrirmodal1() {
+    this.modal1 = true;
+  }
+  abrirmodal2() {
+    this.modal2 = true;
+  }
+  abrirmodal3() {
+    this.modal3 = true;
+  }
+  abrirmodalista() {
+    this.modallista = true;
   }
 
-//Cerrar el modal y restablecer el formulario
-cerrar() {
-  // this.f.estadoCentroCosto.disable();
-  // this.setearForm();
+  //Cerrar el modal y restablecer el formulario
 
-  this.modal = false;
-  this.modal1 = false;
-  this.modal2 = false;
-  this.modal3 = false;
-  this.modallista = false;
-}
+  cerrarmodal1() {
+    this.modal1 = false;
+  }
 
-modalOpen() {
-  //this.displayAnulacioModal.onDisplayForm()
-  this.displayModal = true;
-  console.log('abrir modal desde tabla');
-}
+  //Cerrar el modal y restablecer el formulario
+  cerrar() {
+    // this.f.estadoCentroCosto.disable();
+    // this.setearForm();
 
-closeModal() {
-  this.displayModal = false;
-  console.log('cerrando modal');
-}
+    this.modal = false;
+    this.modal1 = false;
+    this.modal2 = false;
+    this.modal3 = false;
+    this.modallista = false;
+  }
+
+  modalOpen() {
+    //this.displayAnulacioModal.onDisplayForm()
+    this.displayModal = true;
+    console.log('abrir modal desde tabla');
+  }
+
+  closeModal() {
+    this.displayModal = false;
+    console.log('cerrando modal');
+  }
 
 
   //BUSQUEDA
@@ -175,118 +179,118 @@ closeModal() {
 
 
   buscarU(): void {
-      switch (this.selectedOption) {
-        case "Cliente":
-          this.data = "Cliente";
-          break;
-        case "Empleado EPN":
-          this.data = "Empleado";
-          break;
-        default:
-          this.data = ""; // Valor por defecto si ninguna opción está seleccionada
-          break;
-      }
-      this.modalBuscar = true;
-      console.log(this.data);
+    switch (this.selectedOption) {
+      case "Cliente":
+        this.data = "Cliente";
+        break;
+      case "Empleado EPN":
+        this.data = "Empleado";
+        break;
+      default:
+        this.data = ""; // Valor por defecto si ninguna opción está seleccionada
+        break;
     }
+    this.modalBuscar = true;
+    console.log(this.data);
+  }
 
 
-    loading: boolean= false;
-    listCliente:ClienteDto[]=[];
-    listPago:FormaPagoDto[]=[];
-    listCretencion:CretencionDto[]=[];
-    tipoCliente:number;
-    tipoPago:number;
-    cedulaBusqueda: string;
-    nombreBusqueda: string;
-    apellidoBusqueda:string;
-    nombreFpBusqueda:string;
-    nombres:string;
-    formCliente:FormGroup
+  loading: boolean = false;
+  listCliente: ClienteDto[] = [];
+  listPago: FormaPagoDto[] = [];
+  listCretencion: CretencionDto[] = [];
+  tipoCliente: number;
+  tipoPago: number;
+  cedulaBusqueda: string;
+  nombreBusqueda: string;
+  apellidoBusqueda: string;
+  nombreFpBusqueda: string;
+  nombres: string;
+  formCliente: FormGroup
 
-    iniciarFormCliente(){
-      this.formCliente= this.formBuilder.group({
-          cedula: new FormControl('',),
-          nombre:new FormControl('',),
-          direccion:new FormControl('',),
-          telefono:new FormControl('',),
-          correo:new FormControl('',),
-      });
+  iniciarFormCliente() {
+    this.formCliente = this.formBuilder.group({
+      cedula: new FormControl('',),
+      nombre: new FormControl('',),
+      direccion: new FormControl('',),
+      telefono: new FormControl('',),
+      correo: new FormControl('',),
+    });
   }
 
   async llenarListCliente() {
 
-      this.nombres = this.nombreBusqueda == null ? (this.apellidoBusqueda == null ? '0' : this.apellidoBusqueda) : this.nombreBusqueda;
+    this.nombres = this.nombreBusqueda == null ? (this.apellidoBusqueda == null ? '0' : this.apellidoBusqueda) : this.nombreBusqueda;
 
-      await this.consultaService.getByIdParametro(this.cedulaBusqueda == null ? '0' : this.cedulaBusqueda, this.nombres, this.tipoCliente).subscribe({
-              next: data => {
-                  this.listCliente = data.listado
-                  this.loading = false;
-              },
-              complete: () => {
-                  this.appService.msgInfoDetail(severities.INFO, 'INFO', 'Datos Cargados exitosamente')
-                  this.loading = false;
-              },
-              error: error => {
-                  this.appService.msgInfoDetail(severities.ERROR, 'ERROR', error.error)
-                  this.loading = false;
-              }
-          }
-      );
-      this.modalBusTabl=true;
+    await this.consultaService.getByIdParametro(this.cedulaBusqueda == null ? '0' : this.cedulaBusqueda, this.nombres, this.tipoCliente).subscribe({
+      next: data => {
+        this.listCliente = data.listado
+        this.loading = false;
+      },
+      complete: () => {
+        this.appService.msgInfoDetail(severities.INFO, 'INFO', 'Datos Cargados exitosamente')
+        this.loading = false;
+      },
+      error: error => {
+        this.appService.msgInfoDetail(severities.ERROR, 'ERROR', error.error)
+        this.loading = false;
+      }
+    }
+    );
+    this.modalBusTabl = true;
   }
 
   registrarNuevo() {
     // this.cretencion = new CretencionDto();
     // this.iniciarForm();
-    this.modal=true
-    this.clienteSelect= new ClienteDto();
-    this.tipoCliente= 0;
-    this.listCliente= [];
+    this.modal = true
+    this.clienteSelect = new ClienteDto();
+    this.tipoCliente = 0;
+    this.listCliente = [];
     this.pagoSelect = new FormaPagoDto();
-    this.tipoPago= 0;
-    this.listPago= [];
-}
-  clienteSelect:ClienteDto;
+    this.tipoPago = 0;
+    this.listPago = [];
+  }
+  clienteSelect: ClienteDto;
 
-    busquedaCliente(){
+  busquedaCliente() {
 
-      if(this.tipoCliente==0){
-          this.modalBuscar= false;
-      }else{
-          this.modalBuscar= true;
-      }
-        this.cedulaBusqueda= null;
-        this.nombreBusqueda= null;
-        this.apellidoBusqueda= null;
+    if (this.tipoCliente == 0) {
+      this.modalBuscar = false;
+    } else {
+      this.modalBuscar = true;
     }
+    this.cedulaBusqueda = null;
+    this.nombreBusqueda = null;
+    this.apellidoBusqueda = null;
+  }
 
-    cargarCliente(clienteSelectDto: ClienteDto ){
-      this.clienteSelect= clienteSelectDto;
-      this.modalBusTabl= false;
-      this.modalBuscar=false;
+  cargarCliente(clienteSelectDto: ClienteDto) {
+    this.clienteSelect = clienteSelectDto;
+    this.modalBusTabl = false;
+    this.modalBuscar = false;
 
+  }
+
+  pagoSelect: FormaPagoDto;
+
+  busquedaPago() {
+
+    if (this.tipoPago == 0) {
+      this.modalBuscar = false;
+    } else {
+      this.modalBuscar = true;
     }
+    this.nombreFpBusqueda = null;
 
-    pagoSelect:FormaPagoDto;
+  }
 
-    busquedaPago(){
+  cargarPago(pagoSelectDto: FormaPagoDto) {
+    this.pagoSelect = pagoSelectDto;
+    this.modalBusTabl = false;
+    this.modalBuscar = false;
 
-      if(this.tipoPago==0){
-          this.modalBuscar= false;
-      }else{
-          this.modalBuscar= true;
-      }
-        this.nombreFpBusqueda= null;
-    
-    }
-
-    cargarPago(pagoSelectDto: FormaPagoDto ){
-      this.pagoSelect= pagoSelectDto;
-      this.modalBusTabl= false;
-      this.modalBuscar=false;
-
-    }
+  }
 
 
 
