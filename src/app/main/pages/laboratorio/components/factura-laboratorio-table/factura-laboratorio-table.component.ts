@@ -126,13 +126,4 @@ filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio
 }
 
-unirListas(detalle: DetalleFacturaDto, factura: FacturaDto):any {
-  const facturacion = {
-
-  detalleFactura : detalle,
-  factura : factura,
-}
-
-}
-
 }
