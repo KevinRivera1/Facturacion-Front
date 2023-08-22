@@ -46,7 +46,6 @@ export class AnularReciboCajaTableComponent implements OnInit {
         this.construirTabla();
     }
 
-    //TODO: MODIFICAR LOS CAMPOS PARA EL RECIBO CAJA ANULAR
     construirTabla() {
         this.cols = [
             //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
@@ -77,7 +76,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     //*emite los datos de la tabla para actualizar estado
     editRecibCaja(doc: ReciboCajaDto) {
         this.recibosCajaSelect = { ...doc };
-        this.editReciboSeleccionado.emit(doc); //* independiente
+        this.editReciboSeleccionado.emit(doc);
         this.modalOpen();
         console.log("🚀Emit: ", this.recibosCajaSelect)
     }
