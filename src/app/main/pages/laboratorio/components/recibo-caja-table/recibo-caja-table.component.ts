@@ -93,8 +93,8 @@ export class ReciboCajaTableComponent implements OnInit {
         this.appService.exportPdf(
             this.exportColumns,
             this.recibos,
-            'Centro de Costos',
-            'p'
+            'Resivo de Caja',
+            ''
         );
     }
 
