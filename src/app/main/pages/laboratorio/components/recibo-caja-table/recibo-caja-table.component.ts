@@ -10,7 +10,7 @@ import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
-import jsPDF from 'jspdf';
+import * as jsPDF from 'jspdf';
 
 @Component({
     selector: 'app-recibo-caja-table',
@@ -23,7 +23,6 @@ export class ReciboCajaTableComponent implements OnInit {
 
     @Input() recibos : ReciboCajaDto [] =[];;
 
-    
     submitted: boolean;
     loading: boolean;
     exportColumns: any[];
@@ -59,8 +58,11 @@ export class ReciboCajaTableComponent implements OnInit {
         table.clear();
     }
 
-    filtrarRecibos(recibos: any[]) {
-        this.recibos = recibos;
+
+    filtrarRecibos(recibos: ReciboCajaDto[]) {
+        // Filtra los recibos para obtener solo los que tienen el estado con valor 1
+        this.recibos = recibos.filter(recibo => recibo.idEstadoRc === 1);
+    
         this.appService.msgInfoDetail(
             severities.INFO,
             'INFO',
@@ -68,6 +70,8 @@ export class ReciboCajaTableComponent implements OnInit {
             550
         );
     }
+
+    
 
     modalOpen() {
         this.displayModal = true;
@@ -80,7 +84,7 @@ export class ReciboCajaTableComponent implements OnInit {
     }
 
 
-    exportPdf() {
+     exportPdf() {
         let indexLista: number = 0;
         this.recibos.forEach((element) => {
             indexLista++;
@@ -89,33 +93,27 @@ export class ReciboCajaTableComponent implements OnInit {
         this.appService.exportPdf(
             this.exportColumns,
             this.recibos,
-            'Centro de Costos',
-            'p'
+            'Resivo de Caja',
+            ''
         );
     }
 
-    exportPdfById(idReciboCaja: number) {
-        // Buscar el recibo con el idReciboCaja proporcionado
-        const recibo = this.recibos.find((element) => element.idReciboCaja === idReciboCaja);
     
-        if (!recibo) {
-            console.log('No se encontró un recibo con el idReciboCaja proporcionado.');
-            return;
-        }
     
-        // Crear un nuevo documento PDF
-        const doc = new jsPDF();
-    
-        // Agregar contenido al PDF
-        doc.setFontSize(12);
-        doc.text(`Recibo de Caja Nº ${recibo.idReciboCaja}`, 10, 10);
-        doc.text(`Recibo de Caja Nº ${recibo.codRcaja}`, 10, 10);
-        doc.text(`Recibo de Caja Nº ${recibo.nombreConsumidorRc}`, 10, 10);
 
-        // Agregar más contenido aquí
-    
-        // Guardar el PDF
-        doc.save(`recibo_caja_${recibo.codRcaja}.pdf`);
+
+    reciboC: boolean;//MODAL DE RECIBO CAJA
+
+    cancelarRC() {
+        this.reciboC = false;
     }
+    abrirRC() {
+        this.reciboC = true;
+    }
+
+    cerrarRecibo() {
+        this.reciboC = false;
+    }
+
 }
 

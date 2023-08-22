@@ -165,14 +165,6 @@
         </div>
     </p-dialog>
 
-
-
-
-
-
-
-
-
     
     <!-- EDITAR CONCEPTO DE LA TABLA -->
 
@@ -369,6 +361,9 @@
                         <div class="caja-boton-principal">
                             <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                                 pTooltip="Buscar" (click)="llenarListCliente()" tooltipPosition="right"></button>
+                            
+                            <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                                pTooltip="Cancelar" (click)="cerrarBC()" tooltipPosition="right"></button>
                         </div>
                     </div>
                 </div>
@@ -410,6 +405,7 @@
                         <div class="field col-12 md:col-12" align="center">
                             <button pButton label="Seleccionar" class="bg-blue-900" (click)="cargarCliente(cliente)"
                                 pTooltip="Buscar" tooltipPosition="right"></button>
+                                
                         </div>
                     </tr>
                 </ng-template>
@@ -430,3 +426,10 @@
         <p-divider></p-divider>
 
     </div>
+
+
+
+
+
+    
+ 

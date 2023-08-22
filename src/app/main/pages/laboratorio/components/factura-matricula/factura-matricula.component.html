@@ -80,10 +80,10 @@
                             <label>Telefono: </label>
                             <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
                         </div>
-                        <div class="field col-12 md:col-6">
+                        <!-- <div class="field col-12 md:col-6">
                             <label>Forma Pago: </label>
                             <b> <i class="text-1xl mr-2 mb-3"> {{pagoSelect.nombreFp}}</i></b>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -93,147 +93,13 @@
 
         <br />
 
-        <!-- <p-fieldset>
-    <div style="border: solid 1px rgb(132, 132, 132); display: flex;">
-      <div class="p-fluid p-formgrid grid col-6"   style="border-right: solid 1px rgb(132, 132, 132);">
-        <div class="p-field col-12 md:col-6 mb-0 px-3"> 
-          <label for="ftxt-fecha-emision">Fecha de emision:</label>
-        </div>
-        <div class="p-field col-12 md:col-6 mb-0 px-3"> 
-          <label for="ftxt-empresa">Empresa:</label>
-       
-        </div>
-        <div class="p-field col-12 md:col-6  mb-0 px-3">
-          <label for="ftxt-senor">Señor(s):</label>
-
-        </div>
-        <div class="p-field col-12 md:col-6  mb-0 px-3">
-          <label for="ftxt-ruc-ci">Ruc/CI:</label>
-        </div>
-        <div class="p-field col-12 md:col-6 mb-0 px-3">
-          <label for="ftxt-direccion">Direccion:</label>
-        </div>
-        <div class="p-field col-12 md:col-6 mb-0 px-3">
-          <label for="ftxt-telefono">Telefono:</label>
-        </div>
-        <div class="p-field col-12 md:col-6 mb-0 px-3">
-          <label for="ftxt-email-1">Email 1:</label>
-        </div>
-        <!-- Agrega los demás elementos del lado izquierdo -->
-        <!-- </div>
-      <div class="p-fluid p-formgrid grid col-6">
-        <div class="p-field col-12 md:col-6 mb-0 px-3"> 
-          <label for="ftxt-facultad-instituto">Facultad/Instituto:</label>
-        </div>
-        <div class="p-field col-12 md:col-6 mb-0 px-3">
-          <label for="ftxt-estado">Estado:</label>
-          <select name="estado" id="ftxt-estado">
-            <option value="pagado">Pagado</option>
-            <option value="anulado">Anulado</option>
-            <option value="pendiente">Pendiente</option>
-          </select>
-        </div>
-        <div class="p-field col-12 md:col-6  mb-0 px-3">
-          <label for="ftxt-forma-pago">Forma de Pago:</label>
-        </div>
-        <div class="p-field col-12 md:col-6  mb-0 px-3">
-          <label for="ftxt-cheque-no">Cheque.No:</label>
-        </div>
-        <div class="p-field col-12 md:col-6 mb-0 px-3">
-          <label for="ftxt-valor-total">Valor Total:</label>
-        </div>
-        <div class="p-field col-12 md:col-6 mb-0 px-3">
-          <label for="ftxt-email-2">Email 2:</label>
-        </div>
-        <!-- Agrega los elementos del lado derecho -->
-        <!-- </div>
-    </div>
-  </p-fieldset> -->
-
-
-
-
-
-
-        <!-- <p-toolbar class="center-button">
-      <button
-          pButton
-          label="Agregar"
-          class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-          icon="pi pi-plus"
-          type="submit"
-          pTooltip="Agregar"
-          tooltipPosition="right"
-          (click)="abrirmodal1()"
-      ></button>
-  </p-toolbar> -->
-
-        <!-- TABLA DIALOG -->
-
-        <!-- <p-table
- styleClass="p-datatable-gridlines" 
- [tableStyle]="{ 'min-width': '50rem' }"
->
- <ng-template pTemplate="header">
-     <tr>
-         <th style="background-color: rgb(206, 244, 244);">CODIGO </th>
-         <th style="background-color: rgb(206, 244, 244);">DESCRIPCION</th>
-         <th style="background-color: rgb(206, 244, 244);">CANTIDAD</th>
-         <th style="background-color: rgb(206, 244, 244);">PRECIO UNIT.</th>
-         <th style="background-color: rgb(206, 244, 244);">VAL TOTAL</th>
-         <th style="background-color: rgb(206, 244, 244);">VAL IVA</th>
-         <th style="background-color: rgb(206, 244, 244);">ACCIONES</th>
-     </tr>
-   
-     <tr>
-         <th colspan="2">Observaciones:</th>
-         <th colspan="3">Subtotal a tributar:</th>
-         <th>00.0</th>
-         <th></th>
-     </tr>
-     <tr>
-         <th>____________________</th>
-         <th>____________________</th>
-         <th colspan="3">I.V.A 12%</th>
-         <th>00.00</th>
-         <th></th>PAGO
-
-     </tr>
-     <tr>
-         <th >Elaborado por</th>
-         <th>Recibi Conforme</th>
-         <th colspan="3">con tarifa 0%</th>
-         <th>0.0</th>
-         <th></th>
-     </tr>
-     <tr>
-       <th >Nombre:</th>
-       <th>Nombre:</th>
-       <th colspan="3">Total Fctura</th>
-       <th >0.0</th>
-       <th></th>
-   </tr>
-     <tr>
-       <th></th>
-       <th colspan="3">C.I/RUC</th>
-       <th colspan="3"></th>
-   </tr>
-   <tr>
-     <th colspan="5"></th>
-     <th>PAGO: <input type="number" style="width: 40%;"></th>
-   </tr>
-   <tr>  
-     <th colspan="5"></th>
-     <th>CAMBIO: 00</th>
-   </tr>
- </ng-template>
-</p-table> -->
+    
         <br>
         <div align="center" class="flex justify-content-center">
             <div class="caja-boton-principal">
-                <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                    pTooltip="Guardar" tooltipPosition="right" icon="pi pi-save"></button>
-
+                
+              <button pButton label="Nueva Consulta" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+              pTooltip="Pagos(s)" tooltipPosition="right" icon="pi pi-money-bill" (click)="busquedaCliente()"></button>
                 <button pButton label="Pagos(s)" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                     pTooltip="Pagos(s)" tooltipPosition="right" icon="pi pi-money-bill" (click)="modalOpen()"></button>
 
@@ -245,7 +111,7 @@
     <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
     <div class="caja-boton-principal center-button">
-        <button pButton label="Agregar Factura Matricula" (click)="registrarNuevo()" class="m-1 bg-blue-900"
+        <button pButton label="Ver Factura Matricula" (click)="registrarNuevo()" class="m-1 bg-blue-900"
             icon="pi pi-plus" pTooltip="Agregar" tooltipPosition="right"></button>
     </div>
     <p-divider></p-divider>
@@ -264,13 +130,11 @@
                         </span>
                     </div>
 
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <label for="ftxt-estadoSri" style="color: rgba(0, 0, 0, 0.6)">* Estado</label>
-                        <input pInputText id="ftxt-estadoSri" type="text" required="true" formControlName="estadoSri" />
-                        <span class="p-float-label">
-                            <p-inputSwitch id="ftxt-estadoSri"></p-inputSwitch>
-                        </span>
-                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+
+                      <p-dropdown id="ftxt-estadoSri" formControlName="estadoSri" [options]="estados" placeholder="escoger el estado"></p-dropdown>
+
+                </div>
                 </div>
 
                 <div class="p-fluid p-formgrid grid">
