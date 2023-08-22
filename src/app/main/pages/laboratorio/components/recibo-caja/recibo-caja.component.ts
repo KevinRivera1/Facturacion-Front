@@ -1,22 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
-import { ConsultasService } from '../../services/consultas.service';
-import { ClienteDto } from '../../model/ClienteDto';
-import { AppService } from 'src/app/_service/app.service';
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { TokenDto } from 'src/app/_dto/token-dto';
 import { severities } from 'src/app/_enums/constDomain';
-import { CretencionService } from '../../services/cretencion.service';
-import { CretencionDto } from '../../model/CretencionDto';
+import { AppService } from 'src/app/_service/app.service';
+import { TokenService } from 'src/app/_service/token.service';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { ClienteDto } from '../../model/ClienteDto';
 import { ConceptoDto } from '../../model/ConceptoDto';
+import { CretencionDto } from '../../model/CretencionDto';
 import { ConceptoService } from '../../services/concepto.service';
+import { ConsultasService } from '../../services/consultas.service';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
 
-import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-recibo-caja',
@@ -35,11 +37,12 @@ export class ReciboCajaComponent implements OnInit {
     }
 
     cerrarRecibo() {
-        this.limpiarLista();
         this.reciboC = false;
+        this.limpiarLista();
     }
  
-    
+    token: TokenDto;                            //Almacena el token de autenticacion
+
 
     //NUMERO DE RECIBO CAJA
     buscarForm: FormGroup;
@@ -50,8 +53,8 @@ export class ReciboCajaComponent implements OnInit {
         private formBuilder: FormBuilder,
         private reciboCaja: ReciboCajaService,
         private confirmationService: ConfirmationService,       
-         private messageService: MessageService,
-
+        private messageService: MessageService,
+        private tokenService: TokenService,
         //Busqueda
         private consultaService: ConsultasService,
         //Conceptos
@@ -62,6 +65,7 @@ export class ReciboCajaComponent implements OnInit {
                 codRcaja: ['', [Validators.required]], 
             });
             this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
+            this.token = JSON.parse(this.tokenService.getResponseAuth()); // Se obtiene y se parsea el token de autenticacion
         }
     }
 
@@ -160,6 +164,9 @@ export class ReciboCajaComponent implements OnInit {
     buscarCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE
     BusTablCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE EN TABLA
 
+    cerrarBC(){
+        this.buscarCliente=false;
+    }
 
     busquedaCliente() {
         if (this.tipoCliente == 0) {
@@ -392,7 +399,7 @@ export class ReciboCajaComponent implements OnInit {
             idCajaRc: 0,
             idReciboCaja: 0,
             idTipoConsumidorRc: 0,
-            idUsuarioRc: 0,
+            idUsuarioRc: this.token.id,
             nroPagosRc: 0,
             observacionRc: '',
             ivaRc: this.ivaTotal,
@@ -407,32 +414,18 @@ export class ReciboCajaComponent implements OnInit {
         this.reciboCaja.saveObject(datosAGuardar).subscribe(
             (respuesta) => {
                 console.log('Datos guardados exitosamente:', respuesta);
+                this.appService.msgInfoDetail(severities.INFO, 'Guardado', 'Con Exito.');
                 this.buscarForm.get('codRcaja').setValue('');
-                // Puedes mostrar un mensaje de éxito u otras acciones aquí
+                this.limpiarLista();
             },
             (error) => {
                 console.error('Error al guardar los datos:', error);
                 // Puedes mostrar un mensaje de error u otras acciones de manejo de errores aquí
             }
         );
+        
+        this.reciboC = false;
 
-        // this.confirmationService.confirm({
-        //     message: '  Seguro de guardar este Recibo de Caja?',
-        //     header: 'Mensaje...',
-        //     icon: 'pi pi-exclamation-triangle ',
-        //     accept: () => {
-        //         this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Guardado' });
-        //         this.modal = false;
-        //     },
-        //     reject: (type: any) => {
-        //         switch (type) {
-        //             case ConfirmEventType.REJECT:
-        //                 this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'Cancelado' });
-        //                 break;
-        //         }
-        //     }
-        // });
-        this.limpiarLista();
     }
 
 }

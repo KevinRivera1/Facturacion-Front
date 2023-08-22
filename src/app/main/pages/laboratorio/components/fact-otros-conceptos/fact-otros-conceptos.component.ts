@@ -5,7 +5,7 @@ import { FormaPagoService } from '../../services/formaPago.service';
 import { ConceptoService } from '../../services/concepto.service';
 import { ConceptoDto } from '../../model/ConceptoDto';
 import { Table } from 'primeng/table';
-import { PrimeIcons, MenuItem } from 'primeng/api';
+import { PrimeIcons, MenuItem, SelectItem } from 'primeng/api';
 import { ConsultasService } from '../../services/consultas.service';
 import { CretencionService } from '../../services/cretencion.service';
 import { ClienteDto } from '../../model/ClienteDto';
@@ -111,6 +111,12 @@ export class FactOtrosConceptosComponent implements OnInit {
           '',
           Validators.compose([Validators.required])
       ),
+      estadoSri: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      fechaDesde: [''],
+      fechaHasta: [''],
     
     });
 
@@ -245,7 +251,7 @@ estadoSeleccionado: string;
 
 //FIltrar
 
-filtrarFacturas() {
+/* filtrarFacturas() {
   const formData = this.formotrosconceptos.value;
   // Llamada al servicio para filtrar los datos
   this.facturaService.getAll().subscribe((response) => {
@@ -256,7 +262,6 @@ filtrarFacturas() {
                   factura.codFactura.includes(formData.codFactura) &&
                   factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
                   factura.rucConsumidor.includes(formData.rucConsumidor) 
-
               );
           });
 
@@ -268,6 +273,84 @@ filtrarFacturas() {
       }
   });
 }
+ */
+
+
+filtrarFacturas() {
+  const formData = this.formotrosconceptos.value;
+  this.facturaService.getAll().subscribe({
+      next: (response) => {
+          const facturasFiltradas = this.filtrarFacturaPorCriterios(response.listado, formData);
+          console.log('Facturas filtradas', facturasFiltradas);
+          if (facturasFiltradas.length > 0) {
+              this.facturaotrosconceptosEmitter.emit(facturasFiltradas);
+              this.appService.msgInfoDetail(
+                  severities.INFO,
+                  'INFO',
+                  'Datos Cargados exitosamente',
+                  550
+              );
+          } else {
+              console.log('no hay datos')
+              this.appService.msgInfoDetail(
+                  severities.ERROR,
+                  'INFO',
+                  'No se encontraron registros',
+                  700
+              );
+          }
+      },
+      error: (error) => {
+          console.error('Error al cargar los datos', error);
+          this.appService.msgInfoDetail(severities.ERROR, 'ERROR AL CARGAR LOS DATOS', error.error);
+      },
+      complete: () => {
+          console.log('Obtención de datos completada');
+      },
+  });
+}
+
+filtrarFacturaPorCriterios(facturas, formData) {
+  return facturas.filter((factura) => {
+      const fechafactura = factura.fechaFact;
+
+      const codFacturalab = this.matchFilter(factura.codFactura, formData.codFactura);
+      const nombreConsumidorlab = this.matchFilter(factura.nombreConsumidor, formData.nombreConsumidor);
+      const rucConsumidorlab= this.matchFilter(factura.rucConsumidor, formData.rucConsumidor);
+      const estadoSrilab = this.matchFilter(factura.estadoSri, formData.estadoSri);
+      const cumpleFiltrosFecha = this.filtarRangoFechas(fechafactura, formData.fechaDesde, formData.fechaHasta);
+
+      return codFacturalab && nombreConsumidorlab && rucConsumidorlab && cumpleFiltrosFecha && estadoSrilab;
+  });
+}
+
+filtarRangoFechas(fechaFactura: any, fechaDesde: string, fechaHasta: string): boolean {
+  if (!fechaDesde && !fechaHasta) {
+      return true;
+  }
+  const fechaFacturalab = fechaFactura;
+  const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
+  const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
+
+  return fechaFacturalab >= fechaDesdeT && fechaFacturalab <= fechaHastaT;
+}
+
+matchFilter(value, filter) {
+  if (filter === '') {
+      return true;
+  }
+  return value && value.includes(filter);
+}
+
+
+
+estados: SelectItem[] = [
+  { label: 'seleccionar estado', value: '' },
+  { label: 'Anulada', value: 'anulada' },
+  { label: 'Pagada', value: 'Pagada' },
+ 
+];
+
 
 /*mostrar clientes por busqueda*/
 
@@ -445,9 +528,8 @@ cargarCliente(clienteSelectDto: ClienteDto ){
  }
 
 
-
-
- guardarDatos(): Observable<any> {
+// GUARDAR
+guardarDatos(): Observable<any> {
   if (
     this.subtotalTotal === 0 ||
     this.ivaTotal === 0 ||
@@ -457,9 +539,9 @@ cargarCliente(clienteSelectDto: ClienteDto ){
     this.appService.msgInfoDetail(
       severities.ERROR,
       'ERROR',
-      'verifica los datos antes de generar una nueva Factura'
+      'Verifica los datos antes de generar una nueva Factura'
     );
-    return of(null); // Retorna un observable que emite null en caso de error
+    return EMPTY; // Utilizar EMPTY cuando no se desea emitir un valor
   }
 
   const facturaAGuardar = {
@@ -480,9 +562,7 @@ cargarCliente(clienteSelectDto: ClienteDto ){
   return this.facturaService.saveObject(facturaAGuardar);
 }
 
-
-
-detalleNuevo() {
+detalleNuevo(): Observable<any> {
   const observables = [];
 
   for (const concepto of this.conceptosList) {
@@ -490,38 +570,37 @@ detalleNuevo() {
     detalleFactura.costoDf = concepto.valor;
    
     detalleFactura.idConcepto = { idConcepto: concepto.idConcepto };
-    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad}
+    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad };
     detalleFactura.unidadesDf = concepto.cantidad;
 
     observables.push(this.detalleFacturaService.saveObject(detalleFactura));
   }
 
-  forkJoin(observables).subscribe(
-    (detalleRespuestas) => {
-      console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
-      this.appService.msgCreate();
-    },
-    (detalleErrores) => {
-      console.error('Error al guardar los detalles de factura:', detalleErrores);
-    }
-  );
+  // Devuelve un Observable que emite los resultados de las peticiones individuales
+  return forkJoin(observables);
 }
-
-
 
 guardarDatosYDetalles() {
   // Llama a guardarDatos() para guardar la factura principal
   this.guardarDatos().subscribe(
     (facturaRespuesta) => {
       console.log('Factura principal guardada:', facturaRespuesta);
+      
       // Llama a detalleNuevo() para guardar los detalles de la factura
-      this.detalleNuevo();
-      this.appService.msgCreate();
+      this.detalleNuevo().subscribe(
+        (detalleRespuestas) => {
+          console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
+          this.appService.msgCreate();
+        },
+        (detalleErrores) => {
+          console.error('Error al guardar los detalles de factura:', detalleErrores);
+        }
+      );
     },
     (facturaError) => {
       console.error('Error al guardar la factura principal:', facturaError);
     }
   );
 }
-
+  
 }
