@@ -413,7 +413,7 @@ export class ReciboCajaComponent implements OnInit {
         this.reciboCaja.saveObject(datosAGuardar).subscribe(
             (respuesta) => {
                 console.log('Datos guardados exitosamente:', respuesta);
-                this.appService.msgInfoDetail(severities.INFO, 'ERROR', 'Guardado Con Exito.');
+                this.appService.msgInfoDetail(severities.INFO, 'Guardado', 'Con Exito.');
                 this.buscarForm.get('codRcaja').setValue('');
                 this.limpiarLista();
             },
