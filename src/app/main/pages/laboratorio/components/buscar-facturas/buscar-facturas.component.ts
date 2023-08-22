@@ -7,19 +7,18 @@ import { AppService } from 'src/app/_service/app.service';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormUtil } from '../../formUtil/FormUtil';
-import { ReciboCajaDto } from '../../model/reciboCajaDto';
-import { ReciboCajaService } from '../../services/reciboCaja.service';
+import { FacturaDto } from '../../model/Factura.dto';
+import { FacturaService } from '../../services/factura.service';
 
 @Component({
-    selector: 'app-buscar-recibos',
-    templateUrl: './buscar-recibos.component.html',
-    styleUrls: ['./buscar-recibos.component.scss'],
+    selector: 'app-buscar-facturas',
+    templateUrl: './buscar-facturas.component.html',
+    styleUrls: ['./buscar-facturas.component.scss'],
 })
-export class BuscarRecibosComponent implements OnInit {
-    @Output() reciboCajaEmitter = new EventEmitter();
-    recibos: ReciboCajaDto[];
+export class BuscarFacturasComponent implements OnInit {
+    @Output() facturasEmitter = new EventEmitter();
+    facturas: FacturaDto[];
 
-    proceso: string = 'anular recibos caja';
     response: ResponseGenerico;
     token: TokenDto;
     buscarForm: FormGroup;
@@ -27,7 +26,7 @@ export class BuscarRecibosComponent implements OnInit {
 
     constructor(
         public appService: AppService,
-        private reciboCajaService: ReciboCajaService,
+        private facturaService: FacturaService,
         private breadcrumbService: BreadcrumbService,
         private formBuilder: FormBuilder,
         private tokenService: TokenService
@@ -48,13 +47,10 @@ export class BuscarRecibosComponent implements OnInit {
 
     iniciarForms() {
         this.buscarForm = this.formBuilder.group({
-            idReciboCaja: [null],
-            codRcaja: ['', [Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]],
-            nombreConsumidorRc: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
-            rucConsumidorRc: ['', [Validators.pattern('^[0-9]{1,13}$')]],
-            Cedula: ['', [Validators.pattern('^[0-9]{1,10}$')]],
-            fechaDesde: [''],
-            fechaHasta: [''],
+            idFactura: [null],
+            codFactura: ['', [Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]],
+            nombreConsumidor: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
+            rucConsumidor: ['', [Validators.pattern('^[0-9]{1,13}$')]]
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
@@ -63,23 +59,24 @@ export class BuscarRecibosComponent implements OnInit {
     //* Funciones para filtrado de datos de recibos
     filtrarRecibos() {
         const formData = this.buscarForm.value;
-        this.reciboCajaService.getAll().subscribe({
+        this.facturaService.getAll().subscribe({
             next: (response) => {
                 const recibosFiltrados = this.filtrarRecibosPorCriterios(response.listado, formData);
                 console.log('Recibos filtrados', recibosFiltrados);
                 if (recibosFiltrados.length > 0) {
-                    this.reciboCajaEmitter.emit(recibosFiltrados);
+                    this.facturasEmitter.emit(recibosFiltrados);
                     this.appService.msgInfoDetail(
                         severities.INFO,
                         'INFO',
                         'Datos Cargados exitosamente',
                         550
                     );
+
                 } else {
                     console.log('no hay datos')
                     this.appService.msgInfoDetail(
                         severities.ERROR,
-                        'ERROR',
+                        'INFO',
                         'No se encontraron registros',
                         700
                     );
@@ -96,15 +93,12 @@ export class BuscarRecibosComponent implements OnInit {
     }
 
     filtrarRecibosPorCriterios(recibos, formData) {
-        return recibos.filter((recibo) => {
-            const fecharecibo = recibo.fechaRcaja;
+        return recibos.filter((factura) => {
+            const codFacturaMatch = this.matchFilter(factura.codFactura, formData.codFactura);
+            const nombreConsumidorRcMatch = this.matchFilter(factura.nombreConsumidor, formData.nombreConsumidor);
+            const rucConsumidorRcMatch = this.matchFilter(factura.rucConsumidor, formData.rucConsumidor);
 
-            const codRcajaMatch = this.matchFilter(recibo.codRcaja, formData.codRcaja);
-            const nombreConsumidorRcMatch = this.matchFilter(recibo.nombreConsumidorRc, formData.nombreConsumidorRc);
-            const rucConsumidorRcMatch = this.matchFilter(recibo.rucConsumidorRc, formData.rucConsumidorRc);
-            const cumpleFiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
-
-            return codRcajaMatch && nombreConsumidorRcMatch && rucConsumidorRcMatch && cumpleFiltrosFecha;
+            return codFacturaMatch && nombreConsumidorRcMatch && rucConsumidorRcMatch;
         });
     }
 
@@ -115,16 +109,7 @@ export class BuscarRecibosComponent implements OnInit {
         return value && value.includes(filter);
     }
 
-    filtarRangoFechas(fechaRecibo: any, fechaDesde: string, fechaHasta: string): boolean {
-        if (!fechaDesde && !fechaHasta) {
-            return true;
-        }
-        const fechaReciboT = fechaRecibo;
-        const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
-        const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
-
-        return fechaReciboT >= fechaDesdeT && fechaReciboT <= fechaHastaT;
-    }
+ 
     //* Termina funciones de filtrado
 
     setearForm() {
@@ -144,7 +129,7 @@ export class BuscarRecibosComponent implements OnInit {
         const formattedValue = groups.join('-');
 
         input.value = formattedValue;
-        this.f.codRcaja.setValue(formattedValue);
+        this.f.codFactura.setValue(formattedValue);
 
         const cursorPosition = input.selectionStart;
         input.setSelectionRange(cursorPosition, cursorPosition);
@@ -155,13 +140,13 @@ export class BuscarRecibosComponent implements OnInit {
     }
 
     maxLengthNombre(event: Event) {
-        this.formUtil.limitInputLength(event, 30, 'nombreConsumidorRc');
+        this.formUtil.limitInputLength(event, 30, 'nombreConsumidor');
     }
     maxLengthCedula(event: Event) {
         this.formUtil.limitInputLength(event, 10, 'Cedula');
     }
 
     maxiLengthRuc(event: Event) {
-        this.formUtil.limitInputLength(event, 13, 'rucConsumidorRc');
+        this.formUtil.limitInputLength(event, 13, 'rucConsumidor');
     }
 }
