@@ -67,6 +67,7 @@ import { ProformasTableComponent } from '../components/proformas-table/proformas
 import { ListFormaPagoComponent } from '../components/list-forma-pago/list-forma-pago.component';
 import { FactOtrosConceptosComponent } from '../components/fact-otros-conceptos/fact-otros-conceptos.component';
 import { FactOtrosConceptosTableComponent } from '../components/fact-otros-conceptos-table/fact-otros-conceptos-table.component';
+import { BuscarFacturasComponent } from '../components/buscar-facturas/buscar-facturas.component';
 
 @NgModule({
     declarations: [
@@ -102,6 +103,7 @@ import { FactOtrosConceptosTableComponent } from '../components/fact-otros-conce
         FactOtrosConceptosComponent,
         FactOtrosConceptosTableComponent,
         ListFormaPagoComponent,
+        BuscarFacturasComponent
       
     ],
 

@@ -5,7 +5,7 @@ import { FormaPagoService } from '../../services/formaPago.service';
 import { ConceptoService } from '../../services/concepto.service';
 import { ConceptoDto } from '../../model/ConceptoDto';
 import { Table } from 'primeng/table';
-import { PrimeIcons, MenuItem } from 'primeng/api';
+import { PrimeIcons, MenuItem, SelectItem } from 'primeng/api';
 import { ConsultasService } from '../../services/consultas.service';
 import { CretencionService } from '../../services/cretencion.service';
 import { ClienteDto } from '../../model/ClienteDto';
@@ -15,6 +15,10 @@ import { AppService } from 'src/app/_service/app.service';
 import { FacturaService } from '../../services/factura.service';
 import { FacturaDto } from '../../model/Factura.dto';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
+import { Observable, forkJoin } from 'rxjs';
+import { of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -51,13 +55,15 @@ export class FactOtrosConceptosComponent implements OnInit {
   conceptos: ConceptoDto;
   /*variable para llamar conceptos*/
   selectedRecord: any;
-  idConcepto: string = '';
+  CodConcepto: string = '';
   nombreConcepto: string = '';
   valorConcepto: number = 0;
   modalBusTabl: boolean;
   modalBuscar: boolean;
   buscarForm: FormGroup;
-  
+  idConcepto: number;
+
+ 
 
 
   constructor(
@@ -105,6 +111,12 @@ export class FactOtrosConceptosComponent implements OnInit {
           '',
           Validators.compose([Validators.required])
       ),
+      estadoSri: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      fechaDesde: [''],
+      fechaHasta: [''],
     
     });
 
@@ -222,7 +234,8 @@ showAttributes(record: any) {
   this.selectedRecord = record;
 
   // Actualiza las variables con los valores del registro seleccionado
-  this.idConcepto = this.selectedRecord.codigoConcepto;
+  this.idConcepto = this.selectedRecord.idConcepto;
+  this.CodConcepto = this.selectedRecord.codigoConcepto;
   this.nombreConcepto = this.selectedRecord.nombreConcepto;
   this.valorConcepto = this.selectedRecord.valorConcepto;
 }
@@ -238,7 +251,7 @@ estadoSeleccionado: string;
 
 //FIltrar
 
-filtrarFacturas() {
+/* filtrarFacturas() {
   const formData = this.formotrosconceptos.value;
   // Llamada al servicio para filtrar los datos
   this.facturaService.getAll().subscribe((response) => {
@@ -249,7 +262,6 @@ filtrarFacturas() {
                   factura.codFactura.includes(formData.codFactura) &&
                   factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
                   factura.rucConsumidor.includes(formData.rucConsumidor) 
-
               );
           });
 
@@ -261,6 +273,84 @@ filtrarFacturas() {
       }
   });
 }
+ */
+
+
+filtrarFacturas() {
+  const formData = this.formotrosconceptos.value;
+  this.facturaService.getAll().subscribe({
+      next: (response) => {
+          const facturasFiltradas = this.filtrarFacturaPorCriterios(response.listado, formData);
+          console.log('Facturas filtradas', facturasFiltradas);
+          if (facturasFiltradas.length > 0) {
+              this.facturaotrosconceptosEmitter.emit(facturasFiltradas);
+              this.appService.msgInfoDetail(
+                  severities.INFO,
+                  'INFO',
+                  'Datos Cargados exitosamente',
+                  550
+              );
+          } else {
+              console.log('no hay datos')
+              this.appService.msgInfoDetail(
+                  severities.ERROR,
+                  'INFO',
+                  'No se encontraron registros',
+                  700
+              );
+          }
+      },
+      error: (error) => {
+          console.error('Error al cargar los datos', error);
+          this.appService.msgInfoDetail(severities.ERROR, 'ERROR AL CARGAR LOS DATOS', error.error);
+      },
+      complete: () => {
+          console.log('Obtención de datos completada');
+      },
+  });
+}
+
+filtrarFacturaPorCriterios(facturas, formData) {
+  return facturas.filter((factura) => {
+      const fechafactura = factura.fechaFact;
+
+      const codFacturalab = this.matchFilter(factura.codFactura, formData.codFactura);
+      const nombreConsumidorlab = this.matchFilter(factura.nombreConsumidor, formData.nombreConsumidor);
+      const rucConsumidorlab= this.matchFilter(factura.rucConsumidor, formData.rucConsumidor);
+      const estadoSrilab = this.matchFilter(factura.estadoSri, formData.estadoSri);
+      const cumpleFiltrosFecha = this.filtarRangoFechas(fechafactura, formData.fechaDesde, formData.fechaHasta);
+
+      return codFacturalab && nombreConsumidorlab && rucConsumidorlab && cumpleFiltrosFecha && estadoSrilab;
+  });
+}
+
+filtarRangoFechas(fechaFactura: any, fechaDesde: string, fechaHasta: string): boolean {
+  if (!fechaDesde && !fechaHasta) {
+      return true;
+  }
+  const fechaFacturalab = fechaFactura;
+  const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
+  const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
+
+  return fechaFacturalab >= fechaDesdeT && fechaFacturalab <= fechaHastaT;
+}
+
+matchFilter(value, filter) {
+  if (filter === '') {
+      return true;
+  }
+  return value && value.includes(filter);
+}
+
+
+
+estados: SelectItem[] = [
+  { label: 'seleccionar estado', value: '' },
+  { label: 'Anulada', value: 'anulada' },
+  { label: 'Pagada', value: 'Pagada' },
+ 
+];
+
 
 /*mostrar clientes por busqueda*/
 
@@ -338,28 +428,27 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
  // LISTAR CONCEPTOS
 
- conceptosList: { idConcepto: string, nombre: string, valor: number, cantidad: number }[] = [];
+ conceptosList: { idConcepto:number, codConcepto: string, nombre: string, valor: number, cantidad: number }[] = [];
  cantidadTemporal: number = 1;
 
-
+ 
  addToConceptosList() {
      if (this.cantidadTemporal !== 0 && this.cantidadTemporal !== null &&
          this.nombreConcepto.trim() !== '' && this.valorConcepto !== 0) {
-
          const totalConcepto = this.Total(this.valorConcepto, this.cantidadTemporal);
 
          const nuevoConcepto = {
              idConcepto: this.idConcepto,
+             codConcepto: this.CodConcepto,
              nombre: this.nombreConcepto,
              valor: this.valorConcepto,
              cantidad: this.cantidadTemporal,
-             total: totalConcepto
+             total: totalConcepto,
          };
 
          this.conceptosList.push(nuevoConcepto);
-
          // Limpiar las variables para futuras entradas
-         this.idConcepto = '';
+         this.CodConcepto = '';
          this.nombreConcepto = '';
          this.valorConcepto = 0;
          this.cantidadTemporal = 1;
@@ -440,68 +529,78 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
 
 // GUARDAR
+guardarDatos(): Observable<any> {
+  if (
+    this.subtotalTotal === 0 ||
+    this.ivaTotal === 0 ||
+    this.totalTotal === 0
+  ) {
+    console.log('Algunos campos no se han llenado correctamente.');
+    this.appService.msgInfoDetail(
+      severities.ERROR,
+      'ERROR',
+      'Verifica los datos antes de generar una nueva Factura'
+    );
+    return EMPTY; // Utilizar EMPTY cuando no se desea emitir un valor
+  }
 
-    guardarDatos() {
-        if (
-            this.subtotalTotal === 0 ||
-            this.ivaTotal === 0 ||
-            this.totalTotal === 0
-        ) {
-            console.log('Algunos campos no se han llenado correctamente.');
-            this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'verifica los datos antes de generar una nueva Factura');
-            return;
+  const facturaAGuardar = {
+    codFactura: this.buscarForm.get('codFactura').value,
+    correoConsumidor: this.clienteSelect.correo,
+    direccionConsumidor: this.clienteSelect.direccion,
+    fechaFact: new Date().toISOString(),
+    ivaFact: this.ivaTotal,
+    nombreConsumidor: this.clienteSelect.nombre,
+    rucConsumidor: this.clienteSelect.cedula,
+    subtotalFact: this.subtotalTotal,
+    telfConsumidor: this.clienteSelect.telefono,
+    totalFact: this.totalTotal,
+    estadoSri: this.estadoSeleccionado,
+  };
+
+  // Llama al método del servicio para guardar la factura y devuelve el observable resultante
+  return this.facturaService.saveObject(facturaAGuardar);
+}
+
+detalleNuevo(): Observable<any> {
+  const observables = [];
+
+  for (const concepto of this.conceptosList) {
+    const detalleFactura = new DetalleFacturaDto();
+    detalleFactura.costoDf = concepto.valor;
+   
+    detalleFactura.idConcepto = { idConcepto: concepto.idConcepto };
+    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad };
+    detalleFactura.unidadesDf = concepto.cantidad;
+
+    observables.push(this.detalleFacturaService.saveObject(detalleFactura));
+  }
+
+  // Devuelve un Observable que emite los resultados de las peticiones individuales
+  return forkJoin(observables);
+}
+
+guardarDatosYDetalles() {
+  // Llama a guardarDatos() para guardar la factura principal
+  this.guardarDatos().subscribe(
+    (facturaRespuesta) => {
+      console.log('Factura principal guardada:', facturaRespuesta);
+      
+      // Llama a detalleNuevo() para guardar los detalles de la factura
+      this.detalleNuevo().subscribe(
+        (detalleRespuestas) => {
+          console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
+          this.appService.msgCreate();
+        },
+        (detalleErrores) => {
+          console.error('Error al guardar los detalles de factura:', detalleErrores);
         }
-
-        // Prepara los datos a enviar
-        const datosAGuardar = {  
-            codFactura: this.buscarForm.get('codFactura').value,
-           // Obtén el valor del campo codRcaja del formulario
-            correoConsumidor: this.clienteSelect.correo,
-            direccionConsumidor: this.clienteSelect.direccion,
-            fechaFact: new Date().toISOString(), // Obtén la fecha actual en formato ISO
-            ivaFact: this.ivaTotal,
-            nombreConsumidor: this.clienteSelect.nombre,
-            rucConsumidor: this.clienteSelect.cedula,
-            subtotalFact: this.subtotalTotal,
-            telfConsumidor: this.clienteSelect.telefono,
-            totalFact: this.totalTotal,
-            estadoSri: this.estadoSeleccionado
-  
-        };
-
-      //   const datosAGuardar2 = {  
-      //     codFactura: this.buscarForm.get('codFactura').value,
-      //    // Obtén el valor del campo codRcaja del formulario
-          
-      // };
-
-
-        // Llama al método del servicio para guardar los datos
-        this.facturaService.saveObject(datosAGuardar).subscribe(
-            (respuesta) => {
-                console.log('Datos guardados exitosamente:', respuesta);
-                this.appService.msgCreate();
-            },
-            (error) => {
-                console.error('Error al guardar los datos:', error);
-                // Puedes mostrar un mensaje de error u otras acciones de manejo de errores aquí
-            }
-        );
-
-      //    // Llama al método del servicio para guardar los datos
-      //    this.detalleFacturaService.saveObject(datosAGuardar2).subscribe(
-      //     (respuesta) => {
-      //         console.log('Datos guardados exitosamente:', respuesta);
-      //     },
-      //     (error) => {
-      //         console.error('Error al guardar los datos:', error);
-      //         // Puedes mostrar un mensaje de error u otras acciones de manejo de errores aquí
-      //     }
-      // );
-
-        this.limpiarLista();
-        this.modal = false;
+      );
+    },
+    (facturaError) => {
+      console.error('Error al guardar la factura principal:', facturaError);
     }
-
-
+  );
+}
+  
 }
