@@ -445,7 +445,7 @@ cargarCliente(clienteSelectDto: ClienteDto ){
  }
 
 
-
+//GUARDAR 
 
  guardarDatos(): Observable<any> {
   if (
@@ -499,15 +499,13 @@ detalleNuevo() {
   forkJoin(observables).subscribe(
     (detalleRespuestas) => {
       console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
-      this.appService.msgCreate();
+    
     },
     (detalleErrores) => {
       console.error('Error al guardar los detalles de factura:', detalleErrores);
     }
   );
 }
-
-
 
 guardarDatosYDetalles() {
   // Llama a guardarDatos() para guardar la factura principal
@@ -524,4 +522,5 @@ guardarDatosYDetalles() {
   );
 }
 
+  
 }
