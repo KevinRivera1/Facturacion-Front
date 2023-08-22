@@ -7,7 +7,6 @@ import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
-import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'app-anular-recibo-caja',
@@ -19,7 +18,7 @@ export class AnularReciboCajaComponent implements OnInit, OnChanges {
     token: TokenDto;
 
     @Input() reciboSeleccionado: ReciboCajaDto; //*Recibe los datos de la tabla
-    reciboeditTable: ReciboCajaDto;
+    //reciboeditTable: ReciboCajaDto;
 
     @Input() display: boolean = false;
     @Output() closeModal = new EventEmitter();
@@ -106,7 +105,6 @@ export class AnularReciboCajaComponent implements OnInit, OnChanges {
                             this.appService.msgUpdate()
                         }
                         this.setearForm();
-                        //this.llenarListBancos();
                         this.CloseModal()
                     }
                 },
@@ -146,6 +144,6 @@ export class AnularReciboCajaComponent implements OnInit, OnChanges {
     CloseModal() {
         this.closeModal.emit();
         console.log('cerrando modal');
-        //this.formAnulaRecib.reset(); //!Activar déspues
+        this.formAnulaRecib.reset();
     }
 }
