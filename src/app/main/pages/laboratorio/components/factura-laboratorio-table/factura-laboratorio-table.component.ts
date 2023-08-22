@@ -40,34 +40,9 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   ngOnInit() {
     this.clienteSelect= new DetalleFacturaDto();
-    this.llenarFacturalaboratorio();
     this.llenardetalleFacturalaboratorio();
   }
 
-  async llenarFacturalaboratorio() {
-    await this.facturaService.getAll().subscribe({
-        next: (data) => {
-            this.listfacturalaboratorio = data.listado;
-            console.log('CORRECTO');
-            console.log(this.listfacturalaboratorio);
-        },
-        complete: () => {
-            this.appService.msgInfoDetail(
-                severities.INFO,
-                'INFO',
-                'Datos Cargados exitosamente' ,
-                500
-            );
-        },
-        error: (error) => {
-            this.appService.msgInfoDetail(
-                severities.ERROR,
-                'ERROR',
-                error.error
-            );
-        },
-    });
-  }
 
   async llenardetalleFacturalaboratorio() {
     await this.detalleFacturaService.getAll().subscribe({
