@@ -75,7 +75,6 @@ export class BuscarRecibosComponent implements OnInit {
                         'Datos Cargados exitosamente',
                         550
                     );
-
                 } else {
                     console.log('no hay datos')
                     this.appService.msgInfoDetail(
