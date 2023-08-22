@@ -5,7 +5,7 @@ import { FormaPagoService } from '../../services/formaPago.service';
 import { ConceptoService } from '../../services/concepto.service';
 import { ConceptoDto } from '../../model/ConceptoDto';
 import { Table } from 'primeng/table';
-import { PrimeIcons, MenuItem } from 'primeng/api';
+import { PrimeIcons, MenuItem, SelectItem } from 'primeng/api';
 import { ConsultasService } from '../../services/consultas.service';
 import { CretencionService } from '../../services/cretencion.service';
 import { ClienteDto } from '../../model/ClienteDto';
@@ -111,6 +111,12 @@ export class FactOtrosConceptosComponent implements OnInit {
           '',
           Validators.compose([Validators.required])
       ),
+      estadoSri: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      fechaDesde: [''],
+      fechaHasta: [''],
     
     });
 
@@ -245,7 +251,7 @@ estadoSeleccionado: string;
 
 //FIltrar
 
-filtrarFacturas() {
+/* filtrarFacturas() {
   const formData = this.formotrosconceptos.value;
   // Llamada al servicio para filtrar los datos
   this.facturaService.getAll().subscribe((response) => {
@@ -256,7 +262,6 @@ filtrarFacturas() {
                   factura.codFactura.includes(formData.codFactura) &&
                   factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
                   factura.rucConsumidor.includes(formData.rucConsumidor) 
-
               );
           });
 
@@ -268,6 +273,84 @@ filtrarFacturas() {
       }
   });
 }
+ */
+
+
+filtrarFacturas() {
+  const formData = this.formotrosconceptos.value;
+  this.facturaService.getAll().subscribe({
+      next: (response) => {
+          const facturasFiltradas = this.filtrarFacturaPorCriterios(response.listado, formData);
+          console.log('Facturas filtradas', facturasFiltradas);
+          if (facturasFiltradas.length > 0) {
+              this.facturaotrosconceptosEmitter.emit(facturasFiltradas);
+              this.appService.msgInfoDetail(
+                  severities.INFO,
+                  'INFO',
+                  'Datos Cargados exitosamente',
+                  550
+              );
+          } else {
+              console.log('no hay datos')
+              this.appService.msgInfoDetail(
+                  severities.ERROR,
+                  'INFO',
+                  'No se encontraron registros',
+                  700
+              );
+          }
+      },
+      error: (error) => {
+          console.error('Error al cargar los datos', error);
+          this.appService.msgInfoDetail(severities.ERROR, 'ERROR AL CARGAR LOS DATOS', error.error);
+      },
+      complete: () => {
+          console.log('Obtención de datos completada');
+      },
+  });
+}
+
+filtrarFacturaPorCriterios(facturas, formData) {
+  return facturas.filter((factura) => {
+      const fechafactura = factura.fechaFact;
+
+      const codFacturalab = this.matchFilter(factura.codFactura, formData.codFactura);
+      const nombreConsumidorlab = this.matchFilter(factura.nombreConsumidor, formData.nombreConsumidor);
+      const rucConsumidorlab= this.matchFilter(factura.rucConsumidor, formData.rucConsumidor);
+      const estadoSrilab = this.matchFilter(factura.estadoSri, formData.estadoSri);
+      const cumpleFiltrosFecha = this.filtarRangoFechas(fechafactura, formData.fechaDesde, formData.fechaHasta);
+
+      return codFacturalab && nombreConsumidorlab && rucConsumidorlab && cumpleFiltrosFecha && estadoSrilab;
+  });
+}
+
+filtarRangoFechas(fechaFactura: any, fechaDesde: string, fechaHasta: string): boolean {
+  if (!fechaDesde && !fechaHasta) {
+      return true;
+  }
+  const fechaFacturalab = fechaFactura;
+  const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
+  const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
+
+  return fechaFacturalab >= fechaDesdeT && fechaFacturalab <= fechaHastaT;
+}
+
+matchFilter(value, filter) {
+  if (filter === '') {
+      return true;
+  }
+  return value && value.includes(filter);
+}
+
+
+
+estados: SelectItem[] = [
+  { label: 'seleccionar estado', value: '' },
+  { label: 'Anulada', value: 'anulada' },
+  { label: 'Pagada', value: 'Pagada' },
+ 
+];
+
 
 /*mostrar clientes por busqueda*/
 
