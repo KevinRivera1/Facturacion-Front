@@ -53,10 +53,8 @@ export class ReciboCajaComponent implements OnInit {
         private formBuilder: FormBuilder,
         private reciboCaja: ReciboCajaService,
         private confirmationService: ConfirmationService,       
-         private messageService: MessageService,
-         private tokenService: TokenService,
-
-
+        private messageService: MessageService,
+        private tokenService: TokenService,
         //Busqueda
         private consultaService: ConsultasService,
         //Conceptos
@@ -166,6 +164,9 @@ export class ReciboCajaComponent implements OnInit {
     buscarCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE
     BusTablCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE EN TABLA
 
+    cerrarBC(){
+        this.buscarCliente=false;
+    }
 
     busquedaCliente() {
         if (this.tipoCliente == 0) {
