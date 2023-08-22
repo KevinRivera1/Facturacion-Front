@@ -19,7 +19,6 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   loading: boolean;
   clienteSelect: DetalleFacturaDto;
 
- 
 
   //selectedTc: TipoConceptoDto[];
 
@@ -40,34 +39,9 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   ngOnInit() {
     this.clienteSelect= new DetalleFacturaDto();
-    this.llenarFacturalaboratorio();
-    this.llenardetalleFacturalaboratorio();
+   // this.llenardetalleFacturalaboratorio();
   }
 
-  async llenarFacturalaboratorio() {
-    await this.facturaService.getAll().subscribe({
-        next: (data) => {
-            this.listfacturalaboratorio = data.listado;
-            console.log('CORRECTO');
-            console.log(this.listfacturalaboratorio);
-        },
-        complete: () => {
-            this.appService.msgInfoDetail(
-                severities.INFO,
-                'INFO',
-                'Datos Cargados exitosamente' ,
-                500
-            );
-        },
-        error: (error) => {
-            this.appService.msgInfoDetail(
-                severities.ERROR,
-                'ERROR',
-                error.error
-            );
-        },
-    });
-  }
 
   async llenardetalleFacturalaboratorio() {
     await this.detalleFacturaService.getAll().subscribe({
@@ -99,7 +73,6 @@ export class FacturaLaboratorioTableComponent implements OnInit {
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
     
-
   }
 
 
@@ -113,26 +86,8 @@ cerrar() {
 
 }
 
-/* formatearFecha(fecha: number): string {
-  const date = new Date(fecha);
-  const anio = date.getFullYear();
-  const mes = ('0' + (date.getMonth() + 1)).slice(-2);
-  const dia = ('0' + date.getDate()).slice(-2);
-
-  return `${dia}/${mes}/${anio}`;
-} */
-
 filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio
-}
-
-unirListas(detalle: DetalleFacturaDto, factura: FacturaDto):any {
-  const facturacion = {
-
-  detalleFactura : detalle,
-  factura : factura,
-}
-
 }
 
 }

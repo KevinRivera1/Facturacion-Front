@@ -10,6 +10,7 @@ import { FacturaDto } from '../../model/Factura.dto';
 import { AppService } from 'src/app/_service/app.service';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 
 
 
@@ -22,9 +23,9 @@ export class FacturaLaboratorioComponent implements OnInit {
 
 
   @Output() facturalaboratorioEmitter = new EventEmitter();
-  @Input() listEstado: FacturaDto[];
+  @Input() listEstado: DetalleFacturaDto[];
 
-  laboratorio: FacturaDto[];
+
   response: ResponseGenerico;
   modal: boolean;
   modal2: boolean;
@@ -32,8 +33,6 @@ export class FacturaLaboratorioComponent implements OnInit {
   token: TokenDto;
   cedula: string;
   displayModal: boolean;
-  listfacturalaboratorio: FacturaDto[] = [];
-  selectedestado: FacturaDto[];
 
 
 
@@ -53,7 +52,6 @@ export class FacturaLaboratorioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.llenarFacturaestadolaboratorio();
     this.iniciarForms();
    
    
@@ -75,21 +73,13 @@ export class FacturaLaboratorioComponent implements OnInit {
       ),
       estadoSri: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.maxLength(10)])
+        Validators.compose([Validators.required])
       ),
       fechaDesde: [''],
       fechaHasta: [''],
     });
 } 
-async llenarFacturaestadolaboratorio() {
-  await this.facturaService.getAll().subscribe({
-      next: (data) => {
-          this.listEstado = data.listado;
-          console.log('CORRECTOESTADO');
-          console.log(this.listEstado);
-      }
-  });
-}
+
 
 
 /* async filtrarFacturas() {
@@ -124,7 +114,7 @@ async llenarFacturaestadolaboratorio() {
 
 async filtrarFacturas() {
   const formData = this.formFacturaLaboratorio.value;
-  await this.facturaService.getAll().subscribe({
+  await this.detalleFacturaService.getAll().subscribe({
       next: (response) => {
           const data = response.listado;
           if (Array.isArray(data)) {
@@ -139,10 +129,10 @@ async filtrarFacturas() {
                   console.log('cumple filtro de fechas: ', cumplefiltrosFecha);
 
                   return (
-                    recibo.codFactura.includes(formData.codFactura) &&
-                    recibo.nombreConsumidor.includes(formData.nombreConsumidor) &&
-                    recibo.rucConsumidor.includes(formData.rucConsumidor) &&
-                    recibo.estadoSri.includes(formData.estadoSri) &&
+                    recibo.idFacturaDTO.codFactura.includes(formData.codFactura) &&
+                    recibo.idFacturaDTO.nombreConsumidor.includes(formData.nombreConsumidor) &&
+                    recibo.idFacturaDTO.rucConsumidor.includes(formData.rucConsumidor) &&
+                    recibo.idFacturaDTO.estadoSri.includes(formData.estadoSri) &&
                      this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta)
                   );
               });
@@ -220,9 +210,10 @@ closeModal() {
 
 
 estados: SelectItem[] = [
-
-  { label: 'Anulada NC', value: 'anulada_nc' },
-  { label: 'Pagada', value: 'pagada' },
+  { label: 'seleccionar estado', value: '' },
+  { label: 'Anulada', value: 'anulada' },
+  { label: 'Pagada', value: 'Pagada' },
+ 
 ];
 
 }
