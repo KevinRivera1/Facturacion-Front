@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
@@ -39,7 +38,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     constructor(
         private reciboCajaService: ReciboCajaService,
         private fileService: FileService,
-        private appService: AppService,
+        private appservice: AppService,
         private confirmationService: ConfirmationService
     ) { }
 
@@ -84,48 +83,41 @@ export class AnularReciboCajaTableComponent implements OnInit {
     }
 
     exportPdf() {
-        /* let indexLista: number = 0;
-    this.listFormaPago.forEach((element) => {
-        indexLista++;
-        element.idFormaPago = indexLista;
-        //  element.formatDate=new Date(element.fechaBancos).toLocaleDateString()+" "+new Date(element.fechaBancos).toLocaleTimeString();
-    });
-    this.appservie.exportPdf(
-        this.exportColumns,
-        this.listFormaPago,
-        'Forma pago',
-        'p'
-    ); */
+        let indexLista: number = 0;
+        this.recibos.forEach((element) => {
+            indexLista++;
+            element.idCajaRc = indexLista;
+        });
+        this.appservice.exportPdf(
+            this.exportColumns,
+            this.recibos,
+            'Anular Recibo Caja',
+            'p'
+        );
     }
 
     exportExcel() {
-        /* let indexLista: number = 0;
-    this.listFormaPago.forEach((element) => {
-        indexLista++;
-        element.idFormaPago = indexLista;
-
-        element.formatDate =
-            new Date(element.fechaFp).toLocaleDateString() +
-            ' ' +
-            new Date(element.fechaFp).toLocaleTimeString();
-    });
-    this.appservie.exportExcel(this.listFormaPago, 'Forma Pago'); */
+        let indexLista: number = 0;
+        this.recibos.forEach((element) => {
+            indexLista++;
+            element.idCajaRc = indexLista;
+        });
+        this.appservice.exportExcel(this.recibos, 'Anulacion Recibos');
     }
 
     descargarArchivo(fileName: string) {
-        /*   try {
-        this.fileService.getFileByName(fileName, this.proceso);
-    } catch (error) {
-        this.appservie.msgInfoDetail(
-            'error',
-            'Error',
-            'Error al descargar el archivo'
-        );
-    } */
+        try {
+            this.fileService.getFileByName(fileName, this.proceso);
+        } catch (error) {
+            this.appservice.msgInfoDetail(
+                'error',
+                'Error',
+                'Error al descargar el archivo'
+            );
+        }
     }
 
     modalOpen() {
-        //this.displayAnulacioModal.onDisplayForm()
         this.displayModal = true;
         console.log('abrir modal desde tabla');
     }
