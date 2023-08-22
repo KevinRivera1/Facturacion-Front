@@ -26,13 +26,8 @@
                         </span>
                     </div>
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <p-dropdown [options]="listEstado" formControlName="idFacturaDTO" [virtualScroll]="true"
-                            [(ngModel)]="selectedestado" optionLabel="estadoSri" optionValue="idFactura"
-                            id="ftxt-idFactura" [virtualScrollItemSize]="55" placeholder="Escoger el Estado"
-                            >
 
-                        </p-dropdown>
-
+                          <p-dropdown id="ftxt-estadoSri" formControlName="estadoSri" [options]="estados" placeholder="escoger el estado"></p-dropdown>
 
                     </div>
                 </div>
@@ -45,25 +40,15 @@
                             <label for="ftxt-nombreConsumidor">* Nombre Cliente</label>
                         </span>
                     </div>
-                </div>
-
-                <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
                             <input pInputText id="ftxt-rucConsumidor" type="text" required="true"
                                 (input)="onInput($event)" formControlName="rucConsumidor" maxlength="13"
                                 keyfilter="int" />
-                            <label for="ftxt-rucConsumidor">* Ruc</label>
+                            <label for="ftxt-rucConsumidor">* Ruc/Cl</label>
                         </span>
                     </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <span class="p-float-label">
-                            <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"
-                                keyfilter="int" maxlength="11" />
 
-                            <label for="ftxt-cedula">* Cédula</label>
-                        </span>
-                    </div>
                 </div>
                 <div class="p-fluid p-formgrid grid">
 
