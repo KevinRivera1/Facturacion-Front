@@ -10,6 +10,8 @@ import { FacturaDto } from '../../model/Factura.dto';
 import { AppService } from 'src/app/_service/app.service';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
+import { FormUtil } from '../../formUtil/FormUtil';
 
 
 
@@ -22,9 +24,9 @@ export class FacturaLaboratorioComponent implements OnInit {
 
 
   @Output() facturalaboratorioEmitter = new EventEmitter();
-  @Input() listEstado: FacturaDto[];
+  @Input() listEstado: DetalleFacturaDto[];
 
-  laboratorio: FacturaDto[];
+
   response: ResponseGenerico;
   modal: boolean;
   modal2: boolean;
@@ -32,8 +34,7 @@ export class FacturaLaboratorioComponent implements OnInit {
   token: TokenDto;
   cedula: string;
   displayModal: boolean;
-  listfacturalaboratorio: FacturaDto[] = [];
-  selectedestado: FacturaDto[];
+  formUtil: FormUtil;
 
 
 
@@ -53,9 +54,8 @@ export class FacturaLaboratorioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.llenarFacturaestadolaboratorio();
     this.iniciarForms();
-   
+    this.formUtil = new FormUtil(this.formFacturaLaboratorio);
    
   }
 
@@ -75,111 +75,76 @@ export class FacturaLaboratorioComponent implements OnInit {
       ),
       estadoSri: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.maxLength(10)])
+        Validators.compose([Validators.required])
       ),
       fechaDesde: [''],
       fechaHasta: [''],
     });
 } 
-async llenarFacturaestadolaboratorio() {
-  await this.facturaService.getAll().subscribe({
-      next: (data) => {
-          this.listEstado = data.listado;
-          console.log('CORRECTOESTADO');
-          console.log(this.listEstado);
-      }
-  });
-}
 
-
-/* async filtrarFacturas() {
+filtrarFacturas() {
   const formData = this.formFacturaLaboratorio.value;
-  // Llamada al servicio para filtrar los datos
-  await this.facturaService.getAll().subscribe((response) => {
-      const data = response.listado; // Accedemos a la propiedad listado
-      if (Array.isArray(data)) {
-          const facturasFiltradas = data.filter((factura) => {
-            const fecharecibo = factura.fechafact;
-            const cumplefiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
-            console.log('cumple filtro de fechas: ', cumplefiltrosFecha);
-
-              return (
-                  factura.codFactura.includes(formData.codFactura) &&
-                  factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
-                  factura.rucConsumidor.includes(formData.rucConsumidor) &&
-                  factura.estadoSri.includes(formData.estadoSri) &&
-                  this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta)
-
-              );
-          });
-
-          // Emitir los facturas filtradas al componente padre
-          this.facturalaboratorioEmitter.emit(facturasFiltradas);
-          console.log('facturas filtradas', facturasFiltradas)
-      } else {
-          console.error('Los datos no son un array:', data);
-      }
-  });
-} */
-
-async filtrarFacturas() {
-  const formData = this.formFacturaLaboratorio.value;
-  await this.facturaService.getAll().subscribe({
+  this.detalleFacturaService.getAll().subscribe({
       next: (response) => {
-          const data = response.listado;
-          if (Array.isArray(data)) {
-              const recibosFiltrados = data.filter((recibo) => {
-                  const fecharecibo = recibo.fechafact;
-
-                  //169221463298
-                  console.log('Fechas del Recibo: ', fecharecibo);
-                  console.log('Fechas del Formulario: ', formData.fechaDesde, formData.fechaHasta);
-
-                  const cumplefiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
-                  console.log('cumple filtro de fechas: ', cumplefiltrosFecha);
-
-                  return (
-                    recibo.codFactura.includes(formData.codFactura) &&
-                    recibo.nombreConsumidor.includes(formData.nombreConsumidor) &&
-                    recibo.rucConsumidor.includes(formData.rucConsumidor) &&
-                    recibo.estadoSri.includes(formData.estadoSri) &&
-                     this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta)
-                  );
-              });
-              console.log('Recibos filtrados', recibosFiltrados);
-              this.facturalaboratorioEmitter.emit(recibosFiltrados);
+          const facturasFiltradas = this.filtrarFacturaPorCriterios(response.listado, formData);
+          console.log('Facturas filtradas', facturasFiltradas);
+          if (facturasFiltradas.length > 0) {
+              this.facturalaboratorioEmitter.emit(facturasFiltradas);
+              this.appService.msgInfoDetail(
+                  severities.INFO,
+                  'INFO',
+                  'Datos Cargados exitosamente',
+                  550
+              );
           } else {
-              console.error(
-                  'Los datos no son un array verifca el tipo de dato que es DATA:',
-                  data
+              console.log('no hay datos')
+              this.appService.msgInfoDetail(
+                  severities.ERROR,
+                  'INFO',
+                  'No se encontraron registros',
+                  700
               );
           }
       },
       error: (error) => {
-          this.appService.msgInfoDetail(
-              severities.ERROR,
-              'ERROR AL CARGAR LOS DATOS',
-              error.error
-          );
+          console.error('Error al cargar los datos', error);
+          this.appService.msgInfoDetail(severities.ERROR, 'ERROR AL CARGAR LOS DATOS', error.error);
       },
       complete: () => {
           console.log('Obtención de datos completada');
-         
       },
   });
 }
 
+filtrarFacturaPorCriterios(facturas, formData) {
+  return facturas.filter((factura) => {
+      const fechafactura = factura.idFacturaDTO.fechaFact;
 
+      const codFacturalab = this.matchFilter(factura.idFacturaDTO.codFactura, formData.codFactura);
+      const nombreConsumidorlab = this.matchFilter(factura.idFacturaDTO.nombreConsumidor, formData.nombreConsumidor);
+      const rucConsumidorlab= this.matchFilter(factura.idFacturaDTO.rucConsumidor, formData.rucConsumidor);
+      const estadoSrilab = this.matchFilter(factura.idFacturaDTO.estadoSri, formData.estadoSri);
+      const cumpleFiltrosFecha = this.filtarRangoFechas(fechafactura, formData.fechaDesde, formData.fechaHasta);
 
-filtarRangoFechas(fechaRecibo: any, fechaDesde: string, fechaHasta: string): boolean {
+      return codFacturalab && nombreConsumidorlab && rucConsumidorlab && cumpleFiltrosFecha && estadoSrilab;
+  });
+}
+
+filtarRangoFechas(fechaFactura: any, fechaDesde: string, fechaHasta: string): boolean {
   if (!fechaDesde && !fechaHasta) {
       return true;
   }
-  const fechaReciboT = fechaRecibo;
+  const fechaFacturalab = fechaFactura;
   const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
   const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
 
-  return fechaReciboT >= fechaDesdeT && fechaReciboT <= fechaHastaT;
+  return fechaFacturalab >= fechaDesdeT && fechaFacturalab <= fechaHastaT;
+}
+matchFilter(value, filter) {
+  if (filter === '') {
+      return true;
+  }
+  return value && value.includes(filter);
 }
 
 onInput(event: any) {
@@ -192,25 +157,23 @@ onInput(event: any) {
 }
 
 
-  cerrar() {
+cerrarmodalproformasaceptadas() {
 
     this.modal = false;
 
 }
 
-cerrarmodal2() {
+cerrarmodalfacturar() {
 
   this.modal2 = false;
 
 }
 
-abrirmodal() {
+abrirmodalproformasaceptadas() {
     this.modal = true;
 }
-modalOpen() {
-  //this.displayAnulacioModal.onDisplayForm()
+modalformapago() {
   this.displayModal = true;
-  console.log('abrir modal desde tabla');
 }
 
 closeModal() {
@@ -220,9 +183,10 @@ closeModal() {
 
 
 estados: SelectItem[] = [
-
-  { label: 'Anulada NC', value: 'anulada_nc' },
-  { label: 'Pagada', value: 'pagada' },
+  { label: 'seleccionar estado', value: '' },
+  { label: 'Anulada', value: 'anulada' },
+  { label: 'Pagada', value: 'Pagada' },
+ 
 ];
 
 }

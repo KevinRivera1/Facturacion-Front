@@ -7,7 +7,7 @@
     <div class="caja-boton-principal central" style="align-items: center">
         <button pButton label="Proforma Aceptadas" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
             icon="pi pi-eye" pTooltip="Proformas Aceptadas" label="Proformas Aceptadas" tooltipPosition="right"
-            (click)="abrirmodal()"></button>
+            (click)="abrirmodalproformasaceptadas()"></button>
     </div>
 
     <p-divider></p-divider>
@@ -26,13 +26,8 @@
                         </span>
                     </div>
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <p-dropdown [options]="listEstado" formControlName="idFactura" [virtualScroll]="true"
-                            [(ngModel)]="selectedestado" optionLabel="estadoSri" optionValue="idFactura"
-                            id="ftxt-idFactura" [virtualScrollItemSize]="55" placeholder="Escoger el Estado"
-                            >
 
-                        </p-dropdown>
-
+                          <p-dropdown id="ftxt-estadoSri" formControlName="estadoSri" [options]="estados" placeholder="escoger el estado"></p-dropdown>
 
                     </div>
                 </div>
@@ -45,25 +40,15 @@
                             <label for="ftxt-nombreConsumidor">* Nombre Cliente</label>
                         </span>
                     </div>
-                </div>
-
-                <div class="p-fluid p-formgrid grid">
                     <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
                         <span class="p-float-label">
                             <input pInputText id="ftxt-rucConsumidor" type="text" required="true"
                                 (input)="onInput($event)" formControlName="rucConsumidor" maxlength="13"
                                 keyfilter="int" />
-                            <label for="ftxt-rucConsumidor">* Ruc</label>
+                            <label for="ftxt-rucConsumidor">* Ruc/Cl</label>
                         </span>
                     </div>
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                        <span class="p-float-label">
-                            <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"
-                                keyfilter="int" maxlength="11" />
 
-                            <label for="ftxt-cedula">* Cédula</label>
-                        </span>
-                    </div>
                 </div>
                 <div class="p-fluid p-formgrid grid">
 
@@ -87,7 +72,7 @@
                     <p-toolbar>
                         <div class="p-toolbar-group-center">
                             <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info guardar-button"
-                                icon="pi pi-search" type="submit" (click)="filtrarFacturas()" pTooltip="Buscar"
+                                icon="pi pi-search" type="submit" pTooltip="Buscar"
                                 tooltipPosition="right"></button>
                         </div>
                     </p-toolbar>
@@ -102,7 +87,7 @@
 <!-- modal de listado de proformas aceptadas -->
 
 <p-dialog [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}" header="" [(visible)]="modal" [modal]="true"
-    [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+    [draggable]="true" [resizable]="true" (onHide)="cerrarmodalproformasaceptadas()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Listado Proformas Aceptadas</h4>
     </p-header>
@@ -180,7 +165,7 @@
 <!-- Modal de Facturar -->
 
 <p-dialog [contentStyle]="{'': 'visible'}" header="" [(visible)]="modal2" [modal]="true" [draggable]="true"
-    [style]="{ width: '80vw'}" [resizable]="true" (onHide)="cerrarmodal2()" xmlns:p="http://www.w3.org/1999/html">
+    [style]="{ width: '80vw'}" [resizable]="true" (onHide)="cerrarmodalfacturar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Ingresar Factura</h4>
     </p-header>
@@ -335,10 +320,10 @@
                 pTooltip="Guardar" tooltipPosition="right" icon="pi pi-save"></button>
 
             <button pButton label="Pagos(s)" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                pTooltip="Pagos(s)" tooltipPosition="right" icon="pi pi-money-bill" (click)="modalOpen()"></button>
+                pTooltip="Pagos(s)" tooltipPosition="right" icon="pi pi-money-bill" (click)="modalformapago()"></button>
 
             <button pButton label="Regresar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                pTooltip="Regresar" tooltipPosition="right" icon=" pi pi-arrow-left" (click)="cerrarmodal2()"></button>
+                pTooltip="Regresar" tooltipPosition="right" icon=" pi pi-arrow-left" (click)="cerrarmodalfacturar()"></button>
 
         </div>
     </div>
