@@ -47,7 +47,7 @@ export class FacturaMatriculaComponent implements OnInit {
     private consultaService: ConsultasService,
     private cretencionService: CretencionService,) {
     {
-        this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
+        this.breadcrumbService.setItems([{ label: 'Factura Matricula ' }]);
     }
 }
 

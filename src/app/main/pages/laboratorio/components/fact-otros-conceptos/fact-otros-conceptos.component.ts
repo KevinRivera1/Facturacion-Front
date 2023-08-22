@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormaPagoService } from '../../services/formaPago.service';
 import { ConceptoService } from '../../services/concepto.service';
@@ -12,6 +12,9 @@ import { ClienteDto } from '../../model/ClienteDto';
 import { CretencionDto } from '../../model/CretencionDto';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
+import { FacturaService } from '../../services/factura.service';
+import { FacturaDto } from '../../model/Factura.dto';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -19,12 +22,17 @@ import { AppService } from 'src/app/_service/app.service';
   styleUrls: ['./fact-otros-conceptos.component.css']
 })
 export class FactOtrosConceptosComponent implements OnInit {
+
+  @Output() facturaotrosconceptosEmitter = new EventEmitter();
+  facturaotrosconceptos: FacturaDto[];
+
+
   modal: boolean;
   cedula: string;
   modal2: boolean;
   modal3: boolean;
   modal1: boolean; //Visibilidad de un modal
-  busquedaForm: FormGroup;
+  formotrosconceptos: FormGroup;
   maxLengthR: number = 13;
   maxLengthC: number = 10;
   modallista: boolean;
@@ -48,6 +56,7 @@ export class FactOtrosConceptosComponent implements OnInit {
   valorConcepto: number = 0;
   modalBusTabl: boolean;
   modalBuscar: boolean;
+  buscarForm: FormGroup;
   
 
 
@@ -58,15 +67,50 @@ export class FactOtrosConceptosComponent implements OnInit {
     //Busqueda
     private consultaService: ConsultasService,
     public appService: AppService,
+    private facturaService: FacturaService,
+    private detalleFacturaService: DetalleFacturaService
+    
+    
   
   ) {
     
     {
+      this.buscarForm = this.formBuilder.group({
+        codFactura: ['', [Validators.required]], // Agrega las validaciones que necesites
+        // Otros campos del formulario
+    });
       this.breadcrumbService.setItems([{ label: 'Factura Otros Conceptos ' }]);
       
     }
   }
+
+  ngOnInit(): void {
+    this.iniciarFormsFactura(),
+    this.llenarListConceptos();
+    this.clienteSelect= new ClienteDto();
    
+  }
+  
+  iniciarFormsFactura() {
+    this.formotrosconceptos = this.formBuilder.group({
+      codFactura: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        nombreConsumidor: new FormControl(
+            '',
+            Validators.compose([Validators.required])
+        ),
+        rucConsumidor: new FormControl(
+          '',
+          Validators.compose([Validators.required])
+      ),
+    
+    });
+
+   // this.token = JSON.parse(this.tokenService.getResponseAuth());
+    //  this.f.idFormaPago.setValue(this.token.id)
+} 
   onInput(event: any) {
     
     const input = event.target;
@@ -79,10 +123,7 @@ export class FactOtrosConceptosComponent implements OnInit {
 
   
 
-  ngOnInit(): void {
-    this.llenarListConceptos();
-    this.clienteSelect= new ClienteDto();
-  }
+ 
 
   cerrar() {
 
@@ -175,6 +216,8 @@ async llenarListConceptos() {
   });
 }
 
+
+
 showAttributes(record: any) {
   this.selectedRecord = record;
 
@@ -184,6 +227,42 @@ showAttributes(record: any) {
   this.valorConcepto = this.selectedRecord.valorConcepto;
 }
 
+
+estadoOptions: any[] = [
+  { label: 'Pagada', value: 'pagada' },
+  { label: 'Anulada', value: 'anulada' }
+];
+
+estadoSeleccionado: string;
+
+
+//FIltrar
+
+filtrarFacturas() {
+  const formData = this.formotrosconceptos.value;
+  // Llamada al servicio para filtrar los datos
+  this.facturaService.getAll().subscribe((response) => {
+      const data = response.listado; // Accedemos a la propiedad listado
+      if (Array.isArray(data)) {
+          const facturasFiltradas = data.filter((factura) => {
+              return (
+                  factura.codFactura.includes(formData.codFactura) &&
+                  factura.nombreConsumidor.includes(formData.nombreConsumidor) &&
+                  factura.rucConsumidor.includes(formData.rucConsumidor) 
+
+              );
+          });
+
+          // Emitir los facturas filtradas al componente padre
+          this.facturaotrosconceptosEmitter.emit(facturasFiltradas);
+          console.log('facturas filtradas', facturasFiltradas)
+      } else {
+          console.error('Los datos no son un array:', data);
+      }
+  });
+}
+
+/*mostrar clientes por busqueda*/
 
 
 loading1: boolean= false;
@@ -360,9 +439,69 @@ cargarCliente(clienteSelectDto: ClienteDto ){
  }
 
 
- // GUARDAR
+// GUARDAR
+
+    guardarDatos() {
+        if (
+            this.subtotalTotal === 0 ||
+            this.ivaTotal === 0 ||
+            this.totalTotal === 0
+        ) {
+            console.log('Algunos campos no se han llenado correctamente.');
+            this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'verifica los datos antes de generar una nueva Factura');
+            return;
+        }
+
+        // Prepara los datos a enviar
+        const datosAGuardar = {  
+            codFactura: this.buscarForm.get('codFactura').value,
+           // Obtén el valor del campo codRcaja del formulario
+            correoConsumidor: this.clienteSelect.correo,
+            direccionConsumidor: this.clienteSelect.direccion,
+            fechaFact: new Date().toISOString(), // Obtén la fecha actual en formato ISO
+            ivaFact: this.ivaTotal,
+            nombreConsumidor: this.clienteSelect.nombre,
+            rucConsumidor: this.clienteSelect.cedula,
+            subtotalFact: this.subtotalTotal,
+            telfConsumidor: this.clienteSelect.telefono,
+            totalFact: this.totalTotal,
+            estadoSri: this.estadoSeleccionado
+  
+        };
+
+      //   const datosAGuardar2 = {  
+      //     codFactura: this.buscarForm.get('codFactura').value,
+      //    // Obtén el valor del campo codRcaja del formulario
+          
+      // };
 
 
+        // Llama al método del servicio para guardar los datos
+        this.facturaService.saveObject(datosAGuardar).subscribe(
+            (respuesta) => {
+                console.log('Datos guardados exitosamente:', respuesta);
+                this.appService.msgCreate();
+            },
+            (error) => {
+                console.error('Error al guardar los datos:', error);
+                // Puedes mostrar un mensaje de error u otras acciones de manejo de errores aquí
+            }
+        );
+
+      //    // Llama al método del servicio para guardar los datos
+      //    this.detalleFacturaService.saveObject(datosAGuardar2).subscribe(
+      //     (respuesta) => {
+      //         console.log('Datos guardados exitosamente:', respuesta);
+      //     },
+      //     (error) => {
+      //         console.error('Error al guardar los datos:', error);
+      //         // Puedes mostrar un mensaje de error u otras acciones de manejo de errores aquí
+      //     }
+      // );
+
+        this.limpiarLista();
+        this.modal = false;
+    }
 
 
 }

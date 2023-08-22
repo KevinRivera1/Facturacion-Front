@@ -3,6 +3,9 @@ import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 
 @Component({
   selector: 'app-factura-laboratorio-table',
@@ -14,24 +17,35 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   @Input() listfacturalaboratorio:  any [] = [];
   modal: boolean;
   loading: boolean;
-  clienteSelect:FacturaDto;
+  clienteSelect: DetalleFacturaDto;
 
+ 
+
+  //selectedTc: TipoConceptoDto[];
 
   constructor(
+    private breadcrumbService: BreadcrumbService,
+    private detalleFacturaService: DetalleFacturaService,
     private facturaService: FacturaService,
     public appService: AppService,
+   
+   
 
 
 
-  ) { }
+  ) {
+    
+   
+   }
 
   ngOnInit() {
-    this.clienteSelect= new FacturaDto();
-    //this.llenarFacturalaboratorio();
+    this.clienteSelect= new DetalleFacturaDto();
+    this.llenardetalleFacturalaboratorio();
   }
 
-  async llenarFacturalaboratorio() {
-    await this.facturaService.getAll().subscribe({
+
+  async llenardetalleFacturalaboratorio() {
+    await this.detalleFacturaService.getAll().subscribe({
         next: (data) => {
             this.listfacturalaboratorio = data.listado;
             console.log('CORRECTO');
@@ -56,7 +70,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   }
 
 
-  cargarfactura(clienteSelectDto: FacturaDto){
+  cargarfactura(clienteSelectDto: DetalleFacturaDto){
     this.clienteSelect= clienteSelectDto;
     this.abrirmodal();
     
@@ -74,14 +88,14 @@ cerrar() {
 
 }
 
-formatearFecha(fecha: number): string {
+/* formatearFecha(fecha: number): string {
   const date = new Date(fecha);
   const anio = date.getFullYear();
   const mes = ('0' + (date.getMonth() + 1)).slice(-2);
   const dia = ('0' + date.getDate()).slice(-2);
 
   return `${dia}/${mes}/${anio}`;
-}
+} */
 
 filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio

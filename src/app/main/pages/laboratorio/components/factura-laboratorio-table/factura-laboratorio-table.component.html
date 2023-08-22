@@ -17,7 +17,6 @@
                   <div class="text-center">
           <label class="text-center" >FACTURACION</label>
                   </div>
-              
               </ng-template>
               <ng-template pTemplate="header">
                   <tr>
@@ -90,15 +89,15 @@
               <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" >
                   <tr>
                       <td>{{rowIndex+1}}</td>
-                      <td>{{item.codFactura}}</td>
-                      <td>{{item.nombreConsumidor}}</td>
-                      <td>{{item.rucConsumidor}}</td>
-                      <td>{{item.idProforma}}</td>
-                      <td>{{formatearFecha(item.fechaFact) }}</td>
-                      <td>{{item.subtotalFact}}</td>
-                      <td>{{item.ivaFact}}</td>
-                      <td>{{item.totalFact}}</td>
-                      <td>{{item.estadoSri}}</td>
+                      <td>{{item.idFacturaDTO.codFactura}}</td>
+                      <td>{{item.idFacturaDTO.nombreConsumidor}}</td>
+                      <td>{{item.idFacturaDTO.rucConsumidor}}</td>
+                      <td>{{item.idFacturaDTO.idProforma}}</td>
+                      <td>{{(item.idFacturaDTO.fechaFact| date:'dd/MM/yyyy') }}</td>
+                      <td>{{item.idFacturaDTO.subtotalFact}}</td>
+                      <td>{{item.idFacturaDTO.ivaFact}}</td>
+                      <td>{{item.idFacturaDTO.totalFact}}</td>
+                      <td>{{item.idFacturaDTO.estadoSri}}</td>
                       <td>
                         <button pButton label="" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
                         (click)="cargarfactura(item)"     ></button></td>
@@ -116,10 +115,12 @@
 
 <!-- modal de ver detalles -->
 <p-dialog class="mobile-dialog" [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
- [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+ [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html" 
+  >
     <p-header>
         <h4 class="">FACTURA</h4>
     </p-header>
+
     <div class="header-card p-5">
         <div class="header-img">
         <img alt="Card" src="../../../../../../assets/img/epn.png" />
@@ -143,12 +144,13 @@
         </div>
     </div>
     <br>
-    <div >
+<p-table>
+    <ng-template  pTemplate="summary">
         <div class="p-fluid p-formgrid grid col-12" style="border: solid 1px rgb(132, 132, 132); padding: 0px;">
-            <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
+         <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Fecha de emision:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{ formatearFecha(+clienteSelect.fechaFact) }}</i></b>
+                    <b>  <i  class="text-1xl mr-2 mb-3">{{(clienteSelect.idFacturaDTO.fechaFact| date:'dd/MM/yyyy') }}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Empresa:</label>
@@ -156,25 +158,25 @@
                 </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Señor(s):</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.nombreConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.nombreConsumidor}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Ruc/CI:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.rucConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.rucConsumidor}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Direccion:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.direccionConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.direccionConsumidor}}</i></b>
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Telefono:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.telfConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.telfConsumidor}}</i></b>
                 </div>
-            </div>
-            <div class="col-6" >
+            </div> 
+           <div class="col-6" >
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
                     <label for="ftxt-">Facultad/Instituto:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.carreraConsumidor}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.carreraConsumidor}}</i></b>
                </div>
                 <div class="p-field col-12 md:col-6  mb-0 px-3">
                     <label for="ftxt-">Laboratorio:</label>
@@ -194,11 +196,13 @@
                 </div>
                 <div class="p-field col-12 md:col-6 mb-0 px-3">
                     <label for="ftxt-">Valor Total:</label>
-                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.totalFact}}</i></b>
+                    <b>  <i class="text-1xl mr-2 mb-3">{{clienteSelect.idFacturaDTO.totalFact}}</i></b>
                 </div>
-            </div>
+            </div> 
         </div>
-    </div>
+    </ng-template>
+</p-table>
+    
     <br>
     <p-table
     styleClass="p-datatable-gridlines" 
@@ -213,27 +217,27 @@
             <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Total</th>
         </tr>
         <tr>
-            <th>{{clienteSelect.codFactura}}</th>
-            <th>Prueba Electrica</th>
-            <th>1</th>
-            <th>200.0</th>
-            <th>200.0</th>
+            <th>{{clienteSelect.idDetalleFactura}}</th>
+            <th>{{clienteSelect.nombreServ}}</th>
+            <th>{{clienteSelect.unidadesDf}}</th>
+            <th>{{clienteSelect.costoDf}}</th>
+            <th>{{clienteSelect.costotDf}}</th>
         </tr>
         <tr>
             <th colspan="3"></th>
             <th>SUBTOTAL:</th>
-            <th>0.0</th>
+            <th>{{clienteSelect.idFacturaDTO.subtotalFact}}</th>
         </tr>
         <tr>
             <th colspan="3"></th>
             <th>IVA:</th>
-            <th>0.0</th>
+            <th>{{clienteSelect.valorIva}}</th>
 
         </tr>
         <tr>
             <th colspan="3"></th>
             <th>TOTAL:</th>
-            <th>0.0</th>
+            <th>{{clienteSelect.costotDf}}</th>
         </tr>
     </ng-template>
 </p-table>
