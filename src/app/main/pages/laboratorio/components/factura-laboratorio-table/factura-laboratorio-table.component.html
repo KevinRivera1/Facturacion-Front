@@ -46,12 +46,12 @@
                             <p-columnFilter type="text" field="rucConsumidor" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                      <th pSortableColumn="idProforma">
+                   <!--    <th pSortableColumn="idProforma">
                         <div class="flex justify-content-between align-items-center">Proforma
                             <p-sortIcon field="idProforma"></p-sortIcon>
                             <p-columnFilter type="text" field="idProforma" display="menu"></p-columnFilter>
                         </div>
-                    </th>
+                    </th> -->
                     <th pSortableColumn="fechaFact">
                         <div class="flex justify-content-between align-items-center">Fecha
                             <p-sortIcon field="fechaFact"></p-sortIcon>
@@ -92,7 +92,7 @@
                       <td>{{item.idFacturaDTO.codFactura}}</td>
                       <td>{{item.idFacturaDTO.nombreConsumidor}}</td>
                       <td>{{item.idFacturaDTO.rucConsumidor}}</td>
-                      <td>{{item.idFacturaDTO.idProforma}}</td>
+               <!--        <td>{{item.idFacturaDTO.idProforma}}</td> -->
                       <td>{{(item.idFacturaDTO.fechaFact| date:'dd/MM/yyyy') }}</td>
                       <td>{{item.idFacturaDTO.subtotalFact}}</td>
                       <td>{{item.idFacturaDTO.ivaFact}}</td>

@@ -7,7 +7,7 @@
     <div class="caja-boton-principal central" style="align-items: center">
         <button pButton label="Proforma Aceptadas" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
             icon="pi pi-eye" pTooltip="Proformas Aceptadas" label="Proformas Aceptadas" tooltipPosition="right"
-            (click)="abrirmodal()"></button>
+            (click)="abrirmodalproformasaceptadas()"></button>
     </div>
 
     <p-divider></p-divider>
@@ -72,7 +72,7 @@
                     <p-toolbar>
                         <div class="p-toolbar-group-center">
                             <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info guardar-button"
-                                icon="pi pi-search" type="submit" (click)="filtrarFacturas()" pTooltip="Buscar"
+                                icon="pi pi-search" type="submit" pTooltip="Buscar"
                                 tooltipPosition="right"></button>
                         </div>
                     </p-toolbar>
@@ -87,7 +87,7 @@
 <!-- modal de listado de proformas aceptadas -->
 
 <p-dialog [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}" header="" [(visible)]="modal" [modal]="true"
-    [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html">
+    [draggable]="true" [resizable]="true" (onHide)="cerrarmodalproformasaceptadas()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Listado Proformas Aceptadas</h4>
     </p-header>
@@ -165,7 +165,7 @@
 <!-- Modal de Facturar -->
 
 <p-dialog [contentStyle]="{'': 'visible'}" header="" [(visible)]="modal2" [modal]="true" [draggable]="true"
-    [style]="{ width: '80vw'}" [resizable]="true" (onHide)="cerrarmodal2()" xmlns:p="http://www.w3.org/1999/html">
+    [style]="{ width: '80vw'}" [resizable]="true" (onHide)="cerrarmodalfacturar()" xmlns:p="http://www.w3.org/1999/html">
     <p-header>
         <h4 class="">Ingresar Factura</h4>
     </p-header>
@@ -320,10 +320,10 @@
                 pTooltip="Guardar" tooltipPosition="right" icon="pi pi-save"></button>
 
             <button pButton label="Pagos(s)" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                pTooltip="Pagos(s)" tooltipPosition="right" icon="pi pi-money-bill" (click)="modalOpen()"></button>
+                pTooltip="Pagos(s)" tooltipPosition="right" icon="pi pi-money-bill" (click)="modalformapago()"></button>
 
             <button pButton label="Regresar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
-                pTooltip="Regresar" tooltipPosition="right" icon=" pi pi-arrow-left" (click)="cerrarmodal2()"></button>
+                pTooltip="Regresar" tooltipPosition="right" icon=" pi pi-arrow-left" (click)="cerrarmodalfacturar()"></button>
 
         </div>
     </div>
