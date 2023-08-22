@@ -528,9 +528,8 @@ cargarCliente(clienteSelectDto: ClienteDto ){
  }
 
 
-//GUARDAR 
-
- guardarDatos(): Observable<any> {
+// GUARDAR
+guardarDatos(): Observable<any> {
   if (
     this.subtotalTotal === 0 ||
     this.ivaTotal === 0 ||
@@ -540,9 +539,9 @@ cargarCliente(clienteSelectDto: ClienteDto ){
     this.appService.msgInfoDetail(
       severities.ERROR,
       'ERROR',
-      'verifica los datos antes de generar una nueva Factura'
+      'Verifica los datos antes de generar una nueva Factura'
     );
-    return of(null); // Retorna un observable que emite null en caso de error
+    return EMPTY; // Utilizar EMPTY cuando no se desea emitir un valor
   }
 
   const facturaAGuardar = {
@@ -563,9 +562,7 @@ cargarCliente(clienteSelectDto: ClienteDto ){
   return this.facturaService.saveObject(facturaAGuardar);
 }
 
-
-
-detalleNuevo() {
+detalleNuevo(): Observable<any> {
   const observables = [];
 
   for (const concepto of this.conceptosList) {
@@ -573,21 +570,14 @@ detalleNuevo() {
     detalleFactura.costoDf = concepto.valor;
    
     detalleFactura.idConcepto = { idConcepto: concepto.idConcepto };
-    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad}
+    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad };
     detalleFactura.unidadesDf = concepto.cantidad;
 
     observables.push(this.detalleFacturaService.saveObject(detalleFactura));
   }
 
-  forkJoin(observables).subscribe(
-    (detalleRespuestas) => {
-      console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
-    
-    },
-    (detalleErrores) => {
-      console.error('Error al guardar los detalles de factura:', detalleErrores);
-    }
-  );
+  // Devuelve un Observable que emite los resultados de las peticiones individuales
+  return forkJoin(observables);
 }
 
 guardarDatosYDetalles() {
@@ -595,15 +585,22 @@ guardarDatosYDetalles() {
   this.guardarDatos().subscribe(
     (facturaRespuesta) => {
       console.log('Factura principal guardada:', facturaRespuesta);
+      
       // Llama a detalleNuevo() para guardar los detalles de la factura
-      this.detalleNuevo();
-      this.appService.msgCreate();
+      this.detalleNuevo().subscribe(
+        (detalleRespuestas) => {
+          console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
+          this.appService.msgCreate();
+        },
+        (detalleErrores) => {
+          console.error('Error al guardar los detalles de factura:', detalleErrores);
+        }
+      );
     },
     (facturaError) => {
       console.error('Error al guardar la factura principal:', facturaError);
     }
   );
 }
-
   
 }
