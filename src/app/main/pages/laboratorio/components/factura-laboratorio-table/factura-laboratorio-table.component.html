@@ -114,7 +114,7 @@
 </section>
 
 <!-- modal de ver detalles -->
-<p-dialog class="mobile-dialog" [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
+<p-dialog  class="mobile-dialog" [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
  [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html" 
   >
     <p-header>
@@ -145,7 +145,7 @@
     </div>
     <br>
 <p-table>
-    <ng-template  pTemplate="summary">
+    <ng-template  pTemplate="caption">
         <div class="p-fluid p-formgrid grid col-12" style="border: solid 1px rgb(132, 132, 132); padding: 0px;">
          <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 

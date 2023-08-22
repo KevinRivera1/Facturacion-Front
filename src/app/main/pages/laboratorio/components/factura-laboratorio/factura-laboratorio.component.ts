@@ -75,7 +75,7 @@ export class FacturaLaboratorioComponent implements OnInit {
       ),
       estadoSri: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.maxLength(10)])
+        Validators.compose([Validators.required])
       ),
       fechaDesde: [''],
       fechaHasta: [''],
@@ -221,8 +221,8 @@ closeModal() {
 
 estados: SelectItem[] = [
 
-  { label: 'Anulada NC', value: 'anulada_nc' },
-  { label: 'Pagada', value: 'pagada' },
+  { label: 'Anulada', value: 'anulada' },
+  { label: 'Pagada', value: 'Pagada' },
 ];
 
 }

@@ -19,7 +19,6 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   loading: boolean;
   clienteSelect: DetalleFacturaDto;
 
- 
 
   //selectedTc: TipoConceptoDto[];
 
