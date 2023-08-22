@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { TokenDto } from 'src/app/_dto/token-dto';
@@ -13,12 +13,12 @@ import { ReciboCajaService } from '../../services/reciboCaja.service';
     templateUrl: './anular-recibo-caja.component.html',
     styleUrls: ['./anular-recibo-caja.component.scss'],
 })
-export class AnularReciboCajaComponent implements OnInit {
+export class AnularReciboCajaComponent implements OnInit, OnChanges {
     formAnulaRecib: FormGroup;
     token: TokenDto;
-    
-    @Input() recibos: ReciboCajaDto;
-    @Input() estadorecibos: ReciboCajaDto;
+
+    @Input() reciboSeleccionado: ReciboCajaDto; //*Recibe los datos de la tabla
+    reciboeditTable: ReciboCajaDto;
 
     @Input() display: boolean = false;
     @Output() closeModal = new EventEmitter();
@@ -37,6 +37,7 @@ export class AnularReciboCajaComponent implements OnInit {
 
     ngOnInit(): void {
         this.iniciarForms();
+
     }
 
     get f() {
@@ -56,11 +57,15 @@ export class AnularReciboCajaComponent implements OnInit {
         this.deshabilitarCampos();
     }
 
-    setSeleccionado(obj) {
-        this.estadorecibos = obj;
-        this.formAnulaRecib = this.formBuilder.group(this.estadorecibos);
-        this.f.idEstadoRc.setValue(this.estadorecibos.idEstadoRc === 0);
-        console.log('EMITI', this.estadorecibos);
+    ngOnChanges(changes: SimpleChanges): void {
+        // Detecta cambios en el recibo seleccionado y actualiza el formulario
+        if (changes.reciboSeleccionado && this.reciboSeleccionado) {
+            this.formAnulaRecib.patchValue({
+                codRcaja: this.reciboSeleccionado.codRcaja,
+                fechaRcaja: this.reciboSeleccionado.fechaRcaja,
+                nombreConsumidorRc: this.reciboSeleccionado.nombreConsumidorRc,
+            });
+        }
     }
 
     //* Funcion para dehabilitar campos del form
@@ -71,38 +76,25 @@ export class AnularReciboCajaComponent implements OnInit {
         });
     }
 
-     //* Función para guardar el motivo de anulacion desde la tabla
-     guardarMotivoAnulacion() { 
-        if(this.formAnulaRecib.invalid){
+    //* Función para guardar el motivo de anulacion desde la tabla
+    guardarMotivoAnulacion() {
+        /* if (this.formAnulaRecib.invalid) {
             this.appService.msgInfoDetail('warn', 'Verificación', 'Verificar los Datos a Ingresar')
             return
-        }else{
-           // alert(this.formAnulaRecib.value.descBancos);
+        } else {
 
-         //   if(this.formAnulaRecib.value.idBancos!=null){
-                this.recibos= this.formAnulaRecib.value;
-                this.recibos.codRcaja= this.f.codRcaja.value;
-                this.recibos.fechaRcaja= this.f.fechaRcaja.value;
-                this.recibos.nombreConsumidorRc= this.f.nombreConsumidorRc.value;
-                this.recibos.idEstadoRc= this.f.idEstadoRc.value;
-                this.recibos.observacionRc= this.f.observacionRc.value;
-               
+            this.recibos = this.formAnulaRecib.value;
+            this.recibos.codRcaja = this.f.codRcaja.value;
+            this.recibos.fechaRcaja = this.f.fechaRcaja.value;
+            this.recibos.nombreConsumidorRc = this.f.nombreConsumidorRc.value;
+            this.recibos.idEstadoRc = this.f.idEstadoRc.value;
+            this.recibos.observacionRc = this.f.observacionRc.value;
 
-
-/*                 if(this.recibos.idBancos!= null){
-                    this.recibos.fechaBancos= new Date(this.bancos.fechaBancos);
-                }else{
-                    this.bancos.fechaBancos= new Date();
-
-
-                } */
-
-            if(this.formAnulaRecib.value.estado){
-                this.recibos.idEstadoRc= 1; //*Activo = 1
-            }else{
-                this.recibos.idEstadoRc= 0; //*Inactivo = 0
+            if (this.formAnulaRecib.value.estado) {
+                this.recibos.idEstadoRc = 1; //*Activo = 1
+            } else {
+                this.recibos.idEstadoRc = 0; //*Inactivo = 0
             }
-          //  }
 
             this.reciboCajaService.saveObject(this.recibos).subscribe({
                 next: (data) => {
@@ -113,24 +105,19 @@ export class AnularReciboCajaComponent implements OnInit {
                         } else {
                             this.appService.msgUpdate()
                         }
-
                         this.setearForm();
                         //this.llenarListBancos();
                     }
-
                 },
                 complete: () => {
                 },
                 error: error => {
                 }
             })
+        } */
+    }
 
-
-
-        }
-     }
-
-     setearForm() {
+    setearForm() {
         this.formAnulaRecib.reset();
         this.iniciarForms();
         //this.recibos=null;
