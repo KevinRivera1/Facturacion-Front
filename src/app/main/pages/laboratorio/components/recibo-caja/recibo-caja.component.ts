@@ -1,24 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
-import { ConsultasService } from '../../services/consultas.service';
-import { ClienteDto } from '../../model/ClienteDto';
-import { AppService } from 'src/app/_service/app.service';
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { TokenDto } from 'src/app/_dto/token-dto';
 import { severities } from 'src/app/_enums/constDomain';
-import { CretencionService } from '../../services/cretencion.service';
-import { CretencionDto } from '../../model/CretencionDto';
+import { AppService } from 'src/app/_service/app.service';
+import { TokenService } from 'src/app/_service/token.service';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { ClienteDto } from '../../model/ClienteDto';
 import { ConceptoDto } from '../../model/ConceptoDto';
+import { CretencionDto } from '../../model/CretencionDto';
 import { ConceptoService } from '../../services/concepto.service';
+import { ConsultasService } from '../../services/consultas.service';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
 
-import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
-import { TokenService } from 'src/app/_service/token.service';
-import { TokenDto } from 'src/app/_dto/token-dto';
 
 @Component({
     selector: 'app-recibo-caja',
@@ -53,10 +53,8 @@ export class ReciboCajaComponent implements OnInit {
         private formBuilder: FormBuilder,
         private reciboCaja: ReciboCajaService,
         private confirmationService: ConfirmationService,       
-         private messageService: MessageService,
-         private tokenService: TokenService,
-
-
+        private messageService: MessageService,
+        private tokenService: TokenService,
         //Busqueda
         private consultaService: ConsultasService,
         //Conceptos
@@ -166,6 +164,9 @@ export class ReciboCajaComponent implements OnInit {
     buscarCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE
     BusTablCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE EN TABLA
 
+    cerrarBC(){
+        this.buscarCliente=false;
+    }
 
     busquedaCliente() {
         if (this.tipoCliente == 0) {
