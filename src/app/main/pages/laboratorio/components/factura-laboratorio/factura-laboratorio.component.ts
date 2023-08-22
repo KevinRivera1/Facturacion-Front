@@ -82,6 +82,8 @@ export class FacturaLaboratorioComponent implements OnInit {
     });
 } 
 
+/* filtrador */
+
 filtrarFacturas() {
   const formData = this.formFacturaLaboratorio.value;
   this.detalleFacturaService.getAll().subscribe({
@@ -146,6 +148,8 @@ matchFilter(value, filter) {
   }
   return value && value.includes(filter);
 }
+
+/* validacion cedula ruc */
 
 onInput(event: any) {
   const input = event.target;

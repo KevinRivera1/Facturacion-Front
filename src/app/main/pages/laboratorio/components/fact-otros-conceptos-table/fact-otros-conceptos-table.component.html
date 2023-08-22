@@ -85,7 +85,7 @@
             <td>{{item.rucConsumidor}}</td>
             <td>{{item.estadoSri}}</td>
             <td></td>
-            <td>{{item.fechaFact}}</td>
+            <td>{{(item.fechaFact| date:'dd/MM/yyyy') }}</td>
             <td>{{item.totalFact}}</td>
             <td>
               <button pButton pRipple icon="pi pi-pencil"
