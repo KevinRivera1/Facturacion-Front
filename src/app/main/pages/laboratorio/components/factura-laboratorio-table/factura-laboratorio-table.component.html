@@ -17,7 +17,6 @@
                   <div class="text-center">
           <label class="text-center" >FACTURACION</label>
                   </div>
-              
               </ng-template>
               <ng-template pTemplate="header">
                   <tr>
@@ -116,11 +115,12 @@
 
 <!-- modal de ver detalles -->
 <p-dialog class="mobile-dialog" [contentStyle]="{'': 'visible'}" [style]="{ width: '80vw'}"   header="" [(visible)]="modal" [modal]="true"
- [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html" [ngModel]="unirListas"
+ [draggable]="true" [resizable]="true" (onHide)="cerrar()" xmlns:p="http://www.w3.org/1999/html" 
   >
     <p-header>
         <h4 class="">FACTURA</h4>
     </p-header>
+
     <div class="header-card p-5">
         <div class="header-img">
         <img alt="Card" src="../../../../../../assets/img/epn.png" />
@@ -144,7 +144,8 @@
         </div>
     </div>
     <br>
-    <ng-template pTemplate="" >
+<p-table>
+    <ng-template  pTemplate="summary">
         <div class="p-fluid p-formgrid grid col-12" style="border: solid 1px rgb(132, 132, 132); padding: 0px;">
          <div class="col-6" style="border-right: solid 1px rgb(132, 132, 132);">
                 <div class="p-field col-12 md:col-6 mb-0  px-3"> 
@@ -200,6 +201,8 @@
             </div> 
         </div>
     </ng-template>
+</p-table>
+    
     <br>
     <p-table
     styleClass="p-datatable-gridlines" 
@@ -223,18 +226,18 @@
         <tr>
             <th colspan="3"></th>
             <th>SUBTOTAL:</th>
-            <th>0.0</th>
+            <th>{{clienteSelect.idFacturaDTO.subtotalFact}}</th>
         </tr>
         <tr>
             <th colspan="3"></th>
             <th>IVA:</th>
-            <th>0.0</th>
+            <th>{{clienteSelect.valorIva}}</th>
 
         </tr>
         <tr>
             <th colspan="3"></th>
             <th>TOTAL:</th>
-            <th>0.0</th>
+            <th>{{clienteSelect.costotDf}}</th>
         </tr>
     </ng-template>
 </p-table>
