@@ -24,12 +24,12 @@ export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
     displayModal: boolean = false;
 
-    @Input() recibos: any[] = [];
+    @Input() recibos: ReciboCajaDto[] = [];
 
+    @Output() editReciboSeleccionado = new EventEmitter();
     //*Tabal emite dato para actualizar etado
-    @Output() editReciboEvent = new EventEmitter();
+    recibosCajaSelect: ReciboCajaDto;
 
-    recibosCaja: ReciboCajaDto;
 
     submitted: boolean;
     loading: boolean;
@@ -71,20 +71,16 @@ export class AnularReciboCajaTableComponent implements OnInit {
         this.recibos = [];
     }
 
-    filtrarRecibos(recibos: any[]) {
+    filtrarRecibos(recibos: ReciboCajaDto[]) {
         this.recibos = recibos;
-        this.appService.msgInfoDetail(
-            severities.INFO,
-            'INFO',
-            'Datos Cargados exitosamente',
-            550
-        );
     }
 
     //*emite los datos de la tabla para actualizar estado
     editRecibCaja(doc: ReciboCajaDto) {
-        this.recibosCaja = { ...doc };
-        this.editReciboEvent.emit(doc);
+        this.recibosCajaSelect = { ...doc };
+        this.editReciboSeleccionado.emit(doc); //* independiente
+        this.modalOpen();
+        console.log("🚀Emit: ", this.recibosCajaSelect)
     }
 
     exportPdf() {

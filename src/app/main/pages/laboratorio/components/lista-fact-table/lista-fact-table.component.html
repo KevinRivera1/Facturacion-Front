@@ -143,9 +143,28 @@
     </div>
 </p-dialog>
 
+<p-table [value]="facturasConDetalles" dataKey="factura.idFactura">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="idFactura">
+            <div class="flex justify-content-between align-items-center">ID Factura
+                <p-sortIcon field="idFactura"></p-sortIcon>
+                <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
+            </div>
+        </th>
+        <th>ID Detalle</th>
+      </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-facturaConDetalle>
+      <tr>
+        <td>{{ facturaConDetalle.factura.idFactura }}</td>
+        <td>{{ facturaConDetalle.detalle.idDetalle }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 
-
-<p-table #dt [value]="listFactura" [rows]="10" [paginator]="true" [loading]="loading" responsiveLayout="scroll"
+<!-- <p-table #dt [value]="listFactura" [rows]="10" [paginator]="true" [loading]="loading" responsiveLayout="scroll"
     [(selection)]="selectedFacturas" [rowHover]="true" dataKey="idFactura"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
@@ -159,6 +178,13 @@
                 <div class="flex justify-content-between align-items-center">ID Factura
                     <p-sortIcon field="idFactura"></p-sortIcon>
                     <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
+                </div>
+            </th>
+
+            <th pSortableColumn="estadoServ">
+                <div class="flex justify-content-between align-items-center">ID Detalle
+                    <p-sortIcon field="estadoServ"></p-sortIcon>
+                    <p-columnFilter type="text" field="estadoServ" display="menu"></p-columnFilter>
                 </div>
             </th>
 
@@ -205,6 +231,7 @@
     <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
         <tr>
             <td>{{item.idFactura}}</td>
+            <td>{{item.estadoServ}}</td>
             <td>{{item.idProforma}}</td>
             <td>{{item.rucConsumidor}}</td>
             <td>{{item.nombreConsumidor}}</td>
@@ -216,7 +243,7 @@
             <td>
                 <button pButton label="Nota Credito" class="p-button-rounded  p-button-text p-button-sm p-mr-2"
                     icon="pi pi-plus" type="submit" pTooltip="Nota Credito" tooltipPosition="right"
-                    (click)="cargarFactura(item)" (click)="cargarFactura(item)"></button>
+                    (click)="cargarFactura(item)" (click)="cargarDetalle(item)"></button>
             </td>
         </tr>
     </ng-template>
@@ -225,4 +252,4 @@
             Registros Totales: {{listFactura ? listFactura.length : 0 }}.
         </div>
     </ng-template>
-</p-table>
+</p-table> -->

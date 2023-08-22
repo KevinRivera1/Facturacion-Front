@@ -1,7 +1,7 @@
     <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
-    <!-- Dialog 0 -->
-    <p-dialog header="Agregar Recibo de Caja" [(visible)]="modal" [style]="{ width: '60vw' }">
+    <!-- Dialog Recibo de Caja-->
+    <p-dialog header="Agregar Recibo de Caja" [(visible)]="reciboC" [style]="{ width: '60vw' }">
         <!--ANDRES MONTOYA-->
 
         <!-- HEADER -->
@@ -99,7 +99,7 @@
 
         <p-toolbar class="center-button">
             <button pButton label="Agregar Conceptos" class="m-1 bg-blue-900" type="submit" pTooltip="Agregar"
-                tooltipPosition="right" (click)="abrirmodal1()"></button>
+                tooltipPosition="right" (click)="abrirAC()"></button>
         </p-toolbar>
 
         <!-- TABLA DIALOG -->
@@ -159,11 +159,8 @@
                 <button pButton label="Guardar" class="m-1 bg-blue-900" pTooltip="Guardar" icon="pi pi-save"
                     tooltipPosition="right" (click)="guardarDatos()"></button>
 
-                <button pButton label="Pagos(s)" class="m-1 bg-blue-900" pTooltip="Pagos(s)" icon="pi pi-money-bill"
-                    tooltipPosition="right" (click)="modalOpen()"></button>
-
                 <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
-                    (click)="cerrar()"></button>
+                    (click)="cerrarRecibo()"></button>
             </div>
         </div>
     </p-dialog>
@@ -176,25 +173,10 @@
 
 
 
+    
+    <!-- EDITAR CONCEPTO DE LA TABLA -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- EDITAR DIALOG -->
-
-    <p-dialog [header]="'Editar Concepto'" [(visible)]="editar" [style]="{ width: '31.5vw' }">
+    <p-dialog [header]="'Editar Concepto'" [(visible)]="editarConcepto" [style]="{ width: '31.5vw' }">
         <div class="md:col-6">
             <span class="p-float-label">
                 <div class="fielset-infConceptosEditar">
@@ -232,7 +214,7 @@
                                     pTooltip="Guardar" icon="pi pi-save" tooltipPosition="right"></button>
 
                                 <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar"
-                                    tooltipPosition="right" (click)="editarmodal()"></button>
+                                    tooltipPosition="right" (click)="editarC()"></button>
                             </div>
                         </div>
 
@@ -242,10 +224,9 @@
         </div>
     </p-dialog>
 
-    <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
     <!-- Dialog Agregar Destalle Recibo CONCEPTOS-->
-    <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="modal1" [style]="{ width: '70vw' }">
+    <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="agregarConcepto" [style]="{ width: '70vw' }">
         <div class="p-fluid p-formgrid grid input">
             <!-- Conceptos -->
             <div class="md:col-5">
@@ -364,14 +345,14 @@
                     pTooltip="Guardar" icon="pi pi-save" tooltipPosition="right"></button>
 
                 <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar" tooltipPosition="right"
-                    (click)="cerrarmodal1()"></button>
+                    (click)="cerrarAC()"></button>
             </div>
         </div>
     </p-dialog>
 
     <!-- Dialog Buscar -->
 
-    <p-dialog [header]="'Busqueda'" [(visible)]="modalBuscar" [style]="{ width: '65vw' }">
+    <p-dialog [header]="'Busqueda'" [(visible)]="buscarCliente" [style]="{ width: '65vw' }">
         <div class="fieldset-search2">
             <fieldset class="search-border2">
                 <legend>Buscar</legend>
@@ -383,7 +364,7 @@
                         </div>
                         <div class="flex align-items-center">
                             <label class="ml-2">C.l: </label>
-                            <input type="text" id="txtCedulaB" pInputText [(ngModel)]="cedulaBusqueda" />
+                            <input type="number" id="txtCedulaB" pInputText [(ngModel)]="cedulaBusqueda" />
                         </div>
                         <div class="caja-boton-principal">
                             <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
@@ -395,9 +376,9 @@
         </div>
     </p-dialog>
 
-    <!-- Dialog Tabla Buscar -->
+    <!-- Dialog Tabla Buscar Por Cliente -->
 
-    <p-dialog [header]="'Listado'" [(visible)]="modalBusTabl" [style]="{ width: '65vw' }">
+    <p-dialog [header]="'Listado'" [(visible)]="BusTablCliente" [style]="{ width: '65vw' }">
         <div>
             <p-table #dt currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros"
                 [paginator]="true" [rows]="5" [value]="listCliente" [tableStyle]="{ 'min-width': '50rem' }"

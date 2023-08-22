@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { TokenDto } from 'src/app/_dto/token-dto';
@@ -7,23 +7,27 @@ import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'app-anular-recibo-caja',
     templateUrl: './anular-recibo-caja.component.html',
     styleUrls: ['./anular-recibo-caja.component.scss'],
 })
-export class AnularReciboCajaComponent implements OnInit {
+export class AnularReciboCajaComponent implements OnInit, OnChanges {
     formAnulaRecib: FormGroup;
     token: TokenDto;
-    
-    @Input() recibos: ReciboCajaDto;
-    @Input() estadorecibos: ReciboCajaDto;
+
+    @Input() reciboSeleccionado: ReciboCajaDto; //*Recibe los datos de la tabla
+    reciboeditTable: ReciboCajaDto;
 
     @Input() display: boolean = false;
     @Output() closeModal = new EventEmitter();
-    //? Aqui se define la lista de estados del modal de anular
-    estados: any[] = [{ name: 'Anulada', value: 'Anulada' }];
+
+    estadoRecibo: any[] = [
+        { name: 'Anulada', value: 0 },
+    ];
+
     response: ResponseGenerico
     constructor(
         private reciboCajaService: ReciboCajaService,
@@ -56,11 +60,16 @@ export class AnularReciboCajaComponent implements OnInit {
         this.deshabilitarCampos();
     }
 
-    setSeleccionado(obj) {
-        this.estadorecibos = obj;
-        this.formAnulaRecib = this.formBuilder.group(this.estadorecibos);
-        this.f.idEstadoRc.setValue(this.estadorecibos.idEstadoRc === 0);
-        console.log('EMITI', this.estadorecibos);
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.reciboSeleccionado && this.reciboSeleccionado) {
+            this.formAnulaRecib.patchValue({
+                codRcaja: this.reciboSeleccionado.codRcaja,
+                fechaRcaja: this.reciboSeleccionado.fechaRcaja,
+                nombreConsumidorRc: this.reciboSeleccionado.nombreConsumidorRc,
+                idEstadoRc: this.reciboSeleccionado.idEstadoRc,
+                observacionRc: this.reciboSeleccionado.observacionRc
+            });
+        }
     }
 
     //* Funcion para dehabilitar campos del form
@@ -71,69 +80,48 @@ export class AnularReciboCajaComponent implements OnInit {
         });
     }
 
-     //* Función para guardar el motivo de anulacion desde la tabla
-     guardarMotivoAnulacion() { 
-        if(this.formAnulaRecib.invalid){
+    //* Función para guardar el motivo de anulacion desde la tabla
+    guardarMotivoAnulacion() {
+        if (this.formAnulaRecib.invalid) {
             this.appService.msgInfoDetail('warn', 'Verificación', 'Verificar los Datos a Ingresar')
             return
-        }else{
-           // alert(this.formAnulaRecib.value.descBancos);
+        } else {
 
-         //   if(this.formAnulaRecib.value.idBancos!=null){
-                this.recibos= this.formAnulaRecib.value;
-                this.recibos.codRcaja= this.f.codRcaja.value;
-                this.recibos.fechaRcaja= this.f.fechaRcaja.value;
-                this.recibos.nombreConsumidorRc= this.f.nombreConsumidorRc.value;
-                this.recibos.idEstadoRc= this.f.idEstadoRc.value;
-                this.recibos.observacionRc= this.f.observacionRc.value;
-               
+            this.reciboSeleccionado.idEstadoRc = this.f.idEstadoRc.value;
+            this.reciboSeleccionado.observacionRc = this.f.observacionRc.value;
 
-
-/*                 if(this.recibos.idBancos!= null){
-                    this.recibos.fechaBancos= new Date(this.bancos.fechaBancos);
-                }else{
-                    this.bancos.fechaBancos= new Date();
-
-
-                } */
-
-            if(this.formAnulaRecib.value.estado){
-                this.recibos.idEstadoRc= 1; //*Activo = 1
-            }else{
-                this.recibos.idEstadoRc= 0; //*Inactivo = 0
+            if (this.formAnulaRecib.value.estado) {
+                this.reciboSeleccionado.idEstadoRc = 1; //*Pagada = 1
+            } else {
+                this.reciboSeleccionado.idEstadoRc = 0; //*Anulada = 0
             }
-          //  }
 
-            this.reciboCajaService.saveObject(this.recibos).subscribe({
+            this.reciboCajaService.saveObject(this.reciboSeleccionado).subscribe({
                 next: (data) => {
                     this.response = data;
                     if (this.response.codigoRespuestaValue == 200) {
-                        if (!this.recibos.idReciboCaja) {
+                        if (!this.reciboSeleccionado.idReciboCaja) {
                             this.appService.msgCreate()
                         } else {
                             this.appService.msgUpdate()
                         }
-
                         this.setearForm();
                         //this.llenarListBancos();
+                        this.CloseModal()
                     }
-
                 },
                 complete: () => {
                 },
                 error: error => {
                 }
             })
-
-
-
         }
-     }
+    }
 
-     setearForm() {
+    setearForm() {
         this.formAnulaRecib.reset();
         this.iniciarForms();
-        //this.recibos=null;
+        this.reciboSeleccionado = null;
     }
 
     cancelar() {

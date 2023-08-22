@@ -60,53 +60,59 @@ export class BuscarRecibosComponent implements OnInit {
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
-    async filtrarRecibos() {
+    //* Funciones para filtrado de datos de recibos
+    filtrarRecibos() {
         const formData = this.buscarForm.value;
-        await this.reciboCajaService.getAll().subscribe({
+        this.reciboCajaService.getAll().subscribe({
             next: (response) => {
-                const data = response.listado;
-                if (Array.isArray(data)) {
-                    const recibosFiltrados = data.filter((recibo) => {
-                        const fecharecibo = recibo.fechaRcaja;
-
-                        //169221463298
-                        console.log('Fechas del Recibo: ', fecharecibo);
-                        console.log('Fechas del Formulario: ', formData.fechaDesde, formData.fechaHasta);
-
-                        const cumplefiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
-                        console.log('cumple filtro de fechas: ', cumplefiltrosFecha);
-
-                        return (
-                            recibo.codRcaja.includes(formData.codRcaja) &&
-                            recibo.nombreConsumidorRc.includes(
-                                formData.nombreConsumidorRc
-                            ) &&
-                            recibo.rucConsumidorRc.includes(
-                                formData.rucConsumidorRc
-                            ) && this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta)
-                        );
-                    });
-                    console.log('Recibos filtrados', recibosFiltrados);
+                const recibosFiltrados = this.filtrarRecibosPorCriterios(response.listado, formData);
+                console.log('Recibos filtrados', recibosFiltrados);
+                if (recibosFiltrados.length > 0) {
                     this.reciboCajaEmitter.emit(recibosFiltrados);
+                    this.appService.msgInfoDetail(
+                        severities.INFO,
+                        'INFO',
+                        'Datos Cargados exitosamente',
+                        550
+                    );
                 } else {
-                    console.error(
-                        'Los datos no son un array verifca el tipo de dato que es DATA:',
-                        data
+                    console.log('no hay datos')
+                    this.appService.msgInfoDetail(
+                        severities.ERROR,
+                        'ERROR',
+                        'No se encontraron registros',
+                        700
                     );
                 }
             },
             error: (error) => {
-                this.appService.msgInfoDetail(
-                    severities.ERROR,
-                    'ERROR AL CARGAR LOS DATOS',
-                    error.error
-                );
+                console.error('Error al cargar los datos', error);
+                this.appService.msgInfoDetail(severities.ERROR, 'ERROR AL CARGAR LOS DATOS', error.error);
             },
             complete: () => {
                 console.log('Obtención de datos completada');
-                //this.setearForm();
             },
         });
+    }
+
+    filtrarRecibosPorCriterios(recibos, formData) {
+        return recibos.filter((recibo) => {
+            const fecharecibo = recibo.fechaRcaja;
+
+            const codRcajaMatch = this.matchFilter(recibo.codRcaja, formData.codRcaja);
+            const nombreConsumidorRcMatch = this.matchFilter(recibo.nombreConsumidorRc, formData.nombreConsumidorRc);
+            const rucConsumidorRcMatch = this.matchFilter(recibo.rucConsumidorRc, formData.rucConsumidorRc);
+            const cumpleFiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
+
+            return codRcajaMatch && nombreConsumidorRcMatch && rucConsumidorRcMatch && cumpleFiltrosFecha;
+        });
+    }
+
+    matchFilter(value, filter) {
+        if (filter === '') {
+            return true;
+        }
+        return value && value.includes(filter);
     }
 
     filtarRangoFechas(fechaRecibo: any, fechaDesde: string, fechaHasta: string): boolean {
@@ -119,6 +125,7 @@ export class BuscarRecibosComponent implements OnInit {
 
         return fechaReciboT >= fechaDesdeT && fechaReciboT <= fechaHastaT;
     }
+    //* Termina funciones de filtrado
 
     setearForm() {
         this.buscarForm.reset();

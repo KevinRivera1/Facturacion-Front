@@ -8,11 +8,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class DetalleFacturaService {
+  constructor(private http: HttpClient) { }
   url = `${environment.HOST}/`;
   endpoint: string = 'detalleFactura';
-
-  constructor(private http: HttpClient) { }
-
 
   getAll(): Observable<any> {
     return this.http.get(this.url + this.endpoint + '/listarDetalleFactura');
