@@ -15,6 +15,10 @@ import { AppService } from 'src/app/_service/app.service';
 import { FacturaService } from '../../services/factura.service';
 import { FacturaDto } from '../../model/Factura.dto';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
+import { Observable, forkJoin } from 'rxjs';
+import { of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -51,13 +55,15 @@ export class FactOtrosConceptosComponent implements OnInit {
   conceptos: ConceptoDto;
   /*variable para llamar conceptos*/
   selectedRecord: any;
-  idConcepto: string = '';
+  CodConcepto: string = '';
   nombreConcepto: string = '';
   valorConcepto: number = 0;
   modalBusTabl: boolean;
   modalBuscar: boolean;
   buscarForm: FormGroup;
-  
+  idConcepto: number;
+
+ 
 
 
   constructor(
@@ -222,7 +228,8 @@ showAttributes(record: any) {
   this.selectedRecord = record;
 
   // Actualiza las variables con los valores del registro seleccionado
-  this.idConcepto = this.selectedRecord.codigoConcepto;
+  this.idConcepto = this.selectedRecord.idConcepto;
+  this.CodConcepto = this.selectedRecord.codigoConcepto;
   this.nombreConcepto = this.selectedRecord.nombreConcepto;
   this.valorConcepto = this.selectedRecord.valorConcepto;
 }
@@ -338,28 +345,27 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
  // LISTAR CONCEPTOS
 
- conceptosList: { idConcepto: string, nombre: string, valor: number, cantidad: number }[] = [];
+ conceptosList: { idConcepto:number, codConcepto: string, nombre: string, valor: number, cantidad: number }[] = [];
  cantidadTemporal: number = 1;
 
-
+ 
  addToConceptosList() {
      if (this.cantidadTemporal !== 0 && this.cantidadTemporal !== null &&
          this.nombreConcepto.trim() !== '' && this.valorConcepto !== 0) {
-
          const totalConcepto = this.Total(this.valorConcepto, this.cantidadTemporal);
 
          const nuevoConcepto = {
              idConcepto: this.idConcepto,
+             codConcepto: this.CodConcepto,
              nombre: this.nombreConcepto,
              valor: this.valorConcepto,
              cantidad: this.cantidadTemporal,
-             total: totalConcepto
+             total: totalConcepto,
          };
 
          this.conceptosList.push(nuevoConcepto);
-
          // Limpiar las variables para futuras entradas
-         this.idConcepto = '';
+         this.CodConcepto = '';
          this.nombreConcepto = '';
          this.valorConcepto = 0;
          this.cantidadTemporal = 1;
@@ -439,69 +445,83 @@ cargarCliente(clienteSelectDto: ClienteDto ){
  }
 
 
-// GUARDAR
-
-    guardarDatos() {
-        if (
-            this.subtotalTotal === 0 ||
-            this.ivaTotal === 0 ||
-            this.totalTotal === 0
-        ) {
-            console.log('Algunos campos no se han llenado correctamente.');
-            this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'verifica los datos antes de generar una nueva Factura');
-            return;
-        }
-
-        // Prepara los datos a enviar
-        const datosAGuardar = {  
-            codFactura: this.buscarForm.get('codFactura').value,
-           // Obtén el valor del campo codRcaja del formulario
-            correoConsumidor: this.clienteSelect.correo,
-            direccionConsumidor: this.clienteSelect.direccion,
-            fechaFact: new Date().toISOString(), // Obtén la fecha actual en formato ISO
-            ivaFact: this.ivaTotal,
-            nombreConsumidor: this.clienteSelect.nombre,
-            rucConsumidor: this.clienteSelect.cedula,
-            subtotalFact: this.subtotalTotal,
-            telfConsumidor: this.clienteSelect.telefono,
-            totalFact: this.totalTotal,
-            estadoSri: this.estadoSeleccionado
-  
-        };
-
-      //   const datosAGuardar2 = {  
-      //     codFactura: this.buscarForm.get('codFactura').value,
-      //    // Obtén el valor del campo codRcaja del formulario
-          
-      // };
 
 
-        // Llama al método del servicio para guardar los datos
-        this.facturaService.saveObject(datosAGuardar).subscribe(
-            (respuesta) => {
-                console.log('Datos guardados exitosamente:', respuesta);
-                this.appService.msgCreate();
-            },
-            (error) => {
-                console.error('Error al guardar los datos:', error);
-                // Puedes mostrar un mensaje de error u otras acciones de manejo de errores aquí
-            }
-        );
+ guardarDatos(): Observable<any> {
+  if (
+    this.subtotalTotal === 0 ||
+    this.ivaTotal === 0 ||
+    this.totalTotal === 0
+  ) {
+    console.log('Algunos campos no se han llenado correctamente.');
+    this.appService.msgInfoDetail(
+      severities.ERROR,
+      'ERROR',
+      'verifica los datos antes de generar una nueva Factura'
+    );
+    return of(null); // Retorna un observable que emite null en caso de error
+  }
 
-      //    // Llama al método del servicio para guardar los datos
-      //    this.detalleFacturaService.saveObject(datosAGuardar2).subscribe(
-      //     (respuesta) => {
-      //         console.log('Datos guardados exitosamente:', respuesta);
-      //     },
-      //     (error) => {
-      //         console.error('Error al guardar los datos:', error);
-      //         // Puedes mostrar un mensaje de error u otras acciones de manejo de errores aquí
-      //     }
-      // );
+  const facturaAGuardar = {
+    codFactura: this.buscarForm.get('codFactura').value,
+    correoConsumidor: this.clienteSelect.correo,
+    direccionConsumidor: this.clienteSelect.direccion,
+    fechaFact: new Date().toISOString(),
+    ivaFact: this.ivaTotal,
+    nombreConsumidor: this.clienteSelect.nombre,
+    rucConsumidor: this.clienteSelect.cedula,
+    subtotalFact: this.subtotalTotal,
+    telfConsumidor: this.clienteSelect.telefono,
+    totalFact: this.totalTotal,
+    estadoSri: this.estadoSeleccionado,
+  };
 
-        this.limpiarLista();
-        this.modal = false;
+  // Llama al método del servicio para guardar la factura y devuelve el observable resultante
+  return this.facturaService.saveObject(facturaAGuardar);
+}
+
+
+
+detalleNuevo() {
+  const observables = [];
+
+  for (const concepto of this.conceptosList) {
+    const detalleFactura = new DetalleFacturaDto();
+    detalleFactura.costoDf = concepto.valor;
+   
+    detalleFactura.idConcepto = { idConcepto: concepto.idConcepto };
+    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad}
+    detalleFactura.unidadesDf = concepto.cantidad;
+
+    observables.push(this.detalleFacturaService.saveObject(detalleFactura));
+  }
+
+  forkJoin(observables).subscribe(
+    (detalleRespuestas) => {
+      console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
+      this.appService.msgCreate();
+    },
+    (detalleErrores) => {
+      console.error('Error al guardar los detalles de factura:', detalleErrores);
     }
+  );
+}
 
+
+
+guardarDatosYDetalles() {
+  // Llama a guardarDatos() para guardar la factura principal
+  this.guardarDatos().subscribe(
+    (facturaRespuesta) => {
+      console.log('Factura principal guardada:', facturaRespuesta);
+      // Llama a detalleNuevo() para guardar los detalles de la factura
+      this.detalleNuevo();
+      this.appService.msgCreate();
+    },
+    (facturaError) => {
+      console.error('Error al guardar la factura principal:', facturaError);
+    }
+  );
+}
 
 }

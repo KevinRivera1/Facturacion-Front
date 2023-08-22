@@ -221,7 +221,7 @@
                   class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                   pTooltip="Guardar"
                   tooltipPosition="right"
-                  (click)="guardarDatos()"
+                  (click)="guardarDatosYDetalles()"
               ></button>
 
               <button
@@ -423,7 +423,7 @@
        <div class="ui-fluid formgrid grid"  >
           <div class="p-field col-12 md:col-12 md:mb-1 mb-0 px-3">
           <span class="p-float-label">
-          <label><b>ID:</b> {{ idConcepto }}</label>
+          <label><b>ID:</b> {{ CodConcepto }}</label>
           <b><i class="text-1xl mr-2 mb-3"></i></b>
      </span>
       </div>
@@ -680,7 +680,6 @@
                             icon="pi pi-search"
                             type="submit"
                             pTooltip="Buscar"
-                            (click)="filtrarFacturas()"
                             tooltipPosition="right"
                         ></button>
                     </div>

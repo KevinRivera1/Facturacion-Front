@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -16,30 +16,42 @@ import { ConceptoDto } from '../../model/ConceptoDto';
 import { ConceptoService } from '../../services/concepto.service';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
 
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
+
 @Component({
     selector: 'app-recibo-caja',
     templateUrl: './recibo-caja.component.html',
     styleUrls: ['./recibo-caja.component.scss'],
 })
 export class ReciboCajaComponent implements OnInit {
-    displayModal: boolean = false;
 
-    editar: boolean;
-    modal: boolean;
-    modalBuscar: boolean;
-    modalBusTabl: boolean;
-    modal4: boolean;
-    modal1: boolean; //Visibilidad de un modal
-    busquedaForm: FormGroup;
+    reciboC: boolean;//MODAL DE RECIBO CAJA
 
-    maxLengthR: number = 13;
-    maxLengthC: number = 10;
+    cancelarRC() {
+        this.reciboC = false;
+    }
+    abrirRC() {
+        this.reciboC = true;
+    }
+
+    cerrarRecibo() {
+        this.limpiarLista();
+        this.reciboC = false;
+    }
+ 
+    
+
+    //NUMERO DE RECIBO CAJA
+    buscarForm: FormGroup;
 
     constructor(
         private breadcrumbService: BreadcrumbService,
         public appService: AppService,
         private formBuilder: FormBuilder,
         private reciboCaja: ReciboCajaService,
+        private confirmationService: ConfirmationService,       
+         private messageService: MessageService,
+
         //Busqueda
         private consultaService: ConsultasService,
         //Conceptos
@@ -47,12 +59,12 @@ export class ReciboCajaComponent implements OnInit {
     ) {
         {
             this.buscarForm = this.formBuilder.group({
-                codRcaja: ['', [Validators.required]], // Agrega las validaciones que necesites
-                // Otros campos del formulario
+                codRcaja: ['', [Validators.required]], 
             });
             this.breadcrumbService.setItems([{ label: 'Recibo Caja ' }]);
         }
     }
+
 
     ngOnInit() {
         this.llenarListConceptos();
@@ -62,63 +74,14 @@ export class ReciboCajaComponent implements OnInit {
     get f() {
         return this.buscarForm.controls;
     }
+ 
+    
 
-    cancelar() {
-        // this.setearForm();
-        this.modal = false;
-    }
 
-    onInputR(event: Event) {
-        const inputElement = event.target as HTMLInputElement;
-        const value = inputElement.value;
-        if (value.length > this.maxLengthR) {
-            inputElement.value = value.slice(0, this.maxLengthR); // Truncar el valor a la longitud máxima
-            this.busquedaForm.controls['Cantidad'].setValue(inputElement.value); // Actualizar el valor del formulario
-        }
-    }
+    //BUSQUEDA CLIENTE
 
-    onInputC(event: Event) {
-        const inputElement = event.target as HTMLInputElement;
-        const value = inputElement.value;
-        if (value.length > this.maxLengthC) {
-            inputElement.value = value.slice(0, this.maxLengthC); // Truncar el valor a la longitud máxima
-            this.busquedaForm.controls['Cantidad'].setValue(inputElement.value); // Actualizar el valor del formulario
-        }
-    }
-
-    //Abrir el modal
-    abrirmodal() {
-        this.modal = true;
-    }
-    abrirmodal1() {
-        this.modal1 = true;
-    }
-
-    //Cerrar el modal y restablecer el formulario
-    cerrar() {
-        this.limpiarLista();
-        this.modal = false;
-    }
-
-    cerrarmodal1() {
-        this.modal1 = false;
-    }
-
-    modalOpen() {
-        //this.displayAnulacioModal.onDisplayForm()
-        this.displayModal = true;
-        console.log('abrir modal desde tabla');
-    }
-
-    closeModal() {
-        this.displayModal = false;
-        console.log('cerrando modal');
-    }
-
-    //BUSQUEDA
     selectedOption: string = '';
     data: string = '';
-
     loading: boolean = false;
     listCliente: ClienteDto[] = [];
     listCretencion: CretencionDto[] = [];
@@ -140,6 +103,12 @@ export class ReciboCajaComponent implements OnInit {
     }
 
     async llenarListCliente() {
+        if (!this.nombreBusqueda && !this.apellidoBusqueda && !this.cedulaBusqueda) {
+            console.log('Debes ingresar al menos un valor para buscar.');
+            this.appService.msgInfoDetail(severities.WARNING, 'ADVERTENCIA', 'Ingresa al menos un valor para buscar.');
+            return;
+        }
+
         this.nombres =
             this.nombreBusqueda == null
                 ? this.apellidoBusqueda == null
@@ -175,25 +144,28 @@ export class ReciboCajaComponent implements OnInit {
                     this.loading = false;
                 },
             });
-        this.modalBusTabl = true;
+        this.BusTablCliente = true;
     }
 
     registrarNuevo() {
         // this.cretencion = new CretencionDto();
         // this.iniciarForm();
-        this.modal = true;
+        this.reciboC = true;
         this.clienteSelect = new ClienteDto();
         this.tipoCliente = 2;
         this.listCliente = [];
     }
 
     clienteSelect: ClienteDto;
+    buscarCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE
+    BusTablCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE EN TABLA
+
 
     busquedaCliente() {
         if (this.tipoCliente == 0) {
-            this.modalBuscar = false;
+            this.buscarCliente = false;
         } else {
-            this.modalBuscar = true;
+            this.buscarCliente = true;
         }
         this.cedulaBusqueda = null;
         this.nombreBusqueda = null;
@@ -202,12 +174,9 @@ export class ReciboCajaComponent implements OnInit {
 
     cargarCliente(clienteSelectDto: ClienteDto) {
         this.clienteSelect = clienteSelectDto;
-        this.modalBusTabl = false;
-        this.modalBuscar = false;
+        this.BusTablCliente = false;
+        this.buscarCliente = false;
     }
-
-    //  NUMERO DE RECIBO CAJA
-    buscarForm: FormGroup;
 
     onInputNroRecibo(event: any) {
         const input = event.target;
@@ -226,15 +195,24 @@ export class ReciboCajaComponent implements OnInit {
         const cursorPosition = input.selectionStart;
         input.setSelectionRange(cursorPosition, cursorPosition);
     }
-    // CONCEPTOS
 
+    // CONCEPTOS
     @Input() listConceptos: ConceptoDto[];
     conceptos: ConceptoDto;
-
     selectedRecord: any;
     idConcepto: string = '';
     nombreConcepto: string = '';
     valorConcepto: number = 0;
+
+    agregarConcepto: boolean;//MODAL DE AGREGAR CONCEPTOS
+    cerrarAC() {
+        this.agregarConcepto = false;
+    }
+    abrirAC() {
+        this.agregarConcepto = true;
+    }
+
+
 
     loadData(event) {
         this.loading = true;
@@ -267,8 +245,10 @@ export class ReciboCajaComponent implements OnInit {
         this.valorConcepto = this.selectedRecord.valorConcepto;
     }
 
-    // LISTAR CONCEPTOS
 
+
+
+    // LISTAR CONCEPTOS
     conceptosList: { nombre: string; valor: number; cantidad: number }[] = [];
     cantidadTemporal: number = 1;
 
@@ -297,7 +277,7 @@ export class ReciboCajaComponent implements OnInit {
             this.nombreConcepto = '';
             this.valorConcepto = 0;
             this.cantidadTemporal = 1;
-            this.modal1 = false;
+            this.agregarConcepto = false;
 
             this.calcularTotalesTotales(); // Llama al método para recalcular los totales generales
         }
@@ -343,12 +323,18 @@ export class ReciboCajaComponent implements OnInit {
     }
 
     // EDITAR CONCEPTOS
-
     conceptoEditando: any = null;
     cantidadEditando: number = 0;
 
+    editarConcepto: boolean;// MODAL DE EDITAR LA TABLA DE CONCEPTOS
+
+    editarC() {
+        this.editarConcepto = false;
+    }
+
+
     iniciarEdicionCantidad(concepto: any) {
-        this.editar = true;
+        this.editarConcepto = true;
         this.conceptoEditando = concepto;
         this.cantidadEditando = concepto.cantidad;
     }
@@ -356,47 +342,59 @@ export class ReciboCajaComponent implements OnInit {
     guardarEdicionCantidad() {
         if (this.conceptoEditando) {
             this.conceptoEditando.cantidad = this.cantidadEditando;
+            
+            // Recalcula el total del concepto editado con la nueva cantidad
+            this.conceptoEditando.total = this.Total(
+                this.conceptoEditando.valor,
+                this.cantidadEditando
+            );
+            
             this.calcularTotalesTotales(); // Recalcula los totales generales
             this.conceptoEditando = null; // Limpia la edición
             this.cantidadEditando = 0;
-            this.editar = false;
+            this.editarConcepto = false;
         }
-    }
-
-    editarmodal() {
-        this.editar = false;
     }
 
     // GUARDAR
 
     guardarDatos() {
+        const codRcajaValue = this.buscarForm.get('codRcaja').value;
+
         if (
             this.subtotalTotal === 0 ||
             this.ivaTotal === 0 ||
-            this.totalTotal === 0
-        ) {
-            console.log('Algunos campos no se han llenado correctamente.');
+            this.totalTotal === 0 ||
+            codRcajaValue.length !== 13 || // Verifica la longitud del campo codRcaja
+            !this.clienteSelect.cedula
+        )  {
+            if (this.subtotalTotal === 0 || this.ivaTotal === 0 || this.totalTotal === 0) {
+                this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Agrega un Concepto');
+            }
+            if (codRcajaValue.length !== 13) {
+                this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'El Recibo Caja debe tener 11 digitos.');
+            }
+        
+            if (!this.clienteSelect.cedula) {
+                this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Selecciona un Cliente o Empleado.');
+            }
             return;
         }
 
-        // Prepara los datos a enviar
         const datosAGuardar = {
+    
             carreraConsumidorRc: 'Null',
-
-            codRcaja: this.buscarForm.get('codRcaja').value, // Obtén el valor del campo codRcaja del formulario
+            codRcaja: codRcajaValue, // Obtén el valor del campo codRcaja del formulario
             correoConsumidorRc: this.clienteSelect.correo,
             direccionConsumidorRc: this.clienteSelect.direccion,
             fechaRcaja: new Date().toISOString(), // Obtén la fecha actual en formato ISO
             idEstadoRc: 1,
-
             idCajaRc: 0,
             idReciboCaja: 0,
             idTipoConsumidorRc: 0,
             idUsuarioRc: 0,
             nroPagosRc: 0,
-
             observacionRc: '',
-
             ivaRc: this.ivaTotal,
             nombreConsumidorRc: this.clienteSelect.nombre,
             rucConsumidorRc: this.clienteSelect.cedula,
@@ -409,6 +407,7 @@ export class ReciboCajaComponent implements OnInit {
         this.reciboCaja.saveObject(datosAGuardar).subscribe(
             (respuesta) => {
                 console.log('Datos guardados exitosamente:', respuesta);
+                this.buscarForm.get('codRcaja').setValue('');
                 // Puedes mostrar un mensaje de éxito u otras acciones aquí
             },
             (error) => {
@@ -417,7 +416,23 @@ export class ReciboCajaComponent implements OnInit {
             }
         );
 
+        // this.confirmationService.confirm({
+        //     message: '  Seguro de guardar este Recibo de Caja?',
+        //     header: 'Mensaje...',
+        //     icon: 'pi pi-exclamation-triangle ',
+        //     accept: () => {
+        //         this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Guardado' });
+        //         this.modal = false;
+        //     },
+        //     reject: (type: any) => {
+        //         switch (type) {
+        //             case ConfirmEventType.REJECT:
+        //                 this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'Cancelado' });
+        //                 break;
+        //         }
+        //     }
+        // });
         this.limpiarLista();
-        this.modal = false;
     }
+
 }

@@ -79,7 +79,7 @@ export class BuscarRecibosComponent implements OnInit {
                     console.log('no hay datos')
                     this.appService.msgInfoDetail(
                         severities.ERROR,
-                        'INFO',
+                        'ERROR',
                         'No se encontraron registros',
                         700
                     );
