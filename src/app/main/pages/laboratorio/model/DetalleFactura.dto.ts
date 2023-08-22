@@ -4,7 +4,7 @@ costotDf: number
 estadoServ:	string
 idConcepto: {idTipoConcepto: number;};
 idDetalleFactura: number
-idFacturaDTO: {idTipoConcepto: number;};
+idFacturaDTO: {idFactura: number;};
 idIva: number
 idMetodo: number
 idServicio:	number

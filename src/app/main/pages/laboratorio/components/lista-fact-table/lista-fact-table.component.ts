@@ -22,7 +22,7 @@ export class ListaFactTableComponent implements OnInit {
   selectedFacturas: FacturaDto[];
   facturaSelect:FacturaDto;
 
-  @Input() listdetalle: DetalleFacturaDto[];
+  @Input() listDetalle: DetalleFacturaDto[];
   @Output() detallesSelect = new EventEmitter();
   detalles: DetalleFacturaDto;
   selectedDetalles: DetalleFacturaDto[];
@@ -32,6 +32,7 @@ export class ListaFactTableComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
   exportColumns: any[];
+  @Input() facturasConDetalles: any[] = [];
 
   cols: any[];
 
@@ -53,8 +54,10 @@ export class ListaFactTableComponent implements OnInit {
     this.construirTablaD();
     this.facturaSelect= new FacturaDto();
     this.detalleSelect= new DetalleFacturaDto();
-
+    this.prepararDatosFacturasConDetalles();
   }
+
+
   
   onInput(event: any) {
     const input = event.target;
@@ -68,6 +71,7 @@ export class ListaFactTableComponent implements OnInit {
   construirTabla() {
     this.cols = [
       { field: 'idFactura', header: 'ID Factura' },
+      { field: 'estadoServ', header: 'ID Detalle' },
       { field: 'idProforma', header: 'ID Proforma' },
       { field: 'rucConsumidor', header: 'CI/RUC' },
       { field: 'nombreConsumidor', header: 'Cliente' },
@@ -107,10 +111,24 @@ export class ListaFactTableComponent implements OnInit {
     this.facturaSelect = facturaSelectDto;
     this.abrirmodal();
   }
+  
 
   cargarDetalle(detalleSelectDto: DetalleFacturaDto) {
     this.detalleSelect = detalleSelectDto;
     this.abrirmodal();
+  }
+
+  prepararDatosFacturasConDetalles() {
+    this.facturasConDetalles = [];
+  
+    for (const factura of this.listFactura) {
+      const detallesFactura = this.listDetalle.filter(detalle => detalle.idFacturaDTO.idFactura === factura.idFactura);
+      
+      this.facturasConDetalles.push({
+        factura: factura,
+        detalles: detallesFactura
+      });
+    }
   }
 
   loadData(event) {
@@ -129,9 +147,9 @@ export class ListaFactTableComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
         this.detallefacturaService.getAll().subscribe((res) => {
-            this.listdetalle = res;
+            this.listDetalle = res;
             console.log('LLAMADA');
-            console.log(this.listdetalle);
+            console.log(this.listDetalle);
             this.loading = false;
         });
     }, 1000);
