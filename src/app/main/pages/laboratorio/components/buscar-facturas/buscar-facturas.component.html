@@ -1,0 +1,44 @@
+<!-- [style]="{width: '70vw'}" -->
+<p-card [style]="{width: '45vw'}" class="central">
+    <p-header class="mb-4">
+        <h4 style="background:#0d3c61; color: aliceblue; padding: 15px;">BUSCAR RECIBOS CAJA</h4>
+    </p-header>
+
+    <form [formGroup]="buscarForm" class="mt-2 px-4" [style]="{width: '100%'}" (ngSubmit)=" filtrarRecibos()">
+        <div class="formgrid p-grid p-fluid">
+            <div class="col-12 md:col-6 ">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-codFactura" type="text" required="true"
+                        formControlName="codFactura" style="text-transform: uppercase;" [maxlength]="13"
+                        pTooltip="Ejm:123-123-12345" tooltipPosition="top" (input)="onInputNroRecibo($event)">
+                    <label for="ftxt-codFactura">Nro.Factura</label> 
+                </span>
+            </div>
+            <div class="col-12 md:col-6">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-nombreConsumidor" type="text" required="true"
+                        formControlName="nombreConsumidor" style="text-transform: uppercase;"
+                        (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)" [maxLength]="30">
+                    <label for="ftxt-nombreConsumidor">Nombre Cliente</label>
+                </span>
+            </div>
+            <div class="col-12 md:col-6">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-rucConsumidor" type="number" required="true" formControlName="rucConsumidor"
+                        style="text-transform: uppercase;" (input)="maxiLengthRuc($event)" [maxlength]="13">
+                    <label for="ftxt-rucConsumidor">RUC</label>
+                </span>
+            </div>
+        </div>
+        <div class="central">
+            <p-toolbar>
+                <div class="p-toolbar-group-center">
+                    <button pButton label="Consultar" class="p-button p-button-lg m-1 bg-blue-900 " icon="pi pi-search"
+                        type="submit" pTooltip="Consultar" tooltipPosition="right"></button>
+                </div>
+            </p-toolbar>
+        </div>
+    </form>
+
+</p-card>
+<app-lista-fact-table ></app-lista-fact-table>
