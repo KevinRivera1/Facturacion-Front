@@ -7,11 +7,9 @@ import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { severities } from 'src/app/_enums/constDomain';
 import { FormUtil } from '../../formUtil/FormUtil';
-import { TokenDto } from 'src/app/_dto/token-dto';
-import { TokenService } from 'src/app/_service/token.service';
 
 @Component({
   selector: 'app-nota-credito',
@@ -24,7 +22,7 @@ export class NotaCreditoComponent implements OnInit {
   proceso: string = 'conceptos';
   buscarFacturas: FormGroup;
   formUtil: FormUtil;
-  token: TokenDto;
+
   modal: boolean;
   modal1: boolean;
 
@@ -36,9 +34,9 @@ export class NotaCreditoComponent implements OnInit {
 
     private breadcrumbService: BreadcrumbService,
     public appService: AppService,
-    private formBuilder: FormBuilder,
-    private facturaService: FacturaService,
-    private tokenService: TokenService
+    private notasService: NotaCreditoService,
+    private facturasService: FacturaService,
+    private detallefacturaService: DetalleFacturaService,
 
   ) {
     {
@@ -47,25 +45,13 @@ export class NotaCreditoComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.iniciarForms();
+    this.llenarListFacturas();
     this.formUtil = new FormUtil(this.buscarFacturas);
   
   }
 
   get f() {
     return this.buscarFacturas.controls;
-}
-
-iniciarForms() {
-  this.buscarFacturas = this.formBuilder.group({
-      idFactura: [null],
-      codFactura: ['', [Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]],
-      nombreConsumidor: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
-      rucConsumidor: ['', [Validators.pattern('^[0-9]{1,13}$')]]
-  });
-  this.token = JSON.parse(this.tokenService.getResponseAuth());
-  //this.f.idUsuarioEstComprob.setValue(this.token.id)
 }
 
   onInput(event: any) {
@@ -78,11 +64,20 @@ iniciarForms() {
   }
 
 
+  async llenarListFacturas() {
+    await this.facturasService.getAll().subscribe({
+      next: (data) => {
+        this.listFacturas = data.listado;
+        console.log('CORRECTO');
+        console.log(this.listFacturas);
+      },
+    });
+  }
 
 
   filtrarFacturas() {
     const formData = this.buscarFacturas.value;
-    this.facturaService.getAll().subscribe({
+    this.detallefacturaService.getAll().subscribe({
         next: (response) => {
             const facturasFiltrados = this.filtrarFacturasPorCriterios(response.listado, formData);
             console.log('Recibos filtrados', facturasFiltrados);
@@ -117,9 +112,10 @@ iniciarForms() {
 
 filtrarFacturasPorCriterios(facturas, formData) {
     return facturas.filter((factura) => {
-        const codFacturaMatch = this.matchFilter(factura.codFactura, formData.codFactura);
-        const nombreConsumidorMatch = this.matchFilter(factura.nombreConsumidor, formData.nombreConsumidor);
-        const rucConsumidorMatch = this.matchFilter(factura.rucConsumidor, formData.rucConsumidor);
+        const fechafactura = factura.idFacturaDTO.fechaFact;
+        const codFacturaMatch = this.matchFilter(factura.idFacturaDTO.codFactura, formData.codFactura);
+        const nombreConsumidorMatch = this.matchFilter(factura.idFacturaDTO.nombreConsumidor, formData.nombreConsumidor);
+        const rucConsumidorMatch = this.matchFilter(factura.idFacturaDTO.rucConsumidor, formData.rucConsumidor);
         return codFacturaMatch && nombreConsumidorMatch && rucConsumidorMatch;
     });
 }
