@@ -115,21 +115,26 @@
                   <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.cedula}}</i></b>
               </div>
               <div class="field col-12 md:col-6">
-                  <label>Nombre: </label>
-                  <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.nombre}}</i></b>
-              </div>
+                <label>Estado: </label> 
+                <p-dropdown style="margin-left: 3px;" [options]="estadoOptions" [(ngModel)]="estadoSeleccionado"></p-dropdown>
+            </div>
               <div class="field col-12 md:col-6">
                   <label>Correo: </label>
                   <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.correo}}</i></b>
               </div>
               <div class="field col-12 md:col-6">
-                  <label>Dirección: </label>
-                  <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.direccion}}</i></b>
-              </div>
+                <label>Nombre: </label>
+                <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.nombre}}</i></b>
+            </div>
               <div class="field col-12 md:col-6">
                   <label>Telefono: </label>
                   <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
               </div>
+              <div class="field col-12 md:col-6">
+                <label>Dirección: </label>
+                <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.direccion}}</i></b>
+            </div>
+                
           </div>
       </div>
   </fieldset>
@@ -151,78 +156,60 @@
 
 
       
-      <!-- TABLA DIALOG -->
+       <!-- TABLA DIALOG -->
+       <p-table styleClass="p-datatable-gridlines" [value]="conceptosList" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="background-color: rgb(206, 244, 244);" style="background-color: rgb(206, 244, 244);">Codigo</th>
+                <th style="background-color: rgb(206, 244, 244);" >Descripcion</th>
+                <th style="background-color: rgb(206, 244, 244);" >Cantidad</th>
+                <th style="background-color: rgb(206, 244, 244);" >V/Unitario</th>
+                <th style="background-color: rgb(206, 244, 244);" colspan="2">Total</th>
+                <th style="background-color: rgb(206, 244, 244);" >Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-concepto>
+            <tr>
+                <td>{{ concepto.idConcepto}}</td>
+                <td>{{ concepto.nombre}}</td>
+                <td>{{ concepto.cantidad}}</td>
+                <td>{{ concepto.valor}}</td>
+                <td colspan="2">{{ concepto.total}} $</td>
+                <td>
+                    <button pButton icon="pi pi-pencil"
+                        class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                        (click)="iniciarEdicionCantidad(concepto)" pTooltip="Editar"
+                        tooltipPosition="left"></button>
+                    <button pButton icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                        (click)="eliminarConcepto(concepto)" tooltipPosition="left" pTooltip="Eliminar"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br>
+       <!-- IVA-TOTAL-SUBTOTAL -->
+       <p-table styleClass="p-datatable-gridlines" style="width: 20%;">
+        <ng-template pTemplate="header">
+            <tr> 
+                <th style="width: 500px;"></th>
+                <th>SUBTOTAL TOTAL:</th>
+                <th>{{ subtotalTotal | number: '1.2-2' }}</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>IVA TOTAL 12%</th>
+                <th>{{ ivaTotal | number: '1.2-2' }}</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>TOTAL FACTURA:</th>
+                <th>{{ totalTotal | number: '1.2-2' }}</th>
+            </tr>
+        </ng-template>
+    </p-table>
 
-      <p-table
-      [value]="conceptosList"
-      styleClass="p-datatable-gridlines" 
-      [tableStyle]="{ 'min-width': '50rem' }"
-  >
-      <ng-template pTemplate="header">
-          <tr>
-              <th style="background-color: rgb(206, 244, 244);">CODIGO </th>
-              <th style="background-color: rgb(206, 244, 244);">DESCRIPCION</th>
-              <th style="background-color: rgb(206, 244, 244);">CANTIDAD</th>
-              <th style="background-color: rgb(206, 244, 244);">PRECIO UNIT.</th>
-              <th style="background-color: rgb(206, 244, 244);">VAL TOTAL</th>
-              <th style="background-color: rgb(206, 244, 244);">VAL IVA</th>
-              <th style="background-color: rgb(206, 244, 244);">ACCIONES</th>
-          </tr>
-
-         
-      </ng-template>
-      <ng-template pTemplate="body" let-concepto>
-        <tr> 
-            <td>{{ concepto.idConcepto }}</td>
-            <td>{{ concepto.nombre }}</td>
-            <td>{{ concepto.cantidad }}</td>
-            <td>{{ concepto.valor }}</td>
-            <td colspan="2">{{  concepto.cantidad * concepto.valor   }}</td>
-            <td>Acciones</td>
-        </tr>
-
-        
-        <!-- <tr>
-          <th colspan="2"></th>
-          <th colspan="3">Subtotal:</th>
-          <th>00.0</th>
-          <th></th>
-      </tr>
-      <tr>
-          <th>____________________</th>
-          <th>____________________</th>
-          <th colspan="3">I.V.A 12%</th>
-          <th>00.12</th>
-          <th></th>
-
-      </tr>
-    
-      <tr>
-        <th >Nombre:</th>
-        <th>Nombre:</th>
-        <th colspan="3">Total Fctura</th>
-        <th >0.0</th>
-        <th></th>
-    </tr>
-      <tr>
-        <th></th>
-        <th colspan="3">C.I/RUC</th>
-        <th colspan="3"></th>
-    </tr>
-    <tr>
-      <th colspan="5"></th>
-      <th>PAGO: <input type="number" style="width: 40%;"></th>
-    </tr>
-    <tr>  
-      <th colspan="5"></th>
-      <th>CAMBIO: 00</th>
-    </tr>  -->
-    </ng-template>
    
-       
-    
-    
-  </p-table>
 
       <br><br>
 
@@ -234,6 +221,7 @@
                   class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                   pTooltip="Guardar"
                   tooltipPosition="right"
+                  (click)="guardarDatos()"
               ></button>
 
               <button
@@ -259,13 +247,65 @@
           </div>
       </div>
   </p-dialog>
+
+   <!-- EDITAR DIALOG -->
+
+   <p-dialog [header]="'Editar Concepto'" [(visible)]="editar" [style]="{ width: '31.5vw' }">
+    <div class="md:col-6">
+        <span class="p-float-label">
+            <div class="fielset-infConceptosEditar">
+                <fieldset class="search-infConceptosEditar">
+                    <legend>Informacion de Conceptos</legend>
+                    <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText disabled="true" type="number" />
+                            <label>Nombre:
+                                <b>
+                                    <i class="text-1xl mr-2 mb-3">{{ conceptoEditando?.nombre }}</i></b>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText disabled="true" type="number" />
+                            <label>Precio Unitario:
+                                <b>
+                                    <i class="text-1xl mr-2 mb-3">{{ conceptoEditando?.valor }}</i></b></label>
+                        </span>
+                    </div>
+                    <div class="p-field col-12 md:mb-2 mb-0 px-3">
+                        <span class="p-float-label">
+                            <input pInputText id="ftxt-cantidad" [(ngModel)]="cantidadEditando" required="true"
+                                type="number" min="1" />
+                            <label>* Cantidad:</label>
+                        </span>
+                    </div>
+
+                    <div align="center" class="flex justify-content-center">
+                        <div class="caja-boton-principal">
+                            <button pButton label="Guardar" (click)="guardarEdicionCantidad()"
+                                [disabled]="cantidadEditando === conceptoEditando?.cantidad" class="m-1 bg-blue-900"
+                                pTooltip="Guardar" icon="pi pi-save" tooltipPosition="right"></button>
+
+                            <button pButton label="Cancelar" class="m-1 bg-blue-900" pTooltip="Cancelar"
+                                tooltipPosition="right" (click)="editarmodal()"></button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+        </span>
+    </div>
+</p-dialog>
+
+
   <app-list-forma-pago [display]="displayModal" (closeModal)="closeModal()"></app-list-forma-pago>
 
 
   <p-dialog
   header="Agregar Detalle Factura"
   [(visible)]="modal1"
-  [style]="{ width: '43vw' }"
+  [style]="{ width: '50vw' }"
   [modal]="true"
 >
   <br /><br />
@@ -320,7 +360,7 @@
           </ng-template>
         </p-table> -->
 
-        <p-table   #dt [value]="listConceptos " [rows]="3" [paginator]="true" [loading]="loading"
+        <p-table   #dt [value]="listConceptos "  [rows]="3" [paginator]="true" [loading]="loading"
         [globalFilterFields]="[
                 'nombreConcepto',
                 'codigoConcepto',
@@ -581,15 +621,15 @@
     <header class="text-center">BUSCAR FACTURAS DE OTROS CONCEPTOS</header>
 
     <div class="p-d-flex">
-    <form>
+    <form [formGroup]="formotrosconceptos" (ngSubmit)="filtrarFacturas()">
         <div class="">
             <br />
 
             <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
                   <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreFp" type="text" required="true" />
-                    <label for="ftxt-nombreFp">* Factura No.</label>
+                    <input pInputText id="ftxt-codFactura" formControlName="codFactura" type="text" required="true" />
+                    <label for="ftxt-codFactura">* Factura No.</label>
                   </span>
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
@@ -603,14 +643,14 @@
               <div class="p-fluid p-formgrid grid">
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
                   <span class="p-float-label">
-                    <input pInputText id="ftxt-nombreFp" type="text" required="true" />
-                    <label for="ftxt-nombreFp">* Nombre Cliente</label>
+                    <input pInputText id="ftxt-nombreConsumidor" formControlName="nombreConsumidor" type="text" required="true" />
+                    <label for="ftxt-nombreConsumidor">* Nombre Cliente</label>
                   </span>
                 </div>
                 <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 400px;">
                   <span class="p-float-label">
-                    <input pInputText id="ftxt-cedula" type="text" required="true" (input)="onInput($event)"[(ngModel)]="cedula" keyfilter="int" maxlength="13" />
-                    <label for="ftxt-cedula">* Ruc/Cédula</label>
+                    <input pInputText id="ftxt-rucConsumidor" type="text" formControlName="rucConsumidor" required="true" (input)="onInput($event)" keyfilter="int" maxlength="13" />
+                    <label for="ftxt-rucConsumidor">* Ruc/Cédula</label>
                   </span>
                 </div>
               </div>
@@ -640,6 +680,7 @@
                             icon="pi pi-search"
                             type="submit"
                             pTooltip="Buscar"
+                            (click)="filtrarFacturas()"
                             tooltipPosition="right"
                         ></button>
                     </div>
@@ -649,8 +690,7 @@
     </form>
 </div>
 
-<app-fact-otros-conceptos-table>
-</app-fact-otros-conceptos-table>
+
 </p-card>
 
   <!-- Dialog Tabla Buscar -->

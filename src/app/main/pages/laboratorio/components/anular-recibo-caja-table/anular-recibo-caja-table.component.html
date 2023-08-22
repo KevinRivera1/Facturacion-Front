@@ -1,7 +1,8 @@
+<!--* se emite los datos de filtracion a la tabla de recibos de caja -->
 <app-buscar-recibos (reciboCajaEmitter)=filtrarRecibos($event)></app-buscar-recibos>
 
 <br />
-
+<!--* Esta es el componente tabla donde se muestran los recibos de caja -->
 <section class="content">
     <div class="container-fluid">
         <div class="card">
@@ -71,13 +72,13 @@
                                 <p-columnFilter type="text" field="Ruc" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="CI">
+                        <!-- <th pSortableColumn="CI">
                             <div class="flex justify-content-between align-items-center">
                                 CI
                                 <p-sortIcon field="CI"></p-sortIcon>
                                 <p-columnFilter type="text" field="CI" display="menu"></p-columnFilter>
                             </div>
-                        </th>
+                        </th> -->
                         <th pSortableColumn="fechaRcaja">
                             <div class="flex justify-content-between align-items-center">
                                 Fecha
@@ -116,22 +117,22 @@
                         <td>{{ item.codRcaja }}</td>
                         <td>{{item.nombreConsumidorRc}}</td>
                         <td>{{item.rucConsumidorRc}}</td>
-                        <td>{{item.rucConsumidorRc}}</td>
+                        <!-- <td>{{item.rucConsumidorRc}}</td> -->
                         <td>{{item.fechaRcaja | date:'dd/MM/yyyy'}}</td>
                         <td>{{ item.totalRc }}</td>
                         <td>
-                            <mark [ngClass]="
-                                    item.idEstadoRc == 'ACTIVO'
-                                        ? 'border-green-500'
-                                        : 'border-red-500'
-                                ">{{ item.idEstadoRc }}</mark>
+                            <mark
+                                [ngClass]="
+                                    item.idEstadoRc === 1 ? 'bg-green-300' : item.idEstadoRc === 0 ? 'bg-red-300' : 'bg-orange-300'">
+                                {{ item.idEstadoRc === 1 ? 'Pagada' : item.idEstadoRc === 0 ? 'Anulada' : 'Sin estado' }}
+                            </mark>
                         </td>
                         <td>{{ item.observacionRc}}</td>
 
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
-                                (click)="modalOpen()" pTooltip="Editar" tooltipPosition="left"></button>
+                                (click)="editRecibCaja(item)" pTooltip="Editar" tooltipPosition="left"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -144,10 +145,12 @@
             </p-table>
         </div>
     </div>
-    <!-- <br />
-    <div class="button__from text-right">
+    <br />
+    <!-- <div class="button__from text-right">
         <a pButton label="anular" icon="pi pi-plus" (click)="modalOpen()">Anular modal</a>
-    </div> -->
+    </div>  -->
 </section>
 
-<app-anular-recibo-caja [display]="displayModal" (closeModal)="closeModal()"></app-anular-recibo-caja>
+<!--* Esta llamando al comoponente de anular recibo de caja -->
+<app-anular-recibo-caja [display]="displayModal" (closeModal)="closeModal()"[reciboSeleccionado]="recibosCajaSelect" ></app-anular-recibo-caja>
+

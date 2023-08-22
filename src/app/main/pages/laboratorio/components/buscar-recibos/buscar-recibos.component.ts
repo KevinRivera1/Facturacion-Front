@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
 import { TokenDto } from 'src/app/_dto/token-dto';
+import { severities } from 'src/app/_enums/constDomain';
+import { AppService } from 'src/app/_service/app.service';
 import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormUtil } from '../../formUtil/FormUtil';
-import { ReciboCaja } from '../../model/reciboCaja';
-import { ReciboCajaService } from '../../services/reciboCaja.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
+import { ReciboCajaService } from '../../services/reciboCaja.service';
 
 @Component({
     selector: 'app-buscar-recibos',
@@ -15,8 +16,6 @@ import { ReciboCajaDto } from '../../model/reciboCajaDto';
     styleUrls: ['./buscar-recibos.component.scss'],
 })
 export class BuscarRecibosComponent implements OnInit {
-    //@Input() reciboCaja: ReciboCaja;
-
     @Output() reciboCajaEmitter = new EventEmitter();
     recibos: ReciboCajaDto[];
 
@@ -27,6 +26,7 @@ export class BuscarRecibosComponent implements OnInit {
     formUtil: FormUtil;
 
     constructor(
+        public appService: AppService,
         private reciboCajaService: ReciboCajaService,
         private breadcrumbService: BreadcrumbService,
         private formBuilder: FormBuilder,
@@ -53,36 +53,84 @@ export class BuscarRecibosComponent implements OnInit {
             nombreConsumidorRc: ['', Validators.pattern('^[a-zA-ZÀ-ÿ ]*$')],
             rucConsumidorRc: ['', [Validators.pattern('^[0-9]{1,13}$')]],
             Cedula: ['', [Validators.pattern('^[0-9]{1,10}$')]],
-            fechaRcaja: [''],
+            fechaDesde: [''],
+            fechaHasta: [''],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
         //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
+    //* Funciones para filtrado de datos de recibos
     filtrarRecibos() {
         const formData = this.buscarForm.value;
-        // Llamada al servicio para filtrar los datos
-        this.reciboCajaService.getAll().subscribe((response) => {
-            const data = response.listado; // Accedemos a la propiedad listado
-            if (Array.isArray(data)) {
-                const recibosFiltrados = data.filter((recibo) => {
-                    return (
-                        recibo.codRcaja.includes(formData.codRcaja) &&
-                        recibo.nombreConsumidorRc.includes(
-                            formData.nombreConsumidorRc
-                        ) &&
-                        recibo.rucConsumidorRc.includes(
-                            formData.rucConsumidorRc
-                        )
+        this.reciboCajaService.getAll().subscribe({
+            next: (response) => {
+                const recibosFiltrados = this.filtrarRecibosPorCriterios(response.listado, formData);
+                console.log('Recibos filtrados', recibosFiltrados);
+                if (recibosFiltrados.length > 0) {
+                    this.reciboCajaEmitter.emit(recibosFiltrados);
+                    this.appService.msgInfoDetail(
+                        severities.INFO,
+                        'INFO',
+                        'Datos Cargados exitosamente',
+                        550
                     );
-                });
 
-                // Emitir los recibos filtrados al componente padre
-                this.reciboCajaEmitter.emit(recibosFiltrados);
-            } else {
-                console.error('Los datos no son un array:', data);
-            }
+                } else {
+                    console.log('no hay datos')
+                    this.appService.msgInfoDetail(
+                        severities.ERROR,
+                        'INFO',
+                        'No se encontraron registros',
+                        700
+                    );
+                }
+            },
+            error: (error) => {
+                console.error('Error al cargar los datos', error);
+                this.appService.msgInfoDetail(severities.ERROR, 'ERROR AL CARGAR LOS DATOS', error.error);
+            },
+            complete: () => {
+                console.log('Obtención de datos completada');
+            },
         });
+    }
+
+    filtrarRecibosPorCriterios(recibos, formData) {
+        return recibos.filter((recibo) => {
+            const fecharecibo = recibo.fechaRcaja;
+
+            const codRcajaMatch = this.matchFilter(recibo.codRcaja, formData.codRcaja);
+            const nombreConsumidorRcMatch = this.matchFilter(recibo.nombreConsumidorRc, formData.nombreConsumidorRc);
+            const rucConsumidorRcMatch = this.matchFilter(recibo.rucConsumidorRc, formData.rucConsumidorRc);
+            const cumpleFiltrosFecha = this.filtarRangoFechas(fecharecibo, formData.fechaDesde, formData.fechaHasta);
+
+            return codRcajaMatch && nombreConsumidorRcMatch && rucConsumidorRcMatch && cumpleFiltrosFecha;
+        });
+    }
+
+    matchFilter(value, filter) {
+        if (filter === '') {
+            return true;
+        }
+        return value && value.includes(filter);
+    }
+
+    filtarRangoFechas(fechaRecibo: any, fechaDesde: string, fechaHasta: string): boolean {
+        if (!fechaDesde && !fechaHasta) {
+            return true;
+        }
+        const fechaReciboT = fechaRecibo;
+        const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
+        const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
+
+        return fechaReciboT >= fechaDesdeT && fechaReciboT <= fechaHastaT;
+    }
+    //* Termina funciones de filtrado
+
+    setearForm() {
+        this.buscarForm.reset();
+        this.iniciarForms();
     }
 
     onInputNroRecibo(event: any) {

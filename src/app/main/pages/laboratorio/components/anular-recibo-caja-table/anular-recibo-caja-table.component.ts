@@ -2,17 +2,14 @@ import {
     Component,
     EventEmitter,
     Input,
-    OnChanges,
     OnInit,
-    Output,
-    SimpleChange,
-    SimpleChanges,
+    Output
 } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
-import { ReciboCajaModel } from '../../model/reciboCaja';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
 
@@ -27,7 +24,12 @@ export class AnularReciboCajaTableComponent implements OnInit {
     proceso: string = 'anular Recibo caja';
     displayModal: boolean = false;
 
-    @Input() recibos: any [] = [];
+    @Input() recibos: ReciboCajaDto[] = [];
+
+    @Output() editReciboSeleccionado = new EventEmitter();
+    //*Tabal emite dato para actualizar etado
+    recibosCajaSelect: ReciboCajaDto;
+
 
     submitted: boolean;
     loading: boolean;
@@ -37,10 +39,9 @@ export class AnularReciboCajaTableComponent implements OnInit {
     constructor(
         private reciboCajaService: ReciboCajaService,
         private fileService: FileService,
-        private appservie: AppService,
+        private appService: AppService,
         private confirmationService: ConfirmationService
-    ) {}
-
+    ) { }
 
     ngOnInit(): void {
         this.construirTabla();
@@ -67,14 +68,20 @@ export class AnularReciboCajaTableComponent implements OnInit {
 
     clear(table: Table) {
         table.clear();
+        this.recibos = [];
     }
 
-    filtrarRecibos(recibos:any[]){
-        this.recibos = recibos
+    filtrarRecibos(recibos: ReciboCajaDto[]) {
+        this.recibos = recibos;
     }
 
-    //* Función para guardar el motivo de anulacion desde la tabla
-    guardarMotivoAnulacion() {}
+    //*emite los datos de la tabla para actualizar estado
+    editRecibCaja(doc: ReciboCajaDto) {
+        this.recibosCajaSelect = { ...doc };
+        this.editReciboSeleccionado.emit(doc); //* independiente
+        this.modalOpen();
+        console.log("🚀Emit: ", this.recibosCajaSelect)
+    }
 
     exportPdf() {
         /* let indexLista: number = 0;

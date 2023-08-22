@@ -31,21 +31,21 @@
             </div>
             <div class="col-12 md:col-6 ">
                 <span class="p-float-label">
-                    <input pInputText id="ftxt-Cedula" type="number" required="true" formControlName="Cedula"
+                   <!--  <input pInputText id="ftxt-Cedula" type="number" required="true" formControlName="Cedula"
                         style="text-transform: uppercase;" (input)="maxLengthCedula($event)" [maxlength]="10">
-                    <label for="ftxt-Cedula">Cédula</label>
+                    <label for="ftxt-Cedula">Cédula</label> -->
                 </span>
             </div>
             <div class="col-12 md:col-6 text-left">
-                <label for="ftxt-fechaRcaja" class="block mb-1">Fecha Desde: </label>
+                <label for="ftxt-fechaDesde" class="block mb-1">Fecha Desde: </label>
                 <span class="p-float-label">
-                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaRcaja" [showIcon]="true"></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaDesde" [showIcon]="true"></p-calendar>
                 </span>
             </div>
             <div class="col-12 md:col-6 text-left">
                 <label for="ftxt-fechaHasta" class="block mb-1">Fecha Hasta: </label>
                 <span class="p-float-label">
-                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaRcaja" [showIcon]="true"></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="fechaHasta" [showIcon]="true"></p-calendar>
                 </span>
             </div>
         </div>

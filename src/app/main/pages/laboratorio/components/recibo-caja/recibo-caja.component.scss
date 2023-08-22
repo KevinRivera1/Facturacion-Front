@@ -45,8 +45,10 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto; /* Para centrar el formulario horizontalmente */
-    padding: 0px; /* Añade un espacio interno opcional para que el contenido no esté pegado al borde */
+    margin: 0 auto;
+    /* Para centrar el formulario horizontalmente */
+    padding: 0px;
+    /* Añade un espacio interno opcional para que el contenido no esté pegado al borde */
 }
 
 .calendar {
@@ -70,29 +72,46 @@ textarea {
     justify-content: space-around;
     align-content: center;
 }
+
 .header-img {
     width: 20%;
 }
+
 img {
     width: 30%;
     object-fit: cover;
 }
+
 .header-container h4 {
     margin: 0;
 }
+
 .header-container {
     width: 50%;
 }
+
 .header-recibo h1,
 h3 {
     font-size: 14px;
     margin: 0;
 }
+
 .recibo-caja {
     padding: 5px;
     outline: 1px solid rgba(128, 128, 128, 0.642);
 }
+
+.recibo-caja input {
+    padding: 4px;
+}
+
+.recibo-caja label {
+    font-size: 1.3em; 
+    font-weight: bold;
+}
+
 input[type="number"] {
+
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
         -webkit-appearance: none;
@@ -111,26 +130,31 @@ input[type="number"] {
     align-content: center;
     padding-top: 2%;
 }
+
 .search-border {
     border: 1px solid rgba(128, 128, 128, 0.642);
     padding: 0px 50px 0px 50px;
 }
+
 .search-border legend {
     font-weight: bold;
 }
+
 .search {
     margin-top: 2%;
 }
+
 .search button {
     padding: 8px;
     font-size: 12px;
 }
 
-.search input{
+.search input {
     height: 2%;
     padding: 10px;
     font-size: 12px;
 }
+
 .fieldset-search2 {
     display: flex;
     place-items: center;
@@ -158,12 +182,14 @@ input[type="number"] {
     margin-top: 2%;
     width: 100%;
 }
+
 .data {
     width: 50em;
     display: flex;
     align-content: center;
     flex-direction: column;
 }
+
 .data h4 {
     padding: 1%;
     margin: 0;
@@ -174,6 +200,7 @@ input[type="number"] {
 .table-dialog tr th {
     width: 3%;
 }
+
 .table-dialog input {
     width: 50%;
 }
@@ -185,6 +212,7 @@ input[type="number"] {
     justify-content: center;
     padding: 2%;
 }
+
 .obser {
     border: 1px solid rgba(128, 128, 128, 0.642);
     display: flex;
@@ -213,7 +241,7 @@ input[type="number"] {
     width: 35em;
     // padding: 5px;
     // padding: 1%;
-    
+
 }
 
 
@@ -227,14 +255,17 @@ input[type="number"] {
     align-content: center;
     // padding-top: 15%;
 }
-b{
+
+b {
     color: black;
 }
+
 .search-infConceptos {
     border: 1px solid rgba(128, 128, 128, 0.642);
     width: 30em;
     // padding: 5px;
 }
+
 .search-infConceptos input {
     // padding: 10px;
     font-size: 12px;
@@ -243,20 +274,20 @@ b{
 
 }
 
-.p-fluid.p-formgrid.grid.input{
+.p-fluid.p-formgrid.grid.input {
     display: flex;
     gap: 5em;
     padding: 30px;
 }
 
 // SAEW
-.search-saew{
+.search-saew {
     border: 1px solid rgba(128, 128, 128, 0.642);
     width: 15em;
     padding: 5px;
 }
 
-.search-saew th{
+.search-saew th {
     border: 1px solid rgba(128, 128, 128, 0.642);
     width: 5em;
     padding: 5px;
@@ -265,14 +296,16 @@ b{
 
 // EDITAR CONCEPTOS
 
-b{
+b {
     color: black;
 }
+
 .search-infConceptosEditar {
     border: 1px solid rgba(128, 128, 128, 0.642);
     width: 30em;
     padding: 5%;
 }
+
 .search-infConceptosEditar input {
     // padding: 10px;
     font-size: 12px;
