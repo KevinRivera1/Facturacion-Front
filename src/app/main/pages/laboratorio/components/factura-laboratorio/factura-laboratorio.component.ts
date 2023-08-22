@@ -33,7 +33,6 @@ export class FacturaLaboratorioComponent implements OnInit {
   token: TokenDto;
   cedula: string;
   displayModal: boolean;
-  selectedestado: DetalleFacturaDto[];
 
 
 
@@ -53,7 +52,6 @@ export class FacturaLaboratorioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.llenarFacturaestadolaboratorio();
     this.iniciarForms();
    
    
@@ -81,15 +79,7 @@ export class FacturaLaboratorioComponent implements OnInit {
       fechaHasta: [''],
     });
 } 
-async llenarFacturaestadolaboratorio() {
-  await this.detalleFacturaService.getAll().subscribe({
-      next: (data) => {
-          this.listEstado = data.listado;
-          console.log('CORRECTOESTADO');
-          console.log(this.listEstado);
-      }
-  });
-}
+
 
 
 /* async filtrarFacturas() {
@@ -220,9 +210,10 @@ closeModal() {
 
 
 estados: SelectItem[] = [
-
+  { label: 'seleccionar estado', value: '' },
   { label: 'Anulada', value: 'anulada' },
   { label: 'Pagada', value: 'Pagada' },
+ 
 ];
 
 }
