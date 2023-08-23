@@ -26,7 +26,10 @@
           <div class="header-recibo">
               <div class="recibo-caja">
                   <h1>FACTURA </h1>
-                  <p>Nro: </p>
+                  <label>Nro: </label>
+                  <input pInputText id="ftxt-codRcaja" type="text" required="true" formControlName="codRcaja"
+                    style="text-transform: uppercase;" [maxlength]="13" 
+                    tooltipPosition="top" (input)="onInputNroFactura($event)">
                 
               </div>
           </div>

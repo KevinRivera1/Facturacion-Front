@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Observable, of } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
@@ -15,6 +15,7 @@ import { ConceptoService } from '../../services/concepto.service';
 import { ConsultasService } from '../../services/consultas.service';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
 import { FacturaService } from '../../services/factura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -129,8 +130,6 @@ export class FactOtrosConceptosComponent implements OnInit {
     input.value = numericValue;
   }
 
-  
-
  
 
   cerrar() {
@@ -138,8 +137,9 @@ export class FactOtrosConceptosComponent implements OnInit {
     this.modal = false;
     this.modal2 = false;
     this.modal3 = false;
-
     this.modallista = false;
+    this.limpiarLista();
+    this.cerrarBC()
   }
 
   cerrar1() {
@@ -358,6 +358,8 @@ nombreBusqueda: string;
 apellidoBusqueda:string
 nombres:string;
 formCliente:FormGroup
+buscarCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE
+BusTablCliente: boolean;
 
 iniciarFormCliente(){
   this.formCliente= this.formBuilder.group({
@@ -400,6 +402,12 @@ this.tipoCliente= 0;
 this.listCliente= [];
 }
 clienteSelect:ClienteDto;
+
+ 
+cerrarBC(){
+  this.buscarCliente=false;
+}
+
 
 busquedaCliente(){
 
@@ -532,9 +540,10 @@ Total(valor: number, cantidad: number): number {
 
  
 
-tipoFact: string = "FSP";
 
 //GUARDAR 
+
+tipoFact: string = "FSP";
 guardarDatos(): Observable<any> {
   if (
     this.subtotalTotal === 0 ||
@@ -566,74 +575,76 @@ guardarDatos(): Observable<any> {
 
   // Llama al método del servicio para guardar la factura y devuelve el observable resultante
   return this.facturaService.saveObject(facturaAGuardar);
-  this.appService.msgCreate();
   
 }
 
+detalleNuevo(): Observable<any> {
+  const observables = [];
 
+  for (const concepto of this.conceptosList) {
+    const detalleFactura = new DetalleFacturaDto();
+    detalleFactura.costoDf = concepto.valor;
+   
+    detalleFactura.idConcepto = { idConcepto: concepto.idConcepto };
+    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad };
+    detalleFactura.unidadesDf = concepto.cantidad;
 
-async detalleNuevo() {
-  try {
-    const detallePromises = [];
-
-    for (const concepto of this.conceptosList) {
-      console.log('Creando detalle para el concepto:', concepto);
-
-      const detalleFactura = {
-        costoDf: concepto.valor,
-        idConcepto: { idConcepto: concepto.idConcepto },
-        idFacturaDTO: { idFactura: concepto.cantidad },
-        unidadesDf: concepto.cantidad,
-        costotDf: this.Total(concepto.valor, concepto.cantidad)
-      };
-
-      console.log('Detalle de factura a guardar:', detalleFactura);
-
-      const promise = this.detalleFacturaService.saveObject(detalleFactura).toPromise();
-      detallePromises.push(promise);
-    }
-
-    const detalleRespuestas = await Promise.all(detallePromises);
-    console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
-  } catch (detalleErrores) {
-    console.error('Error al guardar los detalles de factura:', detalleErrores);
+    observables.push(this.detalleFacturaService.saveObject(detalleFactura));
   }
 
-  console.log('Proceso de guardado de detalles completado.');
+  // Devuelve un Observable que emite los resultados de las peticiones individuales
+  return forkJoin(observables);
 }
 
 
-
-// //GUARDAR 
-// NuevosDetalles(): Observable<any> {
- 
-//   const detalleAGuardar = {
-//     costoDf: concepto.valor,
-//     idConcepto: { idConcepto: concepto.idConcepto },
-//     idFacturaDTO: { idFactura: concepto.cantidad },
-//     unidadesDf: concepto.cantidad,
-//     costotDf: this.Total(concepto.valor, concepto.cantidad)
-//   };
-
-//   // Llama al método del servicio para guardar la factura y devuelve el observable resultante
-//   return this.detalleFacturaService.saveObject(detalleAGuardar); 
-// }
-
 guardarDatosYDetalles() {
-  this.guardarDatos().pipe(
-    catchError((facturaError) => {
-      console.error('Error al guardar la factura principal:', facturaError);
-      return [];
-    }),
-    finalize(() => {
-      this.detalleNuevo();
-    })
-  ).subscribe((facturaRespuesta) => {
-    console.log('Factura principal guardada:', facturaRespuesta);
-  });
   
-this.limpiarLista();
-this.modal = false;
+  // Llama a guardarDatos() para guardar la factura principal
+  this.guardarDatos().subscribe(
+    (facturaRespuesta) => {
+      console.log('Factura principal guardada:', facturaRespuesta);
+      this.appService.msgCreate();
+      this.limpiarLista();
+      this.modal = false;
+      
+      // Llama a detalleNuevo() para guardar los detalles de la factura
+      this.detalleNuevo().subscribe(
+        (detalleRespuestas) => {
+          console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
+        },
+        (detalleErrores) => {
+          console.error('Error al guardar los detalles de factura:', detalleErrores);
+        }
+      );
+    },
+    (facturaError) => {
+      console.error('Error al guardar la factura principal:', facturaError);
+    }
+  );
+  this.limpiarLista();
+ 
+}
+
+onInputNroFactura(event: any) {
+  const input = event.target;
+  const value = input.value.replace(/[^0-9]/g, '');
+
+  const groups = [
+      value.slice(0, 3),
+      value.slice(3, 6),
+      value.slice(6, 11),
+  ].filter(Boolean);
+  const formattedValue = groups.join('-');
+
+  input.value = formattedValue;
+  this.f.codFactura.setValue(formattedValue);
+
+  const cursorPosition = input.selectionStart;
+  input.setSelectionRange(cursorPosition, cursorPosition);
+}
+
+get f() {
+  return this.buscarForm.controls;
 }
 
 
