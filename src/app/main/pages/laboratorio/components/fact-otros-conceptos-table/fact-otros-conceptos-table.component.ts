@@ -112,7 +112,7 @@ exportExcel() {
           element.idFactura = index + 1;
           return element;
       });
-      this.appService.exportExcel(this.listfacturaotrosconceptos, 'Anulacion Factura');
+      this.appService.exportExcel(this.listfacturaotrosconceptos, 'Factura');
   } else {
       console.log('No hay datos para exportar a Excel.');
       this.appService.msgInfoDetail(
@@ -129,7 +129,7 @@ exportPdf() {
           element.idFactura = index + 1;
           return element;
       });
-      this.appService.exportPdf(this.exportColumns, this.listfacturaotrosconceptos, 'Anular Factura', 'p'
+      this.appService.exportPdf(this.exportColumns, this.listfacturaotrosconceptos, 'Factura', 'p'
       );
   } else {
       console.log('No hay datos para exportar a PDF.');
