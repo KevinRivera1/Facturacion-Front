@@ -9,6 +9,7 @@ import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service
 import { FormUtil } from '../../formUtil/FormUtil';
 import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
 
 @Component({
     selector: 'app-buscar-facturas',
@@ -16,7 +17,7 @@ import { FacturaService } from '../../services/factura.service';
     styleUrls: ['./buscar-facturas.component.scss'],
 })
 export class BuscarFacturasComponent implements OnInit {
-    @Output() facturasEmitter = new EventEmitter();
+    @Output() facturaEmitter = new EventEmitter();
     facturas: FacturaDto[];
 
     response: ResponseGenerico;
@@ -26,7 +27,7 @@ export class BuscarFacturasComponent implements OnInit {
 
     constructor(
         public appService: AppService,
-        private facturaService: FacturaService,
+        private detallefacturaService: DetalleFacturaService,
         private breadcrumbService: BreadcrumbService,
         private formBuilder: FormBuilder,
         private tokenService: TokenService
@@ -57,14 +58,14 @@ export class BuscarFacturasComponent implements OnInit {
     }
 
     //* Funciones para filtrado de datos de recibos
-    filtrarRecibos() {
+    filtrarFacturas() {
         const formData = this.buscarForm.value;
-        this.facturaService.getAll().subscribe({
+        this.detallefacturaService.getAll().subscribe({
             next: (response) => {
-                const recibosFiltrados = this.filtrarRecibosPorCriterios(response.listado, formData);
-                console.log('Recibos filtrados', recibosFiltrados);
-                if (recibosFiltrados.length > 0) {
-                    this.facturasEmitter.emit(recibosFiltrados);
+                const facturasFiltrados = this.filtrarRecibosPorCriterios(response.listado, formData);
+                console.log('Recibos filtrados', facturasFiltrados);
+                if (facturasFiltrados.length > 0) {
+                    this.facturaEmitter.emit(facturasFiltrados);
                     this.appService.msgInfoDetail(
                         severities.INFO,
                         'INFO',
@@ -92,13 +93,13 @@ export class BuscarFacturasComponent implements OnInit {
         });
     }
 
-    filtrarRecibosPorCriterios(recibos, formData) {
-        return recibos.filter((factura) => {
-            const codFacturaMatch = this.matchFilter(factura.codFactura, formData.codFactura);
-            const nombreConsumidorRcMatch = this.matchFilter(factura.nombreConsumidor, formData.nombreConsumidor);
-            const rucConsumidorRcMatch = this.matchFilter(factura.rucConsumidor, formData.rucConsumidor);
+    filtrarRecibosPorCriterios(facturas, formData) {
+        return facturas.filter((factura) => {
+            const codFacturaMatch = this.matchFilter(factura.idFacturaDTO.codFactura, formData.codFactura);
+            const nombreConsumidorMatch = this.matchFilter(factura.idFacturaDTO.nombreConsumidor, formData.nombreConsumidor);
+            const rucConsumidorMatch = this.matchFilter(factura.idFacturaDTO.rucConsumidor, formData.rucConsumidor);
 
-            return codFacturaMatch && nombreConsumidorRcMatch && rucConsumidorRcMatch;
+            return codFacturaMatch && nombreConsumidorMatch && rucConsumidorMatch;
         });
     }
 
@@ -117,7 +118,7 @@ export class BuscarFacturasComponent implements OnInit {
         this.iniciarForms();
     }
 
-    onInputNroRecibo(event: any) {
+    onInputNroFactura(event: any) {
         const input = event.target;
         const value = input.value.replace(/[^0-9]/g, '');
 
@@ -141,9 +142,6 @@ export class BuscarFacturasComponent implements OnInit {
 
     maxLengthNombre(event: Event) {
         this.formUtil.limitInputLength(event, 30, 'nombreConsumidor');
-    }
-    maxLengthCedula(event: Event) {
-        this.formUtil.limitInputLength(event, 10, 'Cedula');
     }
 
     maxiLengthRuc(event: Event) {
