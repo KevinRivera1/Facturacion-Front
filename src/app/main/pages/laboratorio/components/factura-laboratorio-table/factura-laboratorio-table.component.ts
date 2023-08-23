@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
@@ -15,7 +14,7 @@ import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 export class FacturaLaboratorioTableComponent implements OnInit {
   
   @Input() listfacturalaboratorio:  any [] = [];
-  @Input() factura: DetalleFacturaDto[] = [];
+
   modal: boolean;
   loading: boolean;
   clienteSelect: DetalleFacturaDto;
@@ -40,8 +39,9 @@ export class FacturaLaboratorioTableComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.clienteSelect= new DetalleFacturaDto();
     this.construirTabla();
+    this.clienteSelect= new DetalleFacturaDto();
+    
    // this.llenardetalleFacturalaboratorio();
   }
 
@@ -49,11 +49,11 @@ export class FacturaLaboratorioTableComponent implements OnInit {
     this.cols = [
         //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
         { field: 'codFactura', header: 'codFactura' },
-        { field: 'nombreConsumidor', header: 'NOMBRE.' },
-        { field: 'rucConsumidor', header: 'Ruc.' },
-        { field: 'fechaFact', header: 'FECHA.' },
-        { field: 'subtotalFact', header: 'sub total' },
-        { field: 'ivaFact', header: 'iva' },
+        { field: 'nombreConsumidor', header: 'NOMBRE' },
+        { field: 'rucConsumidor', header: 'Ruc' },
+        { field: 'fechaFact', header: 'FECHA' },
+        { field: 'nombreServ', header: 'sub total' },
+        { field: 'ivaFact', header: 'iva'},
         { field: 'totalFact', header: 'total factura' },
         { field: 'estadoSri', header: 'estado'}
     ];
@@ -70,7 +70,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
 
   async llenardetalleFacturalaboratorio() {
-    await this.detalleFacturaService.getAll().subscribe({
+    await this.facturaService.getAll().subscribe({
         next: (data) => {
             this.listfacturalaboratorio = data.listado;
             console.log('CORRECTO');
@@ -115,13 +115,15 @@ cerrar() {
 filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio
 }
+
+
 exportExcel() {
-  if (this.factura && this.factura.length > 0) {
-      this.factura = this.factura.map((element, index) => {
-          element.idFacturaDTO.idFactura = index + 1;
+  if (this.listfacturalaboratorio && this.listfacturalaboratorio.length > 0) {
+      this.listfacturalaboratorio = this.listfacturalaboratorio.map((element, index) => {
+          element.idFacturaDTO = index + 1;
           return element;
       });
-      this.appService.exportExcel(this.factura, 'Anulacion Recibos');
+      this.appService.exportExcel(this.listfacturalaboratorio, 'Facturas Laboratorio');
   } else {
       console.log('No hay datos para exportar a Excel.');
       this.appService.msgInfoDetail(
@@ -134,12 +136,12 @@ exportExcel() {
 }
 
 exportPdf() {
-  if (this.factura && this.factura.length > 0) {
-      this.factura = this.factura.map((element, index) => {
-          element.idFacturaDTO.idFactura = index + 1;
+  if (this.listfacturalaboratorio && this.listfacturalaboratorio.length > 0) {
+      this.listfacturalaboratorio = this.listfacturalaboratorio.map((element, index) => {
+          element.idFacturaDTO = index + 1;
           return element;
       });
-      this.appService.exportPdf(this.exportColumns, this.factura, 'Anular Recibo Caja', 'p'
+      this.appService.exportPdf(this.exportColumns, this.listfacturalaboratorio, 'Facturas Laboratorios', 'p'
       );
   } else {
       console.log('No hay datos para exportar a PDF.');
