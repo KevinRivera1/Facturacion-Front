@@ -3,20 +3,40 @@
         <div class="card">
             <app-factura-matricula (facturaMatriculaEmitter)="filtrarFactura($event)">
             </app-factura-matricula>
-            <p-table #dt [rows]="10" [value]="listFactura" [paginator]="true" [globalFilterFields]="[
+            <p-table #dt [rows]="10" [value]="listFactura" [paginator]="true" [loading]="loading" [globalFilterFields]="[
                    'codFactura',
                      
                    ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idFormaPago"
                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
                 [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
-                    <div class="tex-center">
 
-                        <label class="text-center">FACTURAS</label>
-
-
-
+                    <div class="flex justify-content-between flex-wrap">
+                        <div class="flex flex-wrap">
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                tooltipPosition="bottom"></button>
+                            <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
+                                icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
+                                tooltipPosition="right"></button>
+                        </div>
+                        <div class="flex flex-wrap align-items-center align-items-center select-none">
+                            <label class="text-center font-semibold">FACTURA</label>
+                        </div>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" class="p-inputtext-sm uppercase" (input)="
+                                    ef.filterGlobal(
+                                        $event.target.value,
+                                        'contains'
+                                    )
+                                " placeholder="Busqueda General" />
+                        </span>
                     </div>
+                    
                 </ng-template>
                 <ng-template pTemplate="header">
 
