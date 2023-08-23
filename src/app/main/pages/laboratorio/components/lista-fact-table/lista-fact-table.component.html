@@ -215,8 +215,8 @@
                         Valor Total</th>
                 </tr>
                 <tr>
-                    <th>{{clienteSelect.idDetalleFactura}}</th>
-                    <th>{{clienteSelect.nombreServ}}</th>
+                    <th *ngIf="clienteSelect && clienteSelect.idConcepto">{{clienteSelect.idConcepto.codigoConcepto}}</th>
+                    <th *ngIf="clienteSelect && clienteSelect.idConcepto">{{clienteSelect.idConcepto.descConcepto}}</th>
                     <th>{{clienteSelect.unidadesDf}}</th>
                     <th>{{clienteSelect.costoDf}}</th>
                     <th>{{clienteSelect.costotDf}}</th>
