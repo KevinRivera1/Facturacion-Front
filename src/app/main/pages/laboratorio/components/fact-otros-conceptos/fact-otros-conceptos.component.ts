@@ -139,7 +139,7 @@ export class FactOtrosConceptosComponent implements OnInit {
     this.modal3 = false;
     this.modallista = false;
     this.limpiarLista();
-    this.cerrarBC()
+    
   }
 
   cerrar1() {
@@ -358,7 +358,7 @@ nombreBusqueda: string;
 apellidoBusqueda:string
 nombres:string;
 formCliente:FormGroup
-buscarCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE
+
 BusTablCliente: boolean;
 
 iniciarFormCliente(){
@@ -372,6 +372,12 @@ iniciarFormCliente(){
 }
 
 async llenarListCliente() {
+
+  if (!this.nombreBusqueda && !this.apellidoBusqueda && !this.cedulaBusqueda) {
+    console.log('Debes ingresar al menos un valor para buscar.');
+    this.appService.msgInfoDetail(severities.WARNING, 'ADVERTENCIA', 'Ingresa al menos un valor para buscar.');
+    return;
+}
 
   this.nombres = this.nombreBusqueda == null ? (this.apellidoBusqueda == null ? '0' : this.apellidoBusqueda) : this.nombreBusqueda;
 
@@ -405,7 +411,7 @@ clienteSelect:ClienteDto;
 
  
 cerrarBC(){
-  this.buscarCliente=false;
+  this.modalBuscar=false
 }
 
 
@@ -428,9 +434,22 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
 }
 
+resetFormValues() {
+  this.CodConcepto = '';
+  this.nombreConcepto = '';
+  this.valorConcepto = 0;
+  this.cantidadTemporal = 1;
+  this.modal1 = false;
+}
+
+
  // LISTAR CONCEPTOS
 
- 
+ idConceptoActual: number = 0;
+ valorActual: number = 0;
+ cantidadActual: number = 0;
+ totalActual: number = 0;
+
  cantidadTemporal: number = 1;
  // LISTAR CONCEPTOS
 conceptosList: {
@@ -442,6 +461,7 @@ conceptosList: {
   total: number;
 }[] = [];
 
+
 addToConceptosList() {
   if (
     this.cantidadTemporal !== 0 &&
@@ -450,6 +470,12 @@ addToConceptosList() {
     this.valorConcepto !== 0
   ) {
     const totalConcepto = this.Total(this.valorConcepto, this.cantidadTemporal);
+
+    // Actualizar las nuevas variables
+    this.idConceptoActual = this.idConcepto;
+    this.valorActual = this.valorConcepto;
+    this.cantidadActual = this.cantidadTemporal;
+    this.totalActual = totalConcepto;
 
     const nuevoConcepto = {
       idConcepto: this.idConcepto,
@@ -464,29 +490,21 @@ addToConceptosList() {
     this.resetFormValues();
     this.calcularTotalesTotales();
   }
+  console.log('la id es'+this.idConceptoActual)
 }
 
-resetFormValues() {
-  this.CodConcepto = '';
-  this.nombreConcepto = '';
-  this.valorConcepto = 0;
-  this.cantidadTemporal = 1;
-  this.modal1 = false;
-}
 
 Total(valor: number, cantidad: number): number {
   return cantidad !== 0 ? valor * cantidad : valor;
 }
 
-
- // ELIMINAR CONCEPTOS
  limpiarLista() {
      this.conceptosList = [];
      this.subtotalTotal = 0;
      this.ivaTotal = 0;
      this.totalTotal = 0;
  }
-
+// ELIMINAR CONCEPTOS
  eliminarConcepto(concepto: any) {
      const index = this.conceptosList.indexOf(concepto);
      if (index !== -1) {
@@ -495,22 +513,17 @@ Total(valor: number, cantidad: number): number {
      this.calcularTotalesTotales(); // Recalcula los totales generales
  }
 
-
  // TOTAL IVA SUBTOTAL
-
 
  subtotalTotal: number = 0;
  ivaTotal: number = 0;
  totalTotal: number = 0;
-
 
  calcularTotalesTotales() {
      this.subtotalTotal = this.conceptosList.reduce((sum, concepto) => sum + this.Total(concepto.valor, concepto.cantidad), 0);
      this.ivaTotal = this.subtotalTotal * 0.12; // Calcula el 12% del subtotal total como IVA total
      this.totalTotal = this.subtotalTotal + this.ivaTotal;
  }
-
-
 
  // EDITAR CONCEPTOS
 
@@ -542,6 +555,28 @@ Total(valor: number, cantidad: number): number {
 
 
 //GUARDAR 
+
+onInputNroFactura(event: any) {
+  const input = event.target;
+  const value = input.value.replace(/[^0-9]/g, '');
+
+  const groups = [
+      value.slice(0, 3),
+      value.slice(3, 6),
+      value.slice(6, 11),
+  ].filter(Boolean);
+  const formattedValue = groups.join('-');
+
+  input.value = formattedValue;
+  this.f.codFactura.setValue(formattedValue);
+
+  const cursorPosition = input.selectionStart;
+  input.setSelectionRange(cursorPosition, cursorPosition);
+}
+
+get f() {
+  return this.buscarForm.controls;
+}
 
 tipoFact: string = "FSP";
 guardarDatos(): Observable<any> {
@@ -625,28 +660,6 @@ guardarDatosYDetalles() {
  
 }
 
-onInputNroFactura(event: any) {
-  const input = event.target;
-  const value = input.value.replace(/[^0-9]/g, '');
-
-  const groups = [
-      value.slice(0, 3),
-      value.slice(3, 6),
-      value.slice(6, 11),
-  ].filter(Boolean);
-  const formattedValue = groups.join('-');
-
-  input.value = formattedValue;
-  this.f.codFactura.setValue(formattedValue);
-
-  const cursorPosition = input.selectionStart;
-  input.setSelectionRange(cursorPosition, cursorPosition);
-}
-
-get f() {
-  return this.buscarForm.controls;
-}
 
 
-  
 }
