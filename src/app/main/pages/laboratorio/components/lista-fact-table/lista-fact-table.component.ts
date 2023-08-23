@@ -12,6 +12,7 @@ import { TokenDto } from 'src/app/_dto/token-dto';
 import { NotaCreditoDto } from '../../model/NotaCreditoDto';
 import { NotaCreditoService } from '../../services/nota-credito.service';
 import { ResponseGenerico } from 'src/app/_dto/response-generico';
+import { severities } from 'src/app/_enums/constDomain';
 
 
 
@@ -33,17 +34,18 @@ export class ListaFactTableComponent implements OnInit {
   selectedFacturas: FacturaDto[];
   facturaSelect: FacturaDto;
 
-  @Input() listDetalle: DetalleFacturaDto[];
-  @Output() detallesSelect = new EventEmitter();
-  detalles: DetalleFacturaDto;
-  selectedDetalles: DetalleFacturaDto[];
-  detalleSelect: DetalleFacturaDto;
+  //@Input() listDetalle: DetalleFacturaDto[];
+  //@Output() detallesSelect = new EventEmitter();
+  //detalles: DetalleFacturaDto;
+  //selectedDetalles: DetalleFacturaDto[];
+  //detalleSelect: DetalleFacturaDto;
 
   submitted: boolean;
   loading: boolean;
   exportColumns: any[];
 
   @Input() facturasConDetalles: any[] = [];
+  clienteSelect: DetalleFacturaDto;
 
   cols: any[];
 
@@ -64,11 +66,42 @@ export class ListaFactTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.clienteSelect= new DetalleFacturaDto();
     this.iniciarForms();
-    this.construirTabla();
-    this.facturaSelect = new FacturaDto();
-    this.detalleSelect = new DetalleFacturaDto();
-    //this.prepararDatosFacturasConDetalles();
+    //this.detalleSelect = new DetalleFacturaDto();
+    //this.llenardetalleFactura();
+  }
+
+  async llenardetalleFactura() {
+    await this.detallefacturaService.getAll().subscribe({
+        next: (data) => {
+            this.facturasConDetalles = data.listado;
+            console.log('CORRECTO');
+            console.log(this.facturasConDetalles);
+        },
+        complete: () => {
+            this.appService.msgInfoDetail(
+                severities.INFO,
+                'INFO',
+                'Datos Cargados exitosamente' ,
+                500
+            );
+        },
+        error: (error) => {
+            this.appService.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                error.error
+            );
+        },
+    });
+  }
+
+
+  cargarfactura(clienteSelectDto: DetalleFacturaDto){
+    this.clienteSelect= clienteSelectDto;
+    this.abrirmodal();
+    
   }
 
   onInput(event: any) {
@@ -89,7 +122,6 @@ export class ListaFactTableComponent implements OnInit {
       idNotaCredito: new FormControl(null),
       codNc: new FormControl('001-001-00000', [
         Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]),
-      //idTipoConceptoDto: new FormControl('',Validators.compose([Validators.required])),
       idFactura: new FormControl('', Validators.compose([Validators.required])),
       fechaNc: new FormControl(new Date().toLocaleDateString()),
       idEstadoNc: new FormControl(true, Validators.compose([Validators.requiredTrue])),
@@ -98,51 +130,6 @@ export class ListaFactTableComponent implements OnInit {
 
     this.token = JSON.parse(this.tokenService.getResponseAuth());
   }
-
-  construirTabla() {
-    this.cols = [
-      { field: 'idFactura', header: 'ID Factura' },
-      { field: 'estadoServ', header: 'ID Detalle' },
-      { field: 'idProforma', header: 'ID Proforma' },
-      { field: 'rucConsumidor', header: 'CI/RUC' },
-      { field: 'nombreConsumidor', header: 'Cliente' },
-      { field: 'fechaFact', header: 'Fecha' },
-      { field: 'totalFact', header: 'Total' },
-      { field: 'idEstadoFact', header: 'Estado' }
-    ];
-    this.exportColumns = this.cols.map((col) => ({
-      title: col.header,
-      dataKey: col.field,
-    }));
-    this.loading = false;
-  }
-
-  clear(table: Table) {
-    table.clear();
-  }
-
-  cargarFactura(facturaSelectDto: FacturaDto) {
-    this.facturaSelect = facturaSelectDto;
-    this.abrirmodal();
-  }
-
-  // cargarDetalle(detalleSelectDto: DetalleFacturaDto) {
-  //   this.detalleSelect = detalleSelectDto;
-  //   this.abrirmodal();
-  // }
-
-  // prepararDatosFacturasConDetalles() {
-  //   this.facturasConDetalles = [];
-
-  //   for (const factura of this.listFactura) {
-  //     const detallesFactura = this.listDetalle.filter(detalle => detalle.idFacturaDTO.idFactura === factura.idFactura);
-
-  //     this.facturasConDetalles.push({
-  //       factura: factura,
-  //       detalles: detallesFactura
-  //     });
-  //   }
-  // }
 
   loadData(event) {
     this.loading = true;
@@ -156,22 +143,12 @@ export class ListaFactTableComponent implements OnInit {
     }, 1000);
   }
 
-  loadData1(event) {
-    this.loading = true;
-    setTimeout(() => {
-      this.detallefacturaService.getAll().subscribe((res) => {
-        this.listDetalle = res;
-        console.log('LLAMADA');
-        console.log(this.listDetalle);
-        this.loading = false;
-      });
-    }, 1000);
-  }
+
 
   guardarNotas() {
     this.notas = this.formNotas.value;
     this.notas.codNc = this.f.codNc.value;
-    this.notas.idFactura = this.facturaSelect.idFactura;
+    this.notas.idFactura = this.clienteSelect.idFacturaDTO.idFactura;
     this.notas.idEstadoNc = 1;
     this.notas.motivoNc = this.f.motivoNc.value;
     this.notas.idUsuarioNc = this.token.id;
@@ -218,6 +195,11 @@ export class ListaFactTableComponent implements OnInit {
   abrirmodal() {
     this.modal = true;
   }
+
+  filtrarFacturas(facturasConDetalles:any[]){
+    this.facturasConDetalles = facturasConDetalles
+  }
+  
 
 
 }

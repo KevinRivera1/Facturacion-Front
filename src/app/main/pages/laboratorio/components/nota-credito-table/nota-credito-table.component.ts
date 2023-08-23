@@ -44,13 +44,7 @@ export class NotaCreditoTableComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.construirTabla();
-    this.actualizarCombinedData();
-    
-  }
-
-  ngOnChanges(): void {
-    this.actualizarCombinedData();
+    this.construirTabla();    
   }
 
   construirTabla() {
@@ -98,9 +92,7 @@ export class NotaCreditoTableComponent implements OnInit {
     }, 1000);
   }
 
-  actualizarCombinedData() {
-    this.combinedData = [...this.listNotaCreditos, ...this.listFactura];
-  }
+  
 
   registrarNuevo() {
     // @ts-ignore
@@ -184,8 +176,6 @@ export class NotaCreditoTableComponent implements OnInit {
   hideDialog() {
     this.submitted = false;
   }
-
-
 
   llamarFuncion() {
     this.notacreditoComponent.abrirmodal();
