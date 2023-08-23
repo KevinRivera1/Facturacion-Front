@@ -6,10 +6,10 @@
   <div class="container-fluid">
     <div class="card">
       <p-table #dt [value]="listfacturaotrosconceptos" [rows]="10" [paginator]="true" [globalFilterFields]="[
-                      'idFormaPago',
-                      'nombreFp',
-                      'descripcionFp',
-                      'activo'
+                      'idFactura',
+                      'codFactura',
+                      'nombreConsumidor',
+                      'rucConsumidor'
                    ]" responsiveLayout="scroll" [rowHover]="true" dataKey="idFormaPago"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
         [showCurrentPageReport]="true">
@@ -17,14 +17,24 @@
           <div class="text-center">
       <label class="text-center" >FACTURAS</label>
               </div>
-
+              <div class="flex flex-wrap">
+                <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                    class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                    tooltipPosition="bottom"></button>
+                <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                    class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                    tooltipPosition="bottom"></button>
+                <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
+                    icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
+                    tooltipPosition="right"></button>
+            </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
-                <th pSortableColumn="idFormaPago">
+                <th pSortableColumn="idFactura">
                           <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
-                              <p-sortIcon field="idFormaPago"></p-sortIcon>
-                              <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
+                              <p-sortIcon field="idFactura"></p-sortIcon>
+                              <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
                           </div>
                       </th> 
             <th pSortableColumn="codFactura">
@@ -59,17 +69,17 @@
                 <p-columnFilter type="text" field="codigoSae" display="menu"></p-columnFilter>
               </div>
             </th>
-            <th pSortableColumn="fechaFp">
+            <th pSortableColumn="fechaFact">
               <div class="flex justify-content-between align-items-center">Fecha
-                <p-sortIcon field="fechaFp"></p-sortIcon>
-                <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                <p-sortIcon field="fechaFact"></p-sortIcon>
+                <p-columnFilter type="text" field="fechaFact" display="menu"></p-columnFilter>
               </div>
             </th>
         
-            <th pSortableColumn="fechaFp">
+            <th pSortableColumn="totalFact">
               <div class="flex justify-content-between align-items-center">Total
-                <p-sortIcon field="fechaFp"></p-sortIcon>
-                <p-columnFilter type="text" field="fechaFp" display="menu"></p-columnFilter>
+                <p-sortIcon field="totalFact"></p-sortIcon>
+                <p-columnFilter type="text" field="totalFact" display="menu"></p-columnFilter>
               </div>
             </th>
          
