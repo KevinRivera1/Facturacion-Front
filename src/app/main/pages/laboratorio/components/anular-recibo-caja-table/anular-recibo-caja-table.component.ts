@@ -12,7 +12,6 @@ import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
-
 //import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
 
 @Component({
@@ -39,7 +38,7 @@ export class AnularReciboCajaTableComponent implements OnInit {
     constructor(
         private reciboCajaService: ReciboCajaService,
         private fileService: FileService,
-        private appService: AppService,
+        private appservice: AppService,
         private confirmationService: ConfirmationService
     ) { }
 
@@ -47,7 +46,6 @@ export class AnularReciboCajaTableComponent implements OnInit {
         this.construirTabla();
     }
 
-    //TODO: MODIFICAR LOS CAMPOS PARA EL RECIBO CAJA ANULAR
     construirTabla() {
         this.cols = [
             //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
@@ -78,54 +76,83 @@ export class AnularReciboCajaTableComponent implements OnInit {
     //*emite los datos de la tabla para actualizar estado
     editRecibCaja(doc: ReciboCajaDto) {
         this.recibosCajaSelect = { ...doc };
-        this.editReciboSeleccionado.emit(doc); //* independiente
+        this.editReciboSeleccionado.emit(doc);
         this.modalOpen();
         console.log("🚀Emit: ", this.recibosCajaSelect)
     }
 
     exportPdf() {
-        /* let indexLista: number = 0;
-    this.listFormaPago.forEach((element) => {
-        indexLista++;
-        element.idFormaPago = indexLista;
-        //  element.formatDate=new Date(element.fechaBancos).toLocaleDateString()+" "+new Date(element.fechaBancos).toLocaleTimeString();
-    });
-    this.appservie.exportPdf(
-        this.exportColumns,
-        this.listFormaPago,
-        'Forma pago',
-        'p'
-    ); */
+        if (this.recibos && this.recibos.length > 0) {
+            this.recibos = this.recibos.map((element, index) => {
+                element.idCajaRc = index + 1;
+                return element;
+            });
+            this.appservice.exportPdf(this.exportColumns, this.recibos, 'Anular Recibo Caja', 'p'
+            );
+        } else {
+            console.log('No hay datos para exportar a PDF.');
+            this.appservice.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                'No se encontraron registros para generar el PDF',
+                700
+            );
+        }
     }
+    /*  exportPdf() {
+         let indexLista: number = 0;
+         this.recibos.forEach((element) => {
+             indexLista++;
+             element.idCajaRc = indexLista;
+         });
+         this.appservice.exportPdf(
+             this.exportColumns,
+             this.recibos,
+             'Anular Recibo Caja',
+             'p'
+         );
+     } */
+
+    /*  exportExcel() {
+         let indexLista: number = 0;
+         this.recibos.forEach((element) => {
+             indexLista++;
+             element.idCajaRc = indexLista;
+         });
+         this.appservice.exportExcel(this.recibos, 'Anulacion Recibos');
+     } */
 
     exportExcel() {
-        /* let indexLista: number = 0;
-    this.listFormaPago.forEach((element) => {
-        indexLista++;
-        element.idFormaPago = indexLista;
-
-        element.formatDate =
-            new Date(element.fechaFp).toLocaleDateString() +
-            ' ' +
-            new Date(element.fechaFp).toLocaleTimeString();
-    });
-    this.appservie.exportExcel(this.listFormaPago, 'Forma Pago'); */
+        if (this.recibos && this.recibos.length > 0) {
+            this.recibos = this.recibos.map((element, index) => {
+                element.idCajaRc = index + 1;
+                return element;
+            });
+            this.appservice.exportExcel(this.recibos, 'Anulacion Recibos');
+        } else {
+            console.log('No hay datos para exportar a Excel.');
+            this.appservice.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                'No se encontraron registros para generar el Excel',
+                700
+            );
+        }
     }
 
     descargarArchivo(fileName: string) {
-        /*   try {
-        this.fileService.getFileByName(fileName, this.proceso);
-    } catch (error) {
-        this.appservie.msgInfoDetail(
-            'error',
-            'Error',
-            'Error al descargar el archivo'
-        );
-    } */
+        try {
+            this.fileService.getFileByName(fileName, this.proceso);
+        } catch (error) {
+            this.appservice.msgInfoDetail(
+                'error',
+                'Error',
+                'Error al descargar el archivo'
+            );
+        }
     }
 
     modalOpen() {
-        //this.displayAnulacioModal.onDisplayForm()
         this.displayModal = true;
         console.log('abrir modal desde tabla');
     }

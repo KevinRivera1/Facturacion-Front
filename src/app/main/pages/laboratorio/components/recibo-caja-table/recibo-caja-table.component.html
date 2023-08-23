@@ -4,6 +4,13 @@
 
 <br />
 
+
+
+
+
+
+
+
 <section class="content">
     <div class="container-fluid">
         <div class="card">
@@ -89,22 +96,22 @@
                             </div>
                         </th>
 
-                        <th>Acciones</th>
+                        <!-- <th>Acciones</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
                     <tr class="font-medium">
-                        <td>{{ item.idReciboCaja }}</td>
+                        <td>{{ rowIndex + 1 }}</td>
                         <td>{{ item.codRcaja }}</td>
                         <td>{{item.nombreConsumidorRc}}</td>
                         <td>{{item.rucConsumidorRc}}</td>
                         <td>{{item.fechaRcaja | date:'dd/MM/yyyy'}}</td>
                         <td>{{ item.totalRc }}</td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-file-pdf"
+                        <!-- <td>
+                            <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
-                                (click)="exportPdfById(item.idReciboCaja)"  pTooltip="Editar" tooltipPosition="left"></button>
-                        </td>
+                                (click)="openModal(item)"  pTooltip="Pdf" tooltipPosition="left"></button>
+                        </td> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">
