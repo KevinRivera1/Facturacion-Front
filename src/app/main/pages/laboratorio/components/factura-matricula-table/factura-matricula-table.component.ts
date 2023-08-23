@@ -90,6 +90,7 @@ export class FacturaMatriculaTableComponent implements OnInit {
 
   }
 
+
   filtrarFactura(listFactura: any[]) {
     this.listFactura = listFactura
   }
@@ -97,13 +98,12 @@ export class FacturaMatriculaTableComponent implements OnInit {
   construirTabla() {
     this.cols = [
         //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
-        { field: 'codRcaja', header: 'Nro.RECIBO' },
-        { field: 'nombreConsumidorRc', header: 'NOMBRE.' },
-        { field: 'rucConsumidorRc', header: 'Ruc.' },
-        { field: 'fechaRcaja', header: 'FECHA.' },
-        { field: 'totalRc', header: 'TOTAL' },
-        { field: 'idEstadoRc', header: 'ESTADO' },
-        { field: 'observacionRc', header: 'MOTIVO' },
+        { field: 'codFactura', header: 'codFactura' },
+        { field: 'nombreConsumidor', header: 'NOMBRE.' },
+        { field: 'rucConsumidor', header: 'Ruc.' },
+        { field: 'fechaFact', header: 'FECHA.' },
+        { field: 'totalFact', header: 'total factura' },
+        { field: 'estadoSri', header: 'estado'}
     ];
     this.exportColumns = this.cols.map((col) => ({
         title: col.header,
