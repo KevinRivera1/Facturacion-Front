@@ -133,13 +133,19 @@
             </p>
         </div>
         <div class="header-laboratorio">
-            <div class="recibo-laboratorio">
-                <h1 class="titulo">FACTURA</h1>
-                <h3>Nro. 132-123-12345</h3>
-                <h4>Fecha de Autorizacion 20/septiempre/2012</h4>
-                <h4>Aut.SRI 1213123123</h4>
-            </div>
-        </div>
+          <div class="recibo-laboratorio">
+              <h1 class="titulo">FACTURA</h1>
+              <b>  <i  style="font-size: 13px;" class="text-1xl mr-2 mb-3" *ngIf="clienteSelect && clienteSelect">Nro. {{clienteSelect.codFactura}}</i></b>
+
+             <br>
+              <b>  <i  style="font-size: 13px;" class="text-1xl mr-2 mb-3" *ngIf="clienteSelect && clienteSelect">Fecha de Autorizacion: {{ clienteSelect.fechaAutoriza | date:'dd/MM/yyyy' }}</i></b>
+              <br>
+              <b>  <i  style="font-size: 13px;" class="text-1xl mr-2 mb-3" *ngIf="clienteSelect && clienteSelect">Aut.SRI: {{ clienteSelect.claveAcceso }}</i></b>
+
+             
+              
+          </div>
+      </div>
     </div>
     <br>
 
@@ -199,8 +205,66 @@
             </div> 
         </div>
 
-    
-    <br>
+        <br>
+    <p-table
+    styleClass="p-datatable-gridlines" 
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Codigo</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Descripcion</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Cantidad</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Precio Unit.</th>
+            <th style="background-color: rgb(206, 244, 244); font-weight: bold; font-size: 14px; text-align: center;">Total</th>
+        </tr>
+        <tr>
+            <th *ngIf="clienteSelect && clienteSelect">{{clienteSelect.codFactura}}</th>
+            <th *ngIf="clienteSelect && clienteSelect" >{{clienteSelect.nombreConsumidor}}</th>
+            <th *ngIf="clienteSelect && clienteSelect">{{clienteSelect.nroPagos}}</th>
+            <th *ngIf="clienteSelect && clienteSelect">{{clienteSelect.subtotalFact}}</th>
+            <th *ngIf="clienteSelect && clienteSelect">{{clienteSelect.totalFact}}</th>
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>SUBTOTAL:</th>
+            <th *ngIf="clienteSelect && clienteSelect">{{clienteSelect.subtotalFact}}</th>
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>IVA:</th>
+            <th *ngIf="clienteSelect && clienteSelect">{{clienteSelect.ivaFact}}</th>
+
+        </tr>
+        <tr>
+            <th colspan="3"></th>
+            <th>TOTAL:</th>
+            <th *ngIf="clienteSelect && clienteSelect">{{clienteSelect.totalFact}}</th>
+        </tr>
+    </ng-template>
+</p-table>
 <br>
+<div align="center" class="flex justify-content-center">
+    <div class="caja-boton-principal">
+        <button
+            pButton
+            label="Imprimir"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            pTooltip="Imprimir"
+            tooltipPosition="right"
+            icon="pi pi-print"
+        ></button>
+
+        <button
+            pButton
+            label="Cancelar"
+            class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+            pTooltip="Cancelar"
+            tooltipPosition="right"
+            (click)="cerrar()"
+        ></button>
+    </div>
+</div>
+
 
 </p-dialog>

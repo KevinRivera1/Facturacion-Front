@@ -15,11 +15,12 @@ import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 export class FacturaLaboratorioTableComponent implements OnInit {
   
   @Input() listfacturalaboratorio:  any [] = [];
+  @Input() factura: DetalleFacturaDto[] = [];
   modal: boolean;
   loading: boolean;
   clienteSelect: DetalleFacturaDto;
-
-
+  cols: any[];
+  exportColumns: any[];
   //selectedTc: TipoConceptoDto[];
 
   constructor(
@@ -27,6 +28,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
     private detalleFacturaService: DetalleFacturaService,
     private facturaService: FacturaService,
     public appService: AppService,
+    
    
    
 
@@ -39,8 +41,32 @@ export class FacturaLaboratorioTableComponent implements OnInit {
 
   ngOnInit() {
     this.clienteSelect= new DetalleFacturaDto();
+    this.construirTabla();
    // this.llenardetalleFacturalaboratorio();
   }
+
+  construirTabla() {
+    this.cols = [
+        //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
+        { field: 'codFactura', header: 'codFactura' },
+        { field: 'nombreConsumidor', header: 'NOMBRE.' },
+        { field: 'rucConsumidor', header: 'Ruc.' },
+        { field: 'fechaFact', header: 'FECHA.' },
+        { field: 'subtotalFact', header: 'sub total' },
+        { field: 'ivaFact', header: 'iva' },
+        { field: 'totalFact', header: 'total factura' },
+        { field: 'estadoSri', header: 'estado'}
+    ];
+    this.exportColumns = this.cols.map((col) => ({
+        title: col.header,
+        dataKey: col.field,
+    }));
+    this.loading = false;
+}
+
+
+
+
 
 
   async llenardetalleFacturalaboratorio() {
@@ -89,7 +115,41 @@ cerrar() {
 filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio
 }
+exportExcel() {
+  if (this.factura && this.factura.length > 0) {
+      this.factura = this.factura.map((element, index) => {
+          element.idFacturaDTO.idFactura = index + 1;
+          return element;
+      });
+      this.appService.exportExcel(this.factura, 'Anulacion Recibos');
+  } else {
+      console.log('No hay datos para exportar a Excel.');
+      this.appService.msgInfoDetail(
+          severities.ERROR,
+          'ERROR',
+          'No se encontraron registros para generar el Excel',
+          700
+      );
+  }
+}
 
-
+exportPdf() {
+  if (this.factura && this.factura.length > 0) {
+      this.factura = this.factura.map((element, index) => {
+          element.idFacturaDTO.idFactura = index + 1;
+          return element;
+      });
+      this.appService.exportPdf(this.exportColumns, this.factura, 'Anular Recibo Caja', 'p'
+      );
+  } else {
+      console.log('No hay datos para exportar a PDF.');
+      this.appService.msgInfoDetail(
+          severities.ERROR,
+          'ERROR',
+          'No se encontraron registros para generar el PDF',
+          700
+      );
+  }
+}
 
 }
