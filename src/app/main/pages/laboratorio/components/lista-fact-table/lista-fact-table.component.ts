@@ -34,11 +34,11 @@ export class ListaFactTableComponent implements OnInit {
   selectedFacturas: FacturaDto[];
   facturaSelect: FacturaDto;
 
-  @Input() listDetalle: DetalleFacturaDto[];
-  @Output() detallesSelect = new EventEmitter();
-  detalles: DetalleFacturaDto;
-  selectedDetalles: DetalleFacturaDto[];
-  detalleSelect: DetalleFacturaDto;
+  //@Input() listDetalle: DetalleFacturaDto[];
+  //@Output() detallesSelect = new EventEmitter();
+  //detalles: DetalleFacturaDto;
+  //selectedDetalles: DetalleFacturaDto[];
+  //detalleSelect: DetalleFacturaDto;
 
   submitted: boolean;
   loading: boolean;
@@ -66,13 +66,13 @@ export class ListaFactTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.iniciarForms();
-    this.detalleSelect = new DetalleFacturaDto();
     this.clienteSelect= new DetalleFacturaDto();
-    this.llenardetalleFacturalaboratorio();
+    this.iniciarForms();
+    //this.detalleSelect = new DetalleFacturaDto();
+    //this.llenardetalleFactura();
   }
 
-  async llenardetalleFacturalaboratorio() {
+  async llenardetalleFactura() {
     await this.detallefacturaService.getAll().subscribe({
         next: (data) => {
             this.facturasConDetalles = data.listado;
@@ -122,7 +122,6 @@ export class ListaFactTableComponent implements OnInit {
       idNotaCredito: new FormControl(null),
       codNc: new FormControl('001-001-00000', [
         Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{5}$/)]),
-      //idTipoConceptoDto: new FormControl('',Validators.compose([Validators.required])),
       idFactura: new FormControl('', Validators.compose([Validators.required])),
       fechaNc: new FormControl(new Date().toLocaleDateString()),
       idEstadoNc: new FormControl(true, Validators.compose([Validators.requiredTrue])),
@@ -196,6 +195,11 @@ export class ListaFactTableComponent implements OnInit {
   abrirmodal() {
     this.modal = true;
   }
+
+  filtrarFacturas(facturasConDetalles:any[]){
+    this.facturasConDetalles = facturasConDetalles
+  }
+  
 
 
 }

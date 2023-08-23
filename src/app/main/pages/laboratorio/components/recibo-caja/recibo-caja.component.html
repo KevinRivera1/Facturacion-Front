@@ -1,7 +1,7 @@
     <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
     <!-- Dialog Recibo de Caja-->
-    <p-dialog header="Agregar Recibo de Caja" [(visible)]="reciboC" [style]="{ width: '60vw' }">
+    <p-dialog header="Agregar Recibo de Caja" [modal]="true" [(visible)]="reciboC" [style]="{ width: '60vw' }">
         <!--ANDRES MONTOYA-->
 
         <!-- HEADER -->
@@ -168,7 +168,7 @@
     
     <!-- EDITAR CONCEPTO DE LA TABLA -->
 
-    <p-dialog [header]="'Editar Concepto'" [(visible)]="editarConcepto" [style]="{ width: '31.5vw' }">
+    <p-dialog [modal]="true" [header]="'Editar Concepto'" [(visible)]="editarConcepto" [style]="{ width: '31.5vw' }">
         <div class="md:col-6">
             <span class="p-float-label">
                 <div class="fielset-infConceptosEditar">
@@ -218,7 +218,7 @@
 
 
     <!-- Dialog Agregar Destalle Recibo CONCEPTOS-->
-    <p-dialog header="Agregar Detalle Recibo caja" [(visible)]="agregarConcepto" [style]="{ width: '70vw' }">
+    <p-dialog [modal]="true" header="Agregar Detalle Recibo caja" [(visible)]="agregarConcepto" [style]="{ width: '70vw' }">
         <div class="p-fluid p-formgrid grid input">
             <!-- Conceptos -->
             <div class="md:col-5">
@@ -344,7 +344,7 @@
 
     <!-- Dialog Buscar -->
 
-    <p-dialog [header]="'Busqueda'" [(visible)]="buscarCliente" [style]="{ width: '65vw' }">
+    <p-dialog [modal]="true" [header]="'Busqueda'" [(visible)]="buscarCliente" [style]="{ width: '65vw' }">
         <div class="fieldset-search2">
             <fieldset class="search-border2">
                 <legend>Buscar</legend>
@@ -373,7 +373,7 @@
 
     <!-- Dialog Tabla Buscar Por Cliente -->
 
-    <p-dialog [header]="'Listado'" [(visible)]="BusTablCliente" [style]="{ width: '65vw' }">
+    <p-dialog [modal]="true" [header]="'Listado'" [(visible)]="BusTablCliente" [style]="{ width: '65vw' }">
         <div>
             <p-table #dt currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros"
                 [paginator]="true" [rows]="5" [value]="listCliente" [tableStyle]="{ 'min-width': '50rem' }"

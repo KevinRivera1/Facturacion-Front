@@ -177,8 +177,6 @@ export class NotaCreditoTableComponent implements OnInit {
     this.submitted = false;
   }
 
-
-
   llamarFuncion() {
     this.notacreditoComponent.abrirmodal();
   }
