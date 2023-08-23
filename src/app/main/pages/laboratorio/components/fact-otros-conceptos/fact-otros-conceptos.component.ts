@@ -343,7 +343,7 @@ matchFilter(value, filter) {
 estados: SelectItem[] = [
   { label: 'seleccionar estado', value: '' },
   { label: 'Anulada', value: 'anulada' },
-  { label: 'Pagada', value: 'Pagada' },
+  { label: 'Pagada', value: 'pagada' },
  
 ];
 
