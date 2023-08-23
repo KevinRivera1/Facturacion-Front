@@ -1,52 +1,6 @@
 <p-dialog header="Lista de Facturas" [(visible)]="modal" [style]="{ width: '80vw' }">
-        <p-card>
-            
-            <form [formGroup]="buscarFacturas" class="mt-2 px-4" [style]="{width: '100%'}" (ngSubmit)=" filtrarFacturas()">
-                <div class="">
-                    <header class="text-center">Buscar Facturas (Pagadas y Pendientes)</header>
-                    <br />
-                    <div class="p-fluid p-formgrid grid">
-                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                            <span class="p-float-label">
-                                <input pInputText id="ftxt-codFactura" type="text" required="true"
-                                    formControlName="codFactura" style="text-transform: uppercase;" [maxlength]="13"
-                                    pTooltip="Ejm:123-123-12345" tooltipPosition="top" (input)="onInputNroFactura($event)">
-                                <label for="ftxt-codFactura">* Factura no.</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-fluid p-formgrid grid">
-                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                            <span class="p-float-label">
-                                <input pInputText id="ftxt-nombreConsumidor" type="text" required="true"
-                                    formControlName="nombreConsumidor" style="text-transform: uppercase;"
-                                    (input)="maxLengthNombre($event)" (keydown)="preventNumbers($event)" [maxLength]="30">
-                                <label for="ftxt-nombreConsumidor">Nombre Cliente</label>
-                            </span>
-                        </div>
-                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
-                            <span class="p-float-label">
-                                <input pInputText id="ftxt-rucConsumidor" type="number" required="true" formControlName="rucConsumidor"
-                                    style="text-transform: uppercase;" (input)="maxiLengthRuc($event)" [maxlength]="13">
-                                <label for="ftxt-rucConsumidor">RUC</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="central">
-                        <p-toolbar>
-                            <div class="p-toolbar-group-center">
-                                <button pButton label="Buscar"
-                                    class="p-button p-button-lg m-1 p-button-info guardar-button" icon="pi pi-search"
-                                    type="submit" pTooltip="Buscar" tooltipPosition="right"></button>
-                            </div>
-                        </p-toolbar>
-                    </div>
-                </div>
-            </form>
-        </p-card>
-        
-    <p-divider></p-divider>
-    <app-lista-fact-table  [listFactura]="listFacturas"  ></app-lista-fact-table>
+    
+    <app-lista-fact-table  ></app-lista-fact-table>
 </p-dialog>
 
 

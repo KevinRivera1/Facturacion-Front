@@ -56,10 +56,12 @@ export class AnularReciboCajaComponent implements OnInit, OnChanges {
             observacionRc: ['', Validators.required],
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
+
         this.deshabilitarCampos();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+
         if (changes.reciboSeleccionado && this.reciboSeleccionado) {
             this.formAnulaRecib.patchValue({
                 codRcaja: this.reciboSeleccionado.codRcaja,
@@ -68,6 +70,7 @@ export class AnularReciboCajaComponent implements OnInit, OnChanges {
                 idEstadoRc: this.reciboSeleccionado.idEstadoRc,
                 observacionRc: this.reciboSeleccionado.observacionRc
             });
+            this.formatFecha()
         }
     }
 
@@ -113,6 +116,21 @@ export class AnularReciboCajaComponent implements OnInit, OnChanges {
                 error: error => {
                 }
             })
+        }
+    }
+
+    formatFecha() {
+        if (this.reciboSeleccionado && this.reciboSeleccionado.fechaRcaja) {
+
+            const fecha = new Date(this.reciboSeleccionado.fechaRcaja);
+
+            const mes = fecha.toLocaleString('default', { month: 'numeric' });
+            const dia = fecha.getDate();
+            const año = fecha.getFullYear();
+            const fechaFormateada = `${dia}/${mes}/${año}`;
+
+            // Asignar la fecha formateada al campo fechaRcaja del formulario
+            this.formAnulaRecib.get('fechaRcaja').setValue(fechaFormateada);
         }
     }
 
