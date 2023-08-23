@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { FileService } from 'src/app/_service/utils/file.service';
 import { ReciboCajaDto } from '../../model/reciboCajaDto';
 import { ReciboCajaService } from '../../services/reciboCaja.service';
-
 //import { AnularReciboCajaComponent } from '../anular-recibo-caja/anular-recibo-caja.component';
 
 @Component({
@@ -82,26 +82,62 @@ export class AnularReciboCajaTableComponent implements OnInit {
     }
 
     exportPdf() {
-        let indexLista: number = 0;
-        this.recibos.forEach((element) => {
-            indexLista++;
-            element.idCajaRc = indexLista;
-        });
-        this.appservice.exportPdf(
-            this.exportColumns,
-            this.recibos,
-            'Anular Recibo Caja',
-            'p'
-        );
+        if (this.recibos && this.recibos.length > 0) {
+            this.recibos = this.recibos.map((element, index) => {
+                element.idCajaRc = index + 1;
+                return element;
+            });
+            this.appservice.exportPdf(this.exportColumns, this.recibos, 'Anular Recibo Caja', 'p'
+            );
+        } else {
+            console.log('No hay datos para exportar a PDF.');
+            this.appservice.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                'No se encontraron registros para generar el PDF',
+                700
+            );
+        }
     }
+    /*  exportPdf() {
+         let indexLista: number = 0;
+         this.recibos.forEach((element) => {
+             indexLista++;
+             element.idCajaRc = indexLista;
+         });
+         this.appservice.exportPdf(
+             this.exportColumns,
+             this.recibos,
+             'Anular Recibo Caja',
+             'p'
+         );
+     } */
+
+    /*  exportExcel() {
+         let indexLista: number = 0;
+         this.recibos.forEach((element) => {
+             indexLista++;
+             element.idCajaRc = indexLista;
+         });
+         this.appservice.exportExcel(this.recibos, 'Anulacion Recibos');
+     } */
 
     exportExcel() {
-        let indexLista: number = 0;
-        this.recibos.forEach((element) => {
-            indexLista++;
-            element.idCajaRc = indexLista;
-        });
-        this.appservice.exportExcel(this.recibos, 'Anulacion Recibos');
+        if (this.recibos && this.recibos.length > 0) {
+            this.recibos = this.recibos.map((element, index) => {
+                element.idCajaRc = index + 1;
+                return element;
+            });
+            this.appservice.exportExcel(this.recibos, 'Anulacion Recibos');
+        } else {
+            console.log('No hay datos para exportar a Excel.');
+            this.appservice.msgInfoDetail(
+                severities.ERROR,
+                'ERROR',
+                'No se encontraron registros para generar el Excel',
+                700
+            );
+        }
     }
 
     descargarArchivo(fileName: string) {
