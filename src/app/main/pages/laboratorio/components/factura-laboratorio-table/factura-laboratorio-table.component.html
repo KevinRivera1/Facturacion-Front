@@ -97,7 +97,7 @@
                       <td>{{item.idFacturaDTO.subtotalFact}}</td>
                       <td>{{item.idFacturaDTO.ivaFact}}</td>
                       <td>{{item.idFacturaDTO.totalFact}}</td>
-                      <td>{{item.idFacturaDTO.estadoSri}}</td>
+                      <td> <mark [ngClass]="{'border-green-500': item.idFacturaDTO.estadoSri == 'pagada', 'border-red-500': item.idFacturaDTO.estadoSri == 'anulada'}">{{item.idFacturaDTO.estadoSri}}</mark></td> 
                       <td>
                         <button pButton label="" class="p-button-outlined p-button-sm m-1" icon="pi pi-eye"
                         (click)="cargarfactura(item)"     ></button></td>
@@ -217,7 +217,7 @@
         </tr>
         <tr>
             <th>{{clienteSelect.idDetalleFactura}}</th>
-            <th>{{clienteSelect.nombreServ}}</th>
+            <th *ngIf="clienteSelect && clienteSelect.idConcepto">{{clienteSelect.idConcepto.descConcepto}}</th>
             <th>{{clienteSelect.unidadesDf}}</th>
             <th>{{clienteSelect.costoDf}}</th>
             <th>{{clienteSelect.costotDf}}</th>

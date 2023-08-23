@@ -7,3 +7,54 @@
     display: flex;
     align-items: center;
 }
+
+/* modal */
+
+.text-center {
+    display: flex;
+    align-items: center;
+}
+
+.header-card{
+    display: flex;
+    padding-top: 5px;
+    place-items: center;
+    font-size: 10px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+
+}
+.header-img{
+    width: 20%;
+}
+img{
+    width: 40%;
+    object-fit: cover;
+}
+
+.header-laboratorio .titulo{
+    font-size: 17px;
+    padding: 5px;
+}
+.header-container {
+    margin: 0;
+}
+.header-container {
+    width: 50%;
+}
+.header-laboratorio h1, h3 {
+    font-size: 14px;
+    margin: 0;
+}
+
+.header-laboratorio h4 {
+    font-size: 12px;
+    padding: 5px;
+    margin: 0;
+}
+.recibo-laboratorio{
+    padding: 5px;
+    outline: 1px solid rgba(128, 128, 128, 0.642);
+    
+}

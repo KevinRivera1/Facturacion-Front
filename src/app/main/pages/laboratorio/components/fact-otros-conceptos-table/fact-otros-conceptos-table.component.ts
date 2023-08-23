@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FacturaService } from '../../services/factura.service';
 import { AppService } from 'src/app/_service/app.service';
 import { severities } from 'src/app/_enums/constDomain';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
+import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { FacturaDto } from '../../model/Factura.dto';
 
 @Component({
   selector: 'app-fact-otros-conceptos-table',
@@ -10,10 +13,14 @@ import { severities } from 'src/app/_enums/constDomain';
 })
 export class FactOtrosConceptosTableComponent implements OnInit {
   @Input() listfacturaotrosconceptos:  any [] = [];
+  modal: boolean;
+  clienteSelect: FacturaDto;
+
 
   constructor(
     private facturaService: FacturaService,
     public appService: AppService,
+    
   ) { 
     
   }
@@ -51,4 +58,23 @@ export class FactOtrosConceptosTableComponent implements OnInit {
         },
     });
   }
+
+  
+
+
+  cerrar() {
+
+    this.modal = false;
+    
+  
+  }
+  cargarfactura(clienteSelectDto: FacturaDto){
+    this.clienteSelect= clienteSelectDto;
+    this.abrirmodal();
+    
+  }
+  abrirmodal() {
+    this.modal = true;
+}
+
 }
