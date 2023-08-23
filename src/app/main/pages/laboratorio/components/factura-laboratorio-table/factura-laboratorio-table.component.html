@@ -11,20 +11,31 @@
                       'codFactura',
                    ]"
                    responsiveLayout="scroll" 
-                   [rowHover]="true" dataKey="idFormaPago"
+                   [rowHover]="true" dataKey="idFactura"
                    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
               <ng-template pTemplate="caption">
                   <div class="text-center">
           <label class="text-center" >FACTURACION</label>
                   </div>
+                <!--   <div class="flex flex-wrap">
+                    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                        class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                        tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                        class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                        tooltipPosition="bottom"></button>
+                    <button pButton label="Clear" class="p-button-outlined p-button-sm m-1"
+                        icon="pi pi-filter-slash" (click)="clear(ef)" pTooltip="Quitar Filtros"
+                        tooltipPosition="right"></button>
+                </div> -->
               </ng-template>
               <ng-template pTemplate="header">
                   <tr>
                       
-                      <th pSortableColumn="idFormaPago">
+                      <th pSortableColumn="idFactura">
                           <div class="flex justify-content-between align-items-center"> <bold  style="font-weight: bold;">&#8470;</bold>
-                              <p-sortIcon field="idFormaPago"></p-sortIcon>
-                              <p-columnFilter type="text" field="idFormaPago" display="menu"></p-columnFilter>
+                              <p-sortIcon field="idFactura"></p-sortIcon>
+                              <p-columnFilter type="text" field="idFactura" display="menu"></p-columnFilter>
                           </div>
                       </th> 
                       <th pSortableColumn="codFactura">
@@ -137,9 +148,15 @@
         <div class="header-laboratorio">
             <div class="recibo-laboratorio">
                 <h1 class="titulo">FACTURA</h1>
-                <h3>Nro. 132-123-12345</h3>
-                <h4>Fecha de Autorizacion 20/septiempre/2012</h4>
-                <h4>Aut.SRI 1213123123</h4>
+                <b>  <i  style="font-size: 13px;" class="text-1xl mr-2 mb-3" *ngIf="clienteSelect && clienteSelect.idFacturaDTO">Nro. {{clienteSelect.idFacturaDTO.codFactura}}</i></b>
+
+               <br>
+                <b>  <i  style="font-size: 13px;" class="text-1xl mr-2 mb-3" *ngIf="clienteSelect && clienteSelect.idFacturaDTO">Fecha de Autorizacion: {{ clienteSelect.idFacturaDTO.fechaAutoriza | date:'dd/MM/yyyy' }}</i></b>
+                <br>
+                <b>  <i  style="font-size: 13px;" class="text-1xl mr-2 mb-3" *ngIf="clienteSelect && clienteSelect.idFacturaDTO">Aut.SRI: {{ clienteSelect.idFacturaDTO.claveAcceso }}</i></b>
+
+               
+                
             </div>
         </div>
     </div>

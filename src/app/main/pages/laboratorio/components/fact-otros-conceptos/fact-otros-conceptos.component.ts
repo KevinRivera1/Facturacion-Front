@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Observable, of } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
@@ -15,6 +15,7 @@ import { ConceptoService } from '../../services/concepto.service';
 import { ConsultasService } from '../../services/consultas.service';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
 import { FacturaService } from '../../services/factura.service';
+import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -129,8 +130,6 @@ export class FactOtrosConceptosComponent implements OnInit {
     input.value = numericValue;
   }
 
-  
-
  
 
   cerrar() {
@@ -138,8 +137,9 @@ export class FactOtrosConceptosComponent implements OnInit {
     this.modal = false;
     this.modal2 = false;
     this.modal3 = false;
-
     this.modallista = false;
+    this.limpiarLista();
+    this.cerrarBC()
   }
 
   cerrar1() {
@@ -343,14 +343,12 @@ matchFilter(value, filter) {
 estados: SelectItem[] = [
   { label: 'seleccionar estado', value: '' },
   { label: 'Anulada', value: 'anulada' },
-  { label: 'Pagada', value: 'Pagada' },
+  { label: 'Pagada', value: 'pagada' },
  
 ];
 
 
 /*mostrar clientes por busqueda*/
-
-
 loading1: boolean= false;
 listCliente:ClienteDto[]=[];
 listCretencion:CretencionDto[]=[];
@@ -360,6 +358,8 @@ nombreBusqueda: string;
 apellidoBusqueda:string
 nombres:string;
 formCliente:FormGroup
+buscarCliente: boolean;//MODAL PARA BUSCAR POR CLIENTE
+BusTablCliente: boolean;
 
 iniciarFormCliente(){
   this.formCliente= this.formBuilder.group({
@@ -403,6 +403,12 @@ this.listCliente= [];
 }
 clienteSelect:ClienteDto;
 
+ 
+cerrarBC(){
+  this.buscarCliente=false;
+}
+
+
 busquedaCliente(){
 
   if(this.tipoCliente==0){
@@ -426,7 +432,6 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
  
  cantidadTemporal: number = 1;
-
  // LISTAR CONCEPTOS
 conceptosList: {
   idConcepto: number;
@@ -533,9 +538,12 @@ Total(valor: number, cantidad: number): number {
  }
 
 
+ 
+
 
 //GUARDAR 
 
+tipoFact: string = "FSP";
 guardarDatos(): Observable<any> {
   if (
     this.subtotalTotal === 0 ||
@@ -550,7 +558,6 @@ guardarDatos(): Observable<any> {
     );
     return of(null); // Retorna un observable que emite null en caso de error
   }
-
   const facturaAGuardar = {
     codFactura: this.buscarForm.get('codFactura').value,
     correoConsumidor: this.clienteSelect.correo,
@@ -563,61 +570,83 @@ guardarDatos(): Observable<any> {
     telfConsumidor: this.clienteSelect.telefono,
     totalFact: this.totalTotal,
     estadoSri: this.estadoSeleccionado,
+    tipoFactura: this.tipoFact,
   };
 
   // Llama al método del servicio para guardar la factura y devuelve el observable resultante
   return this.facturaService.saveObject(facturaAGuardar);
+  
 }
 
+detalleNuevo(): Observable<any> {
+  const observables = [];
 
-async detalleNuevo() {
-  const promises = this.conceptosList.map(async (concepto) => {
-    console.log('Creando detalle para el concepto:', concepto);
+  for (const concepto of this.conceptosList) {
+    const detalleFactura = new DetalleFacturaDto();
+    detalleFactura.costoDf = concepto.valor;
+   
+    detalleFactura.idConcepto = { idConcepto: concepto.idConcepto };
+    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad };
+    detalleFactura.unidadesDf = concepto.cantidad;
 
-    const detalleFactura = {
-      costoDf: concepto.valor,
-      idConcepto: { idConcepto: concepto.idConcepto },
-      idFacturaDTO: { idFactura: concepto.cantidad },
-      unidadesDf: concepto.cantidad,
-      costotDf: this.Total(concepto.valor, concepto.cantidad)
-    };
-
-    console.log('Detalle de factura a guardar:', detalleFactura);
-
-    const response = await this.detalleFacturaService.saveObject(detalleFactura).toPromise();
-    return response;
-  });
-
-  try {
-    const detalleRespuestas = await Promise.all(promises);
-    console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
-  } catch (detalleErrores) {
-    console.error('Error al guardar los detalles de factura:', detalleErrores);
+    observables.push(this.detalleFacturaService.saveObject(detalleFactura));
   }
 
-  console.log('Proceso de guardado de detalles completado.');
+  // Devuelve un Observable que emite los resultados de las peticiones individuales
+  return forkJoin(observables);
 }
-
-
 
 
 guardarDatosYDetalles() {
-  this.guardarDatos().pipe(
-    catchError((facturaError) => {
-      console.error('Error al guardar la factura principal:', facturaError);
-      return [];
-    }),
-    finalize(() => {
-      this.detalleNuevo();
-      this.appService.msgCreate();
-    })
-  ).subscribe((facturaRespuesta) => {
-    console.log('Factura principal guardada:', facturaRespuesta);
-  });
   
-this.limpiarLista();
-this.modal = false;
+  // Llama a guardarDatos() para guardar la factura principal
+  this.guardarDatos().subscribe(
+    (facturaRespuesta) => {
+      console.log('Factura principal guardada:', facturaRespuesta);
+      this.appService.msgCreate();
+      this.limpiarLista();
+      this.modal = false;
+      
+      // Llama a detalleNuevo() para guardar los detalles de la factura
+      this.detalleNuevo().subscribe(
+        (detalleRespuestas) => {
+          console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
+        },
+        (detalleErrores) => {
+          console.error('Error al guardar los detalles de factura:', detalleErrores);
+        }
+      );
+    },
+    (facturaError) => {
+      console.error('Error al guardar la factura principal:', facturaError);
+    }
+  );
+  this.limpiarLista();
+ 
 }
+
+onInputNroFactura(event: any) {
+  const input = event.target;
+  const value = input.value.replace(/[^0-9]/g, '');
+
+  const groups = [
+      value.slice(0, 3),
+      value.slice(3, 6),
+      value.slice(6, 11),
+  ].filter(Boolean);
+  const formattedValue = groups.join('-');
+
+  input.value = formattedValue;
+  this.f.codFactura.setValue(formattedValue);
+
+  const cursorPosition = input.selectionStart;
+  input.setSelectionRange(cursorPosition, cursorPosition);
+}
+
+get f() {
+  return this.buscarForm.controls;
+}
+
 
   
 }

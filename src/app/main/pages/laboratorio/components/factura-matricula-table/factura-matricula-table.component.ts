@@ -5,6 +5,7 @@ import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
 import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { ReciboCajaDto } from '../../model/reciboCajaDto';
 
 @Component({
   selector: 'app-factura-matricula-table',
@@ -18,6 +19,8 @@ export class FacturaMatriculaTableComponent implements OnInit {
 
   modal: boolean;
   clienteSelect: DetalleFacturaDto;
+  cols: { field: string; header: string; }[];
+  exportColumns: { title: string; dataKey: string; }[];
 
   constructor(
     private detalleFacturaService: DetalleFacturaService,
@@ -61,6 +64,7 @@ export class FacturaMatriculaTableComponent implements OnInit {
         this.loading = false;
       });
     }, 1000);
+    
   }
 
   cargarfactura(clienteSelectDto: DetalleFacturaDto) {
@@ -82,11 +86,49 @@ export class FacturaMatriculaTableComponent implements OnInit {
   ngOnInit() {
     // this.llenarFacturaMatricula();
     this.clienteSelect = new DetalleFacturaDto();
+    this.construirTabla();
 
   }
+
 
   filtrarFactura(listFactura: any[]) {
     this.listFactura = listFactura
   }
+
+  construirTabla() {
+    this.cols = [
+        //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
+        { field: 'codFactura', header: 'codFactura' },
+        { field: 'nombreConsumidor', header: 'NOMBRE.' },
+        { field: 'rucConsumidor', header: 'Ruc.' },
+        { field: 'fechaFact', header: 'FECHA.' },
+        { field: 'totalFact', header: 'total factura' },
+        { field: 'estadoSri', header: 'estado'}
+    ];
+    this.exportColumns = this.cols.map((col) => ({
+        title: col.header,
+        dataKey: col.field,
+    }));
+    this.loading = false;
+}
+
+  exportPdf() {
+    if (this.listFactura && this.listFactura.length > 0) {
+        this.listFactura = this.listFactura.map((element, index) => {
+            element.idCajaRc = index + 1;
+            return element;
+        });
+        this.appService.exportPdf(this.exportColumns, this.listFactura, 'Anular Recibo Caja', 'p'
+        );
+    } else {
+        console.log('No hay datos para exportar a PDF.');
+        this.appService.msgInfoDetail(
+            severities.ERROR,
+            'ERROR',
+            'No se encontraron registros para generar el PDF',
+            700
+        );
+    }
+}
 
 }

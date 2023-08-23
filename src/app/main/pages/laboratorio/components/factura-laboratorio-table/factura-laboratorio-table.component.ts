@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FacturaDto } from '../../model/Factura.dto';
 import { FacturaService } from '../../services/factura.service';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
@@ -15,11 +14,12 @@ import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 export class FacturaLaboratorioTableComponent implements OnInit {
   
   @Input() listfacturalaboratorio:  any [] = [];
+
   modal: boolean;
   loading: boolean;
   clienteSelect: DetalleFacturaDto;
-
-
+  cols: any[];
+  exportColumns: any[];
   //selectedTc: TipoConceptoDto[];
 
   constructor(
@@ -27,6 +27,7 @@ export class FacturaLaboratorioTableComponent implements OnInit {
     private detalleFacturaService: DetalleFacturaService,
     private facturaService: FacturaService,
     public appService: AppService,
+    
    
    
 
@@ -38,13 +39,38 @@ export class FacturaLaboratorioTableComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.construirTabla();
     this.clienteSelect= new DetalleFacturaDto();
+    
    // this.llenardetalleFacturalaboratorio();
   }
 
+  construirTabla() {
+    this.cols = [
+        //{ field: 'idReciboCaja', header: 'Nro.RECIBO' },
+        { field: 'codFactura', header: 'codFactura' },
+        { field: 'nombreConsumidor', header: 'NOMBRE' },
+        { field: 'rucConsumidor', header: 'Ruc' },
+        { field: 'fechaFact', header: 'FECHA' },
+        { field: 'nombreServ', header: 'sub total' },
+        { field: 'ivaFact', header: 'iva'},
+        { field: 'totalFact', header: 'total factura' },
+        { field: 'estadoSri', header: 'estado'}
+    ];
+    this.exportColumns = this.cols.map((col) => ({
+        title: col.header,
+        dataKey: col.field,
+    }));
+    this.loading = false;
+}
+
+
+
+
+
 
   async llenardetalleFacturalaboratorio() {
-    await this.detalleFacturaService.getAll().subscribe({
+    await this.facturaService.getAll().subscribe({
         next: (data) => {
             this.listfacturalaboratorio = data.listado;
             console.log('CORRECTO');
@@ -91,5 +117,41 @@ filtrarFacturas(listfacturalaboratorio:any[]){
 }
 
 
+exportExcel() {
+  if (this.listfacturalaboratorio && this.listfacturalaboratorio.length > 0) {
+      this.listfacturalaboratorio = this.listfacturalaboratorio.map((element, index) => {
+          element.idFacturaDTO = index + 1;
+          return element;
+      });
+      this.appService.exportExcel(this.listfacturalaboratorio, 'Facturas Laboratorio');
+  } else {
+      console.log('No hay datos para exportar a Excel.');
+      this.appService.msgInfoDetail(
+          severities.ERROR,
+          'ERROR',
+          'No se encontraron registros para generar el Excel',
+          700
+      );
+  }
+}
+
+exportPdf() {
+  if (this.listfacturalaboratorio && this.listfacturalaboratorio.length > 0) {
+      this.listfacturalaboratorio = this.listfacturalaboratorio.map((element, index) => {
+          element.idFacturaDTO = index + 1;
+          return element;
+      });
+      this.appService.exportPdf(this.exportColumns, this.listfacturalaboratorio, 'Facturas Laboratorios', 'p'
+      );
+  } else {
+      console.log('No hay datos para exportar a PDF.');
+      this.appService.msgInfoDetail(
+          severities.ERROR,
+          'ERROR',
+          'No se encontraron registros para generar el PDF',
+          700
+      );
+  }
+}
 
 }
