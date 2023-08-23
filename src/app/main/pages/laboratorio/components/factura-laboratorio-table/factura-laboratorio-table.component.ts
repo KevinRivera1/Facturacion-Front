@@ -90,4 +90,6 @@ filtrarFacturas(listfacturalaboratorio:any[]){
   this.listfacturalaboratorio = listfacturalaboratorio
 }
 
+
+
 }

@@ -156,7 +156,7 @@ export class ReciboCajaComponent implements OnInit {
         // this.iniciarForm();
         this.reciboC = true;
         this.clienteSelect = new ClienteDto();
-        this.tipoCliente = 2;
+        this.tipoCliente = 1;
         this.listCliente = [];
     }
 
@@ -387,27 +387,30 @@ export class ReciboCajaComponent implements OnInit {
             }
             return;
         }
-
+        const idTipoConsumidorRc = this.tipoCliente === 1 ? 1 : 2; // Asigna 1 si es Empleado EPN, 2 si es Cliente
         const datosAGuardar = {
     
             carreraConsumidorRc: 'Null',
-            codRcaja: codRcajaValue, // Obtén el valor del campo codRcaja del formulario
+            fechaRcaja: new Date().toISOString(),
+
+            codRcaja: codRcajaValue,
+            idTipoConsumidorRc: idTipoConsumidorRc,
+
             correoConsumidorRc: this.clienteSelect.correo,
             direccionConsumidorRc: this.clienteSelect.direccion,
-            fechaRcaja: new Date().toISOString(), // Obtén la fecha actual en formato ISO
-            idEstadoRc: 1,
-            idCajaRc: 0,
-            idReciboCaja: 0,
-            idTipoConsumidorRc: 0,
-            idUsuarioRc: this.token.id,
-            nroPagosRc: 0,
-            observacionRc: '',
-            ivaRc: this.ivaTotal,
             nombreConsumidorRc: this.clienteSelect.nombre,
             rucConsumidorRc: this.clienteSelect.cedula,
-            subtotalRc: this.subtotalTotal,
             telfConsumidorRc: this.clienteSelect.telefono,
+            ivaRc: this.ivaTotal,
+            subtotalRc: this.subtotalTotal,
             totalRc: this.totalTotal,
+
+            idEstadoRc: 1,
+            idUsuarioRc: this.token.id,
+
+            idCajaRc: 0,
+            nroPagosRc: 1,
+            observacionRc: '',
         };
 
         // Llama al método del servicio para guardar los datos
