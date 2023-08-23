@@ -1,24 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
-import { FormaPagoService } from '../../services/formaPago.service';
-import { ConceptoService } from '../../services/concepto.service';
-import { ConceptoDto } from '../../model/ConceptoDto';
+import { SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { PrimeIcons, MenuItem, SelectItem } from 'primeng/api';
-import { ConsultasService } from '../../services/consultas.service';
-import { CretencionService } from '../../services/cretencion.service';
-import { ClienteDto } from '../../model/ClienteDto';
-import { CretencionDto } from '../../model/CretencionDto';
+import { Observable, of } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
 import { severities } from 'src/app/_enums/constDomain';
 import { AppService } from 'src/app/_service/app.service';
-import { FacturaService } from '../../services/factura.service';
+import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
+import { ClienteDto } from '../../model/ClienteDto';
+import { ConceptoDto } from '../../model/ConceptoDto';
+import { CretencionDto } from '../../model/CretencionDto';
 import { FacturaDto } from '../../model/Factura.dto';
+import { ConceptoService } from '../../services/concepto.service';
+import { ConsultasService } from '../../services/consultas.service';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
-import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
-import { Observable, forkJoin } from 'rxjs';
-import { of } from 'rxjs';
-import { EMPTY } from 'rxjs';
+import { FacturaService } from '../../services/factura.service';
 
 @Component({
   selector: 'app-fact-otros-conceptos',
@@ -428,45 +424,54 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
  // LISTAR CONCEPTOS
 
- conceptosList: { idConcepto:number, codConcepto: string, nombre: string, valor: number, cantidad: number }[] = [];
+ 
  cantidadTemporal: number = 1;
 
- 
- addToConceptosList() {
-     if (this.cantidadTemporal !== 0 && this.cantidadTemporal !== null &&
-         this.nombreConcepto.trim() !== '' && this.valorConcepto !== 0) {
-         const totalConcepto = this.Total(this.valorConcepto, this.cantidadTemporal);
+ // LISTAR CONCEPTOS
+conceptosList: {
+  idConcepto: number;
+  codConcepto: string;
+  nombre: string;
+  valor: number;
+  cantidad: number;
+  total: number;
+}[] = [];
 
-         const nuevoConcepto = {
-             idConcepto: this.idConcepto,
-             codConcepto: this.CodConcepto,
-             nombre: this.nombreConcepto,
-             valor: this.valorConcepto,
-             cantidad: this.cantidadTemporal,
-             total: totalConcepto,
-         };
+addToConceptosList() {
+  if (
+    this.cantidadTemporal !== 0 &&
+    this.cantidadTemporal !== null &&
+    this.nombreConcepto.trim() !== '' &&
+    this.valorConcepto !== 0
+  ) {
+    const totalConcepto = this.Total(this.valorConcepto, this.cantidadTemporal);
 
-         this.conceptosList.push(nuevoConcepto);
-         // Limpiar las variables para futuras entradas
-         this.CodConcepto = '';
-         this.nombreConcepto = '';
-         this.valorConcepto = 0;
-         this.cantidadTemporal = 1;
-         this.modal1 = false;
+    const nuevoConcepto = {
+      idConcepto: this.idConcepto,
+      codConcepto: this.CodConcepto,
+      nombre: this.nombreConcepto,
+      valor: this.valorConcepto,
+      cantidad: this.cantidadTemporal,
+      total: totalConcepto,
+    };
 
-         this.calcularTotalesTotales(); // Llama al método para recalcular los totales generales
+    this.conceptosList.push(nuevoConcepto);
+    this.resetFormValues();
+    this.calcularTotalesTotales();
+  }
+}
 
-     }
- }
+resetFormValues() {
+  this.CodConcepto = '';
+  this.nombreConcepto = '';
+  this.valorConcepto = 0;
+  this.cantidadTemporal = 1;
+  this.modal1 = false;
+}
 
-
- Total(valor: number, cantidad: number): number {
-     if (cantidad !== 0) {
-         return valor * cantidad;
-     } else {
-         return valor;
-     }
- }
+Total(valor: number, cantidad: number): number {
+  return cantidad !== 0 ? valor * cantidad : valor;
+}
 
 
  // ELIMINAR CONCEPTOS
@@ -528,7 +533,9 @@ cargarCliente(clienteSelectDto: ClienteDto ){
  }
 
 
-// GUARDAR
+
+//GUARDAR 
+
 guardarDatos(): Observable<any> {
   if (
     this.subtotalTotal === 0 ||
@@ -539,9 +546,9 @@ guardarDatos(): Observable<any> {
     this.appService.msgInfoDetail(
       severities.ERROR,
       'ERROR',
-      'Verifica los datos antes de generar una nueva Factura'
+      'verifica los datos antes de generar una nueva Factura'
     );
-    return EMPTY; // Utilizar EMPTY cuando no se desea emitir un valor
+    return of(null); // Retorna un observable que emite null en caso de error
   }
 
   const facturaAGuardar = {
@@ -562,45 +569,55 @@ guardarDatos(): Observable<any> {
   return this.facturaService.saveObject(facturaAGuardar);
 }
 
-detalleNuevo(): Observable<any> {
-  const observables = [];
 
-  for (const concepto of this.conceptosList) {
-    const detalleFactura = new DetalleFacturaDto();
-    detalleFactura.costoDf = concepto.valor;
-   
-    detalleFactura.idConcepto = { idConcepto: concepto.idConcepto };
-    detalleFactura.idFacturaDTO = { idFactura: concepto.cantidad };
-    detalleFactura.unidadesDf = concepto.cantidad;
+async detalleNuevo() {
+  const promises = this.conceptosList.map(async (concepto) => {
+    console.log('Creando detalle para el concepto:', concepto);
 
-    observables.push(this.detalleFacturaService.saveObject(detalleFactura));
+    const detalleFactura = {
+      costoDf: concepto.valor,
+      idConcepto: { idConcepto: concepto.idConcepto },
+      idFacturaDTO: { idFactura: concepto.cantidad },
+      unidadesDf: concepto.cantidad,
+      costotDf: this.Total(concepto.valor, concepto.cantidad)
+    };
+
+    console.log('Detalle de factura a guardar:', detalleFactura);
+
+    const response = await this.detalleFacturaService.saveObject(detalleFactura).toPromise();
+    return response;
+  });
+
+  try {
+    const detalleRespuestas = await Promise.all(promises);
+    console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
+  } catch (detalleErrores) {
+    console.error('Error al guardar los detalles de factura:', detalleErrores);
   }
 
-  // Devuelve un Observable que emite los resultados de las peticiones individuales
-  return forkJoin(observables);
+  console.log('Proceso de guardado de detalles completado.');
 }
 
+
+
+
 guardarDatosYDetalles() {
-  // Llama a guardarDatos() para guardar la factura principal
-  this.guardarDatos().subscribe(
-    (facturaRespuesta) => {
-      console.log('Factura principal guardada:', facturaRespuesta);
-      
-      // Llama a detalleNuevo() para guardar los detalles de la factura
-      this.detalleNuevo().subscribe(
-        (detalleRespuestas) => {
-          console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
-          this.appService.msgCreate();
-        },
-        (detalleErrores) => {
-          console.error('Error al guardar los detalles de factura:', detalleErrores);
-        }
-      );
-    },
-    (facturaError) => {
+  this.guardarDatos().pipe(
+    catchError((facturaError) => {
       console.error('Error al guardar la factura principal:', facturaError);
-    }
-  );
+      return [];
+    }),
+    finalize(() => {
+      this.detalleNuevo();
+      this.appService.msgCreate();
+    })
+  ).subscribe((facturaRespuesta) => {
+    console.log('Factura principal guardada:', facturaRespuesta);
+  });
+  
+this.limpiarLista();
+this.modal = false;
 }
+
   
 }

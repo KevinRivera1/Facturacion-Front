@@ -80,10 +80,10 @@
                             <label>Telefono: </label>
                             <b> <i class="text-1xl mr-2 mb-3"> {{clienteSelect.telefono}}</i></b>
                         </div>
-                        <div class="field col-12 md:col-6">
+                        <!-- <div class="field col-12 md:col-6">
                             <label>Forma Pago: </label>
                             <b> <i class="text-1xl mr-2 mb-3"> {{pagoSelect.nombreFp}}</i></b>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -130,13 +130,11 @@
                         </span>
                     </div>
 
-                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
-                        <label for="ftxt-estadoSri" style="color: rgba(0, 0, 0, 0.6)">* Estado</label>
-                        <input pInputText id="ftxt-estadoSri" type="text" required="true" formControlName="estadoSri" />
-                        <span class="p-float-label">
-                            <p-inputSwitch id="ftxt-estadoSri"></p-inputSwitch>
-                        </span>
-                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3" style="width: 450px;">
+
+                      <p-dropdown id="ftxt-estadoSri" formControlName="estadoSri" [options]="estados" placeholder="escoger el estado"></p-dropdown>
+
+                </div>
                 </div>
 
                 <div class="p-fluid p-formgrid grid">

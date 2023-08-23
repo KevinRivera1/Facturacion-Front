@@ -80,7 +80,7 @@ export class FacturaMatriculaTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.llenarFacturaMatricula();
+    // this.llenarFacturaMatricula();
     this.clienteSelect = new DetalleFacturaDto();
 
   }

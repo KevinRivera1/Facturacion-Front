@@ -14,6 +14,7 @@ import { FacturaService } from '../../services/factura.service';
 import { TokenDto } from 'src/app/_dto/token-dto';
 import { DetalleFacturaDto } from '../../model/DetalleFactura.dto';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-factura-matricula',
@@ -59,31 +60,71 @@ export class FacturaMatriculaComponent implements OnInit {
     this.iniciarForms();
   }
 
-  filtrarFacturas() {
+  filtrarFacturas(){
     const formData = this.formFacturaMatricula.value;
-    // Llamada al servicio para filtrar los datos
-    this.detalleFacturaService.getAll().subscribe((response) => {
-      const data = response.listado; // Accedemos a la propiedad listado
-      if (Array.isArray(data)) {
-        const recibosFiltrados = data.filter((recibo) => {
-          return (
-            recibo.idFacturaDTO.codFactura.includes(formData.codFactura) &&
-            recibo.idFacturaDTO.nombreConsumidor.includes(formData.nombreConsumidor) &&
-            recibo.idFacturaDTO.rucConsumidor.includes(formData.rucConsumidor) &&
-            recibo.idFacturaDTO.estadoSri.includes(formData.estadoSri)
-
-          );
-        });
-
-        // Emitir los recibos filtrados al componente padre
-        this.facturaMatriculaEmitter.emit(recibosFiltrados);
-        console.log('recibos filtrados', recibosFiltrados)
-      } else {
-        console.error('Los datos no son un array:', data);
-      }
+    this.detalleFacturaService.getAll().subscribe({
+        next: (response) => {
+            const facturasFiltradas = this.filtrarFacturasPorCriterios(response.listado, formData);
+            console.log('Facturas filtradas', facturasFiltradas);
+            if (facturasFiltradas.length > 0) {
+                this.facturaMatriculaEmitter.emit(facturasFiltradas);
+                this.appService.msgInfoDetail(
+                    severities.INFO,
+                    'INFO',
+                    'Datos Cargados exitosamente',
+                    550
+                );
+            } else {
+                console.log('no hay datos')
+                this.appService.msgInfoDetail(
+                    severities.ERROR,
+                    'INFO',
+                    'No se encontraron registros',
+                    700
+                );
+            }
+        },
+        error: (error) => {
+            console.error('Error al cargar los datos', error);
+            this.appService.msgInfoDetail(severities.ERROR, 'ERROR AL CARGAR LOS DATOS', error.error);
+        },
+        complete: () => {
+            console.log('Obtención de datos completada');
+        },
     });
+
   }
 
+  filtrarFacturasPorCriterios(facturas, formData) {
+    return facturas.filter((factura) => {
+      const fechafactura = factura.idFacturaDTO.fechaFact;
+
+      const codFacturalab = this.matchFilter(factura.idFacturaDTO.codFactura, formData.codFactura);
+      const nombreConsumidorlab = this.matchFilter(factura.idFacturaDTO.nombreConsumidor, formData.nombreConsumidor);
+      const rucConsumidorlab= this.matchFilter(factura.idFacturaDTO.rucConsumidor, formData.rucConsumidor);
+      const estadoSrilab = this.matchFilter(factura.idFacturaDTO.estadoSri, formData.estadoSri);
+      const cumpleFiltrosFecha = this.filtarRangoFechas(fechafactura, formData.fechaDesde, formData.fechaHasta);
+
+      return codFacturalab && nombreConsumidorlab && rucConsumidorlab && cumpleFiltrosFecha && estadoSrilab;
+  });
+  }
+
+  filtarRangoFechas(fechaFactura: any, fechaDesde: string, fechaHasta: string): boolean {
+    if (!fechaDesde && !fechaHasta) {
+        return true;
+    }
+    const fechaFacturalab = fechaFactura;
+    const fechaDesdeT = fechaDesde ? new Date(fechaDesde).getTime() : 0;
+    const fechaHastaT = fechaHasta ? new Date(fechaHasta).getTime() + 86400000 : Number.MAX_SAFE_INTEGER;
+  
+    return fechaFacturalab >= fechaDesdeT && fechaFacturalab <= fechaHastaT;
+  }
+  matchFilter(value, filter) {
+    if (filter === '') {
+        return true;
+    }
+    return value && value.includes(filter);
+  }
 
   iniciarForms() {
     this.formFacturaMatricula = this.formBuilder.group({
@@ -292,6 +333,13 @@ export class FacturaMatriculaComponent implements OnInit {
 
   }
 
+  estados: SelectItem[] = [
+    { label: 'seleccionar estado', value: '' },
+    { label: 'Anulada', value: 'anulada' },
+    { label: 'Pagada', value: 'Pagada' },
+   
+  ];
+  
 
 
 
