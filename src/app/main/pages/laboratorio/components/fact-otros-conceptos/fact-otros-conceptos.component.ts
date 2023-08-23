@@ -349,8 +349,6 @@ estados: SelectItem[] = [
 
 
 /*mostrar clientes por busqueda*/
-
-
 loading1: boolean= false;
 listCliente:ClienteDto[]=[];
 listCretencion:CretencionDto[]=[];
@@ -426,7 +424,6 @@ cargarCliente(clienteSelectDto: ClienteDto ){
 
  
  cantidadTemporal: number = 1;
-
  // LISTAR CONCEPTOS
 conceptosList: {
   idConcepto: number;
@@ -533,9 +530,11 @@ Total(valor: number, cantidad: number): number {
  }
 
 
+ 
+
+tipoFact: string = "FSP";
 
 //GUARDAR 
-
 guardarDatos(): Observable<any> {
   if (
     this.subtotalTotal === 0 ||
@@ -550,7 +549,6 @@ guardarDatos(): Observable<any> {
     );
     return of(null); // Retorna un observable que emite null en caso de error
   }
-
   const facturaAGuardar = {
     codFactura: this.buscarForm.get('codFactura').value,
     correoConsumidor: this.clienteSelect.correo,
@@ -563,33 +561,39 @@ guardarDatos(): Observable<any> {
     telfConsumidor: this.clienteSelect.telefono,
     totalFact: this.totalTotal,
     estadoSri: this.estadoSeleccionado,
+    tipoFactura: this.tipoFact,
   };
 
   // Llama al método del servicio para guardar la factura y devuelve el observable resultante
   return this.facturaService.saveObject(facturaAGuardar);
+  this.appService.msgCreate();
+  
 }
 
 
+
 async detalleNuevo() {
-  const promises = this.conceptosList.map(async (concepto) => {
-    console.log('Creando detalle para el concepto:', concepto);
-
-    const detalleFactura = {
-      costoDf: concepto.valor,
-      idConcepto: { idConcepto: concepto.idConcepto },
-      idFacturaDTO: { idFactura: concepto.cantidad },
-      unidadesDf: concepto.cantidad,
-      costotDf: this.Total(concepto.valor, concepto.cantidad)
-    };
-
-    console.log('Detalle de factura a guardar:', detalleFactura);
-
-    const response = await this.detalleFacturaService.saveObject(detalleFactura).toPromise();
-    return response;
-  });
-
   try {
-    const detalleRespuestas = await Promise.all(promises);
+    const detallePromises = [];
+
+    for (const concepto of this.conceptosList) {
+      console.log('Creando detalle para el concepto:', concepto);
+
+      const detalleFactura = {
+        costoDf: concepto.valor,
+        idConcepto: { idConcepto: concepto.idConcepto },
+        idFacturaDTO: { idFactura: concepto.cantidad },
+        unidadesDf: concepto.cantidad,
+        costotDf: this.Total(concepto.valor, concepto.cantidad)
+      };
+
+      console.log('Detalle de factura a guardar:', detalleFactura);
+
+      const promise = this.detalleFacturaService.saveObject(detalleFactura).toPromise();
+      detallePromises.push(promise);
+    }
+
+    const detalleRespuestas = await Promise.all(detallePromises);
     console.log('Detalles de factura guardados exitosamente:', detalleRespuestas);
   } catch (detalleErrores) {
     console.error('Error al guardar los detalles de factura:', detalleErrores);
@@ -600,6 +604,20 @@ async detalleNuevo() {
 
 
 
+// //GUARDAR 
+// NuevosDetalles(): Observable<any> {
+ 
+//   const detalleAGuardar = {
+//     costoDf: concepto.valor,
+//     idConcepto: { idConcepto: concepto.idConcepto },
+//     idFacturaDTO: { idFactura: concepto.cantidad },
+//     unidadesDf: concepto.cantidad,
+//     costotDf: this.Total(concepto.valor, concepto.cantidad)
+//   };
+
+//   // Llama al método del servicio para guardar la factura y devuelve el observable resultante
+//   return this.detalleFacturaService.saveObject(detalleAGuardar); 
+// }
 
 guardarDatosYDetalles() {
   this.guardarDatos().pipe(
@@ -609,7 +627,6 @@ guardarDatosYDetalles() {
     }),
     finalize(() => {
       this.detalleNuevo();
-      this.appService.msgCreate();
     })
   ).subscribe((facturaRespuesta) => {
     console.log('Factura principal guardada:', facturaRespuesta);
@@ -618,6 +635,7 @@ guardarDatosYDetalles() {
 this.limpiarLista();
 this.modal = false;
 }
+
 
   
 }
