@@ -28,7 +28,7 @@
                   <h1>FACTURA </h1>
                   <label>Nro: </label>
                   <input pInputText id="ftxt-codRcaja" type="text" required="true" formControlName="codRcaja"
-                    style="text-transform: uppercase;" [maxlength]="13" 
+                    style="text-transform: uppercase;" [maxlength]="13" value="001-001-00001"
                     tooltipPosition="top" (input)="onInputNroFactura($event)">
                 
               </div>
@@ -246,6 +246,7 @@
               tooltipPosition="right"
               icon=" pi pi-arrow-left"
               (click)="cerrar()"
+              
           ></button>
           </div>
       </div>
@@ -502,6 +503,8 @@
                     <div class="caja-boton-principal">
                         <button pButton label="Buscar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
                             pTooltip="Buscar" (click)="llenarListCliente()" tooltipPosition="right"></button>
+                        <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-info bg-blue-900"
+                                pTooltip="Cancelar" (click)="cerrarBC()" tooltipPosition="right"></button>
                     </div>
                 </div>
             </div>
@@ -524,8 +527,8 @@
             pTooltip="Agregar otros conceptos"
             label="Agregar"
             tooltipPosition="right"
+            (click)="registrarNuevo()"
 
-            (click)="abrirmodal()"
         ></button>
     </div>
 
