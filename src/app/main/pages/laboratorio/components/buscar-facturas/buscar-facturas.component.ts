@@ -8,7 +8,6 @@ import { TokenService } from 'src/app/_service/token.service';
 import { BreadcrumbService } from 'src/app/_service/utils/app.breadcrumb.service';
 import { FormUtil } from '../../formUtil/FormUtil';
 import { FacturaDto } from '../../model/Factura.dto';
-import { FacturaService } from '../../services/factura.service';
 import { DetalleFacturaService } from '../../services/detalleFactura.service';
 
 @Component({
@@ -54,7 +53,6 @@ export class BuscarFacturasComponent implements OnInit {
             rucConsumidor: ['', [Validators.pattern('^[0-9]{1,13}$')]]
         });
         this.token = JSON.parse(this.tokenService.getResponseAuth());
-        //this.f.idUsuarioEstComprob.setValue(this.token.id)
     }
 
     //* Funciones para filtrado de datos de recibos

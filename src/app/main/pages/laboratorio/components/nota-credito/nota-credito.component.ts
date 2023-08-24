@@ -34,9 +34,7 @@ export class NotaCreditoComponent implements OnInit {
 
     private breadcrumbService: BreadcrumbService,
     public appService: AppService,
-    private notasService: NotaCreditoService,
-    private facturasService: FacturaService,
-    private detallefacturaService: DetalleFacturaService,
+    private facturasService: FacturaService
 
   ) {
     {

@@ -1,11 +1,11 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card">
-            <p-table #dt [value]="combinedData"  [rows]="10" [paginator]="true" [loading]="loading"
+            <p-table #dt [value]=""  [rows]="10" [paginator]="true" [loading]="loading"
                 [globalFilterFields]="[
                         'idNotaCredito',
                         'codNc'
-                     ]" responsiveLayout="scroll" [(selection)]="selectedNotaCreditos" [rowHover]="true"
+                     ]" responsiveLayout="scroll" [rowHover]="true"
                 dataKey="idNotaCredito"
                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
                 [showCurrentPageReport]="true">

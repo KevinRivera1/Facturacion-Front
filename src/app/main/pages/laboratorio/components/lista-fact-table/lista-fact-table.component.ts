@@ -29,16 +29,10 @@ export class ListaFactTableComponent implements OnInit {
   response: ResponseGenerico;
 
   @Input() listFactura: FacturaDto[];
-  @Output() facturasSelect = new EventEmitter();
-  facturas: FacturaDto;
-  selectedFacturas: FacturaDto[];
-  facturaSelect: FacturaDto;
-
-  //@Input() listDetalle: DetalleFacturaDto[];
-  //@Output() detallesSelect = new EventEmitter();
-  //detalles: DetalleFacturaDto;
-  //selectedDetalles: DetalleFacturaDto[];
-  //detalleSelect: DetalleFacturaDto;
+  //@Output() facturasSelect = new EventEmitter();
+  //facturas: FacturaDto;
+  //selectedFacturas: FacturaDto[];
+  //facturaSelect: FacturaDto;
 
   submitted: boolean;
   loading: boolean;
