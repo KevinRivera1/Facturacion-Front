@@ -33,7 +33,7 @@ export class BuscarFacturasComponent implements OnInit {
         private tokenService: TokenService
     ) {
         {
-            this.breadcrumbService.setItems([{ label: 'Anular Recibo Caja' }]);
+            this.breadcrumbService.setItems([{ label: 'Nota de Credito' }]);
         }
     }
 
