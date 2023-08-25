@@ -491,6 +491,9 @@ addToConceptosList() {
     this.calcularTotalesTotales();
   }
   console.log('la id es'+this.idConceptoActual)
+  console.log('el valor es'+this.valorActual)
+  console.log('la cantidad es'+this.cantidadActual)
+  console.log('el total'+this.totalActual)
 }
 
 

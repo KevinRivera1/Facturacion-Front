@@ -240,7 +240,7 @@ export class FacturaMatriculaComponent implements OnInit {
   listCliente: ClienteDto[] = [];
   listPago: FormaPagoDto[] = [];
   listCretencion: CretencionDto[] = [];
-  tipoCliente: number;
+  tipoCliente: number; 
   tipoPago: number;
   cedulaBusqueda: string;
   nombreBusqueda: string;
