@@ -61,22 +61,10 @@ export class FacturaLaboratorioComponent implements OnInit {
 
    iniciarForms() {
     this.formFacturaLaboratorio = this.formBuilder.group({
-      codFactura: new FormControl(
-            '',
-            Validators.compose([Validators.required])
-        ),
-        nombreConsumidor: new FormControl(
-            '',
-            Validators.compose([Validators.required])
-        ),
-        rucConsumidor: new FormControl(
-          '',
-          Validators.compose([Validators.required])
-      ),
-      estadoSri: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      codFactura:  [''],
+      nombreConsumidor: [''],
+      rucConsumidor: [''],
+      estadoSri: [''],
       fechaDesde: [''],
       fechaHasta: [''],
     });

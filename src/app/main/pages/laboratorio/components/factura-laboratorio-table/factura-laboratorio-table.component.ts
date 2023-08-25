@@ -20,7 +20,6 @@ export class FacturaLaboratorioTableComponent implements OnInit {
   clienteSelect: DetalleFacturaDto;
   cols: any[];
   exportColumns: any[];
-  //selectedTc: TipoConceptoDto[];
 
   constructor(
     private breadcrumbService: BreadcrumbService,
